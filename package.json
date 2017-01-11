@@ -1,0 +1,25 @@
+{
+  "name": "level1-lite",
+  "version": "0.0.1",
+  "description": "Only client version of level1",
+  "main": "./dist/index.js",
+  "scripts": {
+    "clean": "rm -rf dist",
+    "clean-build": "npm run clean && npm run build",
+    "build": "babel src --out-dir dist",
+    "build:watch": "npm run build -- --watch",
+    "test": "mocha --compilers js:babel-register --require ./test/test_helper.js --recursive",
+    "test:watch": "npm test -- --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mainloop.js": "^1.0.3",
+    "pixi.js": "^4.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-preset-latest": "^6.16.0"
+  }
+}
