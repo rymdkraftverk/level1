@@ -40,10 +40,10 @@ export function add(entity) {
   entities = entities.concat(entity);
 }
 
-export function remove(id) {
-  const removedEntity = get(id);
+export function remove(entity) {
+  const { id } = entity;
   entities = entities.filter(e => e.id !== id);
-  return removedEntity;
+  return entity;
 }
 
 export function removeAll(){
