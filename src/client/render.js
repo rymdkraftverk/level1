@@ -8,7 +8,7 @@ let stage, renderer;
 export function createRenderer(width, height, sprites, element) {
   return new Promise((resolve, reject) => {
     if (!sprites) reject('Sprites should be an array of file names to load');   
-    PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
+    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
     stage = new PIXI.Container();
     renderer = new PIXI.CanvasRenderer(width, height);
     renderer.backgroundColor = VOID_COLOR;
