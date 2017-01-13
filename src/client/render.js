@@ -41,6 +41,10 @@ export function getSprite(filename){
   return new PIXI.Sprite(texture);
 }
 
+export function add(sprite){
+  stage.addChild(sprite);
+}
+
 function draw() {
   renderer.render(stage);
 }
