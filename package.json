@@ -1,5 +1,5 @@
 {
-  "name": "level1-lite",
+  "name": "l1-lite",
   "version": "0.0.1",
   "description": "Only client version of level1",
   "main": "./dist/index.js",
