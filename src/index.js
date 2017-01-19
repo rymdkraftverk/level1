@@ -6,9 +6,12 @@ if (typeof window !== 'undefined'){
   const Render = require('./client/render');
   const Entity = require('./client/entity');
   const Timer = require('./client/timer');
+  const Gamepad = require('./client/timer');
+  const Key = require('./client/key');
+  const Debug = require('./client/debug');
 
   module.exports =  {
-    Core, Render, Entity, Timer
+    Core, Render, Entity, Timer, Gamepad, Key, Debug
   }
 }
 else {
