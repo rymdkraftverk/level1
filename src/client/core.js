@@ -47,7 +47,7 @@ export function remove(entity) {
 }
 
 export function removeAll(){
-  entities.forEach(e => remove(e.id));
+  entities.forEach(e => remove(e));
 }
 
 function update() {
