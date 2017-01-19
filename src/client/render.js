@@ -49,6 +49,10 @@ export function remove(sprite){
   stage.removeChild(sprite);
 }
 
+export function removeAll(){
+  stage.removeChildren();
+}
+
 function draw() {
   renderer.render(stage);
 }
