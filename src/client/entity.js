@@ -8,10 +8,6 @@ export function create(){
     run: (entity) => {
       Object.keys(behaviours).forEach((b) => {
         const behaviour = behaviours[b];
-        // if (behaviour.init) {
-        //   behaviour.init(behaviour, entity);
-        //   delete behaviour.init;
-        // }
         behaviour.run(behaviour, entity);
       });
     }

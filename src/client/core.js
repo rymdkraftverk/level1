@@ -13,7 +13,6 @@ export function createCore(){
   MainLoop
   .setUpdate(update)
   .setMaxAllowedFPS(60);
-  // .setDraw(draw);
 }
 
 export function start(){
