@@ -1,9 +1,8 @@
-let id = 0;
-
-export function create(){
+export function create(id){
+  if (!id) throw new Error('Entity.create(id) takes a unique id as an argument');
   const behaviours = {};
   return {
-    id: id++,
+    id,
     behaviours,
     run: (entity) => {
       Object.keys(behaviours).forEach((b) => {
