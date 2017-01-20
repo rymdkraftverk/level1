@@ -31,6 +31,10 @@ export function isPressed(id, button){
   return pressed;
 }
 
+export function getGamepads() {
+  return controllers;
+}
+
 function scangamepads() {
   let gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads() : []);
   for (let i = 0; i < gamepads.length; i++) {
