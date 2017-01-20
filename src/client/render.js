@@ -37,8 +37,25 @@ export function getStage() {
 
 export function getSprite(filename){
   console.log('pixi textures', PIXI.loader.resources);
+  return new PIXI.Sprite(getTexture(filename));
+}
+
+export function getAnimation(filenames, animationSpeed){
+  const textures = []
+
+  filenames.map((filename) => {
+    textures.push(getTexture(filename));
+  });
+
+  const animation = new PIXI.extras.AnimatedSprite(textures);
+  animation.animationSpeed = animationSpeed;
+  
+  return animation;
+}
+
+function getTexture(filename){
   const { texture } = PIXI.loader.resources[filename];
-  return new PIXI.Sprite(texture);
+  return texture
 }
 
 export function add(sprite){
