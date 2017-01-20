@@ -31,6 +31,11 @@ export function isPressed(id, button){
   return pressed;
 }
 
+export function axisDir(id, axis){
+  if (!controllers[id]) return;
+  return controllers[id].axes[axis];
+}
+
 export function getGamepads() {
   return controllers;
 }
