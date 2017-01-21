@@ -12,6 +12,9 @@ export function create(duration, action){
     },
     reset: () => {
       duration = initialDuration;
+    },
+    duration: () => {
+      return duration;
     }
   }
 }
