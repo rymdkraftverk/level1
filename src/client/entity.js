@@ -1,8 +1,10 @@
 export function create(id){
   if (!id) throw new Error('Entity.create(id) takes a unique id as an argument');
   const behaviours = {};
-  return {
+  const entity = {
     id,
+    type: "",
+    sprite: {},
     behaviours,
     run: (entity) => {
       Object.keys(behaviours).forEach((b) => {
@@ -11,4 +13,11 @@ export function create(id){
       });
     }
   }
+
+  const defaultBody = {
+    entity
+  }
+  entity.body = defaultBody;
+
+  return entity;
 }
