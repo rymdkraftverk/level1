@@ -36,7 +36,6 @@ export function getStage() {
 }
 
 export function getSprite(filename){
-  console.log('pixi textures', PIXI.loader.resources);
   return new PIXI.Sprite(getTexture(filename));
 }
 
