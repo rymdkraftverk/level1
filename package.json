@@ -1,6 +1,6 @@
 {
   "name": "l1-lite",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Only client version of level1",
   "main": "./dist/index.js",
   "scripts": {
