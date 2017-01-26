@@ -1,6 +1,6 @@
 {
   "name": "l1-lite",
-  "version": "0.0.8",
+  "version": "0.1.0",
   "description": "Only client version of level1",
   "main": "./dist/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "clean-build": "npm run clean && npm run build",
     "build": "babel src --out-dir dist",
     "build:watch": "npm run build -- --watch",
-    "test": "mocha --compilers js:babel-register --require ./test/test_helper.js --recursive",
+    "test": "mocha --compilers js:babel-register --require ./test/helper.js --recursive",
     "test:watch": "npm test -- --watch"
   },
   "keywords": [],
@@ -21,6 +21,8 @@
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
-    "babel-preset-latest": "^6.16.0"
+    "babel-preset-latest": "^6.16.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
   }
 }

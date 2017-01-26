@@ -1,17 +1,17 @@
-export function create(duration, action){
-  const initialDuration = duration;
+export function create(duration){
+  if (!Number.isInteger(duration)) throw new Error('TypeError, Time.create(duration) = duration needs to be integer');
+  let counter = 0;
 
   return {
-    run: (behaviour, entity) => {
-      duration--;
-      if (duration <= 0){
-        action(behaviour, entity);
-        return true;
-      }
-      return false;
+    run: () => {
+      if (counter < duration) counter++;
+      return (counter === duration);
     },
     reset: () => {
-      duration = initialDuration;
+      counter = 0;
+    },
+    counter: () => {
+      return counter;
     },
     duration: () => {
       return duration;
