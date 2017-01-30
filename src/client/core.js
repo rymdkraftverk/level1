@@ -1,4 +1,5 @@
 import MainLoop from 'mainloop.js';
+import { Engine } from 'matter-js';
 
 // unaware if network is enabled or not
 // unaware of renderer
@@ -7,6 +8,7 @@ import MainLoop from 'mainloop.js';
 // game loop
 // game entities
 
+export let engine;
 let entities = [];
 
 export function createCore(){
@@ -51,4 +53,12 @@ export function removeAll(){
 
 function update() {
   entities.forEach(e => e.run(e));
+}
+
+/* PHYSICS */
+
+export function createPhysics(){
+  engine = Engine.create();
+  engine.world.gravity.y = 0;
+  Engine.run(engine);
 }

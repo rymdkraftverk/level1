@@ -1,3 +1,7 @@
+import * as Core from './core';
+import * as Render from './render';
+import { World } from 'matter-js';
+
 export function create(id){
   if (!id) throw new Error('Entity.create(id) takes a unique id as an argument');
   const behaviours = {};
@@ -15,6 +19,10 @@ export function create(id){
         }
         behaviour.run(behaviour, entity);
       });
+
+      // Display hitboxes
+      const { body } = entity;
+      if (body.parts) Render.displayBounds(body);
     }
   }
 
@@ -23,5 +31,40 @@ export function create(id){
   }
   entity.body = defaultBody;
 
+  // Core.add(entity);
   return entity;
+}
+
+export function addSprite(entity, filename){
+  const sprite = Render.getSprite(filename);
+  Render.add(sprite);
+  entity.sprite = sprite;
+  return sprite;
+}
+
+export function addAnimation(entity, filenames, animationSpeed){
+  const animation = Render.getAnimation(filenames, animationSpeed);
+  Render.add(animation);
+  entity.animation = animation;
+  //animation.play();
+  return animation;
+}
+
+export function addBody(entity, body){
+  World.add(Core.engine.world, [body]);
+  body.entity = entity;
+  entity.body = body;
+  return body;
+}
+
+export function removeBody(body){
+  World.remove(Core.engine.world, [body]);
+}
+
+export function destroy(entity){
+  Core.remove(entity);
+  const { sprite, animation, body } = entity;
+  if (sprite) Render.remove(sprite);
+  if (animation) Render.remove(animation);
+  if (body) removeBody(body);
 }
