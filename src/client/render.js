@@ -82,7 +82,7 @@ export function removeAll(){
 
 function getPIXIGraphics(){
   const graphics = new PIXI.Graphics();
-  graphics.zIndex = -10;
+  graphics.zIndex = -999;
   add(graphics);
   return graphics;
 }

@@ -8,7 +8,6 @@ export function create(id){
   const entity = {
     id,
     type: "",
-    sprite: {},
     behaviours,
     run: (entity) => {
       Object.keys(behaviours).forEach((b) => {
@@ -34,9 +33,20 @@ export function create(id){
   // Core.add(entity);
   return entity;
 }
-
-export function addSprite(entity, filename){
+/*
+OPTIONS:
+{
+  zIndex: 999
+}
+*/
+export function addSprite(entity, filename, options){
   const sprite = Render.getSprite(filename);
+
+  if (options) {
+    const { zIndex } = options;
+    sprite.zIndex = zIndex || 0;
+  }
+
   Render.add(sprite);
   entity.sprite = sprite;
   return sprite;
