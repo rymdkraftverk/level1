@@ -64,6 +64,13 @@ export function add(child){
   updateRenderLayers();
 }
 
+/*
+  Check PIXI.Text docs for available style options
+*/
+export function getText(text, style){
+  return new PIXI.Text(text, style);
+}
+
 function updateRenderLayers(){
   stage.children.sort((a, b) => {
     a.zIndex = a.zIndex || 0;
