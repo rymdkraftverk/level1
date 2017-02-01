@@ -1,5 +1,4 @@
-import { expect } from 'chai'; 
-import { create } from '../../src/client/timer2';
+import { create } from '../../src/client/timer';
 
 describe('Timer.create(duration)', () => {
   context('when duration is an integer', () => {
