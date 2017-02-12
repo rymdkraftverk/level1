@@ -11,9 +11,10 @@ if (typeof window !== 'undefined'){
   const Debug = require('./client/debug');
   const Physics = require('matter-js');
   const Util = require('./client/util');
+  const Sound = require('./client/sound');
 
   module.exports =  {
-    Core, Render, Entity, Timer, Gamepad, Key, Debug, Physics, Util
+    Core, Render, Entity, Timer, Gamepad, Key, Debug, Physics, Util, Sound
   }
 }
 else {
