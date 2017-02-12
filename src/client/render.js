@@ -4,7 +4,7 @@ import { setDraw } from './core.js';
 const VOID_COLOR = 0xccc;
 
 let stage, renderer, graphics;
-let showHitboxes = true;
+let showHitboxes = false;
 
 export function createRenderer(width, height, sprites, element) {
   return new Promise((resolve, reject) => {
