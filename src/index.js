@@ -13,10 +13,16 @@ if (typeof window !== 'undefined'){
   const Util = require('./client/util');
   const Sound = require('./client/sound');
 
-  module.exports =  {
+  module.exports = {
     Core, Render, Entity, Timer, Gamepad, Key, Debug, Physics, Util, Sound
   }
 }
 else {
-  //Export server stuff
+
+  const Server = require('./server/server');
+  const Net = require('./server/net');
+  
+  module.exports = {
+    Server, Net
+  }
 }
