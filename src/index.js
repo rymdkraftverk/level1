@@ -12,9 +12,10 @@ if (typeof window !== 'undefined'){
   const Physics = require('matter-js');
   const Util = require('./client/util');
   const Sound = require('./client/sound');
+  const Net = require('./client/net');
 
   module.exports = {
-    Core, Render, Entity, Timer, Gamepad, Key, Debug, Physics, Util, Sound
+    Core, Render, Entity, Timer, Gamepad, Key, Debug, Physics, Util, Sound, Net
   }
 }
 else {

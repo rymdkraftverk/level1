@@ -10,9 +10,16 @@ const url = process.env.URL || "localhost";
 
 app.use(express.static('public'));
 
-const start = () => {
+
+/* 
+options:
+{
+  network: true
+}*/
+const start = (options) => {
   server.listen(port, () => {
-    Net.create(server);
+    const { network } = options;
+    if (network) Net.create(server);
     console.log(`Server running on: ${url}:${port}`);
   });
 }
