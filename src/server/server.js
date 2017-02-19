@@ -12,14 +12,17 @@ app.use(express.static('public'));
 
 
 /* 
-options:
+options
 {
-  network: true
-}*/
+  network: bool
+}
+*/
 const start = (options) => {
   server.listen(port, () => {
-    const { network } = options;
-    if (network) Net.create(server);
+    if (options){
+      const { network } = options;
+      if (network) Net.create(server);
+    }
     console.log(`Server running on: ${url}:${port}`);
   });
 }

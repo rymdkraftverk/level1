@@ -9,6 +9,18 @@ const on = (key, cb) => {
   messages.push({key, cb});
 }
 
+const emit = (key, data) => {
+  if (!socket) throw new Error('Error: No network instance created');
+  
+  socket.emit(key, data);
+}
+
+const broadcast = (key, data) => {
+  if (!socket) throw new Error('Error: No network instance created');
+  
+  socket.broadcast.emit(key, data);
+}
+
 const create = (server) => {
   socket = io(server);
   socket.on('connection', (client) => {
@@ -27,5 +39,5 @@ const create = (server) => {
 }
 
 module.exports = {
-  create, on
+  create, on, emit, broadcast
 }
