@@ -1,7 +1,7 @@
 {
-  "name": "l1-lite",
-  "version": "0.1.2",
-  "description": "Only client version of level1",
+  "name": "l1-server",
+  "version": "0.0.1",
+  "description": "Server for level1 game engine",
   "main": "./dist/index.js",
   "scripts": {
     "clean": "rm -rf dist",
@@ -16,13 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.1",
-    "howler": "^2.0.2",
-    "mainloop.js": "^1.0.3",
-    "matter-js": "^0.11.1",
-    "mousetrap": "^1.6.0",
-    "pixi.js": "^4.1.0",
-    "socket.io": "^1.7.2",
-    "socket.io-client": "^1.7.2"
+    "socket.io": "^1.7.2"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",

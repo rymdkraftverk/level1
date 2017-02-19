@@ -26,10 +26,10 @@ const create = (server) => {
   socket.on('connection', (client) => {
     clients.push(client.id);
     
-    client.on('disconnect', function() {
-      const socket = this;
-      clients = clients.filter(c => c !== socket.id)
-    });
+    // client.on('disconnect', function() {
+    //   const socket = this;
+    //   clients = clients.filter(c => c !== socket.id);
+    // });
 
     messages.forEach(m => {
       client.on(m.key, m.cb);

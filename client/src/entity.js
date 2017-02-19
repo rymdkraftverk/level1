@@ -30,7 +30,7 @@ export function create(id){
   }
   entity.body = defaultBody;
 
-  // Core.add(entity);
+  Core.add(entity);
   return entity;
 }
 /*

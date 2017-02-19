@@ -1,6 +1,6 @@
 import io from 'socket.io-client';
-const socket = io();
 
+const socket = io();
 let clientId;
 
 export function getClientId(){
@@ -14,3 +14,4 @@ export function on(message, cb){
 export function emit(message, data){
   socket.emit(message, data);
 }
+
