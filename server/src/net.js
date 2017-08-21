@@ -1,8 +1,8 @@
 const server = require('http').createServer();
-const io = require('socket.io');
+const socket_io = require('socket.io');
 
-let socket, client;
-let messages = [];
+let io;
+const messages = [];
 let clients = [];
 
 const on = (key, cb) => {
@@ -10,32 +10,33 @@ const on = (key, cb) => {
 }
 
 const emit = (key, data) => {
-  if (!socket) throw new Error('Error: No network instance created');
+  if (!io) throw new Error('Error: No network instance created');
   
-  socket.emit(key, data);
+  io.emit(key, data);
 }
 
 const broadcast = (key, data) => {
-  if (!socket) throw new Error('Error: No network instance created');
-  
-  socket.broadcast.emit(key, data);
+  if (!io) throw new Error('Error: No network instance created');
+
+  io.sockets.emit(key, data);
 }
 
 const create = (server) => {
-  socket = io(server);
-  socket.on('connection', (client) => {
-    clients.push(client.id);
+  io = socket_io(server);
+  io.on('connection', (client) => {
     
-    // client.on('disconnect', function() {
-    //   const socket = this;
-    //   clients = clients.filter(c => c !== socket.id);
-    // });
+    clients.push(client.id);
+
+    client.on('disconnect', () => {
+      clients = clients.filter(c => c !== client.id);
+      console.log('client disconnect, remaining: ', clients);
+    });
 
     messages.forEach(m => {
       client.on(m.key, m.cb);
     });
   });
-  return socket;
+  return io;
 }
 
 module.exports = {
