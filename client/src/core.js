@@ -8,16 +8,21 @@ import { Engine } from 'matter-js';
 // game loop
 // game entities
 
+// eslint-disable-next-line import/no-mutable-exports
 export let engine;
 let entities = [];
 
-export function createCore(){
-  MainLoop
-  .setUpdate(update)
-  .setMaxAllowedFPS(60);
+function update() {
+  entities.forEach(e => e.run(e));
 }
 
-export function start(){
+export function createCore() {
+  MainLoop
+    .setUpdate(update)
+    .setMaxAllowedFPS(60);
+}
+
+export function start() {
   MainLoop.start();
 }
 
@@ -25,11 +30,11 @@ export function setDraw(draw) {
   MainLoop.setDraw(draw);
 }
 
-export function stop(){
+export function stop() {
   MainLoop.stop();
 }
 
-export function getEntities(){
+export function getEntities() {
   return entities;
 }
 
@@ -47,17 +52,13 @@ export function remove(entity) {
   return entity;
 }
 
-export function removeAll(){
+export function removeAll() {
   entities.forEach(e => remove(e));
-}
-
-function update() {
-  entities.forEach(e => e.run(e));
 }
 
 /* PHYSICS */
 
-export function createPhysics(){
+export function createPhysics() {
   engine = Engine.create();
   engine.world.gravity.y = 0;
   Engine.run(engine);

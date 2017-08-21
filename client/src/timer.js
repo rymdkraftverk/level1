@@ -1,4 +1,4 @@
-export function create(duration){
+export function create(duration) {
   if (!Number.isInteger(duration)) throw new Error('TypeError, Timer.create(duration) = duration has to be integer');
   let counter = 0;
 
@@ -10,11 +10,7 @@ export function create(duration){
     reset: () => {
       counter = 0;
     },
-    counter: () => {
-      return counter;
-    },
-    duration: () => {
-      return duration;
-    }
-  }
+    counter: () => counter,
+    duration: () => duration,
+  };
 }

@@ -11,5 +11,5 @@ const Sound = require('./sound');
 const Net = require('./net');
 
 module.exports = {
-  Core, Render, Entity, Timer, Gamepad, Key, Debug, Physics, Util, Sound, Net
-}
+  Core, Render, Entity, Timer, Gamepad, Key, Debug, Physics, Util, Sound, Net,
+};

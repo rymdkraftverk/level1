@@ -1,9 +1,19 @@
 import { stop, start, removeAll } from './core';
 import { removeAll as removeAllSprites, toggleHitboxes } from './render';
 
+/* eslint-disable no-undef */
+
+function button(text, onClick) {
+  const buttonElement = document.createElement('button');
+  buttonElement.innerHTML = text;
+  buttonElement.addEventListener('click', onClick);
+  return buttonElement;
+}
+
+// eslint-disable-next-line import/prefer-default-export
 export function initDebugTools() {
   const container = document.createElement('div');
-  container.style.display = "flex";
+  container.style.display = 'flex';
 
   /* BUTTONS */
   const stopButton = button('Stop', stop);
@@ -22,11 +32,4 @@ export function initDebugTools() {
   container.appendChild(toggleHitboxesButton);
 
   document.body.appendChild(container);
-}
-
-function button(text, onClick) {
-  const button = document.createElement('button');
-  button.innerHTML = text;
-  button.addEventListener('click', onClick);
-  return button;
 }
