@@ -4,7 +4,7 @@ export function create(duration) {
 
   return {
     run: () => {
-      if (counter < duration) counter++;
+      if (counter < duration) counter += 1;
       return (counter === duration);
     },
     reset: () => {

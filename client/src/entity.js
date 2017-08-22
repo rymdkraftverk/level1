@@ -3,8 +3,6 @@ import { World } from 'matter-js';
 import * as Core from './core';
 import * as Render from './render';
 
-/* eslint-disable no-param-reassign */
-
 export function create(id) {
   if (!id) throw new Error('Entity.create(id) takes a unique id as an argument');
   const behaviours = {};
@@ -12,7 +10,7 @@ export function create(id) {
     id,
     type: '',
     behaviours,
-    run: (entity) => {
+    run: (entity) => { // eslint-disable-line no-shadow
       Object.keys(behaviours).forEach((b) => {
         const behaviour = behaviours[b];
         if (behaviour.init) {

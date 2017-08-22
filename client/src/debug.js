@@ -10,7 +10,6 @@ function button(text, onClick) {
   return buttonElement;
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export function initDebugTools() {
   const container = document.createElement('div');
   container.style.display = 'flex';

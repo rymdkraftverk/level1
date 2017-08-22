@@ -8,19 +8,29 @@ let renderer;
 let graphics;
 let showHitboxes = false;
 
-export function createRenderer(width, height, sprites, element) {
-  return new Promise((resolve, reject) => {
-    if (!sprites) reject('Sprites should be an array of file names to load');
-    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
-    stage = new PIXI.Container();
-    renderer = new PIXI.CanvasRenderer(width, height);
-    renderer.backgroundColor = VOID_COLOR;
-    const { view } = renderer;
-    element ? element.appendChild(view) : document.body.appendChild(view);
-    setDraw(draw);
-    graphics = getPIXIGraphics();
-    loadAssets(sprites, resolve);
+function draw() {
+  renderer.render(stage);
+  graphics.clear();
+}
+
+function updateRenderLayers() {
+  stage.children.sort((a, b) => {
+    a.zIndex = a.zIndex || 0;
+    b.zIndex = b.zIndex || 0;
+    return b.zIndex - a.zIndex;
   });
+}
+
+export function add(child) {
+  stage.addChild(child);
+  updateRenderLayers();
+}
+
+function getPIXIGraphics() {
+  const pixiGraphics = new PIXI.Graphics();
+  pixiGraphics.zIndex = -999;
+  add(pixiGraphics);
+  return graphics;
 }
 
 function loadAssets(sprites, resolve) {
@@ -35,8 +45,29 @@ function loadAssets(sprites, resolve) {
   loader.load();
 }
 
+export function createRenderer(width, height, sprites, element) {
+  return new Promise((resolve, reject) => {
+    if (!sprites) reject('Sprites should be an array of file names to load');
+    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+    stage = new PIXI.Container();
+    renderer = new PIXI.CanvasRenderer(width, height);
+    renderer.backgroundColor = VOID_COLOR;
+    const { view } = renderer;
+    // eslint-disable-next-line no-unused-expressions, no-undef 
+    element ? element.appendChild(view) : document.body.appendChild(view);
+    setDraw(draw);
+    graphics = getPIXIGraphics();
+    loadAssets(sprites, resolve);
+  });
+}
+
 export function getStage() {
   return stage;
+}
+
+function getTexture(filename) {
+  const { texture } = PIXI.loader.resources[filename];
+  return texture;
 }
 
 export function getSprite(filename) {
@@ -56,29 +87,11 @@ export function getAnimation(filenames, animationSpeed) {
   return animation;
 }
 
-function getTexture(filename) {
-  const { texture } = PIXI.loader.resources[filename];
-  return texture;
-}
-
-export function add(child) {
-  stage.addChild(child);
-  updateRenderLayers();
-}
-
 /*
   Check PIXI.Text docs for available style options
 */
 export function getText(text, style) {
   return new PIXI.Text(text, style);
-}
-
-function updateRenderLayers() {
-  stage.children.sort((a, b) => {
-    a.zIndex = a.zIndex || 0;
-    b.zIndex = b.zIndex || 0;
-    return b.zIndex - a.zIndex;
-  });
 }
 
 export function remove(sprite) {
@@ -87,13 +100,6 @@ export function remove(sprite) {
 
 export function removeAll() {
   stage.removeChildren();
-}
-
-function getPIXIGraphics() {
-  const graphics = new PIXI.Graphics();
-  graphics.zIndex = -999;
-  add(graphics);
-  return graphics;
 }
 
 export function toggleHitboxes() {
@@ -120,9 +126,4 @@ export function displayBounds(body) {
   }
 
   graphics.lineTo(vertices[0].x, vertices[0].y);
-}
-
-function draw() {
-  renderer.render(stage);
-  graphics.clear();
 }

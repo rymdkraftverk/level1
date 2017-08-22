@@ -14,6 +14,20 @@ function addgamepad(gamepad) {
 window.addEventListener('gamepadconnected', addgamepad);
 window.addEventListener('gamepaddisconnected', removegamepad);
 
+function scangamepads() {
+  // eslint-disable-next-line no-nested-ternary
+  const gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads() : []);
+  for (let i = 0; i < gamepads.length; i += 1) {
+    if (gamepads[i]) {
+      if (gamepads[i].index in controllers) {
+        controllers[gamepads[i].index] = gamepads[i];
+      } else {
+        addgamepad(gamepads[i]);
+      }
+    }
+  }
+}
+
 export function run() {
   if (!haveEvents) {
     scangamepads();
@@ -21,7 +35,7 @@ export function run() {
 }
 
 export function isPressed(id, button) {
-  if (!controllers[id]) return;
+  if (!controllers[id]) return null;
 
   const val = controllers[id].buttons[button];
   let pressed = val === 1.0;
@@ -34,23 +48,10 @@ export function isPressed(id, button) {
 }
 
 export function axisDir(id, axis) {
-  if (!controllers[id]) return;
+  if (!controllers[id]) return null;
   return controllers[id].axes[axis];
 }
 
 export function getGamepads() {
   return controllers;
-}
-
-function scangamepads() {
-  const gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads() : []);
-  for (let i = 0; i < gamepads.length; i += 1) {
-    if (gamepads[i]) {
-      if (gamepads[i].index in controllers) {
-        controllers[gamepads[i].index] = gamepads[i];
-      } else {
-        addgamepad(gamepads[i]);
-      }
-    }
-  }
 }
