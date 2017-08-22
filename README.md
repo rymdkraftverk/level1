@@ -13,11 +13,15 @@
 
 ##### Create
 
+Entity.create(id: string)
+
 ```javascript
   const lizard = Entity.create('lizard');
 ```
 
 ##### Add sprite and position it
+
+Entity.addSprite(entity: object, filename: string)
 
 ```javascript
   const lizardSprite = Entity.addSprite(lizard, 'lizard1');
