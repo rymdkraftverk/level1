@@ -18,6 +18,20 @@ In `client` and `server`
 - Put sprites in `public/assets/`
 - Add sprite file name to `src/sprites.json`
 
+*Sprites have to be .png*
+
+Example:
+
+`public/assets/mySprite.png`
+
+```json
+// src/sprites.json
+[
+  "mySprite"
+]
+
+```
+
 ---
 
 ### Entities
