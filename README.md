@@ -2,7 +2,7 @@
 
 `npm run build:watch`
 
-## Use
+## Use - Client
 
 ### Sprites
 
@@ -55,3 +55,180 @@ Behaviours are objects with two properties:
     },
   })
 ```
+
+## API - Client
+
+### Entity
+
+##### create(id: string) => EntityObject
+
+##### addSprite(entity: object, filename: string, ?options: object) => PIXI.Sprite
+
+options: {
+  zIndex: number
+}
+
+##### addAnimation(entity: object, filenames: array[string], animationSpeed: number)
+
+##### addBody(entity: object, body: Matter.Body)
+
+Add Physics body
+
+##### removeBody(body: Matter.Body)
+
+##### destroy(entity: object)
+
+Remove entity, sprite, animation and body.
+
+
+### EntityObject
+
+##### entity.id
+
+Unique id
+
+##### entity.type
+
+Type field to group entities together (Should perhaps be an array...)
+
+##### entity.behaviours (object)
+
+Map with all behaviours
+
+##### entity.body
+
+Physics body. Always has default body with entity as only property.
+
+##### ?entity.sprite
+
+Only available after Entity.addSprite has been used
+
+##### ?entity.animation
+
+Only available after Entity.addAnimation has been used
+
+
+### Net
+
+##### on(message: string, cb: func)
+
+Run function (cb) when message is received
+
+##### emit(message: string, data: object)
+
+Send data to all other clients
+
+
+### Timer
+
+Timer starts at 0 and counts up to duration. 
+
+##### create(duration: number) => TimerObject
+
+
+### TimerObject
+
+##### run()
+
+Call on every game update. Will return true when duration is reached.
+
+Example usage:
+
+```javascript
+  timerBehaviour = () => ({
+    timer: Timer.create(100),
+    run: (b, e) => {
+      if (b.timer && b.timer.run()) {
+        // Run code when timer duration is reached
+      }
+    } 
+  })
+```
+
+##### reset()
+
+Reset counter to 0.
+
+##### counter()
+
+The current value of the counter.
+
+##### duration()
+
+Get duration.
+
+
+### Sound
+
+##### getSound(filePath: string, options: object)
+
+Options are Howler options other than src.
+
+https://github.com/goldfire/howler.js#options
+
+
+### Core
+
+##### createCore()
+
+Initialize game main loop
+
+##### createPhysics()
+
+Initialize Matter.Engine
+
+##### getEntities()
+
+Get all entities
+
+##### get(id: string)
+
+Get entitiy by id
+
+
+### Render
+
+##### add
+
+##### remove
+
+##### getText(text: string, options: object(PIXI.TextStyle))
+
+Options are a PIXI.TextStyle object.
+
+http://pixijs.download/release/docs/PIXI.TextStyle.html
+
+
+### Util
+
+##### getRandomRange(from: number, to: number)
+
+Get a random number in range (from - to)
+
+
+
+## API - Server
+
+### Server
+
+##### start(options: object)
+
+options: {
+  network: bool
+}
+
+### Net
+
+##### on(key: string, cb: func)
+
+##### emit(key: string, data: object)
+
+##### broadcast(key: string, data: object)
+
+##### TODO
+
+Uppdatera alla deps
+zIndex - högre eller lägre är närmare?
+Rename on(message) to on(key) to be consistant
+Split readme into main, examples and api
+Rename getRandomRange -> getRandomInRange
