@@ -17,7 +17,7 @@ function updateRenderLayers() {
   stage.children.sort((a, b) => {
     a.zIndex = a.zIndex || 0;
     b.zIndex = b.zIndex || 0;
-    return b.zIndex - a.zIndex;
+    return a.zIndex - b.zIndex;
   });
 }
 
@@ -28,7 +28,7 @@ export function add(child) {
 
 function getPIXIGraphics() {
   const pixiGraphics = new PIXI.Graphics();
-  pixiGraphics.zIndex = -999;
+  pixiGraphics.zIndex = 9999;
   add(pixiGraphics);
   return pixiGraphics;
 }

@@ -251,4 +251,4 @@ options: {
 
 ##### TODO
 
-zIndex - högre eller lägre är närmare?
+
