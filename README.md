@@ -9,7 +9,9 @@ Libraries used:
 
 In `client` and `server`
 
-`npm run build:watch`
+`npm install` = Install dependencies
+
+`npm run build:watch` = Continously build dist files
 
 ## Use - Client
 
