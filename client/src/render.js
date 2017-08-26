@@ -30,7 +30,7 @@ function getPIXIGraphics() {
   const pixiGraphics = new PIXI.Graphics();
   pixiGraphics.zIndex = -999;
   add(pixiGraphics);
-  return graphics;
+  return pixiGraphics;
 }
 
 function loadAssets(sprites, resolve) {
