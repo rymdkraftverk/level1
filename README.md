@@ -1,5 +1,7 @@
 ## Develop
 
+In `client` and `server`
+
 `npm run build:watch`
 
 ## Use - Client
@@ -9,6 +11,8 @@
 - Put sprites in `public/assets/`
 - Add sprite file name to `src/sprites.json`
 
+---
+
 ### Entities
 
 ##### Create
@@ -16,6 +20,8 @@
 Entity.create(id: string)
 
 ```javascript
+  import { Entity } from 'l1-lite';
+
   const lizard = Entity.create('lizard');
 ```
 
@@ -37,6 +43,8 @@ Check PIXI.Sprite docs for properties on sprite object
   lizard.behaviours['moveLeft'] = moveLeft();
 ```
 
+---
+
 ### Behaviours
 
 Behaviours are objects with two properties: 
@@ -56,6 +64,8 @@ Behaviours are objects with two properties:
   })
 ```
 
+---
+
 ## API - Client
 
 ### Entity
@@ -64,73 +74,79 @@ Behaviours are objects with two properties:
 
 ##### addSprite(entity: object, filename: string, ?options: object) => PIXI.Sprite
 
+```javascript
 options: {
   zIndex: number
 }
+```
 
 ##### addAnimation(entity: object, filenames: array[string], animationSpeed: number)
 
 ##### addBody(entity: object, body: Matter.Body)
 
-Add Physics body
+*Add Physics body*
 
 ##### removeBody(body: Matter.Body)
 
 ##### destroy(entity: object)
 
-Remove entity, sprite, animation and body.
+*Remove entity, sprite, animation and body.*
 
+---
 
 ### EntityObject
 
 ##### entity.id
 
-Unique id
+*Unique id*
 
 ##### entity.type
 
-Type field to group entities together (Should perhaps be an array...)
+*Type field to group entities together (Should perhaps be an array...)*
 
 ##### entity.behaviours (object)
 
-Map with all behaviours
+*Map with all behaviours*
 
 ##### entity.body
 
-Physics body. Always has default body with entity as only property.
+*Physics body. Always has default body with entity as only property.*
 
 ##### ?entity.sprite
 
-Only available after Entity.addSprite has been used
+*Only available after Entity.addSprite has been used*
 
 ##### ?entity.animation
 
-Only available after Entity.addAnimation has been used
+*Only available after Entity.addAnimation has been used*
 
+---
 
 ### Net
 
 ##### on(message: string, cb: func)
 
-Run function (cb) when message is received
+*Run function (cb) when message is received*
 
 ##### emit(message: string, data: object)
 
-Send data to all other clients
+*Send data to all other clients*
 
+---
 
 ### Timer
 
-Timer starts at 0 and counts up to duration. 
+*Timer starts at 0 and counts up to duration.*
 
 ##### create(duration: number) => TimerObject
 
+---
 
 ### TimerObject
 
 ##### run()
 
-Call on every game update. Will return true when duration is reached.
+*Call on every game update. Will return true when duration is reached.*
 
 Example usage:
 
@@ -147,44 +163,47 @@ Example usage:
 
 ##### reset()
 
-Reset counter to 0.
+*Reset counter to 0.*
 
 ##### counter()
 
-The current value of the counter.
+*The current value of the counter.*
 
 ##### duration()
 
-Get duration.
+*Get duration.*
 
+---
 
 ### Sound
 
-##### getSound(filePath: string, options: object)
+##### getSound(filePath: string, ?options: object)
 
-Options are Howler options other than src.
+*Options are Howler options other than src.*
 
 https://github.com/goldfire/howler.js#options
 
+---
 
 ### Core
 
 ##### createCore()
 
-Initialize game main loop
+*Initialize game main loop*
 
 ##### createPhysics()
 
-Initialize Matter.Engine
+*Initialize Matter.Engine*
 
 ##### getEntities()
 
-Get all entities
+*Get all entities*
 
 ##### get(id: string)
 
-Get entitiy by id
+*Get entitiy by id*
 
+---
 
 ### Render
 
@@ -192,12 +211,13 @@ Get entitiy by id
 
 ##### remove
 
-##### getText(text: string, options: object(PIXI.TextStyle))
+##### getText(text: string, ?options: object(PIXI.TextStyle))
 
-Options are a PIXI.TextStyle object.
+*Options are a PIXI.TextStyle object.*
 
 http://pixijs.download/release/docs/PIXI.TextStyle.html
 
+---
 
 ### Util
 
@@ -205,17 +225,19 @@ http://pixijs.download/release/docs/PIXI.TextStyle.html
 
 Get a random number in range (from - to)
 
-
+---
 
 ## API - Server
 
 ### Server
 
-##### start(options: object)
+##### start(?options: object)
 
 options: {
   network: bool
 }
+
+---
 
 ### Net
 
@@ -225,9 +247,10 @@ options: {
 
 ##### broadcast(key: string, data: object)
 
+---
+
 ##### TODO
 
-Uppdatera alla deps
 zIndex - högre eller lägre är närmare?
 Rename on(message) to on(key) to be consistant
 Split readme into main, examples and api
