@@ -94,8 +94,8 @@ export function getText(text, style) {
   return new PIXI.Text(text, style);
 }
 
-export function remove(sprite) {
-  stage.removeChild(sprite);
+export function remove(child) {
+  stage.removeChild(child);
 }
 
 export function removeAll() {

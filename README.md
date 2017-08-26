@@ -1,3 +1,10 @@
+Libraries used:
+
+ - Rendering: Pixi.js (https://github.com/pixijs/pixi.js)
+ - Physics: Matter.js (https://github.com/liabru/matter-js)
+ - Sound: Howler.js (https://github.com/goldfire/howler.js)
+ - Multiplayer: Socket.io (https://github.com/socketio/socket.io)
+
 ## Develop
 
 In `client` and `server`
@@ -207,9 +214,15 @@ https://github.com/goldfire/howler.js#options
 
 ### Render
 
-##### add
+##### add(child: object)
 
-##### remove
+*Child is a PIXI object (Sprite, AnimatedSprite or Text)*
+
+##### remove(child: object)
+
+*Child is a PIXI object (Sprite, AnimatedSprite or Text)*
+
+*Note: Only remove what's being rendered. Entity will still exist.*
 
 ##### getText(text: string, ?options: object(PIXI.TextStyle))
 
