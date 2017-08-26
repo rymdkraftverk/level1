@@ -7,11 +7,11 @@ export function getClientId() {
   return clientId;
 }
 
-export function on(message, cb) {
-  socket.on(message, cb);
+export function on(key, func) {
+  socket.on(key, func);
 }
 
-export function emit(message, data) {
-  socket.emit(message, data);
+export function emit(key, data) {
+  socket.emit(key, data);
 }
 

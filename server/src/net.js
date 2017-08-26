@@ -4,8 +4,8 @@ let io;
 const messages = [];
 let clients = [];
 
-const on = (key, cb) => {
-  messages.push({ key, cb });
+const on = (key, func) => {
+  messages.push({ key, func });
 };
 
 const emit = (key, data) => {
@@ -31,7 +31,7 @@ const create = (server) => {
     });
 
     messages.forEach((m) => {
-      client.on(m.key, m.cb);
+      client.on(m.key, m.func);
     });
   });
   return io;

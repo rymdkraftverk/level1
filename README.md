@@ -124,9 +124,9 @@ options: {
 
 ### Net
 
-##### on(message: string, cb: func)
+##### on(key: string, func: func)
 
-*Run function (cb) when message is received*
+*Run function when message with key is received*
 
 ##### emit(message: string, data: object)
 
@@ -221,7 +221,7 @@ http://pixijs.download/release/docs/PIXI.TextStyle.html
 
 ### Util
 
-##### getRandomRange(from: number, to: number)
+##### getRandomInRange(from: number, to: number)
 
 Get a random number in range (from - to)
 
@@ -241,7 +241,7 @@ options: {
 
 ### Net
 
-##### on(key: string, cb: func)
+##### on(key: string, func: func)
 
 ##### emit(key: string, data: object)
 
@@ -252,6 +252,3 @@ options: {
 ##### TODO
 
 zIndex - högre eller lägre är närmare?
-Rename on(message) to on(key) to be consistant
-Split readme into main, examples and api
-Rename getRandomRange -> getRandomInRange
