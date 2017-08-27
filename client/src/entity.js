@@ -69,6 +69,7 @@ export function addBody(entity, body) {
 }
 
 export function removeBody(body) {
+  if (!Core.engine) throw new Error('Physics not initialized. Make sure to call Core.createPhysics()');
   World.remove(Core.engine.world, [body]);
 }
 
