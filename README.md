@@ -60,6 +60,22 @@ Entity.addSprite(entity: object, filename: string)
 
 Check PIXI.Sprite docs for properties on sprite object
 
+
+##### Add animation
+
+Entity.addAnimation(entity: object, filenames: Array<String>, animationSpeed: number)
+
+Note: Remember to call play() on the animation to run it
+
+```javascript
+  const lizardAnim = Entity.addAnimation(lizard, ['lizard1', 'lizard2'], 0.1);
+  lizardAnim.x = 200;
+  lizardAnim.y = 200;
+  lizardAnim.play();
+```
+
+Check PIXI.AnimatedSprite docs for properties on animation object
+
 ##### Add behaviour
 
 ```javascript
@@ -72,9 +88,12 @@ Check PIXI.Sprite docs for properties on sprite object
 
 Behaviours are objects with two properties: 
 
- - `run` which is called 60 times per second. (mandatory)
+ - `run(behaviour, entity)` which is called 60 times per second. (mandatory)
 
- - `init` which is only called once when the entity is first added. (optional)
+ - `init(behaviour, entity)` which is only called once when the entity is first added. (optional)
+
+ Both are passed the current behaviour as first argument and the entity that the
+ behaviour belongs to as the second argument.
 
 ```javascript
   const moveLeft = () => ({
