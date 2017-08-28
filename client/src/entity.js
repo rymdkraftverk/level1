@@ -93,24 +93,20 @@ export function destroy(entity) {
   onCollision(entityType: string, otherTypes: array[string], onCollision: (bodyA, bodyB) => void, collisionType: string);
 */
 export function addCollision(entityType, otherTypes, onCollision, collisionType = 'collisionActive') {
-  const getType = (body) => body.entity && body.entity.type; 
+  const getType = body => body.entity && body.entity.type;
   const collisionCheck = (typeToCheck, otherType) => typeToCheck === entityType && otherTypes.contains(otherType);
 
-  Events.on(Core.engine, collisionType, (event) => {
-    const { pairs } = event;
-
+  Events.on(Core.engine, collisionType, ({ pairs }) => {
     pairs.forEach(({ bodyA, bodyB }) => {
       const typeA = getType(bodyA);
       const typeB = getType(bodyB);
-      if (!typeA || !typeB) return null;
+      if (!typeA || !typeB) return;
 
-      if ((typeA === entityType && otherTypes.contains(typeB)) || typeB === entityType && otherTypes.contains(typeA)) {
-        onCollision(bodyA, bodyB);
-      } 
       if (collisionCheck(typeA, typeB) || collisionCheck(typeB, typeA)) {
         onCollision(bodyA, bodyB);
       }
     });
+  });
 }
 
 // Remove collision?
