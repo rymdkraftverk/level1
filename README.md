@@ -140,7 +140,9 @@ options: {
 
 ---
 
-### EntityObject
+### EntityObject properties
+
+The following properties are specified for objects created by Entity.create
 
 ##### entity.id
 
@@ -148,7 +150,7 @@ options: {
 
 ##### entity.type
 
-*Type field to group entities together (Should perhaps be an array...)*
+*Type field to group entities together, also used for collisions (Should perhaps be an array...)*
 
 ##### entity.behaviours (object)
 
@@ -300,5 +302,4 @@ options: {
 ##### TODO
 
  - Add examples
- - Fix hitbox rendering?
-  
+ - Sync sprite and body in engine?? (seems like very common scenario... )

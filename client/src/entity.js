@@ -94,7 +94,7 @@ export function destroy(entity) {
 */
 export function addCollision(entityType, otherTypes, onCollision, collisionType = 'collisionActive') {
   const getType = body => body.entity && body.entity.type;
-  const collisionCheck = (typeToCheck, otherType) => typeToCheck === entityType && otherTypes.contains(otherType);
+  const collisionCheck = (typeToCheck, otherType) => typeToCheck === entityType && otherTypes.includes(otherType);
 
   Events.on(Core.engine, collisionType, ({ pairs }) => {
     pairs.forEach(({ bodyA, bodyB }) => {
