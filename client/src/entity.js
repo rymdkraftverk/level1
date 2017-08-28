@@ -1,4 +1,4 @@
-import { World } from 'matter-js';
+import { World, Events } from 'matter-js';
 
 import * as Core from './core';
 import * as Render from './render';
@@ -62,6 +62,7 @@ export function addAnimation(entity, filenames, animationSpeed) {
 }
 
 export function addBody(entity, body) {
+  if (!Core.engine) throw new Error('Physics not initialized. Make sure to call Core.createPhysics()');
   World.add(Core.engine.world, [body]);
   body.entity = entity;
   entity.body = body;
@@ -80,3 +81,40 @@ export function destroy(entity) {
   if (animation) Render.remove(animation);
   if (body) removeBody(body);
 }
+
+
+/* 
+  Collision types:
+  collisionStart
+  collisionEnd
+*/
+
+/*
+  onCollision(entityType: string, otherTypes: array[string], onCollision: (bodyA, bodyB) => void, collisionType: string);
+*/
+export function addCollision(entityType, otherTypes, onCollision, collisionType = 'collisionActive') {
+  const getType = (body) => body.entity && body.entity.type; 
+  const collisionCheck = (typeToCheck, otherType) => typeToCheck === entityType && otherTypes.contains(otherType);
+
+  Events.on(Core.engine, collisionType, (event) => {
+    const { pairs } = event;
+
+    pairs.forEach(({ bodyA, bodyB }) => {
+      const typeA = getType(bodyA);
+      const typeB = getType(bodyB);
+      if (!typeA || !typeB) return null;
+
+      if ((typeA === entityType && otherTypes.contains(typeB)) || typeB === entityType && otherTypes.contains(typeA)) {
+        onCollision(bodyA, bodyB);
+      } 
+      if (collisionCheck(typeA, typeB) || collisionCheck(typeB, typeA)) {
+        onCollision(bodyA, bodyB);
+      }
+    });
+}
+
+// Remove collision?
+
+// export function addCollisions(entityTypes, otherTypes, onCollision, collisionType = 'collisionActive') {
+//   entityTypes.forEach((entityType) => addCollision(entityType, otherTypes, onCollision, collisionType));
+// }

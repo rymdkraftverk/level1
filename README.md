@@ -128,6 +128,12 @@ options: {
 
 ##### removeBody(body: Matter.Body)
 
+##### addCollision(entityType: string, otherTypes: array[string], onCollision: (bodyA, bodyB) => void, ?collisionType: string);
+
+*Default collisionType: `collisionActive`*
+
+*Other options: `collisionStart` `collisionEnd` * 
+
 ##### destroy(entity: object)
 
 *Remove entity, sprite, animation and body.*
@@ -293,4 +299,6 @@ options: {
 
 ##### TODO
 
-
+ - Add examples
+ - Fix hitbox rendering?
+  
