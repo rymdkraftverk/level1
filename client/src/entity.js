@@ -54,11 +54,11 @@ export function addSprite(entity, filename, options) {
 }
 
 export function addAnimation(entity, filenames, animationSpeed) {
-  const animation = Render.getAnimation(filenames, animationSpeed);
-  Render.add(animation);
-  entity.animation = animation;
-  // animation.play();
-  return animation;
+  const sprite = Render.getAnimation(filenames, animationSpeed);
+  Render.add(sprite);
+  sprite.play();
+  entity.sprite = sprite;
+  return sprite;
 }
 
 export function addBody(entity, body) {

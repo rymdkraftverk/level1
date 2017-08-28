@@ -63,15 +63,13 @@ Check PIXI.Sprite docs for properties on sprite object
 
 ##### Add animation
 
-Entity.addAnimation(entity: object, filenames: Array<String>, animationSpeed: number)
+Entity.addAnimation(entity: object, filenames: array[string], animationSpeed: number)
 
-Note: Remember to call play() on the animation to run it
 
 ```javascript
   const lizardAnim = Entity.addAnimation(lizard, ['lizard1', 'lizard2'], 0.1);
   lizardAnim.x = 200;
   lizardAnim.y = 200;
-  lizardAnim.play();
 ```
 
 Check PIXI.AnimatedSprite docs for properties on animation object
@@ -156,11 +154,7 @@ options: {
 
 ##### ?entity.sprite
 
-*Only available after Entity.addSprite has been used*
-
-##### ?entity.animation
-
-*Only available after Entity.addAnimation has been used*
+*Only available after Entity.addSprite or Entity.addAnimation has been used*
 
 ---
 
