@@ -1,5 +1,44 @@
 /* eslint-disable no-undef */
 
+export class L1ControllerPreset {
+  constructor() {
+    this.buttonAliases = {};
+    this.analogAliases = {};
+    this.buttonInversions = [];
+    this.analogInversions = [];
+  }
+
+  invertButton(btnId) {
+    this.buttonInversions.push(btnId);
+    return this;
+  }
+
+  invertAnalog(analogId) {
+    this.analogInversions.push(analogId);
+    return this;
+  }
+
+  aliasButton(btnId, alias) {
+    let aliasList = this.buttonAliases[btnId];
+    if (!aliasList) {
+      aliasList = [];
+    }
+    aliasList.push(alias);
+    this.buttonAliases[btnId] = aliasList;
+    return this;
+  }
+
+  aliasAnalog(analogId, alias) {
+    let aliasList = this.analogAliases[analogId];
+    if (!aliasList) {
+      aliasList = [];
+    }
+    aliasList.push(alias);
+    this.analogAliases[analogId] = aliasList;
+    return this;
+  }
+}
+
 export class L1Analog {
   constructor(id) {
     this.id = id;
