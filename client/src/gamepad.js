@@ -37,6 +37,27 @@ export class L1ControllerPreset {
     this.analogAliases[analogId] = aliasList;
     return this;
   }
+
+  // Should maybe deep copy l1gamepad
+  configure(l1gamepad) {
+    Object.keys(this.buttonAliases).forEach((btnId) => {
+      l1gamepad.aliasButton(btnId, this.buttonAliases[btnId]);
+    });
+
+    Object.keys(this.analogAliases).forEach((analogId) => {
+      l1gamepad.analogAliases(analogId, this.analogAliases[analogId]);
+    });
+
+    this.buttonInversions.forEach((btnId) => {
+      l1gamepad.invertButton(btnId);
+    });
+
+    this.analogInversions.forEach((analogId) => {
+      l1gamepad.invertAnalog(analogId);
+    });
+
+    return l1gamepad;
+  }
 }
 
 export class L1Analog {
@@ -51,7 +72,7 @@ export class L1Analog {
   }
 
   value(gamepad) {
-    value = gamepad.axes[this.id];
+    const value = gamepad.axes[this.id];
     if (!value) {
       return undefined;
     }
@@ -190,9 +211,27 @@ export class L1Controller {
     }
     return this.analogValue(gamepad, analogId);
   }
+
+  invertAnalog(analogId) {
+    const analog = this.analogs[analogId];
+    if (analog) {
+      analog.invert();
+    }
+  }
+
+  invertButton(btnId) {
+    const button = this.buttons[btnId];
+    if (button) {
+      button.invert();
+    }
+  }
 }
 
 const l1Controllers = {};
+
+const l1Presets = {
+  'MY-POWER CO.,LTD. USB Joystick (STANDARD GAMEPAD Vendor: 0e8f Product: 0003)': new L1ControllerPreset().invertAnalog(0).invertAnalog(1),
+};
 
 const controllers = {};
 const haveEvents = 'ongamepadconnected' in window;
@@ -202,9 +241,18 @@ function removegamepad(gamepad) {
 }
 
 function addgamepad(gamepad) {
-  l1Controllers[gamepad.index] = new L1Controller(gamepad);
+  let controller = new L1Controller(gamepad);
+  const preset = l1Presets[gamepad.id];
+
+  console.log(gamepad);
+  console.log(preset);
+  console.log(controller);
+  if (preset) {
+    controller = preset.configure(controller);
+  }
+
+  l1Controllers[gamepad.index] = controller;
   controllers[gamepad.index] = gamepad;
-  console.log(l1Controllers);
 }
 
 window.addEventListener('gamepadconnected', addgamepad);
