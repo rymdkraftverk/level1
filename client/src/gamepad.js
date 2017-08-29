@@ -74,9 +74,10 @@ export class L1Analog {
   value(gamepad) {
     const value = gamepad.axes[this.id];
     if (!value) {
-      return undefined;
+      return 0;
     }
-    return this.inverted ? value * -1 : value;
+    const v = this.inverted ? (value * -1) : value;
+    return v;
   }
 }
 
@@ -94,7 +95,7 @@ export class L1Button {
   isPressed(gamepad) {
     const value = gamepad.buttons[this.id];
     if (!value) {
-      return undefined;
+      return false;
     }
     return this.inverted ? !value : value;
   }
@@ -155,7 +156,7 @@ export class L1Controller {
   isPressed(gamepad, btnId) {
     const button = this.buttons[btnId];
     if (!button) {
-      return null;
+      return false;
     }
     return button.isPressed(gamepad);
   }
@@ -199,7 +200,7 @@ export class L1Controller {
   analogValue(gamepad, analogId) {
     const analog = this.analogs[analogId];
     if (!analog) {
-      return undefined;
+      return 0;
     }
     return analog.value(gamepad);
   }
@@ -244,9 +245,6 @@ function addgamepad(gamepad) {
   let controller = new L1Controller(gamepad);
   const preset = l1Presets[gamepad.id];
 
-  console.log(gamepad);
-  console.log(preset);
-  console.log(controller);
   if (preset) {
     controller = preset.configure(controller);
   }
@@ -294,6 +292,13 @@ export function isPressed(id, button) {
 export function axisDir(id, axis) {
   if (!controllers[id]) return null;
   return controllers[id].axes[axis];
+
+  /*
+  const gamepad = controllers[id];
+  const controller = l1Controllers[id];
+  const value = controller.analogValue(gamepad, axis);
+  return value;
+  */
 }
 
 export function getGamepads() {
