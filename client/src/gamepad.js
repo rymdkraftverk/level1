@@ -3,33 +3,40 @@
 export class L1Analog {
   constructor(id) {
     this.id = id;
-    this.flipped = false;
+    this.inverted = false;
   }
 
   invert() {
-    this.flipped = !this.flipped;
+    this.inverted = !this.inverted;
     return this;
   }
 
   value(gamepad) {
     value = gamepad.axes[this.id];
-    return this.flipped ? value * -1 : value;
+    if (!value) {
+      return undefined;
+    }
+    return this.inverted ? value * -1 : value;
   }
 }
 
 export class L1Button {
   constructor(buttonId) {
     this.id = buttonId;
-    this.reversed = false;
+    this.inverted = false;
   }
 
   invert() {
-    this.reverse = !this.reverse;
+    this.inverted = !this.inverted;
     return this;
   }
 
   isPressed(gamepad) {
-    return this.reversed ? !gamepad.buttons[this.id] : gamepad.buttons[this.id];
+    const value = gamepad.buttons[this.id];
+    if (!value) {
+      return undefined;
+    }
+    return this.inverted ? !value : value;
   }
 }
 
@@ -71,6 +78,78 @@ export class L1Controller {
       },
       {},
     );
+  }
+
+  hasButtonWithName(btnName) {
+    const btnId = this.buttonAliases[btnName];
+    if (!btnId) {
+      return false;
+    }
+    return this.hasButton(btnId);
+  }
+
+  hasButton(btnId) {
+    return this.buttons[btnId] !== undefined;
+  }
+
+  isPressed(gamepad, btnId) {
+    const button = this.buttons[btnId];
+    if (!button) {
+      return null;
+    }
+    return button.isPressed(gamepad);
+  }
+
+  isPressedByName(gamePad, btnName) {
+    const btnId = this.buttonAliases[btnName];
+    if (!btnId) {
+      return undefined;
+    }
+    return this.isPressed(gamepad, btnId);
+  }
+
+  aliasButton(btnId, alias) {
+    if (!this.hasButton(btnId)) {
+      return false;
+    }
+    this.aliasButton[alias] = btnId;
+    return true;
+  }
+
+  hasAnalog(analogId) {
+    return this.analogs[analogId] !== undefined;
+  }
+
+  hasAnalogWithName(analogName) {
+    const analogId = this.analogAliases[analogName];
+    if (!analogId) {
+      return false;
+    }
+    return this.hasAnalog(analogId);
+  }
+
+  aliasAnalog(analogId, alias) {
+    if (!this.hasAnalog(analogId)) {
+      return false;
+    }
+    this.analogAliases[alias] = analogId;
+    return true;
+  }
+
+  analogValue(gamepad, analogId) {
+    const analog = this.analogs[analogId];
+    if (!analog) {
+      return undefined;
+    }
+    return analog.value(gamepad);
+  }
+
+  analogValueByName(gamepad, analogName) {
+    const analogId = this.analogAliases[analogName];
+    if (!analogId) {
+      return undefined;
+    }
+    return this.analogValue(gamepad, analogId);
   }
 }
 
