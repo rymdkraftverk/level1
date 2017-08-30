@@ -97,7 +97,7 @@ export class L1Button {
     if (!value) {
       return false;
     }
-    return this.inverted ? !value : value;
+    return this.inverted ? !value.pressed : value.pressed;
   }
 }
 
@@ -231,7 +231,7 @@ export class L1Controller {
 const l1Controllers = {};
 
 const l1Presets = {
-  'MY-POWER CO.,LTD. USB Joystick (STANDARD GAMEPAD Vendor: 0e8f Product: 0003)': new L1ControllerPreset().invertAnalog(0).invertAnalog(1),
+  'MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)': new L1ControllerPreset(),
 };
 
 const controllers = {};
@@ -278,27 +278,12 @@ export function run() {
 
 export function isPressed(id, button) {
   if (!controllers[id]) return null;
-
-  const val = controllers[id].buttons[button];
-  let pressed = val === 1.0;
-
-  if (typeof (val) === 'object') {
-    pressed = val.pressed;
-    // val = val.value;
-  }
-  return pressed;
+  return l1Controllers[id].isPressed(controllers[id], button);
 }
 
 export function axisDir(id, axis) {
   if (!controllers[id]) return null;
-  return controllers[id].axes[axis];
-
-  /*
-  const gamepad = controllers[id];
-  const controller = l1Controllers[id];
-  const value = controller.analogValue(gamepad, axis);
-  return value;
-  */
+  return l1Controllers[id].analogValue(controllers[id], axis);
 }
 
 export function getGamepads() {
