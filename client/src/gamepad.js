@@ -2,8 +2,8 @@
 
 export class L1ControllerPreset {
   constructor() {
-    this.buttonAliases = {};
-    this.analogAliases = {};
+    this.buttonAliases = new Map();
+    this.analogAliases = new Map();
     this.buttonInversions = [];
     this.analogInversions = [];
   }
@@ -20,32 +20,36 @@ export class L1ControllerPreset {
 
   aliasButton(btnId, alias) {
     let aliasList = this.buttonAliases[btnId];
-    if (!aliasList) {
+    if (aliasList === undefined) {
       aliasList = [];
     }
     aliasList.push(alias);
-    this.buttonAliases[btnId] = aliasList;
+    this.buttonAliases.set(btnId, aliasList);
     return this;
   }
 
   aliasAnalog(analogId, alias) {
     let aliasList = this.analogAliases[analogId];
-    if (!aliasList) {
+    if (aliasList === undefined) {
       aliasList = [];
     }
     aliasList.push(alias);
-    this.analogAliases[analogId] = aliasList;
+    this.analogAliases.set(analogId, aliasList);
     return this;
   }
 
   // Should maybe deep copy l1gamepad
   configure(l1gamepad) {
-    Object.keys(this.buttonAliases).forEach((btnId) => {
-      l1gamepad.aliasButton(btnId, this.buttonAliases[btnId]);
+    this.buttonAliases.forEach((aliases, i) => {
+      aliases.forEach((alias) => {
+        l1gamepad.aliasButton(i, alias);
+      });
     });
 
-    Object.keys(this.analogAliases).forEach((analogId) => {
-      l1gamepad.analogAliases(analogId, this.analogAliases[analogId]);
+    this.analogAliases.forEach((aliases, i) => {
+      aliases.forEach((alias) => {
+        l1gamepad.analogAliases(i, alias);
+      });
     });
 
     this.buttonInversions.forEach((btnId) => {
@@ -73,7 +77,7 @@ export class L1Analog {
 
   value(gamepad) {
     const value = gamepad.axes[this.id];
-    if (!value) {
+    if (value === undefined) {
       return 0;
     }
     const v = this.inverted ? (value * -1) : value;
@@ -94,7 +98,7 @@ export class L1Button {
 
   isPressed(gamepad) {
     const value = gamepad.buttons[this.id];
-    if (!value) {
+    if (value === undefined) {
       return false;
     }
     return this.inverted ? !value.pressed : value.pressed;
@@ -143,7 +147,7 @@ export class L1Controller {
 
   hasButtonWithName(btnName) {
     const btnId = this.buttonAliases[btnName];
-    if (!btnId) {
+    if (btnId === undefined) {
       return false;
     }
     return this.hasButton(btnId);
@@ -155,15 +159,15 @@ export class L1Controller {
 
   isPressed(gamepad, btnId) {
     const button = this.buttons[btnId];
-    if (!button) {
+    if (button === undefined) {
       return false;
     }
     return button.isPressed(gamepad);
   }
 
-  isPressedByName(gamePad, btnName) {
+  isPressedByName(gamepad, btnName) {
     const btnId = this.buttonAliases[btnName];
-    if (!btnId) {
+    if (btnId === undefined) {
       return undefined;
     }
     return this.isPressed(gamepad, btnId);
@@ -173,7 +177,7 @@ export class L1Controller {
     if (!this.hasButton(btnId)) {
       return false;
     }
-    this.aliasButton[alias] = btnId;
+    this.buttonAliases[alias] = btnId;
     return true;
   }
 
@@ -183,7 +187,7 @@ export class L1Controller {
 
   hasAnalogWithName(analogName) {
     const analogId = this.analogAliases[analogName];
-    if (!analogId) {
+    if (analogId === undefined) {
       return false;
     }
     return this.hasAnalog(analogId);
@@ -199,7 +203,7 @@ export class L1Controller {
 
   analogValue(gamepad, analogId) {
     const analog = this.analogs[analogId];
-    if (!analog) {
+    if (analog === undefined) {
       return 0;
     }
     return analog.value(gamepad);
@@ -207,7 +211,7 @@ export class L1Controller {
 
   analogValueByName(gamepad, analogName) {
     const analogId = this.analogAliases[analogName];
-    if (!analogId) {
+    if (analogId === undefined) {
       return undefined;
     }
     return this.analogValue(gamepad, analogId);
@@ -215,14 +219,14 @@ export class L1Controller {
 
   invertAnalog(analogId) {
     const analog = this.analogs[analogId];
-    if (analog) {
+    if (analog !== undefined) {
       analog.invert();
     }
   }
 
   invertButton(btnId) {
     const button = this.buttons[btnId];
-    if (button) {
+    if (button !== undefined) {
       button.invert();
     }
   }
@@ -231,7 +235,7 @@ export class L1Controller {
 const l1Controllers = {};
 
 const l1Presets = {
-  'MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)': new L1ControllerPreset(),
+  'MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)': new L1ControllerPreset().aliasButton(0, 'y'),
 };
 
 const controllers = {};
