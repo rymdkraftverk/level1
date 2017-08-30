@@ -145,8 +145,8 @@ export class L1Controller {
     );
   }
 
-  hasButtonWithName(btnName) {
-    const btnId = this.buttonAliases[btnName];
+  hasButtonWithAlias(btnAlias) {
+    const btnId = this.buttonAliases[btnAlias];
     if (btnId === undefined) {
       return false;
     }
@@ -154,10 +154,17 @@ export class L1Controller {
   }
 
   hasButton(btnId) {
+    if (typeof btnId === 'string') {
+      return this.hasButtonWithAlias(btnId);
+    }
     return this.buttons[btnId] !== undefined;
   }
 
   isPressed(gamepad, btnId) {
+    if (typeof btnId === 'string') {
+      return this.isPressedByAlias(gamepad, btnId);
+    }
+
     const button = this.buttons[btnId];
     if (button === undefined) {
       return false;
@@ -165,8 +172,8 @@ export class L1Controller {
     return button.isPressed(gamepad);
   }
 
-  isPressedByName(gamepad, btnName) {
-    const btnId = this.buttonAliases[btnName];
+  isPressedByAlias(gamepad, btnAlias) {
+    const btnId = this.buttonAliases[btnAlias];
     if (btnId === undefined) {
       return undefined;
     }
@@ -182,11 +189,14 @@ export class L1Controller {
   }
 
   hasAnalog(analogId) {
+    if (typeof analogId === 'string') {
+      return this.hasAnalogWithAlias(analogId);
+    }
     return this.analogs[analogId] !== undefined;
   }
 
-  hasAnalogWithName(analogName) {
-    const analogId = this.analogAliases[analogName];
+  hasAnalogWithAlias(analogAlias) {
+    const analogId = this.analogAliases[analogAlias];
     if (analogId === undefined) {
       return false;
     }
@@ -202,6 +212,10 @@ export class L1Controller {
   }
 
   analogValue(gamepad, analogId) {
+    if (typeof analogId === 'string') {
+      return this.analogValueByAlias(gamepad, analogId);
+    }
+
     const analog = this.analogs[analogId];
     if (analog === undefined) {
       return 0;
@@ -209,8 +223,8 @@ export class L1Controller {
     return analog.value(gamepad);
   }
 
-  analogValueByName(gamepad, analogName) {
-    const analogId = this.analogAliases[analogName];
+  analogValueByAlias(gamepad, analogAlias) {
+    const analogId = this.analogAliases[analogAlias];
     if (analogId === undefined) {
       return undefined;
     }
