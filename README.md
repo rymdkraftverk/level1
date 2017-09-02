@@ -190,7 +190,7 @@ The following properties are specified for objects created by Entity.create
 
 ##### run()
 
-*Call on every game update. Will return true when duration is reached.*
+*Called on every game update. Will return true when duration is reached.*
 
 Example usage:
 
@@ -223,9 +223,17 @@ Example usage:
 
 ##### getSound(filePath: string, ?options: object)
 
-*Options are Howler options other than src.*
-
+*Options are Howler options other than src:*
 https://github.com/goldfire/howler.js#options
+
+*Note: Remember to call .play() on the sound object to play it.*
+
+Example usage:
+
+```javascript
+  const sound = Sound.getSound('sounds/hit.wav', { volume: 0.8 });
+  sound.play();
+```
 
 ---
 
@@ -301,5 +309,7 @@ options: {
 
 ##### TODO
 
- - Add examples
  - Sync sprite and body in engine?? (seems like very common scenario... )
+ - Camera
+ - Add Default sprite?
+ - Add examples
