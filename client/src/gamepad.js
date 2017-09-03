@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+/* eslint-disable no-use-before-define */
 
 export class L1ControllerPreset {
   constructor() {
@@ -248,12 +249,20 @@ export class L1Controller {
 
 const l1Controllers = {};
 
-const l1Presets = {
-  'MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)': new L1ControllerPreset().aliasButton(0, 'y'),
-};
 
 const controllers = {};
 const haveEvents = 'ongamepadconnected' in window;
+
+let l1Presets = {
+  'MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)': new L1ControllerPreset().aliasButton(0, 'y'),
+};
+
+export function addPreset(typeId, controllerPreset) {
+  l1Presets = {
+    ...l1Presets,
+    typeId: controllerPreset,
+  };
+}
 
 function removegamepad(gamepad) {
   delete controllers[gamepad.index];
