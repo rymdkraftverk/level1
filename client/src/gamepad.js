@@ -262,6 +262,12 @@ export function addPreset(typeId, controllerPreset) {
     ...l1Presets,
     typeId: controllerPreset,
   };
+  Object.keys(l1Controllers).forEach((c) => {
+    const controller = l1Controllers[c];
+    if (controller.typeId === typeId) {
+      preset.configure(controller);
+    }
+  });
 }
 
 function removegamepad(gamepad) {
