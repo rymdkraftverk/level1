@@ -260,7 +260,7 @@ let l1Presets = {
 export function addPreset(typeId, controllerPreset) {
   l1Presets = {
     ...l1Presets,
-    typeId: controllerPreset,
+    [typeId]: controllerPreset,
   };
   Object.keys(l1Controllers).forEach((c) => {
     const controller = l1Controllers[c];
@@ -321,4 +321,8 @@ export function axisDir(id, axis) {
 
 export function getGamepads() {
   return controllers;
+}
+
+export function getL1Controllers() {
+  return l1Controllers;
 }
