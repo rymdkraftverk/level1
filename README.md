@@ -38,7 +38,7 @@ Example:
 
 ### Entities
 
-##### Create
+> Create
 
 Entity.create(id: string)
 
@@ -48,7 +48,7 @@ Entity.create(id: string)
   const lizard = Entity.create('lizard');
 ```
 
-##### Add sprite and position it
+> Add sprite and position it
 
 Entity.addSprite(entity: object, filename: string)
 
@@ -61,10 +61,9 @@ Entity.addSprite(entity: object, filename: string)
 Check PIXI.Sprite docs for properties on sprite object
 
 
-##### Add animation
+> Add animation
 
 Entity.addAnimation(entity: object, filenames: array[string], animationSpeed: number)
-
 
 ```javascript
   const lizardAnim = Entity.addAnimation(lizard, ['lizard1', 'lizard2'], 0.1);
@@ -74,10 +73,10 @@ Entity.addAnimation(entity: object, filenames: array[string], animationSpeed: nu
 
 Check PIXI.AnimatedSprite docs for properties on animation object
 
-##### Add behaviour
+> Add behaviour
 
 ```javascript
-  lizard.behaviours['moveLeft'] = moveLeft();
+  lizard.behaviours.moveLeft = moveLeft();
 ```
 
 ---
@@ -108,11 +107,11 @@ Behaviours are objects with two properties:
 
 ## API - Client
 
-### Entity
+> Entity
 
-##### create(id: string) => EntityObject
+#### Entity.create(id: string) => EntityObject
 
-##### addSprite(entity: object, filename: string, ?options: object) => PIXI.Sprite
+#### Entity.addSprite(entity: object, filename: string, ?options: object) => PIXI.Sprite
 
 ```javascript
 options: {
@@ -120,79 +119,77 @@ options: {
 }
 ```
 
-##### addAnimation(entity: object, filenames: array[string], animationSpeed: number)
+#### Entity.addAnimation(entity: object, filenames: array[string], animationSpeed: number)
 
-##### addBody(entity: object, body: Matter.Body)
+#### Entity.addBody(entity: object, body: Matter.Body)
 
 *Add Physics body*
 
-##### removeBody(body: Matter.Body)
+#### Entity.removeBody(body: Matter.Body)
 
-##### addCollision(entityType: string, otherTypes: array[string], onCollision: (bodyA, bodyB) => void, ?collisionType: string);
+#### Entity.addCollision(entityType: string, otherTypes: array[string], onCollision: (bodyA, bodyB) => void, ?collisionType: string);
 
-*Default collisionType: `collisionActive`*
+Default collisionType: `collisionActive`
 
-*Other options: `collisionStart` `collisionEnd` * 
+Other options: `collisionStart` | `collisionEnd`
 
-##### destroy(entity: object)
+#### Entity.destroy(entity: object)
 
 *Remove entity, sprite, animation and body.*
 
 ---
 
-### EntityObject properties
+> EntityObject properties
 
 The following properties are specified for objects created by Entity.create
 
-##### entity.id
+#### entity.id
 
 *Unique id*
 
-##### entity.type
+#### entity.type
 
 *Type field to group entities together, also used for collisions (Should perhaps be an array...)*
 
-##### entity.behaviours (object)
+#### entity.behaviours (object)
 
 *Map with all behaviours*
 
-##### entity.body
+#### entity.body
 
 *Physics body. Always has default body with entity as only property.*
 
-##### ?entity.sprite
+#### ?entity.sprite
 
 *Only available after Entity.addSprite or Entity.addAnimation has been used*
 
 ---
 
-### Net
+> Net
 
-##### on(key: string, func: func)
+#### Net.on(key: string, func: func)
 
 *Run function when message with key is received*
 
-##### emit(message: string, data: object)
+#### Net.emit(message: string, data: object)
 
 *Send data to all other clients*
 
 ---
 
-### Timer
+> Timer
 
 *Timer starts at 0 and counts up to duration.*
 
-##### create(duration: number) => TimerObject
+#### create(duration: number) => TimerObject
 
----
+> TimerObject - object properties
 
-### TimerObject
+The following properties are specified for objects created by Timer.create
 
-##### run()
+#### timer.run()
 
 *Called on every game update. Will return true when duration is reached.*
-
-Example usage:
 
 ```javascript
   timerBehaviour = () => ({
@@ -205,30 +202,28 @@ Example usage:
   })
 ```
 
-##### reset()
+#### timer.reset()
 
 *Reset counter to 0.*
 
-##### counter()
+#### timer.counter()
 
 *The current value of the counter.*
 
-##### duration()
+#### timer.duration()
 
 *Get duration.*
 
 ---
 
-### Sound
+> Sound
 
-##### getSound(filePath: string, ?options: object)
+#### Sound.getSound(filePath: string, ?options: object)
 
-*Options are Howler options other than src:*
+*Options are Howler options other than src*
 https://github.com/goldfire/howler.js#options
 
 *Note: Remember to call .play() on the sound object to play it.*
-
-Example usage:
 
 ```javascript
   const sound = Sound.getSound('sounds/hit.wav', { volume: 0.8 });
@@ -237,49 +232,69 @@ Example usage:
 
 ---
 
-### Core
+> Core
 
-##### createCore()
+#### Core.createCore()
 
 *Initialize game main loop*
 
-##### createPhysics()
+#### Core.createPhysics()
 
 *Initialize Matter.Engine*
 
-##### getEntities()
+#### Core.getEntities()
 
 *Get all entities*
 
-##### get(id: string)
+#### Core.get(id: string)
 
 *Get entitiy by id*
 
 ---
 
-### Render
+> Render
 
-##### add(child: object)
+#### Render.getSprite(fileName: string)
 
-*Child is a PIXI object (Sprite, AnimatedSprite or Text)*
+#### Render.add(child: PIXI.Sprite|PIXI.AnimatedSprite|PIXI.Text)
 
-##### remove(child: object)
-
-*Child is a PIXI object (Sprite, AnimatedSprite or Text)*
+#### Render.remove(child: PIXI.Sprite|PIXI.AnimatedSprite|PIXI.Text)
 
 *Note: Only remove what's being rendered. Entity will still exist.*
 
-##### getText(text: string, ?options: object(PIXI.TextStyle))
-
-*Options are a PIXI.TextStyle object.*
+#### Render.getText(text: string, ?options: object(PIXI.TextStyle))
 
 http://pixijs.download/release/docs/PIXI.TextStyle.html
 
 ---
 
-### Util
+> Gamepad
 
-##### getRandomInRange(from: number, to: number)
+#### Gamepad.addPreset(typeId: string, preset: L1ControllerPreset)
+
+```javascript
+addPreset('MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)': new L1ControllerPreset().aliasButton(0, 'y'));
+```
+
+#### Gamepad.getGamepads()
+
+#### Gamepad.isPressed(gamepadId, buttonId:number|alias:string)
+
+---
+
+> L1ControllerPreset - instance methods
+
+```javascript
+  const preset = new L1ControllerPreset();
+```
+
+#### preset.aliasButton(id, alias)
+
+---
+
+> Util
+
+#### Util.getRandomInRange(from: number, to: number)
 
 Get a random number in range (from - to)
 
@@ -287,9 +302,9 @@ Get a random number in range (from - to)
 
 ## API - Server
 
-### Server
+> Server
 
-##### start(?options: object)
+#### Server.start(?options: object)
 
 options: {
   network: bool
@@ -297,19 +312,32 @@ options: {
 
 ---
 
-### Net
+> Net
 
-##### on(key: string, func: func)
+#### Net.on(key: string, func: func)
 
-##### emit(key: string, data: object)
+#### Net.emit(key: string, data: object)
 
-##### broadcast(key: string, data: object)
+#### Net.broadcast(key: string, data: object)
 
 ---
 
-##### TODO
+### Note
+
+Matter.js puts the anchor point in the middle of the body. While pixi puts in the the top left
+of the sprite. Might try to sync this in the engine in the future..
+
+#### TODO
 
  - Sync sprite and body in engine?? (seems like very common scenario... )
  - Camera
  - Add Default sprite?
  - Add examples
+ - Add better comments for documentation
+ - Readme index
+
+ #### Ideas
+ 
+  - combine addSprite and addAnimation to one addGfx
+  - global state object and selectors
+  

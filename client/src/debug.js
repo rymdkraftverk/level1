@@ -24,6 +24,7 @@ export function initDebugTools() {
   const destroyAllButton = button('Destroy All', () => {
     removeAll();
     removeAllSprites();
+    // TODO: Destroy all bodies
   });
   container.appendChild(destroyAllButton);
 
