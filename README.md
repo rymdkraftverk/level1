@@ -38,7 +38,7 @@ Example:
 
 ### Entities
 
-> ## Create
+> ### Create
 
 Entity.create(id: string)
 
@@ -48,7 +48,7 @@ Entity.create(id: string)
   const lizard = Entity.create('lizard');
 ```
 
-> ## Add sprite and position it
+> ### Add sprite and position it
 
 Entity.addSprite(entity: object, filename: string)
 
@@ -61,7 +61,7 @@ Entity.addSprite(entity: object, filename: string)
 Check PIXI.Sprite docs for properties on sprite object
 
 
-> ## Add animation
+> ### Add animation
 
 Entity.addAnimation(entity: object, filenames: array[string], animationSpeed: number)
 
@@ -73,7 +73,7 @@ Entity.addAnimation(entity: object, filenames: array[string], animationSpeed: nu
 
 Check PIXI.AnimatedSprite docs for properties on animation object
 
-> ## Add behaviour
+> ### Add behaviour
 
 ```javascript
   lizard.behaviours.moveLeft = moveLeft();
@@ -93,11 +93,11 @@ Behaviours are objects with two properties:
  behaviour belongs to as the second argument.
 
 ```javascript
-  const moveLeft = () => ## ({
-    init: (behaviour, entity) => ## {
+  const moveLeft = () => ({
+    init: (behaviour, entity) => {
 
     },
-    run: (behaviour, entity) => ## {
+    run: (behaviour, entity) => {
       entity.sprite.x -= 1;
     },
   })
@@ -107,11 +107,11 @@ Behaviours are objects with two properties:
 
 ## API - Client
 
-> ## Entity
+> ### Entity
 
-#### Entity.create(id: string) => ## EntityObject
+#### Entity.create(id: string) => EntityObject
 
-#### Entity.addSprite(entity: object, filename: string, ?options: object) => ## PIXI.Sprite
+#### Entity.addSprite(entity: object, filename: string, ?options: object) => PIXI.Sprite
 
 ```javascript
 options: {
@@ -127,7 +127,7 @@ options: {
 
 #### Entity.removeBody(body: Matter.Body)
 
-#### Entity.addCollision(entityType: string, otherTypes: array[string], onCollision: (bodyA, bodyB) => ## void, ?collisionType: string);
+#### Entity.addCollision(entityType: string, otherTypes: array[string], onCollision: (bodyA, bodyB) => void, ?collisionType: string);
 
 Default collisionType: `collisionActive`
 
@@ -139,7 +139,7 @@ Other options: `collisionStart` | `collisionEnd`
 
 ---
 
-> ## EntityObject properties
+> ### EntityObject properties
 
 The following properties are specified for objects created by Entity.create
 
@@ -165,7 +165,7 @@ The following properties are specified for objects created by Entity.create
 
 ---
 
-> ## Net
+> ### Net
 
 #### Net.on(key: string, func: func)
 
@@ -177,13 +177,13 @@ The following properties are specified for objects created by Entity.create
 
 ---
 
-> ## Timer
+> ### Timer
 
 *Timer starts at 0 and counts up to duration.*
 
-#### create(duration: number) => ## TimerObject
+#### create(duration: number) => TimerObject
 
-> ## TimerObject - object properties
+> ### TimerObject - object properties
 
 The following properties are specified for objects created by Timer.create
 
@@ -192,9 +192,9 @@ The following properties are specified for objects created by Timer.create
 *Called on every game update. Will return true when duration is reached.*
 
 ```javascript
-  timerBehaviour = () => ## ({
+  timerBehaviour = () => ({
     timer: Timer.create(100),
-    run: (b, e) => ## {
+    run: (b, e) => {
       if (b.timer && b.timer.run()) {
         // Run code when timer duration is reached
       }
@@ -216,7 +216,7 @@ The following properties are specified for objects created by Timer.create
 
 ---
 
-> ## Sound
+> ### Sound
 
 #### Sound.getSound(filePath: string, ?options: object)
 
@@ -232,7 +232,7 @@ https://github.com/goldfire/howler.js#options
 
 ---
 
-> ## Core
+> ### Core
 
 #### Core.createCore()
 
@@ -252,7 +252,7 @@ https://github.com/goldfire/howler.js#options
 
 ---
 
-> ## Render
+> ### Render
 
 #### Render.getSprite(fileName: string)
 
@@ -268,7 +268,7 @@ http://pixijs.download/release/docs/PIXI.TextStyle.html
 
 ---
 
-> ## Gamepad
+> ### Gamepad
 
 #### Gamepad.addPreset(typeId: string, preset: L1ControllerPreset)
 
@@ -282,7 +282,7 @@ addPreset('MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)': new L1C
 
 ---
 
-> ## L1ControllerPreset - instance methods
+> ### L1ControllerPreset - instance methods
 
 ```javascript
   const preset = new L1ControllerPreset();
@@ -292,7 +292,7 @@ addPreset('MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)': new L1C
 
 ---
 
-> ## Util
+> ### Util
 
 #### Util.getRandomInRange(from: number, to: number)
 
@@ -302,7 +302,7 @@ Get a random number in range (from - to)
 
 ## API - Server
 
-> ## Server
+> ### Server
 
 #### Server.start(?options: object)
 
@@ -312,7 +312,7 @@ options: {
 
 ---
 
-> ## Net
+> ### Net
 
 #### Net.on(key: string, func: func)
 
