@@ -9,6 +9,7 @@ export function create(id) {
   const entity = {
     id,
     type: '',
+    sprite: null,
     behaviours,
     run: (entity) => { // eslint-disable-line no-shadow
       Object.keys(behaviours).forEach((b) => {
