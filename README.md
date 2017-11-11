@@ -1,24 +1,24 @@
-Libraries used:
+# level1
 
- - Rendering: Pixi.js (https://github.com/pixijs/pixi.js)
- - Physics: Matter.js (https://github.com/liabru/matter-js)
- - Sound: Howler.js (https://github.com/goldfire/howler.js)
- - Multiplayer: Socket.io (https://github.com/socketio/socket.io)
+> Create 2D games in the browser with minimal effort
 
-## Develop
+## Index
 
-In `client` and `server`
+1. Getting started
+1. Docs / API
+1. Develop
+1. Dependency references
 
-`npm install` = Install dependencies
+---
 
-`npm run build:watch` = Continously build dist files
+## 1. Getting started
 
-## Use - Client
+Use the template project as a starter
 
 ### Sprites
 
 - Put sprites in `public/assets/`
-- Add sprite file name to `src/sprites.json`
+- Add sprite file name to `src/client/sprites.json`
 
 *Sprites have to be .png*
 
@@ -27,7 +27,7 @@ Example:
 `public/assets/mySprite.png`
 
 ```json
-// src/sprites.json
+// src/client/sprites.json
 [
   "mySprite"
 ]
@@ -105,7 +105,9 @@ Behaviours are objects with two properties:
 
 ---
 
-## API - Client
+## Docs / API
+
+## Client
 
 > ### Entity
 
@@ -306,9 +308,11 @@ Get a random number in range (from - to)
 
 #### Server.start(?options: object)
 
+```
 options: {
   network: bool
 }
+```
 
 ---
 
@@ -322,22 +326,56 @@ options: {
 
 ---
 
+## 3. Develop
+
+In `client` and `server`
+
+`npm install` = Install dependencies
+
+`npm run build:watch` = Continously build dist files
+
+---
+
+## 4. Dependency references:
+
+ - Rendering: Pixi.js (https://github.com/pixijs/pixi.js)
+ - Physics: Matter.js (https://github.com/liabru/matter-js)
+ - Sound: Howler.js (https://github.com/goldfire/howler.js)
+ - Multiplayer: Socket.io (https://github.com/socketio/socket.io)
+
+ ---
+
 ### Note
 
 Matter.js puts the anchor point in the middle of the body. While pixi puts in the the top left
 of the sprite. Might try to sync this in the engine in the future..
 
+Not compatible with Webpack (Use Browserify instead)
+
+---
+
 #### TODO
 
  - Sync sprite and body in engine?? (seems like very common scenario... )
- - Camera
+ - Camera (check for camera in pixi)
  - Add Default sprite?
  - Add examples
+ - Add test environment in library
  - Add better comments for documentation
  - Readme index
+ - Dev and prod builds
+ - Update deps
+ - Create Trello board
+ - Rename behaviour to behavior
+ - Use dev server to combine start and watch commands
+ - Create a script for building game dist files
+ - Investigate upgrading to webpack (if pixi supports it)
+ - Bug: Console errors when network is not enabled
+ - Pass resution as an object to renderer
+ - Enabled setting void color outside of engine (default background)
 
  #### Ideas
  
   - combine addSprite and addAnimation to one addGfx
-  - global state object and selectors
+  - global state object and selectors (investigate how to handle global state in games)
   
