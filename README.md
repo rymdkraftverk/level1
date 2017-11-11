@@ -363,18 +363,15 @@ Not compatible with Webpack (Use Browserify instead)
  - Camera (check for camera in pixi)
  - Add Default sprite?
  - Add examples
- - Add test environment in library
  - Add better comments for documentation
- - Readme index
  - Dev and prod builds
- - Update deps
- - Create Trello board
  - Use dev server to combine start and watch commands
  - Create a script for building game dist files
  - Investigate upgrading to webpack (if pixi supports it)
- - Bug: Console errors when network is not enabled
  - Pass resution as an object to renderer
  - Enabled setting void color outside of engine (default background)
+ - Update deps
+ - Create Trello board
 
  #### Ideas
  

@@ -1,7 +1,11 @@
 import io from 'socket.io-client';
 
-const socket = io();
+let socket;
 let clientId;
+
+export function start() {
+  socket = io();
+}
 
 export function getClientId() {
   return clientId;
