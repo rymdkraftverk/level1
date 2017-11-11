@@ -5,20 +5,20 @@ import * as Render from './render';
 
 export function create(id) {
   if (!id) throw new Error('Entity.create(id) takes a unique id as an argument');
-  const behaviours = {};
+  const behaviors = {};
   const entity = {
     id,
     type: '',
     sprite: null,
-    behaviours,
+    behaviors,
     run: (entity) => { // eslint-disable-line no-shadow
-      Object.keys(behaviours).forEach((b) => {
-        const behaviour = behaviours[b];
-        if (behaviour.init) {
-          behaviour.init(behaviour, entity);
-          delete behaviour.init;
+      Object.keys(behaviors).forEach((b) => {
+        const behavior = behaviors[b];
+        if (behavior.init) {
+          behavior.init(behavior, entity);
+          delete behavior.init;
         }
-        behaviour.run(behaviour, entity);
+        behavior.run(behavior, entity);
       });
 
       // Display hitboxes

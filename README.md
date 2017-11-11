@@ -38,12 +38,14 @@ Example:
 
 ### Entities
 
+TODO: rewrite this section
+
 > ### Create
 
 Entity.create(id: string)
 
 ```javascript
-  import { Entity } from 'l1-lite';
+  import { Entity } from 'l1';
 
   const lizard = Entity.create('lizard');
 ```
@@ -73,31 +75,31 @@ Entity.addAnimation(entity: object, filenames: array[string], animationSpeed: nu
 
 Check PIXI.AnimatedSprite docs for properties on animation object
 
-> ### Add behaviour
+> ### Add behavior
 
 ```javascript
-  lizard.behaviours.moveLeft = moveLeft();
+  lizard.behaviors.moveLeft = moveLeft();
 ```
 
 ---
 
-### Behaviours
+### Behaviors
 
-Behaviours are objects with two properties: 
+Behaviors are objects with two properties: 
 
- - `run(behaviour, entity)` which is called 60 times per second. (mandatory)
+ - `run(behavior, entity)` which is called 60 times per second. (mandatory)
 
- - `init(behaviour, entity)` which is only called once when the entity is first added. (optional)
+ - `init(behavior, entity)` which is only called once when the entity is first added. (optional)
 
- Both are passed the current behaviour as first argument and the entity that the
- behaviour belongs to as the second argument.
+ Both are passed the current behavior as first argument and the entity that the
+ behavior belongs to as the second argument.
 
 ```javascript
   const moveLeft = () => ({
-    init: (behaviour, entity) => {
+    init: (behavior, entity) => {
 
     },
-    run: (behaviour, entity) => {
+    run: (behavior, entity) => {
       entity.sprite.x -= 1;
     },
   })
@@ -153,9 +155,9 @@ The following properties are specified for objects created by Entity.create
 
 *Type field to group entities together, also used for collisions (Should perhaps be an array...)*
 
-#### entity.behaviours (object)
+#### entity.behaviors (object)
 
-*Map with all behaviours*
+*Map with all behaviors*
 
 #### entity.body
 
@@ -194,7 +196,7 @@ The following properties are specified for objects created by Timer.create
 *Called on every game update. Will return true when duration is reached.*
 
 ```javascript
-  timerBehaviour = () => ({
+  timerBehavior = () => ({
     timer: Timer.create(100),
     run: (b, e) => {
       if (b.timer && b.timer.run()) {
@@ -357,6 +359,7 @@ Not compatible with Webpack (Use Browserify instead)
 #### TODO
 
  - Sync sprite and body in engine?? (seems like very common scenario... )
+ - Expose default behaviors 
  - Camera (check for camera in pixi)
  - Add Default sprite?
  - Add examples
@@ -366,7 +369,6 @@ Not compatible with Webpack (Use Browserify instead)
  - Dev and prod builds
  - Update deps
  - Create Trello board
- - Rename behaviour to behavior
  - Use dev server to combine start and watch commands
  - Create a script for building game dist files
  - Investigate upgrading to webpack (if pixi supports it)

@@ -16,5 +16,5 @@ Render.createRenderer(1000, 900, sprites).then(() => {
   // createControllerPresets();
 
   const input = Entity.create('input');
-  input.behaviours.scan = scanGamepads();
+  input.behaviors.scan = scanGamepads();
 });
