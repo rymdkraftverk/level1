@@ -1,19 +1,19 @@
 # level1
 
-> Create 2D games in the browser with minimal effort
+> Quickly get started creating 2D games in the browser with minimal setup or configuration
 
 ## Index
 
-1. Getting started
-1. Docs / API
-1. Develop
-1. Dependency references
+1. [Getting started](https://github.com/sajmoni/level1#1-getting-started)
+1. [Docs / API: Client](https://github.com/sajmoni/level1#docs--api)
+1. [Develop](https://github.com/sajmoni/level1#3-develop)
+1. [Dependency references](https://github.com/sajmoni/level1#4-dependency-references)
 
 ---
 
 ## 1. Getting started
 
-Use the template project as a starter
+Use the template project as a starter.
 
 ### Sprites
 
@@ -38,11 +38,7 @@ Example:
 
 ### Entities
 
-TODO: rewrite this section
-
-> ### Create
-
-Entity.create(id: string)
+#### Create
 
 ```javascript
   import { Entity } from 'l1';
@@ -50,9 +46,7 @@ Entity.create(id: string)
   const lizard = Entity.create('lizard');
 ```
 
-> ### Add sprite and position it
-
-Entity.addSprite(entity: object, filename: string)
+#### Add sprite and position it
 
 ```javascript
   const lizardSprite = Entity.addSprite(lizard, 'lizard1');
@@ -60,12 +54,10 @@ Entity.addSprite(entity: object, filename: string)
   lizardSprite.y = 200;
 ```
 
-Check PIXI.Sprite docs for properties on sprite object
+*Check PIXI.Sprite docs for properties on sprite object*
 
 
-> ### Add animation
-
-Entity.addAnimation(entity: object, filenames: array[string], animationSpeed: number)
+#### Add animation
 
 ```javascript
   const lizardAnim = Entity.addAnimation(lizard, ['lizard1', 'lizard2'], 0.1);
@@ -73,13 +65,7 @@ Entity.addAnimation(entity: object, filenames: array[string], animationSpeed: nu
   lizardAnim.y = 200;
 ```
 
-Check PIXI.AnimatedSprite docs for properties on animation object
-
-> ### Add behavior
-
-```javascript
-  lizard.behaviors.moveLeft = moveLeft();
-```
+*Check PIXI.AnimatedSprite docs for properties on animation object*
 
 ---
 
@@ -105,15 +91,20 @@ Behaviors are objects with two properties:
   })
 ```
 
+#### Add behavior
+
+```javascript
+  lizard.behaviors.moveLeft = moveLeft();
+```
+
+
 ---
 
-## Docs / API
+## 2. Docs / API: Client
 
-## Client
+### Entity
 
-> ### Entity
-
-#### Entity.create(id: string) => EntityObject
+#### Entity.create(id: string) => object
 
 #### Entity.addSprite(entity: object, filename: string, ?options: object) => PIXI.Sprite
 
@@ -123,11 +114,13 @@ options: {
 }
 ```
 
-#### Entity.addAnimation(entity: object, filenames: array[string], animationSpeed: number)
+#### Entity.addAnimation(entity: object, filenames: array[string], ?animationSpeed: number) => PIXI.AnimatedSprite
+
+Default animationSpeed = 0.005.
 
 #### Entity.addBody(entity: object, body: Matter.Body)
 
-*Add Physics body*
+Add Physics body.
 
 #### Entity.removeBody(body: Matter.Body)
 
@@ -139,61 +132,67 @@ Other options: `collisionStart` | `collisionEnd`
 
 #### Entity.destroy(entity: object)
 
-*Remove entity, sprite, animation and body.*
+Remove entity, sprite, animation and body.
 
 ---
 
-> ### EntityObject properties
+### Entity object properties
 
-The following properties are specified for objects created by Entity.create
+The following properties are specified for objects created by Entity.create.
 
 #### entity.id
 
-*Unique id*
+Unique id.
 
 #### entity.type
 
-*Type field to group entities together, also used for collisions (Should perhaps be an array...)*
+Type field to group entities together, also used for collisions (Should perhaps be an array...).
 
 #### entity.behaviors (object)
 
-*Map with all behaviors*
+Map with all behaviors.
 
 #### entity.body
 
-*Physics body. Always has default body with entity as only property.*
+Physics body. Always has default body with entity as only property.
 
-#### ?entity.sprite
+#### entity.sprite
 
-*Only available after Entity.addSprite or Entity.addAnimation has been used*
+Either null, PIXI.Sprite or PIXI.AnimatedSprite
 
 ---
 
-> ### Net
+### Net
+
+#### Net.start()
+
+Initialize socket.io client
 
 #### Net.on(key: string, func: func)
 
-*Run function when message with key is received*
+Run function when message with key is received.
 
 #### Net.emit(message: string, data: object)
 
-*Send data to all other clients*
+Send data to all other clients.
 
 ---
 
-> ### Timer
+### Timer
 
-*Timer starts at 0 and counts up to duration.*
+Timer starts at 0 and counts up to duration.
 
-#### create(duration: number) => TimerObject
+#### create(duration: number) => object
 
-> ### TimerObject - object properties
+---
 
-The following properties are specified for objects created by Timer.create
+### Timer object properties
+
+The following properties are specified for objects created by Timer.create.
 
 #### timer.run()
 
-*Called on every game update. Will return true when duration is reached.*
+Called on every game update. Will return true when duration is reached. Either reset the timer or delete it when timer.run returns true.
 
 ```javascript
   timerBehavior = () => ({
@@ -201,6 +200,9 @@ The following properties are specified for objects created by Timer.create
     run: (b, e) => {
       if (b.timer && b.timer.run()) {
         // Run code when timer duration is reached
+        b.timer.reset();
+        // or
+        delete b.timer;
       }
     } 
   })
@@ -208,26 +210,26 @@ The following properties are specified for objects created by Timer.create
 
 #### timer.reset()
 
-*Reset counter to 0.*
+Reset counter to 0.
 
 #### timer.counter()
 
-*The current value of the counter.*
+The current value of the counter.
 
 #### timer.duration()
 
-*Get duration.*
+Get duration.
 
 ---
 
-> ### Sound
+### Sound
 
 #### Sound.getSound(filePath: string, ?options: object)
 
-*Options are Howler options other than src*
+Options are Howler options other than src:
 https://github.com/goldfire/howler.js#options
 
-*Note: Remember to call .play() on the sound object to play it.*
+*Note: Call .play() on the sound object to play it.*
 
 ```javascript
   const sound = Sound.getSound('sounds/hit.wav', { volume: 0.8 });
@@ -236,27 +238,27 @@ https://github.com/goldfire/howler.js#options
 
 ---
 
-> ### Core
+### Core
 
 #### Core.createCore()
 
-*Initialize game main loop*
+Initialize game main loop.
 
 #### Core.createPhysics()
 
-*Initialize Matter.Engine*
+Initialize Matter.Engine.
 
 #### Core.getEntities()
 
-*Get all entities*
+Get all entities.
 
 #### Core.get(id: string)
 
-*Get entitiy by id*
+Get entitiy by id.
 
 ---
 
-> ### Render
+### Render
 
 #### Render.getSprite(fileName: string)
 
@@ -268,16 +270,18 @@ https://github.com/goldfire/howler.js#options
 
 #### Render.getText(text: string, ?options: object(PIXI.TextStyle))
 
+Text needs to be added with Render.add in order to appear in game.
+
 http://pixijs.download/release/docs/PIXI.TextStyle.html
 
 ---
 
-> ### Gamepad
+### Gamepad
 
 #### Gamepad.addPreset(typeId: string, preset: L1ControllerPreset)
 
 ```javascript
-addPreset('MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)': new L1ControllerPreset().aliasButton(0, 'y'));
+addPreset('MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)', new L1ControllerPreset().aliasButton(0, 'y'));
 ```
 
 #### Gamepad.getGamepads()
@@ -286,7 +290,7 @@ addPreset('MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)': new L1C
 
 ---
 
-> ### L1ControllerPreset - instance methods
+### L1ControllerPreset - instance methods
 
 ```javascript
   const preset = new L1ControllerPreset();
@@ -296,21 +300,25 @@ addPreset('MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)': new L1C
 
 ---
 
-> ### Util
+### Util
 
 #### Util.getRandomInRange(from: number, to: number)
 
-Get a random number in range (from - to)
+Get a random number in range (from (inclusive) - to (exclusive))
+
+#### Util.flipSprite(sprite: PIXI.Sprite|PIXI.AnimatedSprite|PIXI.Text)
+
+Flip sprite horizontally
 
 ---
 
-## API - Server
+## 3. Docs / API: Server
 
-> ### Server
+### Server
 
 #### Server.start(?options: object)
 
-```
+```javascript
 options: {
   network: bool
 }
@@ -318,7 +326,7 @@ options: {
 
 ---
 
-> ### Net
+### Net
 
 #### Net.on(key: string, func: func)
 
@@ -328,7 +336,7 @@ options: {
 
 ---
 
-## 3. Develop
+## 4. Develop
 
 In `client` and `server`
 
@@ -338,12 +346,12 @@ In `client` and `server`
 
 ---
 
-## 4. Dependency references:
+## 5. Dependency references:
 
- - Rendering: Pixi.js (https://github.com/pixijs/pixi.js)
- - Physics: Matter.js (https://github.com/liabru/matter-js)
- - Sound: Howler.js (https://github.com/goldfire/howler.js)
- - Multiplayer: Socket.io (https://github.com/socketio/socket.io)
+ - Rendering: [Pixi.js](https://github.com/pixijs/pixi.js)
+ - Physics: [Matter.js](https://github.com/liabru/matter-js)
+ - Sound: [Howler.js](https://github.com/goldfire/howler.js)
+ - Multiplayer: [Socket.io ](https://github.com/socketio/socket.io)
 
  ---
 
@@ -361,15 +369,15 @@ Not compatible with Webpack (Use Browserify instead)
  - Sync sprite and body in engine?? (seems like very common scenario... )
  - Expose default behaviors 
  - Camera (check for camera in pixi)
- - Add Default sprite?
  - Add examples
  - Add better comments for documentation
  - Dev and prod builds
  - Use dev server to combine start and watch commands
  - Create a script for building game dist files
  - Investigate upgrading to webpack (if pixi supports it)
- - Pass resution as an object to renderer
+ - Pass resolution as an object to renderer
  - Enabled setting void color outside of engine (default background)
+ - Add linter to template project
  - Update deps
  - Create Trello board
 
@@ -377,4 +385,4 @@ Not compatible with Webpack (Use Browserify instead)
  
   - combine addSprite and addAnimation to one addGfx
   - global state object and selectors (investigate how to handle global state in games)
-  
+  - AddText function
