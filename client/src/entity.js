@@ -54,7 +54,7 @@ export function addSprite(entity, filename, options) {
   return sprite;
 }
 
-export function addAnimation(entity, filenames, animationSpeed) {
+export function addAnimation(entity, filenames, animationSpeed = 0.05) {
   const sprite = Render.getAnimation(filenames, animationSpeed);
   Render.add(sprite);
   sprite.play();
