@@ -10,6 +10,7 @@ export function create(id) {
     id,
     type: '',
     sprite: null,
+    hasBody: false,
     behaviors,
     run: (entity) => { // eslint-disable-line no-shadow
       Object.keys(behaviors).forEach((b) => {
@@ -67,6 +68,7 @@ export function addBody(entity, body) {
   World.add(Core.engine.world, [body]);
   body.entity = entity;
   entity.body = body;
+  entity.hasBody = true;
   return body;
 }
 
@@ -77,12 +79,11 @@ export function removeBody(body) {
 
 export function destroy(entity) {
   Core.remove(entity);
-  const { sprite, animation, body } = entity;
+  const { sprite, animation, body, hasBody } = entity;
   if (sprite) Render.remove(sprite);
   if (animation) Render.remove(animation);
-  if (body) removeBody(body);
+  if (hasBody) removeBody(body);
 }
-
 
 /* 
   Collision types:
