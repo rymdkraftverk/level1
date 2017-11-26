@@ -300,6 +300,28 @@ addPreset('MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)', new L1C
 
 ---
 
+### Debug
+
+#### initDebugTools()
+
+Display the debug tools underneath game window
+
+___
+
+### Key
+
+#### Key.add(key: string)
+
+#### Key.isDown(key: string)
+
+---
+
+### Physics
+
+Physics is just an alias for matter-js
+
+___
+
 ### Util
 
 #### Util.getRandomInRange(from: number, to: number)
@@ -366,29 +388,27 @@ Not compatible with Webpack (Use Browserify instead)
 
 #### TODO
 
- - Sync sprite and body in engine?? (seems like very common scenario... )
- - Expose default behaviors 
- - Camera (check for camera in pixi)
  - Add examples
  - Add better comments for documentation
- - Dev and prod builds
- - Use dev server to combine start and watch commands
- - Create a script for building game dist files
- - Investigate upgrading to webpack (if pixi supports it)
- - Pass resolution as an object to renderer
- - Enabled setting void color outside of engine (default background)
  - Add linter to template project
  - Update deps
  - Create Trello board
- - Add docs for Debug
- - Add docs for Key
- - Add docs for Physics
  - Fix broken index table
+ - Add subsections to index table
  - Use pixi zOrder instead of custom display order
  - Put sprite collision detection in lib
+ - Debug: Enable printing of all ID's 
 
  #### Ideas
  
   - combine addSprite and addAnimation to one addGfx
   - global state object and selectors (investigate how to handle global state in games)
   - AddText function
+  - Pass resolution as an object to renderer
+  - Camera (check for camera in pixi)
+  - Expose default behaviors 
+  - Sync sprite and body in engine?? (seems like very common scenario... )
+  - Dev and prod builds
+ - Use dev server to combine start and watch commands
+ - Create a script for building game dist files
+ - Investigate upgrading to webpack (if pixi supports it)

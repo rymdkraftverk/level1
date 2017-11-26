@@ -45,7 +45,8 @@ function loadAssets(sprites, resolve) {
   loader.load();
 }
 
-export function createRenderer(width, height, sprites, element) {
+// eslint-disable-next-line no-undef 
+export function createRenderer(width, height, sprites, element = document.body) {
   return new Promise((resolve, reject) => {
     if (!sprites) reject('Sprites should be an array of file names to load');
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
@@ -53,8 +54,7 @@ export function createRenderer(width, height, sprites, element) {
     renderer = new PIXI.CanvasRenderer(width, height);
     renderer.backgroundColor = VOID_COLOR;
     const { view } = renderer;
-    // eslint-disable-next-line no-unused-expressions, no-undef 
-    element ? element.appendChild(view) : document.body.appendChild(view);
+    element.appendChild(view);
     setDraw(draw);
     graphics = getPIXIGraphics();
     loadAssets(sprites, resolve);
