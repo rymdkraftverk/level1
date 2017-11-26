@@ -61,6 +61,10 @@ export function createRenderer(width, height, sprites, element) {
   });
 }
 
+export function getRenderer() {
+  return renderer;
+}
+
 export function getStage() {
   return stage;
 }
