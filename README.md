@@ -380,6 +380,12 @@ Not compatible with Webpack (Use Browserify instead)
  - Add linter to template project
  - Update deps
  - Create Trello board
+ - Add docs for Debug
+ - Add docs for Key
+ - Add docs for Physics
+ - Fix broken index table
+ - Use pixi zOrder instead of custom display order
+ - Put sprite collision detection in lib
 
  #### Ideas
  
