@@ -38,8 +38,16 @@ export function getEntities() {
   return entities;
 }
 
-export function get(id) {
+export function getById(id) {
   return entities.find(e => e.id === id);
+}
+
+export function get(id) {
+  return getById(id);
+}
+
+export function getByType(type) {
+  return entities.filter(e => e.type === type);
 }
 
 export function add(entity) {
