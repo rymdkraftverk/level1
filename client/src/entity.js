@@ -55,8 +55,14 @@ export function addSprite(entity, filename, options) {
   return sprite;
 }
 
-export function addAnimation(entity, filenames, animationSpeed = 0.05) {
+export function addAnimation(entity, filenames, animationSpeed = 0.05, options) {
   const sprite = Render.getAnimation(filenames, animationSpeed);
+
+  if (options) {
+    const { zIndex } = options;
+    sprite.zIndex = zIndex || 0;
+  }
+
   Render.add(sprite);
   sprite.play();
   entity.sprite = sprite;
