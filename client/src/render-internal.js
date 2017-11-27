@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { setDraw } from './core';
+import { setDraw } from './core-internal';
 
 const VOID_COLOR = 0xccc;
 
@@ -45,8 +45,7 @@ function loadAssets(sprites, resolve) {
   loader.load();
 }
 
-// eslint-disable-next-line no-undef 
-export function createRenderer(width, height, sprites, element = document.body) {
+export function initRenderer(width, height, sprites, element) {
   return new Promise((resolve, reject) => {
     if (!sprites) reject('Sprites should be an array of file names to load');
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
@@ -93,9 +92,6 @@ export function getAnimation(filenames, animationSpeed) {
   return animation;
 }
 
-/*
-  Check PIXI.Text docs for available style options
-*/
 export function getText(text, style) {
   return new PIXI.Text(text, style);
 }

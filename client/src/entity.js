@@ -1,7 +1,7 @@
 import { World, Events } from 'matter-js';
 
-import * as Core from './core';
-import * as Render from './render';
+import * as Core from './core-internal';
+import * as Render from './render-internal';
 
 export function create(id) {
   if (!id) throw new Error('Entity.create(id) takes a unique id as an argument');
@@ -70,8 +70,8 @@ export function addAnimation(entity, filenames, animationSpeed = 0.05, options) 
 }
 
 export function addBody(entity, body) {
-  if (!Core.engine) throw new Error('Physics not initialized. Make sure to call Core.createPhysics()');
-  World.add(Core.engine.world, [body]);
+  const engine = Core.getPhysicsEngine();
+  World.add(engine.world, [body]);
   body.entity = entity;
   entity.body = body;
   entity.hasBody = true;
@@ -79,8 +79,8 @@ export function addBody(entity, body) {
 }
 
 export function removeBody(body) {
-  if (!Core.engine) throw new Error('Physics not initialized. Make sure to call Core.createPhysics()');
-  World.remove(Core.engine.world, [body]);
+  const engine = Core.getPhysicsEngine();
+  World.remove(engine.world, [body]);
 }
 
 export function destroy(entity) {
@@ -101,10 +101,10 @@ export function destroy(entity) {
   onCollision(entityType: string, otherTypes: array[string], onCollision: (bodyA, bodyB) => void, collisionType: string);
 */
 export function addCollision(entityType, otherTypes, onCollision, collisionType = 'collisionActive') {
+  const engine = Core.getPhysicsEngine();
   const getType = body => body.entity && body.entity.type;
   const collisionCheck = (typeToCheck, otherType) => typeToCheck === entityType && otherTypes.includes(otherType);
-
-  Events.on(Core.engine, collisionType, ({ pairs }) => {
+  Events.on(engine, collisionType, ({ pairs }) => {
     pairs.forEach(({ bodyA, bodyB }) => {
       const typeA = getType(bodyA);
       const typeB = getType(bodyB);
@@ -122,3 +122,20 @@ export function addCollision(entityType, otherTypes, onCollision, collisionType 
 // export function addCollisions(entityTypes, otherTypes, onCollision, collisionType = 'collisionActive') {
 //   entityTypes.forEach((entityType) => addCollision(entityType, otherTypes, onCollision, collisionType));
 // }
+
+
+export function getAll() {
+  return Core.getEntities();
+}
+
+export function getById(id) {
+  return Core.getById(id);
+}
+
+export function get(id) {
+  return Core.getById(id);
+}
+
+export function getByType(type) {
+  return Core.getByType(type);
+}

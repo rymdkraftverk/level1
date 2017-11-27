@@ -97,7 +97,6 @@ Behaviors are objects with two properties:
   lizard.behaviors.moveLeft = moveLeft();
 ```
 
-
 ---
 
 ## 2. Docs / API: Client
@@ -133,6 +132,16 @@ Other options: `collisionStart` | `collisionEnd`
 #### Entity.destroy(entity: object)
 
 Remove entity, sprite, animation and body.
+
+#### Entity.getAll()
+
+#### Entity.get(id: string)
+
+Get entitiy by id.
+
+#### Entity.getByType(type: string)
+
+Get entitiy by type.
 
 ---
 
@@ -218,7 +227,7 @@ The current value of the counter.
 
 #### timer.duration()
 
-Get duration.
+#### timer.finished()
 
 ---
 
@@ -238,39 +247,34 @@ https://github.com/goldfire/howler.js#options
 
 ---
 
-### Core
+### Game
 
-#### Core.createCore()
+#### Game.init(width, height, sprites, ?options)
 
 Initialize game main loop.
 
-#### Core.createPhysics()
+```javascript
+options: {
+  physics: bool,
+  element: HTMLElement,
+}
+```
 
-Initialize Matter.Engine.
+physics = Initialize Matter.Engine.
 
-#### Core.getEntities()
+#### Game.start()
 
-Get all entities.
+#### Game.stop()
 
-#### Core.get(id: string)
+#### Game.getRenderer()
 
-Get entitiy by id.
+#### Game.getStage()
 
 ---
 
-### Render
+### Text
 
-#### Render.getSprite(fileName: string)
-
-#### Render.add(child: PIXI.Sprite|PIXI.AnimatedSprite|PIXI.Text)
-
-#### Render.remove(child: PIXI.Sprite|PIXI.AnimatedSprite|PIXI.Text)
-
-*Note: Only remove what's being rendered. Entity will still exist.*
-
-#### Render.getText(text: string, ?options: object(PIXI.TextStyle))
-
-Text needs to be added with Render.add in order to appear in game.
+#### Text.create(text: string, ?options: object(PIXI.TextStyle))
 
 http://pixijs.download/release/docs/PIXI.TextStyle.html
 
@@ -305,6 +309,10 @@ addPreset('MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)', new L1C
 #### initDebugTools()
 
 Display the debug tools underneath game window
+
+#### toggleHitBoxes()
+
+#### printIDs()
 
 ___
 
@@ -403,7 +411,6 @@ Not compatible with Webpack (Use Browserify instead)
  
   - combine addSprite and addAnimation to one addGfx
   - global state object and selectors (investigate how to handle global state in games)
-  - AddText function
   - Pass resolution as an object to renderer
   - Camera (check for camera in pixi)
   - Expose default behaviors 

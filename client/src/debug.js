@@ -1,5 +1,5 @@
-import { stop, start, removeAll } from './core';
-import { removeAll as removeAllSprites, toggleHitboxes } from './render';
+import { stop, start, removeAll } from './core-internal';
+import * as Render from './render-internal';
 
 /* eslint-disable no-undef */
 
@@ -23,13 +23,22 @@ export function initDebugTools() {
 
   const destroyAllButton = button('Destroy All', () => {
     removeAll();
-    removeAllSprites();
+    Render.removeAll();
     // TODO: Destroy all bodies
   });
   container.appendChild(destroyAllButton);
 
-  const toggleHitboxesButton = button('Toggle hitboxes', toggleHitboxes);
+  const toggleHitboxesButton = button('Toggle hitboxes', Render.toggleHitboxes);
   container.appendChild(toggleHitboxesButton);
 
   document.body.appendChild(container);
+}
+
+export function toggleHitboxes() {
+  Render.toggleHitboxes();
+}
+
+export function printIDs() {
+  // TODO: add button
+  console.warn('printIDs not yet implemented');
 }

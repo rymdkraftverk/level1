@@ -1,22 +1,15 @@
 import MainLoop from 'mainloop.js';
 import { Engine } from 'matter-js';
 
-// unaware if network is enabled or not
-// unaware of renderer
-// unaware of physics
-
-// game loop
-// game entities
-
 // eslint-disable-next-line import/no-mutable-exports
-export let engine;
+let engine;
 let entities = [];
 
 function update() {
   entities.forEach(e => e.run(e));
 }
 
-export function createCore() {
+export function initMainLoop() {
   MainLoop
     .setUpdate(update)
     .setMaxAllowedFPS(60);
@@ -64,10 +57,13 @@ export function removeAll() {
   entities.forEach(e => remove(e));
 }
 
-/* PHYSICS */
-
-export function createPhysics() {
+export function initPhysics() {
   engine = Engine.create();
   engine.world.gravity.y = 0;
   Engine.run(engine);
+}
+
+export function getPhysicsEngine() {
+  if (!engine) throw new Error('Physics not initialized. Set physics to true when calling Game.init');
+  return engine;
 }
