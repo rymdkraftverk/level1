@@ -63,7 +63,11 @@ export function initPhysics() {
   Engine.run(engine);
 }
 
+export function isPhysicsEnabled() {
+  return !!engine;
+}
+
 export function getPhysicsEngine() {
-  if (!engine) throw new Error('Physics not initialized. Set physics to true when calling Game.init');
+  if (!isPhysicsEnabled()) throw new Error('Physics not initialized. Set physics to true when calling Game.init');
   return engine;
 }
