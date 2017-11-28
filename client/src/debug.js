@@ -10,35 +10,38 @@ function button(text, onClick) {
   return buttonElement;
 }
 
+export function togglePrintIDs() {
+  // TODO: add button
+  console.warn('printIDs not yet implemented');
+}
+
 export function initDebugTools() {
-  const container = document.createElement('div');
-  container.style.display = 'flex';
+  const containerElement = document.createElement('div');
+  containerElement.style.display = 'flex';
+  const makeCreateButton = (container) => (text, onClick) => {
+    const b = button(text, onClick);
+    container.appendChild(b);
+  };
+  const createButton = makeCreateButton(containerElement);
 
   /* BUTTONS */
-  const stopButton = button('Stop', stop);
-  container.appendChild(stopButton);
+  createButton('Stop', stop);
 
-  const startButton = button('Start', start);
-  container.appendChild(startButton);
+  createButton('Start', start);
 
-  const destroyAllButton = button('Destroy All', () => {
+  createButton('Destroy All', () => {
     removeAll();
     Render.removeAll();
     // TODO: Destroy all bodies
   });
-  container.appendChild(destroyAllButton);
 
-  const toggleHitboxesButton = button('Toggle hitboxes', Render.toggleHitboxes);
-  container.appendChild(toggleHitboxesButton);
+  createButton('Toggle hitboxes', Render.toggleHitboxes);
 
-  document.body.appendChild(container);
+  createButton('Print IDs', togglePrintIDs);
+
+  document.body.appendChild(containerElement);
 }
 
 export function toggleHitboxes() {
   Render.toggleHitboxes();
-}
-
-export function printIDs() {
-  // TODO: add button
-  console.warn('printIDs not yet implemented');
 }
