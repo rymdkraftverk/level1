@@ -115,7 +115,7 @@ options: {
 
 #### Entity.addAnimation(entity: object, filenames: array[string], ?animationSpeed: number) => PIXI.AnimatedSprite
 
-Default animationSpeed = 0.005.
+Default animationSpeed = 0.05.
 
 #### Entity.addBody(entity: object, body: Matter.Body)
 
@@ -274,9 +274,11 @@ physics = Initialize Matter.Engine.
 
 ### Text
 
-#### Text.create(text: string, ?options: object(PIXI.TextStyle))
+#### Text.create(text: string, ?options: object(PIXI.TextStyle)) => text
 
 http://pixijs.download/release/docs/PIXI.TextStyle.html
+
+#### Text.remove(text: object) => void
 
 ---
 
@@ -400,12 +402,11 @@ Not compatible with Webpack (Use Browserify instead)
  - Add better comments for documentation
  - Add linter to template project
  - Update deps
- - Create Trello board
  - Fix broken index table
  - Add subsections to index table
- - Use pixi zOrder instead of custom display order
- - Put sprite collision detection in lib
  - Debug: Enable printing of all ID's 
+ - Split up readme into different files
+ - Handle different anchor points for pixi and matter-js
 
  #### Ideas
  
@@ -414,8 +415,9 @@ Not compatible with Webpack (Use Browserify instead)
   - Pass resolution as an object to renderer
   - Camera (check for camera in pixi)
   - Expose default behaviors 
-  - Sync sprite and body in engine?? (seems like very common scenario... )
   - Dev and prod builds
  - Use dev server to combine start and watch commands
  - Create a script for building game dist files
  - Investigate upgrading to webpack (if pixi supports it)
+ - Use pixi zOrder instead of custom display order (part of library pixi-display)
+ - Create Trello board
