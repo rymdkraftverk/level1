@@ -1,18 +1,13 @@
 // eslint-disable-next-line no-unused-vars
-import { Core, Render, Entity, Timer, Key, Debug, Gamepad, Physics, Sound, Net } from 'l1';
-
+import { Game, Entity, Timer, Key, Debug, Gamepad, Physics, Sound, Net, Text } from 'l1';
 import sprites from './sprites.json';
-
 import scanGamepads from './behaviors/scanGamepads';
 
 // import createControllerPresets from './controllerPresets';
 
-Render.createRenderer(1000, 900, sprites).then(() => {
-  Core.createCore();
-  Core.createPhysics();
-  Core.start();
-  Debug.initDebugTools();
-  Render.toggleHitboxes();
+Game.init(1000, 900, sprites, { debug: true, physics: true }).then(() => {
+  Game.start();
+  Debug.toggleHitboxes();
   // createControllerPresets();
 
   const input = Entity.create('input');
