@@ -2,6 +2,7 @@
     "extends": "airbnb-base",
     "rules": {
         "import/prefer-default-export": "off",
+        "arrow-parens": "off",
         "no-param-reassign": "off"
     }
 }

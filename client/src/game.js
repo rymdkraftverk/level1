@@ -16,8 +16,7 @@ export async function init(width, height, sprites, options) {
     element,
     debug,
   } = { ...defaultOptions, ...options };
-  console.log('physics', physics);
-  console.log('element', element);
+
   await Render.initRenderer(width, height, sprites, element);
   Core.initMainLoop();
   if (physics) Core.initPhysics();

@@ -2,6 +2,7 @@ import { World, Events } from 'matter-js';
 
 import * as Core from './core-internal';
 import * as Render from './render-internal';
+import syncSpriteWithBodyBehavior from './behaviours/syncSpriteWithBody';
 
 export function create(id) {
   if (!id) throw new Error('Entity.create(id) takes a unique id as an argument');
@@ -69,12 +70,15 @@ export function addAnimation(entity, filenames, animationSpeed = 0.05, options) 
   return sprite;
 }
 
-export function addBody(entity, body) {
+export function addBody(entity, body, syncSpriteWithBody = true) {
   const engine = Core.getPhysicsEngine();
   World.add(engine.world, [body]);
   body.entity = entity;
   entity.body = body;
   entity.hasBody = true;
+  if (syncSpriteWithBody) {
+    entity.behaviors.syncSpriteWithBody = syncSpriteWithBodyBehavior();
+  }
   return body;
 }
 
