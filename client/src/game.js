@@ -38,3 +38,7 @@ export function getRenderer() {
 export function getStage() {
   return Render.getStage();
 }
+
+export function getPhysicsEngine() {
+  return Core.getPhysicsEngine();
+}
