@@ -20,6 +20,7 @@ export function create(id) {
           behavior.init(behavior, entity);
           delete behavior.init;
         }
+        if (!behavior.run) throw new Error(`Behaviour ${b} on entity ${id} has no run function`);
         behavior.run(behavior, entity);
       });
 
