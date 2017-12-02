@@ -1,3 +1,3 @@
 const { Server } = require('l1-server');
 
-Server.start();
+Server.start({ network: false });

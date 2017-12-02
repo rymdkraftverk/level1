@@ -23,6 +23,7 @@
     "watchify": "^3.9.0"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "l1": "file:../client",
     "l1-server": "file:../server"
   }
