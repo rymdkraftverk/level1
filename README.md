@@ -130,7 +130,6 @@ Behaviors are objects with two properties:
 
 ## 2. Docs / API: Client
 
----
 ### Game
 
 #### Game.init(width, height, sprites, ?options) => Promise
@@ -161,6 +160,7 @@ debug = Display the debug tools underneath game window. (Default: `false`)
 
 #### Game.getPhysicsEngine() => Matter-js Engine
 
+---
 
 ### Entity
 
@@ -434,8 +434,6 @@ Not compatible with Webpack (Use Browserify instead)
  - Add examples
  - Add better comments for documentation
  - Update deps
- - Fix broken index table
- - Add subsections to index table
  - Split up readme into different files
  - Handle different anchor points for pixi and matter-js
 
