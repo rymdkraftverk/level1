@@ -5,9 +5,22 @@
 ## Index
 
 1. [Getting started](https://github.com/sajmoni/level1#1-getting-started)
-1. [Docs / API: Client](https://github.com/sajmoni/level1#docs--api)
-1. [Develop](https://github.com/sajmoni/level1#3-develop)
-1. [Dependency references](https://github.com/sajmoni/level1#4-dependency-references)
+1. [Docs / API: Client](https://github.com/sajmoni/level1#2-docs--api-client)
+  - [Game](https://github.com/sajmoni/level1#game)
+  - [Entity](https://github.com/sajmoni/level1#entity)
+  - [Timer](https://github.com/sajmoni/level1#timer)
+  - [Sound](https://github.com/sajmoni/level1#sound)
+  - [Text](https://github.com/sajmoni/level1#text)
+  - [Util](https://github.com/sajmoni/level1#util)
+  - [Physics](https://github.com/sajmoni/level1#physics)
+  - [Gamepad](https://github.com/sajmoni/level1#gamepad)
+  - [Debug](https://github.com/sajmoni/level1#debug)
+  - [Net](https://github.com/sajmoni/level1#net)
+1. [Docs / API: Server](https://github.com/sajmoni/level1#3-docs--api-server)
+  - [Server](https://github.com/sajmoni/level1#server)
+  - [Net](https://github.com/sajmoni/level1#net-1)
+1. [Develop](https://github.com/sajmoni/level1#4-develop)
+1. [Dependency references](https://github.com/sajmoni/level1#5-dependency-references)
 
 ---
 
@@ -117,6 +130,38 @@ Behaviors are objects with two properties:
 
 ## 2. Docs / API: Client
 
+---
+### Game
+
+#### Game.init(width, height, sprites, ?options) => Promise
+
+Initialize game main loop.
+
+```javascript
+options: {
+  physics: bool,
+  element: HTMLElement,
+  debug: bool,
+}
+```
+
+physics = Enable physics provided by matter-js. (Default: `false`)
+
+element = Where to inject game. (Default: `document.body`)
+
+debug = Display the debug tools underneath game window. (Default: `false`)
+
+#### Game.start() => void
+
+#### Game.stop() => void
+
+#### Game.getRenderer() => PIXI.CanvasRenderer
+
+#### Game.getStage() => PIXI.Container
+
+#### Game.getPhysicsEngine() => Matter-js Engine
+
+
 ### Entity
 
 #### Entity.create(id: string) => object
@@ -187,22 +232,6 @@ Either null, PIXI.Sprite or PIXI.AnimatedSprite
 
 ---
 
-### Net
-
-#### Net.start()
-
-Initialize socket.io client
-
-#### Net.on(key: string, func: func)
-
-Run function when message with key is received.
-
-#### Net.emit(message: string, data: object)
-
-Send data to all other clients.
-
----
-
 ### Timer
 
 Timer starts at 0 and counts up to duration.
@@ -263,47 +292,34 @@ https://github.com/goldfire/howler.js#options
 
 ---
 
-### Game
-
-#### Game.init(width, height, sprites, ?options)
-
-Initialize game main loop.
-
-```javascript
-options: {
-  physics: bool,
-  element: HTMLElement,
-  debug: bool,
-}
-```
-
-physics = Enable physics provided by matter-js. (Default: `false`)
-
-element = Where to inject game. (Default: `document.body`)
-
-debug = Display the debug tools underneath game window. (Default: `false`)
-
-#### Game.start()
-
-#### Game.stop()
-
-#### Game.getRenderer()
-
-#### Game.getStage()
-
-#### Game.getPhysicsEngine()
-
----
-
 ### Text
 
-#### Text.create(text: string, ?options: object(PIXI.TextStyle)) => text
+#### Text.create(text: string, ?options: object(PIXI.TextStyle)) => PIXI.Text
 
 http://pixijs.download/release/docs/PIXI.TextStyle.html
 
 #### Text.remove(text: object) => void
 
 ---
+
+### Util
+
+#### Util.getRandomInRange(from: number, to: number)
+
+Get a random number in range (from (inclusive) - to (exclusive))
+
+#### Util.flipSprite(sprite: PIXI.Sprite|PIXI.AnimatedSprite|PIXI.Text)
+
+Flip sprite horizontally
+
+---
+
+### Physics
+
+Physics is just an alias for matter-js
+
+___
+
 
 ### Gamepad
 
@@ -329,6 +345,8 @@ addPreset('MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)', new L1C
 
 ---
 
+### Debug
+
 #### Debug.toggleHitBoxes()
 
 #### Debug.printIDs()
@@ -343,21 +361,19 @@ ___
 
 ---
 
-### Physics
+### Net
 
-Physics is just an alias for matter-js
+#### Net.start()
 
-___
+Initialize socket.io client
 
-### Util
+#### Net.on(key: string, func: func)
 
-#### Util.getRandomInRange(from: number, to: number)
+Run function when message with key is received.
 
-Get a random number in range (from (inclusive) - to (exclusive))
+#### Net.emit(message: string, data: object)
 
-#### Util.flipSprite(sprite: PIXI.Sprite|PIXI.AnimatedSprite|PIXI.Text)
-
-Flip sprite horizontally
+Send data to all other clients.
 
 ---
 
