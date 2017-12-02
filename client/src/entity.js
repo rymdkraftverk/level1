@@ -38,6 +38,14 @@ export function create(id) {
   Core.add(entity);
   return entity;
 }
+
+function applyOptions(sprite, options) {
+  if (options) {
+    const { zIndex } = options;
+    sprite.zIndex = zIndex || 0;
+  }
+}
+
 /*
 OPTIONS:
 {
@@ -47,11 +55,7 @@ OPTIONS:
 export function addSprite(entity, filename, options) {
   const sprite = Render.getSprite(filename);
 
-  if (options) {
-    const { zIndex } = options;
-    sprite.zIndex = zIndex || 0;
-  }
-
+  applyOptions(sprite, options);
   Render.add(sprite);
   entity.sprite = sprite;
   return sprite;
@@ -60,11 +64,7 @@ export function addSprite(entity, filename, options) {
 export function addAnimation(entity, filenames, animationSpeed = 0.05, options) {
   const sprite = Render.getAnimation(filenames, animationSpeed);
 
-  if (options) {
-    const { zIndex } = options;
-    sprite.zIndex = zIndex || 0;
-  }
-
+  applyOptions(sprite, options);
   Render.add(sprite);
   sprite.play();
   entity.sprite = sprite;
@@ -103,7 +103,7 @@ export function destroy(entity) {
 */
 
 /*
-  onCollision(entityType: string, otherTypes: array[string], onCollision: (bodyA, bodyB) => void, collisionType: string);
+  addCollision(entityType: string, otherTypes: array[string], onCollision: (bodyA, bodyB) => void, collisionType: string);
 */
 export function addCollision(entityType, otherTypes, onCollision, collisionType = 'collisionActive') {
   const engine = Core.getPhysicsEngine();

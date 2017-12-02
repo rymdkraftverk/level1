@@ -15,6 +15,20 @@
 
 Use the template project as a starter.
 
+### Create game
+
+```javascript
+import 'babel-polyfill';
+import { Game } from 'l1';
+import sprites from './sprites.json';
+
+Game.init(800, 400, sprites, { debug: true, physics: true }).then(() => {
+  Game.start();
+}
+```
+
+---
+
 ### Sprites
 
 - Put sprites in `public/assets/`
@@ -49,9 +63,9 @@ Example:
 #### Add sprite and position it
 
 ```javascript
-  const lizardSprite = Entity.addSprite(lizard, 'lizard1');
-  lizardSprite.x = 200;
-  lizardSprite.y = 200;
+  const sprite = Entity.addSprite(lizard, 'lizard1');
+  sprite.x = 200;
+  sprite.y = 200;
 ```
 
 *Check PIXI.Sprite docs for properties on sprite object*
@@ -60,9 +74,9 @@ Example:
 #### Add animation
 
 ```javascript
-  const lizardAnim = Entity.addAnimation(lizard, ['lizard1', 'lizard2'], 0.1);
-  lizardAnim.x = 200;
-  lizardAnim.y = 200;
+  const sprite = Entity.addAnimation(lizard, ['lizard1', 'lizard2'], 0.1);
+  sprite.x = 200;
+  sprite.y = 200;
 ```
 
 *Check PIXI.AnimatedSprite docs for properties on animation object*
@@ -73,12 +87,14 @@ Example:
 
 Behaviors are objects with two properties: 
 
- - `run(behavior, entity)` which is called 60 times per second. (mandatory)
+ - `run(behavior, entity)` is called 60 times per second. (mandatory)
 
- - `init(behavior, entity)` which is only called once when the entity is first added. (optional)
+ - `init(behavior, entity)` is only called the first time the behavior runs. (optional)
 
  Both are passed the current behavior as first argument and the entity that the
  behavior belongs to as the second argument.
+
+#### Define behavior
 
 ```javascript
   const moveLeft = () => ({
@@ -257,10 +273,15 @@ Initialize game main loop.
 options: {
   physics: bool,
   element: HTMLElement,
+  debug: bool,
 }
 ```
 
-physics = Initialize Matter.Engine.
+physics = Enable physics provided by matter-js. (Default: `false`)
+
+element = Where to inject game. (Default: `document.body`)
+
+debug = Display the debug tools underneath game window. (Default: `false`)
 
 #### Game.start()
 
@@ -269,6 +290,8 @@ physics = Initialize Matter.Engine.
 #### Game.getRenderer()
 
 #### Game.getStage()
+
+#### Game.getPhysicsEngine()
 
 ---
 
@@ -306,15 +329,9 @@ addPreset('MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)', new L1C
 
 ---
 
-### Debug
+#### Debug.toggleHitBoxes()
 
-#### initDebugTools()
-
-Display the debug tools underneath game window
-
-#### toggleHitBoxes()
-
-#### printIDs()
+#### Debug.printIDs()
 
 ___
 
@@ -400,11 +417,9 @@ Not compatible with Webpack (Use Browserify instead)
 
  - Add examples
  - Add better comments for documentation
- - Add linter to template project
  - Update deps
  - Fix broken index table
  - Add subsections to index table
- - Debug: Enable printing of all ID's 
  - Split up readme into different files
  - Handle different anchor points for pixi and matter-js
 
@@ -421,3 +436,4 @@ Not compatible with Webpack (Use Browserify instead)
  - Investigate upgrading to webpack (if pixi supports it)
  - Use pixi zOrder instead of custom display order (part of library pixi-display)
  - Create Trello board
+ - Debug: Enable printing of all ID's 
