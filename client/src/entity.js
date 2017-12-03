@@ -148,7 +148,7 @@ export function getByType(type) {
 // Sprite collision
 export function isColliding(entity, otherEntity) {
   if (Core.isPhysicsEnabled()) {
-    console.warn('Entitiy.isColliding is for sprite collision detection. If using physics use Entity.addCollision instead');
+    console.warn('Entity.isColliding is for sprite collision detection. If using physics use Entity.addCollision instead');
   }
 
   const { sprite } = entity;

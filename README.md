@@ -158,6 +158,8 @@ debug = Display the debug tools underneath game window. (Default: `false`)
 
 #### Game.getStage() => PIXI.Container
 
+#### Game.getGraphics() => PIXI.Graphics
+
 #### Game.getPhysicsEngine() => Matter-js Engine
 
 ---
@@ -451,3 +453,5 @@ Not compatible with Webpack (Use Browserify instead)
  - Use pixi zOrder instead of custom display order (part of library pixi-display)
  - Create Trello board
  - Debug: Enable printing of all ID's 
+ - Debug: Print fps
+ - Debug: Print amount of entities / sprites / bodies etc

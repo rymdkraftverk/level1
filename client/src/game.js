@@ -39,6 +39,10 @@ export function getStage() {
   return Render.getStage();
 }
 
+export function getGraphics() {
+  return Render.getGraphics();
+}
+
 export function getPhysicsEngine() {
   return Core.getPhysicsEngine();
 }

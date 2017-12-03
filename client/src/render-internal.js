@@ -26,7 +26,7 @@ export function add(child) {
   updateRenderLayers();
 }
 
-function getPIXIGraphics() {
+function createPIXIGraphics() {
   const pixiGraphics = new PIXI.Graphics();
   pixiGraphics.zIndex = 9999;
   add(pixiGraphics);
@@ -55,7 +55,7 @@ export function initRenderer(width, height, sprites, element) {
     const { view } = renderer;
     element.appendChild(view);
     setDraw(draw);
-    graphics = getPIXIGraphics();
+    graphics = createPIXIGraphics();
     loadAssets(sprites, resolve);
   });
 }
@@ -66,6 +66,10 @@ export function getRenderer() {
 
 export function getStage() {
   return stage;
+}
+
+export function getGraphics() {
+  return graphics;
 }
 
 function getTexture(filename) {
