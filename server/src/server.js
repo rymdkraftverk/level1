@@ -27,6 +27,8 @@ const start = (options) => {
   });
 };
 
+const getApp = () => app;
+
 module.exports = {
-  start,
+  start, getApp,
 };

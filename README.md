@@ -160,6 +160,8 @@ debug = Display the debug tools underneath game window. (Default: `false`)
 
 #### Game.getGraphics() => PIXI.Graphics
 
+*Note: Graphics need to be redrawn each update*
+
 #### Game.getPhysicsEngine() => Matter-js Engine
 
 ---
@@ -236,7 +238,7 @@ Either null, PIXI.Sprite or PIXI.AnimatedSprite
 
 ### Timer
 
-Timer starts at 0 and counts up to duration.
+Timer starts at 0 and counts up to duration. (60 = Approx. 1 sec)
 
 #### create(duration: number) => object
 
@@ -391,6 +393,8 @@ options: {
 }
 ```
 
+#### Server.getApp() => Express App
+
 ---
 
 ### Net
@@ -435,8 +439,6 @@ Not compatible with Webpack (Use Browserify instead)
 
  - Add examples
  - Add better comments for documentation
- - Update deps
- - Split up readme into different files
  - Handle different anchor points for pixi and matter-js
 
  #### Ideas
@@ -455,3 +457,5 @@ Not compatible with Webpack (Use Browserify instead)
  - Debug: Enable printing of all ID's 
  - Debug: Print fps
  - Debug: Print amount of entities / sprites / bodies etc
+ - Split up readme into different files
+ - Update deps
