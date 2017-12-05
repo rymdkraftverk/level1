@@ -441,7 +441,7 @@ Not compatible with Webpack (Use Browserify instead)
  - Add better comments for documentation
  - Handle different anchor points for pixi and matter-js
  - Custom length animations (being able to define an animation speed / length for each frame in the animation)
-
+ - Turn entity.type into array
  #### Ideas
  
   - combine addSprite and addAnimation to one addGfx

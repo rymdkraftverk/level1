@@ -130,7 +130,6 @@ export function addCollision(entityType, otherTypes, onCollision, collisionType 
 //   entityTypes.forEach((entityType) => addCollision(entityType, otherTypes, onCollision, collisionType));
 // }
 
-
 export function getAll() {
   return Core.getEntities();
 }
@@ -153,4 +152,8 @@ export function isColliding(entity, otherEntity) {
     console.warn('Entity.isColliding is for sprite collision detection. If using physics use Entity.addCollision instead');
   }
   return Collision.isColliding(entity, otherEntity);
+}
+
+export function overlappingRectangleArea(entity, otherEntity) {
+  return Collision.overlappingRectangleArea(entity, otherEntity);
 }
