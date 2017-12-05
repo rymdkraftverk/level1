@@ -17,12 +17,18 @@ options
   network: bool
 }
 */
+
+const defaultOptions = {
+  network: false,
+};
+
 const start = (options) => {
   server.listen(port, () => {
-    if (options) {
-      const { network } = options;
-      if (network) Net.create(server);
-    }
+    const { network } = {
+      ...defaultOptions,
+      ...options,
+    };
+    if (network) Net.create(server);
     console.log(`Server running on: ${url}:${port}`);
   });
 };

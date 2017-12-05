@@ -440,6 +440,7 @@ Not compatible with Webpack (Use Browserify instead)
  - Add examples
  - Add better comments for documentation
  - Handle different anchor points for pixi and matter-js
+ - Custom length animations (being able to define an animation speed / length for each frame in the animation)
 
  #### Ideas
  
