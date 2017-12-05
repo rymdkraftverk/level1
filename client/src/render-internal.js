@@ -112,7 +112,7 @@ export function toggleHitboxes() {
   showHitboxes = !showHitboxes;
 }
 
-export function displayBounds(body) {
+export function displayBodyBounds(body) {
   if (!showHitboxes) return;
 
   const { vertices } = body.parts[0];
@@ -132,4 +132,15 @@ export function displayBounds(body) {
   }
 
   graphics.lineTo(vertices[0].x, vertices[0].y);
+}
+
+export function displaySpriteBounds(sprite) {
+  if (!showHitboxes) return;
+
+  graphics.lineStyle(2, 0xFFFFFF, 1);
+  graphics.moveTo(sprite.x, sprite.y);
+  graphics.lineTo(sprite.x + sprite.width, sprite.y);
+  graphics.lineTo(sprite.x + sprite.width, sprite.y + sprite.height);
+  graphics.lineTo(sprite.x, sprite.y + sprite.height);
+  graphics.lineTo(sprite.x, sprite.y);
 }

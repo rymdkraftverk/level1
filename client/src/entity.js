@@ -25,8 +25,9 @@ export function create(id) {
       });
 
       // Display hitboxes
-      const { body } = entity;
-      if (body.parts) Render.displayBounds(body);
+      const { body, sprite } = entity;
+      if (body.parts) Render.displayBodyBounds(body);
+      if (sprite) Render.displaySpriteBounds(sprite);
     },
   };
 
