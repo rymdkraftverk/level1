@@ -6,11 +6,13 @@ const VOID_COLOR = 0xccc;
 let stage;
 let renderer;
 let graphics;
+let internalGraphics;
 let showHitboxes = false;
 
 function draw() {
   renderer.render(stage);
   graphics.clear();
+  internalGraphics.clear();
 }
 
 function updateRenderLayers() {
@@ -56,6 +58,7 @@ export function initRenderer(width, height, sprites, element) {
     element.appendChild(view);
     setDraw(draw);
     graphics = createPIXIGraphics();
+    internalGraphics = createPIXIGraphics();
     loadAssets(sprites, resolve);
   });
 }
@@ -117,30 +120,30 @@ export function displayBodyBounds(body) {
 
   const { vertices } = body.parts[0];
 
-  graphics.lineStyle(2, 0xFFFFFF, 1);
-  graphics.moveTo(vertices[0].x, vertices[0].y);
+  internalGraphics.lineStyle(2, 0xFFFFFF, 1);
+  internalGraphics.moveTo(vertices[0].x, vertices[0].y);
 
   for (let i = 1; i < vertices.length; i += 1) {
     if (!vertices[i - 1].isInternal) {
-      graphics.lineTo(vertices[i].x, vertices[i].y);
+      internalGraphics.lineTo(vertices[i].x, vertices[i].y);
     } else {
-      graphics.moveTo(vertices[i].x, vertices[i].y);
+      internalGraphics.moveTo(vertices[i].x, vertices[i].y);
     }
     if (vertices[i].isInternal) {
-      graphics.moveTo(vertices[(i + 1) % vertices.length].x, vertices[(i + 1) % vertices.length].y);
+      internalGraphics.moveTo(vertices[(i + 1) % vertices.length].x, vertices[(i + 1) % vertices.length].y);
     }
   }
 
-  graphics.lineTo(vertices[0].x, vertices[0].y);
+  internalGraphics.lineTo(vertices[0].x, vertices[0].y);
 }
 
 export function displaySpriteBounds(sprite) {
   if (!showHitboxes) return;
 
-  graphics.lineStyle(2, 0xFFFFFF, 1);
-  graphics.moveTo(sprite.x, sprite.y);
-  graphics.lineTo(sprite.x + sprite.width, sprite.y);
-  graphics.lineTo(sprite.x + sprite.width, sprite.y + sprite.height);
-  graphics.lineTo(sprite.x, sprite.y + sprite.height);
-  graphics.lineTo(sprite.x, sprite.y);
+  internalGraphics.lineStyle(2, 0xFFFFFF, 1);
+  internalGraphics.moveTo(sprite.x, sprite.y);
+  internalGraphics.lineTo(sprite.x + sprite.width, sprite.y);
+  internalGraphics.lineTo(sprite.x + sprite.width, sprite.y + sprite.height);
+  internalGraphics.lineTo(sprite.x, sprite.y + sprite.height);
+  internalGraphics.lineTo(sprite.x, sprite.y);
 }
