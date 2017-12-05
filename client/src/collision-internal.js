@@ -32,3 +32,23 @@ export function isColliding(entity, otherEntity) {
 
   return hit;
 }
+
+export function overlappingRectangleArea(entity1, entity2) {
+
+  if(!isColliding(entity1, entity2)) {
+    return 0;
+  }
+
+  const sprite1 = entity1.sprite
+  const sprite2 = entity2.sprite
+
+  const minX = Math.max(sprite1.x, sprite2.x);
+  const maxX = Math.min(sprite1.x + sprite1.width, sprite2.x + sprite2.width)
+  const dX = maxX - minX;
+
+  const minY = Math.max(sprite1.y, sprite2.y);
+  const maxY = Math.min(sprite1.y + sprite1.height, sprite2.y + sprite2.height);
+  const dY = maxY - minY;
+
+  return dX * dY;
+}
