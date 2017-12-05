@@ -1,4 +1,4 @@
-import { create } from '../../src/client/timer';
+import { create } from '../src/timer';
 
 describe('Timer.create(duration)', () => {
   context('when duration is an integer', () => {
