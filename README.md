@@ -254,17 +254,16 @@ The following properties are specified for objects created by Timer.create.
 
 #### timer.run()
 
-Called on every game update. Will return true when duration is reached. Either reset the timer or delete it when timer.run returns true.
+Should be called on every game update. Will return true once when duration is reached.
 
 ```javascript
   timerBehavior = () => ({
     timer: Timer.create(100),
-    run: (b, e) => {
-      if (b.timer && b.timer.run()) {
+    run: (b) => {
+      if (b.timer.run()) {
         // Run code when timer duration is reached
+
         b.timer.reset();
-        // or
-        delete b.timer;
       }
     } 
   })
@@ -430,20 +429,10 @@ In `client` and `server`
 
  ---
 
-### Note
-
-Matter.js puts the anchor point in the middle of the body. While pixi puts in the the top left
-of the sprite. Might try to sync this in the engine in the future..
-
-Not compatible with Webpack (Use Browserify instead)
-
----
-
 #### TODO
 
  - Add examples
  - Add better comments for documentation
- - Handle different anchor points for pixi and matter-js
  - Debug: Print fps and amount of entities / sprites / bodies etc (update every sec)
  - Quickly switch between "dev" and "prod" mode, aka installing from a local folder vs from npm
  
