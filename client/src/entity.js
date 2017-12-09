@@ -84,10 +84,6 @@ export function addAnimation(entity, filenames, animationSpeed = 0.05, options) 
   return sprite;
 }
 
-function syncSpriteAnchorWithPhysicsAnchor(sprite, body) {
-  // sprite.anchor.set();
-}
-
 export function addBody(entity, body, syncSpriteWithBody = true) {
   const engine = Core.getPhysicsEngine();
   World.add(engine.world, [body]);
@@ -97,7 +93,10 @@ export function addBody(entity, body, syncSpriteWithBody = true) {
   if (syncSpriteWithBody && entity.sprite) {
     entity.behaviors.syncSpriteWithBody = syncSpriteWithBodyBehavior();
   }
-  syncSpriteAnchorWithPhysicsAnchor(entity.sprite, body);
+  // Put the body in the middle of sprite
+  if (entity.sprite) {
+    entity.sprite.anchor.set(0.5);
+  }
   return body;
 }
 
