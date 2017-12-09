@@ -10,7 +10,7 @@ export function create(id) {
   const behaviors = {};
   const entity = {
     id,
-    type: '',
+    types: [],
     sprite: null,
     hasBody: false,
     behaviors,
@@ -42,6 +42,14 @@ export function create(id) {
 
   Core.add(entity);
   return entity;
+}
+
+export function addType(entity, type) {
+  entity.types = entity.types.concat(type);
+}
+
+export function removeType(entity, type) {
+  entity.types = entity.types.filter((t) => t !== type);
 }
 
 function applyOptions(sprite, options) {
@@ -76,15 +84,20 @@ export function addAnimation(entity, filenames, animationSpeed = 0.05, options) 
   return sprite;
 }
 
+function syncSpriteAnchorWithPhysicsAnchor(sprite, body) {
+  // sprite.anchor.set();
+}
+
 export function addBody(entity, body, syncSpriteWithBody = true) {
   const engine = Core.getPhysicsEngine();
   World.add(engine.world, [body]);
   body.entity = entity;
   entity.body = body;
   entity.hasBody = true;
-  if (syncSpriteWithBody) {
+  if (syncSpriteWithBody && entity.sprite) {
     entity.behaviors.syncSpriteWithBody = syncSpriteWithBodyBehavior();
   }
+  syncSpriteAnchorWithPhysicsAnchor(entity.sprite, body);
   return body;
 }
 
@@ -100,38 +113,33 @@ export function destroy(entity) {
   if (animation) Render.remove(animation);
   if (hasBody) removeBody(body);
 }
-
-/* 
-  Collision types:
-  collisionStart
-  collisionEnd
-*/
-
 /*
   addCollision(entityType: string, otherTypes: array[string], onCollision: (bodyA, bodyB) => void, collisionType: string);
 */
 export function addCollision(entityType, otherTypes, onCollision, collisionType = 'collisionActive') {
   const engine = Core.getPhysicsEngine();
-  const getType = body => body.entity && body.entity.type;
-  const collisionCheck = (typeToCheck, otherType) => typeToCheck === entityType && otherTypes.includes(otherType);
+
+  const getTypes = (body) => body.entity && body.entity.types;
+
+  const collisionCheck = (typesA, typesB) => {
+    const entityHasCollisionType = typesA.some((t) => t === entityType);
+    const otherTypeShouldCollide = typesB.some((t) => otherTypes.includes(t));
+
+    return entityHasCollisionType && otherTypeShouldCollide;
+  };
+
   Events.on(engine, collisionType, ({ pairs }) => {
     pairs.forEach(({ bodyA, bodyB }) => {
-      const typeA = getType(bodyA);
-      const typeB = getType(bodyB);
-      if (!typeA || !typeB) return;
+      const typesA = getTypes(bodyA);
+      const typesB = getTypes(bodyB);
+      if (!typesA || !typesB) throw new Error('Trying to check collision on entities ');
 
-      if (collisionCheck(typeA, typeB) || collisionCheck(typeB, typeA)) {
+      if (collisionCheck(typesA, typesB) || collisionCheck(typesB, typesA)) {
         onCollision(bodyA, bodyB);
       }
     });
   });
 }
-
-// Remove collision?
-
-// export function addCollisions(entityTypes, otherTypes, onCollision, collisionType = 'collisionActive') {
-//   entityTypes.forEach((entityType) => addCollision(entityType, otherTypes, onCollision, collisionType));
-// }
 
 export function getAll() {
   return Core.getEntities();

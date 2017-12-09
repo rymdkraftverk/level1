@@ -208,6 +208,10 @@ Get entitiy by id.
 
 Get entitiy by type.
 
+#### Entity.isCollding(entity: entity, otherEntity: entity)
+
+#### Entity.overlappingRectangleArea(entity: entity, otherEntity: entity)
+
 ---
 
 ### Entity object properties
@@ -440,11 +444,11 @@ Not compatible with Webpack (Use Browserify instead)
  - Add examples
  - Add better comments for documentation
  - Handle different anchor points for pixi and matter-js
- - Custom length animations (being able to define an animation speed / length for each frame in the animation)
- - Turn entity.type into array
+ - Debug: Print fps and amount of entities / sprites / bodies etc (update every sec)
+ - Quickly switch between "dev" and "prod" mode, aka installing from a local folder vs from npm
+ 
  #### Ideas
  
-  - combine addSprite and addAnimation to one addGfx
   - global state object and selectors (investigate how to handle global state in games)
   - Pass resolution as an object to renderer
   - Camera (check for camera in pixi)
@@ -456,7 +460,8 @@ Not compatible with Webpack (Use Browserify instead)
  - Use pixi zOrder instead of custom display order (part of library pixi-display)
  - Create Trello board
  - Debug: Enable printing of all ID's 
- - Debug: Print fps
- - Debug: Print amount of entities / sprites / bodies etc
  - Split up readme into different files
  - Update deps
+ - Custom length animations (being able to define an animation speed / length for each frame in the animation)
+ - Add a remove collision function
+ - Throw error if entity ID already exists
