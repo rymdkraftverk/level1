@@ -465,3 +465,4 @@ Not compatible with Webpack (Use Browserify instead)
  - Custom length animations (being able to define an animation speed / length for each frame in the animation)
  - Add a remove collision function
  - Throw error if entity ID already exists
+ 

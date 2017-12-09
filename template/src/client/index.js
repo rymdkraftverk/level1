@@ -8,12 +8,14 @@ import scanGamepads from './behaviors/scanGamepads';
 
 Game.init(600, 400, sprites, { debug: true, physics: true }).then(() => {
   Game.start();
+  Game.getPhysicsEngine().world.gravity.y = 1;
+
   Debug.toggleHitboxes();
   // createControllerPresets();
 
   const input = Entity.create('input');
   input.behaviors.scan = scanGamepads();
-  Game.getPhysicsEngine().world.gravity.y = 1;
+
   const square = Entity.create('square');
   const sprite = Entity.addSprite(square, 'square');
   Entity.addBody(square, Physics.Bodies.rectangle(100, 10, 80, 80));
