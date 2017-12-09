@@ -26,8 +26,8 @@ export function create(id) {
       });
 
       // Display hitboxes
-      const { body, sprite } = entity;
-      if (body.parts) {
+      const { body, hasBody, sprite } = entity;
+      if (hasBody) {
         Render.displayBodyBounds(body);
       } else if (sprite) {
         Render.displaySpriteBounds(sprite);
