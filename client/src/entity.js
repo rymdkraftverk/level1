@@ -74,6 +74,17 @@ export function addSprite(entity, filename, options) {
   return sprite;
 }
 
+export function addEmptySprite(entity) {
+  const sprite = {
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
+  };
+  entity.sprite = sprite;
+  return sprite;
+}
+
 export function addAnimation(entity, filenames, animationSpeed = 0.05, options) {
   const sprite = Render.getAnimation(filenames, animationSpeed);
 

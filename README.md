@@ -178,6 +178,8 @@ options: {
 }
 ```
 
+#### Entity.addEmptySprite(entity: object) => { x, y, width, height }
+
 #### Entity.addAnimation(entity: object, filenames: array[string], ?animationSpeed: number) => PIXI.AnimatedSprite
 
 Default animationSpeed = 0.05.
@@ -425,7 +427,7 @@ In `client` and `server`
  - Rendering: [Pixi.js](https://github.com/pixijs/pixi.js)
  - Physics: [Matter.js](https://github.com/liabru/matter-js)
  - Sound: [Howler.js](https://github.com/goldfire/howler.js)
- - Multiplayer: [Socket.io ](https://github.com/socketio/socket.io)
+ - Multiplayer: [Socket.io](https://github.com/socketio/socket.io)
 
  ---
 
@@ -435,6 +437,7 @@ In `client` and `server`
  - Add better comments for documentation
  - Debug: Print fps and amount of entities / sprites / bodies etc (update every sec)
  - Quickly switch between "dev" and "prod" mode, aka installing from a local folder vs from npm
+ - Debug: Add info about connected controllers
  
  #### Ideas
  
@@ -454,4 +457,5 @@ In `client` and `server`
  - Custom length animations (being able to define an animation speed / length for each frame in the animation)
  - Add a remove collision function
  - Throw error if entity ID already exists
- 
+ - Look into converting to iOS and android with cocoonjs or phonegap
+ - Find way to detect coordinate
