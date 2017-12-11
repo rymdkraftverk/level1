@@ -40,7 +40,7 @@ export function get(id) {
 }
 
 export function getByType(type) {
-  return entities.filter(e => e.type === type);
+  return entities.filter(e => e.types.includes(type));
 }
 
 export function add(entity) {
