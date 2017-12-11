@@ -1,6 +1,6 @@
-import * as Core from './core-internal';
-import * as Render from './render-internal';
-import * as Debug from './debug';
+import * as Core from './internal/core';
+import * as Render from './internal/render';
+import * as Debug from './internal/debug';
 
 const defaultOptions = {
   physics: false,

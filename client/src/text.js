@@ -1,4 +1,4 @@
-import { getText, add, remove as renderRemove } from './render-internal';
+import { getText, add, remove as renderRemove } from './internal/render';
 
 /*
   Check PIXI.Text docs for available style options

@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { setDraw } from './core-internal';
+import { setDraw } from './core';
 
 const VOID_COLOR = 0xccc;
 

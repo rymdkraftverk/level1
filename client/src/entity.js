@@ -1,8 +1,8 @@
 import { World, Events } from 'matter-js';
 
-import * as Core from './core-internal';
-import * as Render from './render-internal';
-import * as Collision from './collision-internal';
+import * as Core from './internal/core';
+import * as Render from './internal/render';
+import * as Collision from './internal/collision';
 import syncSpriteWithBodyBehavior from './behaviours/syncSpriteWithBody';
 
 export function create(id) {

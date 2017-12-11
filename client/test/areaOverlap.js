@@ -1,5 +1,5 @@
 
-import { overlappingRectangleArea } from '../src/collision-internal.js';
+import { overlappingRectangleArea } from '../src/internal/collision';
 
 describe('overlappingRectangleArea', () => {
   context('non overlapping', () => {
@@ -18,10 +18,10 @@ describe('overlappingRectangleArea', () => {
         height: 2,
       };
 
-      const overlappingArea = overlappingRectangleArea({sprite: sprite1}, {sprite: sprite2});
+      const overlappingArea = overlappingRectangleArea({ sprite: sprite1 }, { sprite: sprite2 });
       expect(overlappingArea).to.equal(0);
-    })
-  })
+    });
+  });
 
   context('overlapping', () => {
     it('(1,0) (0,1)', () => {
@@ -39,7 +39,7 @@ describe('overlappingRectangleArea', () => {
         height: 2,
       };
 
-      const overlappingArea = overlappingRectangleArea({sprite: sprite1}, {sprite: sprite2});
+      const overlappingArea = overlappingRectangleArea({ sprite: sprite1 }, { sprite: sprite2 });
       expect(overlappingArea).to.equal(1);
     });
 
@@ -58,7 +58,7 @@ describe('overlappingRectangleArea', () => {
         height: 2,
       };
 
-      const overlappingArea = overlappingRectangleArea({sprite: sprite1}, {sprite: sprite2});
+      const overlappingArea = overlappingRectangleArea({ sprite: sprite1 }, { sprite: sprite2 });
       expect(overlappingArea).to.equal(2);
     });
   });
