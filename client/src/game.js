@@ -46,3 +46,7 @@ export function getGraphics() {
 export function getPhysicsEngine() {
   return Core.getPhysicsEngine();
 }
+
+export function getPIXI() {
+  return Render.getPIXI();
+}

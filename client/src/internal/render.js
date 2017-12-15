@@ -75,6 +75,10 @@ export function getGraphics() {
   return graphics;
 }
 
+export function getPIXI() {
+  return PIXI;
+}
+
 function getTexture(filename) {
   const resource = PIXI.loader.resources[filename];
   if (!resource) throw new Error(`Sprite ${filename} not found. Make sure that it is added to your sprites.json`);
