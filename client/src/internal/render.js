@@ -52,7 +52,7 @@ export function initRenderer(width, height, sprites, element) {
     if (!sprites) reject('Sprites should be an array of file names to load');
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
     stage = new PIXI.Container();
-    renderer = new PIXI.CanvasRenderer(width, height);
+    renderer = new PIXI.WebGLRenderer(width, height);
     renderer.backgroundColor = VOID_COLOR;
     const { view } = renderer;
     element.appendChild(view);
