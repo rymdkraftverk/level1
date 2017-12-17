@@ -6,7 +6,12 @@ let engine;
 let entities = [];
 
 function update() {
-  entities.forEach(e => e.run(e));
+  try {
+    entities.forEach(e => e.run(e));
+  } catch (error) {
+    console.error(`level1 crashed with the following error: ${error.stack}`);
+    stop();
+  }
 }
 
 export function initMainLoop() {

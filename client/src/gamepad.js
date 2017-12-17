@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-/* eslint-disable no-use-before-define */
 
 export class L1ControllerPreset {
   constructor() {
