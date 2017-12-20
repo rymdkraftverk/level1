@@ -456,6 +456,6 @@ In `client` and `server`
  - Update deps
  - Custom length animations (being able to define an animation speed / length for each frame in the animation)
  - Add a remove collision function
- - Throw error if entity ID already exists
  - Look into converting to iOS and android with cocoonjs or phonegap
  - Find way to detect coordinate
+ - Behaviors should be able to remove themselves

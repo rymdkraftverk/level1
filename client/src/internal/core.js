@@ -48,6 +48,10 @@ export function getByType(type) {
   return entities.filter(e => e.types.includes(type));
 }
 
+export function exists(id) {
+  return entities.some(e => e.id === id);
+}
+
 export function add(entity) {
   entities = entities.concat(entity);
 }
