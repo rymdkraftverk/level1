@@ -50,3 +50,7 @@ export function getPhysicsEngine() {
 export function getPIXI() {
   return Render.getPIXI();
 }
+
+export function getTexture(filename) {
+  return Render.getTexture(filename);
+}
