@@ -13,6 +13,7 @@ export function create(id) {
     id,
     types: [],
     sprite: null,
+    text: null,
     hasBody: false,
     behaviors,
     run: (entity) => { // eslint-disable-line no-shadow
@@ -96,6 +97,13 @@ export function addAnimation(entity, filenames, animationSpeed = 0.05, options) 
   return sprite;
 }
 
+export function addText(entity, text, textStyle) {
+  const textObject = Render.getText(text, textStyle);
+  Render.add(textObject);
+  entity.text = textObject;
+  return textObject;
+}
+
 export function addBody(entity, body, syncSpriteWithBody = true) {
   const engine = Core.getPhysicsEngine();
   World.add(engine.world, [body]);
@@ -119,11 +127,13 @@ export function removeBody(body) {
 
 export function destroy(entity) {
   Core.remove(entity);
-  const { sprite, animation, body, hasBody } = entity;
+  const { sprite, animation, text, body, hasBody } = entity;
   if (sprite) Render.remove(sprite);
   if (animation) Render.remove(animation);
+  if (text) Render.remove(text);
   if (hasBody) removeBody(body);
 }
+
 /*
   addCollision(entityType: string, otherTypes: array[string], onCollision: (bodyA, bodyB) => void, collisionType: string);
 */

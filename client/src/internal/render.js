@@ -108,7 +108,8 @@ export function getText(text, style) {
 }
 
 export function remove(child) {
-  stage.removeChild(child);
+  const removedChild = stage.removeChild(child);
+  return removedChild;
 }
 
 export function removeAll() {

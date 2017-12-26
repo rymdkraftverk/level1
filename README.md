@@ -10,7 +10,6 @@
     - [Entity](https://github.com/sajmoni/level1#entity)
     - [Timer](https://github.com/sajmoni/level1#timer)
     - [Sound](https://github.com/sajmoni/level1#sound)
-    - [Text](https://github.com/sajmoni/level1#text)
     - [Util](https://github.com/sajmoni/level1#util)
     - [Physics](https://github.com/sajmoni/level1#physics)
     - [Gamepad](https://github.com/sajmoni/level1#gamepad)
@@ -184,6 +183,10 @@ options: {
 
 Default animationSpeed = 0.05.
 
+#### Entity.addText(entity: object, text: string, ?options: object(PIXI.TextStyle)) => PIXI.Text
+
+http://pixijs.download/release/docs/PIXI.TextStyle.html
+
 #### Entity.addBody(entity: object, body: Matter.Body)
 
 Add Physics body.
@@ -271,17 +274,17 @@ Should be called on every game update. Will return true once when duration is re
   })
 ```
 
-#### timer.reset()
+#### timer.reset() => void
 
 Reset counter to 0.
 
-#### timer.counter()
+#### timer.counter() => number
 
 The current value of the counter.
 
-#### timer.duration()
+#### timer.duration() => number
 
-#### timer.finished()
+#### timer.finished() => bool
 
 ---
 
@@ -298,16 +301,6 @@ https://github.com/goldfire/howler.js#options
   const sound = Sound.getSound('sounds/hit.wav', { volume: 0.8 });
   sound.play();
 ```
-
----
-
-### Text
-
-#### Text.create(text: string, ?options: object(PIXI.TextStyle)) => PIXI.Text
-
-http://pixijs.download/release/docs/PIXI.TextStyle.html
-
-#### Text.remove(text: object) => void
 
 ---
 
