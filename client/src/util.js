@@ -10,3 +10,15 @@ export function flipSprite(sprite) {
   sprite.anchor.x = 1;
   sprite.scale.x *= -1;
 }
+
+export const grid = (startX, startY, width, height, itemsPerRow) => (index) => {
+  const row = Math.floor(index / itemsPerRow);
+  const column = index % itemsPerRow;
+  return {
+    x: startX + (column * width),
+    y: startY + (row * height),
+  };
+};
+
+export const getDistance = (startX, startY, endX, endY) =>
+  Math.hypot(Math.abs(endX - startX), Math.abs(endY - startY));

@@ -8,3 +8,7 @@ export function togglePrintIDs() {
 export function toggleHitboxes() {
   Render.toggleHitboxes();
 }
+
+export function toggleSound() {
+  // TODO
+}
