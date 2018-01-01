@@ -22,3 +22,13 @@ export const grid = (startX, startY, width, height, itemsPerRow) => (index) => {
 
 export const getDistance = (startX, startY, endX, endY) =>
   Math.hypot(Math.abs(endX - startX), Math.abs(endY - startY));
+
+export const getAngle = (startX, startY, goalX, goalY) => {
+  const xDistance = goalX - startX;
+  const yDistance = goalY - startY;
+  let angle = Math.atan(yDistance / xDistance);
+  if (startX - goalX < 0) {
+    angle += Math.PI;
+  }
+  return angle;
+};
