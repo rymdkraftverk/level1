@@ -134,6 +134,15 @@ export function destroy(entity) {
   if (hasBody) removeBody(body);
 }
 
+export function add(entity) {
+  Core.add(entity);
+  const { sprite } = entity;
+  if (sprite) {
+    Render.add(sprite);
+  }
+  return entity;
+}
+
 /*
   addCollision(entityType: string, otherTypes: array[string], onCollision: (bodyA, bodyB) => void, collisionType: string);
 */
