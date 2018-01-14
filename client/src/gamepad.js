@@ -269,11 +269,11 @@ export function addPreset(typeId, controllerPreset) {
   });
 }
 
-function removegamepad(gamepad) {
+function removegamepad({ gamepad }) {
   delete controllers[gamepad.index];
 }
 
-function addgamepad(gamepad) {
+function addgamepad({ gamepad }) {
   let controller = new L1Controller(gamepad);
   const preset = l1Presets[gamepad.id];
 
