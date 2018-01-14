@@ -426,29 +426,26 @@ In `client` and `server`
 
 #### TODO
 
- - Add examples
- - Add better comments for documentation
  - Debug: Print fps and amount of entities / sprites / bodies etc (update every sec)
- - Quickly switch between "dev" and "prod" mode, aka installing from a local folder vs from npm
  - Debug: Add info about connected controllers
+ - Update deps
  
  #### Ideas
  
   - global state object and selectors (investigate how to handle global state in games)
-  - Pass resolution as an object to renderer
   - Camera (check for camera in pixi)
   - Expose default behaviors 
   - Dev and prod builds
  - Use dev server to combine start and watch commands
  - Create a script for building game dist files
  - Investigate upgrading to webpack (if pixi supports it)
- - Use pixi zOrder instead of custom display order (part of library pixi-display)
- - Create Trello board
  - Debug: Enable printing of all ID's 
  - Split up readme into different files
- - Update deps
  - Custom length animations (being able to define an animation speed / length for each frame in the animation)
  - Add a remove collision function
  - Look into converting to iOS and android with cocoonjs or phonegap
  - Find way to detect coordinate
  - Behaviors should be able to remove themselves
+ - Add better comments for documentation
+  - Add examples
+ - Quickly switch between "dev" and "prod" mode, aka installing from a local folder vs from npm
