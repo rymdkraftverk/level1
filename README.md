@@ -227,19 +227,19 @@ The following properties are specified for objects created by Entity.create.
 
 Unique id.
 
-#### entity.type
+#### entity.types (array)
 
-Type field to group entities together, also used for collisions (Should perhaps be an array...).
+Type field to group entities together, also used for collisions
 
 #### entity.behaviors (object)
 
 Map with all behaviors.
 
-#### entity.body
+#### entity.body (Matter-js body)
 
 Physics body. Always has default body with entity as only property.
 
-#### entity.sprite
+#### entity.sprite (Pixi Sprite or AnimatedSprit)
 
 Either null, PIXI.Sprite or PIXI.AnimatedSprite
 
@@ -318,7 +318,6 @@ Flip sprite horizontally
 #### Util.getDistance(startX, startY, endX, endY) => number
 
 #### Util.getAngle(startX, startY, endX, endY) => number (in radians)
-
 
 ---
 
