@@ -313,6 +313,12 @@ Get a random number in range (from (inclusive) - to (exclusive))
 #### Util.flipSprite(sprite: PIXI.Sprite|PIXI.AnimatedSprite|PIXI.Text)
 
 Flip sprite horizontally
+#### Util.grid(startX, startY, width, height, itemsPerRow) => (index) => { x, y } 
+
+#### Util.getDistance(startX, startY, endX, endY) => number
+
+#### Util.getAngle(startX, startY, endX, endY) => number (in radians)
+
 
 ---
 
