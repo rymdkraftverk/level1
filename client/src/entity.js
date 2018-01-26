@@ -97,8 +97,9 @@ export function addAnimation(entity, filenames, animationSpeed = 0.05, options) 
   return sprite;
 }
 
-export function addText(entity, text, textStyle) {
+export function addText(entity, text, textStyle, options) {
   const textObject = Render.getText(text, textStyle);
+  applyOptions(textObject, options);
   Render.add(textObject);
   entity.text = textObject;
   return textObject;

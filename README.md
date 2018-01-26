@@ -179,11 +179,11 @@ options: {
 
 #### Entity.addEmptySprite(entity: object) => { x, y, width, height }
 
-#### Entity.addAnimation(entity: object, filenames: array[string], ?animationSpeed: number) => PIXI.AnimatedSprite
+#### Entity.addAnimation(entity: object, filenames: array[string], ?animationSpeed: number, ?options: object) => PIXI.AnimatedSprite
 
 Default animationSpeed = 0.05.
 
-#### Entity.addText(entity: object, text: string, ?options: object(PIXI.TextStyle)) => PIXI.Text
+#### Entity.addText(entity: object, text: string, ?textStyle: object(PIXI.TextStyle), ?options: object) => PIXI.Text
 
 http://pixijs.download/release/docs/PIXI.TextStyle.html
 
@@ -434,6 +434,7 @@ In `client` and `server`
  - Debug: Print fps and amount of entities / sprites / bodies etc (update every sec)
  - Debug: Add info about connected controllers
  - Update deps
+ - Should sprite hitboxes be shown at all if physics is enabled???
  
  #### Ideas
  
