@@ -440,8 +440,9 @@ In `client` and `server`
  - Run physics as part of game loop
  - engine.enabled = false should stop engine
  - Other javascript physics engines?
+ - Make Engine addCollision predictable
+ - Save toggle hitboxes settings in local storage
  
-
  #### Ideas
  
   - global state object and selectors (investigate how to handle global state in games)

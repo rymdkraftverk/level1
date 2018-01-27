@@ -9,6 +9,7 @@ export function getRandomInRange(from, to) {
 export function flipSprite(sprite) {
   sprite.anchor.x = 1;
   sprite.scale.x *= -1;
+  sprite.flipped = true;
 }
 
 export const grid = (startX, startY, width, height, itemsPerRow) => (index) => {
