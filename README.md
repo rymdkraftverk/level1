@@ -435,7 +435,13 @@ In `client` and `server`
  - Debug: Add info about connected controllers
  - Update deps
  - Should sprite hitboxes be shown at all if physics is enabled???
+ - Bug: AddSprite has to be used before addBody
+ - Stop engine aswell on error
+ - Run physics as part of game loop
+ - engine.enabled = false should stop engine
+ - Other javascript physics engines?
  
+
  #### Ideas
  
   - global state object and selectors (investigate how to handle global state in games)
