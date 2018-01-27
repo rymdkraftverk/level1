@@ -172,6 +172,11 @@ export function addCollision(entityType, otherTypes, onCollision, collisionType 
   });
 }
 
+export function removeAllCollisions() {
+  const engine = Core.getPhysicsEngine();
+  Events.off(engine);
+}
+
 export function getAll() {
   return Core.getEntities();
 }
