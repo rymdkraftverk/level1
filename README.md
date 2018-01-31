@@ -431,34 +431,49 @@ In `client` and `server`
 
 #### TODO
 
- - Debug: Print fps and amount of entities / sprites / bodies etc (update every sec)
- - Debug: Add info about connected controllers
- - Update deps
- - Should sprite hitboxes be shown at all if physics is enabled???
- - Bug: AddSprite has to be used before addBody
- - Stop engine aswell on error
- - Run physics as part of game loop
- - engine.enabled = false should stop engine
- - Other javascript physics engines?
- - Make Engine addCollision predictable
- - Save toggle hitboxes settings in local storage
- 
  #### Ideas
  
-  - global state object and selectors (investigate how to handle global state in games)
-  - Camera (check for camera in pixi)
-  - Expose default behaviors 
-  - Dev and prod builds
- - Use dev server to combine start and watch commands
+ - Camera (check for camera in pixi)
+ - Expose default behaviors 
+ - Dev and prod builds
  - Create a script for building game dist files
- - Investigate upgrading to webpack (if pixi supports it)
  - Debug: Enable printing of all ID's 
- - Split up readme into different files
  - Custom length animations (being able to define an animation speed / length for each frame in the animation)
- - Add a remove collision function
- - Look into converting to iOS and android with cocoonjs or phonegap
  - Find way to detect coordinate
- - Behaviors should be able to remove themselves
  - Add better comments for documentation
-  - Add examples
+ - Add examples
  - Quickly switch between "dev" and "prod" mode, aka installing from a local folder vs from npm
+ - Debug: Add info about connected controllers
+ - Should sprite hitboxes be shown at all if physics is enabled??? 
+
+STATE MANAGEMENT
+ - one way dataflow?
+ - global state object and selectors (investigate how to handle global state in games)
+
+#### 0.3: 
+ - Debug: Print fps and amount of entities / sprites / bodies etc (update every sec)
+ - Game should not crash if controller is added after game is started
+ - Bug: AddSprite has to be used before addBody
+ - Save toggle hitboxes settings in local storage
+ - Pass id to entity destroy
+ - add a setsprite and setanimation 
+ - Refactor flipSprite ?
+ - better error logging (winston node-bunyon?)
+ - Split up readme into different files
+ - Load music assets before game starts
+ - Loading screen
+
+BUNDLING
+ - Investigate upgrading to webpack (if pixi supports it)
+ - Use dev server to combine start and watch commands
+
+CROSS PLATFORM
+ - Look into converting to iOS and android with cocoonjs or phonegap
+
+PHYSICS REFACTOR
+- Stop physics engine aswell on error
+- Run physics as part of game loop
+ - engine.enabled = false should stop engine
+ - Other javascript physics engines?
+ - Make Engine addCollision predictable (bodyA is always first entityType)
+ - Add a remove collision function
