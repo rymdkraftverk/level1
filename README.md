@@ -462,6 +462,8 @@ STATE MANAGEMENT
  - Split up readme into different files
  - Load music assets before game starts
  - Loading screen
+ - Prettier looking debug tools
+ - Fix test linting
 
 BUNDLING
  - Investigate upgrading to webpack (if pixi supports it)

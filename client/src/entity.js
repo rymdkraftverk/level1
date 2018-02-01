@@ -23,7 +23,7 @@ export function create(id) {
           behavior.init(behavior, entity);
           delete behavior.init;
         }
-        if (!behavior.run) throw new Error(`Behaviour ${b} on entity ${id} has no run function`);
+        if (!behavior.run) throw new Error(`Behavior ${b} on entity ${id} has no run function`);
         behavior.run(behavior, entity);
       });
 
@@ -128,7 +128,9 @@ export function removeBody(body) {
 
 export function destroy(entity) {
   Core.remove(entity);
-  const { sprite, animation, text, body, hasBody } = entity;
+  const {
+    sprite, animation, text, body, hasBody,
+  } = entity;
   if (sprite) Render.remove(sprite);
   if (animation) Render.remove(animation);
   if (text) Render.remove(text);

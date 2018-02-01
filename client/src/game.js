@@ -4,13 +4,13 @@ import * as Debug from './internal/debug';
 
 const defaultOptions = {
   physics: false,
-  // eslint-disable-next-line no-undef 
+  // eslint-disable-next-line no-undef
   element: document.body,
   debug: false,
 };
 
 export async function init(width, height, sprites, options) {
-  // Replace default options with user specified ones 
+  // Replace default options with user specified ones
   const {
     physics,
     element,

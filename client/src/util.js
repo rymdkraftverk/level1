@@ -4,7 +4,7 @@ export function getRandomInRange(from, to) {
 
 /**
  * Flip Sprite horizontally
- * @param {PIXI.Srite|PIXI.AnimatedSprite|PIXI.Text} sprite 
+ * @param {PIXI.Srite|PIXI.AnimatedSprite|PIXI.Text} sprite
  */
 export function flipSprite(sprite) {
   sprite.anchor.x = 1;

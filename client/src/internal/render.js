@@ -36,7 +36,7 @@ function createPIXIGraphics() {
 }
 
 function loadAssets(sprites, resolve) {
-  const loader = PIXI.loader;
+  const { loader } = PIXI;
   sprites.forEach((sprite) => {
     const file = `assets/${sprite}.png`;
     loader.add(sprite, file);
@@ -49,7 +49,7 @@ function loadAssets(sprites, resolve) {
 
 export function initRenderer(width, height, sprites, element) {
   return new Promise((resolve, reject) => {
-    if (!sprites) reject('Sprites should be an array of file names to load');
+    if (!sprites) reject(new Error('Sprites should be an array of file names to load'));
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
     stage = new PIXI.Container();
     renderer = new PIXI.WebGLRenderer(width, height);
