@@ -451,18 +451,15 @@ STATE MANAGEMENT
  - global state object and selectors (investigate how to handle global state in games)
 
 #### 0.3: 
- - Debug: Print fps and amount of entities / sprites / bodies etc (update every sec)
  - Game should not crash if controller is added after game is started
  - Bug: AddSprite has to be used before addBody
  - Save toggle hitboxes settings in local storage
  - Pass id to entity destroy
  - add a setsprite and setanimation 
  - Refactor flipSprite ?
- - better error logging (winston node-bunyon?)
  - Split up readme into different files
  - Load music assets before game starts
  - Loading screen
- - Prettier looking debug tools
  - Fix test linting
 
 BUNDLING
@@ -473,9 +470,21 @@ CROSS PLATFORM
  - Look into converting to iOS and android with cocoonjs or phonegap
 
 PHYSICS REFACTOR
-- Stop physics engine aswell on error
-- Run physics as part of game loop
- - engine.enabled = false should stop engine
  - Other javascript physics engines?
  - Make Engine addCollision predictable (bodyA is always first entityType)
  - Add a remove collision function
+
+ DEBUG 
+
+- better error logging (winston node-bunyon?)
+stacktrace: https://github.com/stacktracejs/stacktrace.js
+logger: https://github.com/winstonjs/winston
+
+- Prettier looking debug tools
+Take styling from Nues
+
+- Debug: Print fps and amount of entities / sprites / bodies etc (update every sec):
+Composite.allBodies(composite).length
+Entity.getAll().length
+MainLoop.getFPS( ) 
+getStage().children.length

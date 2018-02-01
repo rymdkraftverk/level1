@@ -5,8 +5,11 @@ import { Engine } from 'matter-js';
 let engine;
 let entities = [];
 
-function update() {
+function update(delta) {
   try {
+    if (engine) {
+      Engine.update(engine, delta);
+    }
     entities.forEach(e => e.run(e));
   } catch (error) {
     console.error(`level1 crashed with the following error: ${error.stack}`);
@@ -69,7 +72,6 @@ export function removeAll() {
 export function initPhysics() {
   engine = Engine.create();
   engine.world.gravity.y = 0;
-  Engine.run(engine);
 }
 
 export function isPhysicsEnabled() {
