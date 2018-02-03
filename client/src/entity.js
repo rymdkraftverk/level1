@@ -6,11 +6,14 @@ import * as Collision from './internal/collision';
 import syncSpriteWithBodyBehavior from './behaviours/syncSpriteWithBody';
 
 export function create(id) {
-  if (!id) throw new Error('Entity.create(id) takes a unique id as an argument');
-  else if (Core.exists(id)) throw new Error(`Entity.create(id) using an already existing id: ${id}`);
+  if (Core.exists(id)) {
+    throw new Error(`Entity.create(id) using an already existing id: ${id}`);
+  }
+
   const behaviors = {};
+
   const entity = {
-    id,
+    id: id || null,
     types: [],
     sprite: null,
     text: null,

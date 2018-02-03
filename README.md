@@ -313,6 +313,7 @@ Get a random number in range (from (inclusive) - to (exclusive))
 #### Util.flipSprite(sprite: PIXI.Sprite|PIXI.AnimatedSprite|PIXI.Text)
 
 Flip sprite horizontally
+
 #### Util.grid(startX, startY, width, height, itemsPerRow) => (index) => { x, y } 
 
 #### Util.getDistance(startX, startY, endX, endY) => number
@@ -434,33 +435,37 @@ In `client` and `server`
  #### Ideas
  
  - Camera (check for camera in pixi)
- - Expose default behaviors 
  - Dev and prod builds
  - Create a script for building game dist files
- - Debug: Enable printing of all ID's 
  - Custom length animations (being able to define an animation speed / length for each frame in the animation)
- - Find way to detect coordinate
- - Add better comments for documentation
- - Add examples
  - Quickly switch between "dev" and "prod" mode, aka installing from a local folder vs from npm
- - Debug: Add info about connected controllers
- - Should sprite hitboxes be shown at all if physics is enabled??? 
+ 
+#### 0.3: 
 
 STATE MANAGEMENT
  - one way dataflow?
  - global state object and selectors (investigate how to handle global state in games)
 
-#### 0.3: 
+BUGS / IMPROVEMENTS
  - Game should not crash if controller is added after game is started
- - Bug: AddSprite has to be used before addBody
- - Save toggle hitboxes settings in local storage
  - Pass id to entity destroy
- - add a setsprite and setanimation 
- - Refactor flipSprite ?
  - Split up readme into different files
- - Load music assets before game starts
- - Loading screen
+ - Loading screen (level1 splash screen)
+ - Logo?
  - Fix test linting
+ - Use delta when updating entity state? check mainloop docs
+ - Add juicying functions
+ - Expose default behaviors (scan for gamepads etc)
+ - Add better comments for documentation
+
+SOUND
+ - Change sound lib to: https://github.com/CreateJS/SoundJS
+ - Load music assets before game starts
+
+SPRITES AND ANIMATIONS
+- Bug: AddSprite has to be used before addBody
+- add a setsprite and setanimation (handle switching between animations easier, Animation.create() ?)
+- Refactor flipSprite ?
 
 BUNDLING
  - Investigate upgrading to webpack (if pixi supports it)
@@ -488,3 +493,20 @@ Composite.allBodies(composite).length
 Entity.getAll().length
 MainLoop.getFPS( ) 
 getStage().children.length
+
+ - Debug: Enable printing of all ID's (display on mouse hover??)
+
+ - Find way to detect coordinate (display on mouse hover??)
+
+ - Debug: Add info about connected controllers 
+
+ - Toggle physics / Sprite hitboxes
+
+- Save debug settings (toggle hitboxes etc) settings in local storage
+
+EXAMPLES:
+
+- platformer
+- multiplayer
+ 
+ Update API docs after everything is done..
