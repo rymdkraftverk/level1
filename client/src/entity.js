@@ -130,6 +130,14 @@ export function removeBody(body) {
 }
 
 export function destroy(entity) {
+  if (typeof entity === 'string') {
+    entity = Core.get(entity);
+    if (!entity) {
+      console.warn(`Tried to remove non-existant Entity: ${entity}`);
+      return;
+    }
+  }
+
   Core.remove(entity);
   const {
     sprite, animation, text, body, hasBody,
