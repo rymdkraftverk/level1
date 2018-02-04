@@ -497,7 +497,7 @@ Take styling from Nues
 
  - Toggle physics / Sprite hitboxes
 
-- Save debug settings (toggle hitboxes etc) settings in local storage
+ - Use an actual toggle for hitboxes
 
 EXAMPLES:
 

@@ -23,6 +23,10 @@ export function initMainLoop() {
     .setMaxAllowedFPS(60);
 }
 
+export function getFPS() {
+  return MainLoop.getFPS();
+}
+
 export function start() {
   MainLoop.start();
 }
