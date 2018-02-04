@@ -432,8 +432,11 @@ In `client` and `server`
 
 #### TODO
 
- #### Ideas
+ #### Future
  
+ - Debug: Enable printing of all ID's (display on mouse hover??)
+ - Find way to detect coordinate (display on mouse hover??)
+ - Debug: Add info about connected controllers 
  - Camera (check for camera in pixi)
  - Dev and prod builds
  - Create a script for building game dist files
@@ -448,7 +451,7 @@ STATE MANAGEMENT
 
 BUGS / IMPROVEMENTS
  - Game should not crash if controller is added after game is started
- - Split up readme into different files
+ - Split up readme into different files: https://help.github.com/articles/about-readmes/
  - Loading screen (level1 splash screen)
  - Logo?
  - Fix test linting
@@ -486,14 +489,6 @@ logger: https://github.com/winstonjs/winston
 
 - Prettier looking debug tools
 Take styling from Nues
-
-- Debug: Print fps and amount of entities / sprites / bodies etc (update every sec):
-
- - Debug: Enable printing of all ID's (display on mouse hover??)
-
- - Find way to detect coordinate (display on mouse hover??)
-
- - Debug: Add info about connected controllers 
 
  - Toggle physics / Sprite hitboxes
 

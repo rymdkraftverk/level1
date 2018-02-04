@@ -64,6 +64,11 @@ export function initDebugTools() {
   createButton('Print IDs', Debug.togglePrintIDs);
 
   const infoContainer = document.createElement('div');
+  infoContainer.style.color = 'white';
+  infoContainer.style.padding = '24px';
+  infoContainer.style.width = '300px';
+  infoContainer.style.backgroundColor = 'black';
+
   const createInfoRow = makeCreateInfoRow(infoContainer);
 
   createInfoRow('fps: ', getFPS);
