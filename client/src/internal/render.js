@@ -7,7 +7,7 @@ let stage;
 let renderer;
 let graphics;
 let internalGraphics;
-let showHitboxes = false;
+let _showHitboxes = false;
 
 function draw() {
   renderer.render(stage);
@@ -116,12 +116,17 @@ export function removeAll() {
   stage.removeChildren();
 }
 
-export function toggleHitboxes() {
-  showHitboxes = !showHitboxes;
+export function showHitboxes(show) {
+  _showHitboxes = show;
+  return _showHitboxes;
+}
+
+export function getShowHitboxes() {
+  return _showHitboxes;
 }
 
 export function displayBodyBounds(body) {
-  if (!showHitboxes) return;
+  if (!_showHitboxes) return;
 
   const { vertices } = body.parts[0];
 
@@ -143,7 +148,7 @@ export function displayBodyBounds(body) {
 }
 
 export function displaySpriteBounds(sprite) {
-  if (!showHitboxes) return;
+  if (!_showHitboxes) return;
 
   internalGraphics.lineStyle(2, 0xFFFFFF, 1);
   internalGraphics.moveTo(sprite.x, sprite.y);

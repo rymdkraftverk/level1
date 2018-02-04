@@ -5,6 +5,6 @@ export function togglePrintIDs() {
   console.warn('printIDs not yet implemented');
 }
 
-export function toggleHitboxes() {
-  Render.toggleHitboxes();
+export function setShowHitboxes(show) {
+  return Render.setShowHitboxes(show);
 }

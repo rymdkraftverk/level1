@@ -448,7 +448,6 @@ STATE MANAGEMENT
 
 BUGS / IMPROVEMENTS
  - Game should not crash if controller is added after game is started
- - Pass id to entity destroy
  - Split up readme into different files
  - Loading screen (level1 splash screen)
  - Logo?
@@ -489,10 +488,6 @@ logger: https://github.com/winstonjs/winston
 Take styling from Nues
 
 - Debug: Print fps and amount of entities / sprites / bodies etc (update every sec):
-Composite.allBodies(composite).length
-Entity.getAll().length
-MainLoop.getFPS( ) 
-getStage().children.length
 
  - Debug: Enable printing of all ID's (display on mouse hover??)
 

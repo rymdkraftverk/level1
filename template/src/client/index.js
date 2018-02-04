@@ -10,7 +10,6 @@ Game.init(600, 400, sprites, { debug: true, physics: true }).then(() => {
   Game.start();
   Game.getPhysicsEngine().world.gravity.y = 1;
 
-  Debug.toggleHitboxes();
   // createControllerPresets();
 
   const input = Entity.create('input');
