@@ -4,7 +4,8 @@
   "description": "Template to get started with level1",
   "main": "index.js",
   "scripts": {
-    "l1": "yarn add file:../client && yarn add file:../server",
+    "l1": "yarn add file:../client",
+    "l1-server": "yarn add file:../server",
     "build": "browserify src/client/index.js -o public/bundle.js -t [ babelify ]",
     "watch": "watchify src/client/index.js -o public/bundle.js -t [ babelify ] --debug",
     "start": "nodemon src/server"
