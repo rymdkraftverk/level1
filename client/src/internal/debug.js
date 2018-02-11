@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 import { Composite } from 'matter-js';
 import * as Core from './core';
 import * as Render from './render';
@@ -21,8 +19,19 @@ const idsToLoadFromLocalStorage = [
 ];
 
 function button(text, onClick) {
-  const buttonElement = document.createElement('button');
+  const buttonElement = document.createElement('div');
   buttonElement.innerHTML = text;
+  const { style } = buttonElement;
+  style.padding = '8px 16px';
+  style.margin = 'auto 16px';
+  style.boxShadow = '2px 2px 1px black';
+  style.borderRadius = '4px';
+  style.cursor = 'pointer';
+  style.fontWeight = 'bold';
+  style.fontSize = '8pt';
+  style.backgroundColor = 'white';
+  style.textAlign = 'center';
+
   buttonElement.addEventListener('click', onClick);
   return buttonElement;
 }
@@ -47,14 +56,33 @@ const makeCreateButton = (container) => (text, onClick) => {
   container.appendChild(b);
 };
 
+const createRunningInfo = (container) => {
+  const runningInfo = document.createElement('p');
+  runningInfo.style.padding = '0 16px';
+  container.appendChild(runningInfo);
+  setInterval(() => {
+    const isRunning = Core.isRunning();
+    runningInfo.textContent = `${isRunning ? 'Running' : 'Stopped'}`;
+    runningInfo.style.color = `${isRunning ? 'green' : 'red'}`;
+  }, TIME_BETWEEN_INFO_UPDATES);
+};
+
 export function initDebugTools() {
   const selectionContainer = flexDiv();
   const createButton = makeCreateButton(selectionContainer);
 
-  /* BUTTONS */
-  createButton('Stop', Core.stop);
+  createRunningInfo(selectionContainer);
 
-  createButton('Start', Core.start);
+  /* BUTTONS */
+  createButton('stop', ({ target }) => {
+    if (!Core.isRunning()) {
+      Core.start();
+      target.innerHTML = 'stop';
+    } else {
+      Core.stop();
+      target.innerHTML = 'start';
+    }
+  });
 
   createButton('Toggle hitboxes', () => {
     const toggled = Render.showHitboxes(!Render.getShowHitboxes());
@@ -73,9 +101,9 @@ export function initDebugTools() {
 
   createInfoRow('fps: ', getFPS);
   createInfoRow('entities: ', getAllEntities);
-  createInfoRow('sprites:', getAllSprites);
+  createInfoRow('sprites: ', getAllSprites);
   if (Core.isPhysicsEnabled()) {
-    createInfoRow('bodies:', getAllBodies);
+    createInfoRow('bodies: ', getAllBodies);
   }
 
   document.body.appendChild(selectionContainer);

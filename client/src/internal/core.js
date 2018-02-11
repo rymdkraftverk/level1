@@ -1,7 +1,6 @@
 import MainLoop from 'mainloop.js';
 import { Engine } from 'matter-js';
 
-// eslint-disable-next-line import/no-mutable-exports
 let engine;
 let entities = [];
 
@@ -37,6 +36,10 @@ export function setDraw(draw) {
 
 export function stop() {
   MainLoop.stop();
+}
+
+export function isRunning() {
+  return MainLoop.isRunning();
 }
 
 export function getEntities() {
