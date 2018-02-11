@@ -1,7 +1,6 @@
 import { Composite } from 'matter-js';
 import * as Core from './core';
 import * as Render from './render';
-import * as Debug from '../debug';
 import * as Entity from '../entity';
 import { save, restore } from './localStorage';
 
@@ -31,6 +30,7 @@ function button(text, onClick) {
   style.fontSize = '8pt';
   style.backgroundColor = 'white';
   style.textAlign = 'center';
+  style.userSelect = 'none';
 
   buttonElement.addEventListener('click', onClick);
   return buttonElement;
@@ -45,10 +45,11 @@ function flexDiv() {
 const makeCreateInfoRow = (container) => (label, getData) => {
   const row1 = flexDiv();
   container.appendChild(row1);
-
-  setInterval(() => {
+  const update = () => {
     row1.textContent = `${label}${getData()}`;
-  }, TIME_BETWEEN_INFO_UPDATES);
+  };
+  update();
+  setInterval(update, TIME_BETWEEN_INFO_UPDATES);
 };
 
 const makeCreateButton = (container) => (text, onClick) => {
@@ -60,11 +61,13 @@ const createRunningInfo = (container) => {
   const runningInfo = document.createElement('p');
   runningInfo.style.padding = '0 16px';
   container.appendChild(runningInfo);
-  setInterval(() => {
+  const update = () => {
     const isRunning = Core.isRunning();
     runningInfo.textContent = `${isRunning ? 'Running' : 'Stopped'}`;
     runningInfo.style.color = `${isRunning ? 'green' : 'red'}`;
-  }, TIME_BETWEEN_INFO_UPDATES);
+  };
+  update();
+  setInterval(update, TIME_BETWEEN_INFO_UPDATES);
 };
 
 export function initDebugTools() {
@@ -89,7 +92,8 @@ export function initDebugTools() {
     save(TOGGLE_HITBOXES, toggled);
   });
 
-  createButton('Print IDs', Debug.togglePrintIDs);
+  // Disable until implemented
+  // createButton('Print IDs', Debug.togglePrintIDs);
 
   const infoContainer = document.createElement('div');
   infoContainer.style.color = 'white';

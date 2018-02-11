@@ -490,9 +490,6 @@ PHYSICS REFACTOR
 stacktrace: https://github.com/stacktracejs/stacktrace.js
 logger: https://github.com/winstonjs/winston
 
-- Prettier looking debug tools
-Take styling from Nues
-
  - Toggle physics / Sprite hitboxes
 
  - Use an actual toggle for hitboxes

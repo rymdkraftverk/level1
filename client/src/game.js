@@ -19,8 +19,8 @@ export async function init(width, height, sprites, options) {
   await Render.initRenderer(width, height, sprites, element);
   Core.initMainLoop();
   if (physics) Core.initPhysics();
-  if (debug) Debug.initDebugTools();
   start();
+  if (debug) Debug.initDebugTools();
 }
 
 export function start() {
