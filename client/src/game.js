@@ -4,7 +4,6 @@ import * as Debug from './internal/debug';
 
 const defaultOptions = {
   physics: false,
-  // eslint-disable-next-line no-undef
   element: document.body,
   debug: false,
 };
@@ -21,6 +20,7 @@ export async function init(width, height, sprites, options) {
   Core.initMainLoop();
   if (physics) Core.initPhysics();
   if (debug) Debug.initDebugTools();
+  start();
 }
 
 export function start() {

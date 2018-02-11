@@ -140,7 +140,10 @@ export function displayBodyBounds(body) {
       internalGraphics.moveTo(vertices[i].x, vertices[i].y);
     }
     if (vertices[i].isInternal) {
-      internalGraphics.moveTo(vertices[(i + 1) % vertices.length].x, vertices[(i + 1) % vertices.length].y);
+      internalGraphics.moveTo(
+        vertices[(i + 1) % vertices.length].x,
+        vertices[(i + 1) % vertices.length].y,
+      );
     }
   }
 

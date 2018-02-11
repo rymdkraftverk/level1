@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 export class L1ControllerPreset {
   constructor() {
     this.buttonAliases = new Map();

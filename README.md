@@ -442,23 +442,26 @@ In `client` and `server`
  - Create a script for building game dist files
  - Custom length animations (being able to define an animation speed / length for each frame in the animation)
  - Quickly switch between "dev" and "prod" mode, aka installing from a local folder vs from npm
+ - Use delta when updating entity state, (pass delta to all run functions) (only relevant with a flunctuating time step)
+ - Notify about browser not being supported (or javascript not being enabled)
+ - Other javascript physics engines?
  
 #### 0.3: 
 
 STATE MANAGEMENT
  - one way dataflow?
  - global state object and selectors (investigate how to handle global state in games)
+ - finite state machine (leave to userland?)
 
 BUGS / IMPROVEMENTS
- - Game should not crash if controller is added after game is started
  - Split up readme into different files: https://help.github.com/articles/about-readmes/
  - Loading screen (level1 splash screen)
  - Logo?
  - Fix test linting
- - Use delta when updating entity state? check mainloop docs
  - Add juicying functions
  - Expose default behaviors (scan for gamepads etc)
  - Add better comments for documentation
+ - Publish script: Should run tests, build, bump version(maybe), and publish
 
 SOUND
  - Change sound lib to: https://github.com/CreateJS/SoundJS
@@ -466,18 +469,18 @@ SOUND
 
 SPRITES AND ANIMATIONS
 - Bug: AddSprite has to be used before addBody
-- add a setsprite and setanimation (handle switching between animations easier, Animation.create() ?)
+- add a setsprite and setanimation (handle switching between animations easier, Animation.create() ? animation state machine?)
 - Refactor flipSprite ?
 
 BUNDLING
  - Investigate upgrading to webpack (if pixi supports it)
  - Use dev server to combine start and watch commands
+ - Bundle pressplay font with engine
 
 CROSS PLATFORM
  - Look into converting to iOS and android with cocoonjs or phonegap
 
 PHYSICS REFACTOR
- - Other javascript physics engines?
  - Make Engine addCollision predictable (bodyA is always first entityType)
  - Add a remove collision function
 
@@ -498,5 +501,11 @@ EXAMPLES:
 
 - platformer
 - multiplayer
+
+GAMEPAD: 
+
+ - Fix l1controller API
+ - Remove legacy controller code (or keep as fallback)
+ - Game should not crash if controller is added after game is started
  
  Update API docs after everything is done..

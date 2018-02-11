@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 const keyPrefix = 'level1';
 
 const { localStorage } = window;
