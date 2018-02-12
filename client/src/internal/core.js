@@ -11,6 +11,7 @@ function update(delta) {
     }
     entities.forEach(e => e.run(e));
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(`level1 crashed with the following error: ${error.stack}`);
     stop();
   }

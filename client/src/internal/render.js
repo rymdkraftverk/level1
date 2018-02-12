@@ -50,15 +50,21 @@ function loadAssets(sprites, resolve) {
 export function initRenderer(width, height, sprites, element) {
   return new Promise((resolve, reject) => {
     if (!sprites) reject(new Error('Sprites should be an array of file names to load'));
+
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+
     stage = new PIXI.Container();
+
     renderer = new PIXI.WebGLRenderer(width, height);
     renderer.backgroundColor = VOID_COLOR;
     const { view } = renderer;
     element.appendChild(view);
+
     setDraw(draw);
+
     graphics = createPIXIGraphics();
     internalGraphics = createPIXIGraphics();
+
     loadAssets(sprites, resolve);
   });
 }
