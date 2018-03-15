@@ -30,7 +30,6 @@ Use the template project as a starter.
 ### Create game
 
 ```javascript
-import 'babel-polyfill';
 import { Game } from 'l1';
 import sprites from './sprites.json';
 

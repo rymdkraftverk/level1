@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 const Game = require('./game');
 const Entity = require('./entity');
 const Timer = require('./timer');

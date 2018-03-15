@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 // eslint-disable-next-line no-unused-vars
 import { Game, Entity, Timer, Key, Debug, Gamepad, Physics, Sound, Net, Text } from 'l1';
 import sprites from './sprites.json';
