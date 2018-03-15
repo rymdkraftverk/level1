@@ -34,7 +34,7 @@ import { Game } from 'l1';
 import sprites from './sprites.json';
 
 Game.init(800, 400, sprites, { debug: true, physics: true }).then(() => {
-  Game.start();
+  // Initialize your game here
 }
 ```
 
@@ -44,8 +44,6 @@ Game.init(800, 400, sprites, { debug: true, physics: true }).then(() => {
 
 - Put sprites in `public/assets/`
 - Add sprite file name to `src/client/sprites.json`
-
-*Sprites have to be .png*
 
 Example:
 
@@ -59,24 +57,23 @@ Example:
 
 ```
 
+*Sprites have to be .png*
+
 ---
 
 ### Entities
 
-#### Create
+#### Create and add Sprite
 
 ```javascript
   import { Entity } from 'l1';
 
   const lizard = Entity.create('lizard');
-```
-
-#### Add sprite and position it
-
-```javascript
+  // Add sprite and position it
   const sprite = Entity.addSprite(lizard, 'lizard1');
   sprite.x = 200;
   sprite.y = 200;
+
 ```
 
 *Check PIXI.Sprite docs for properties on sprite object*
@@ -118,7 +115,7 @@ Behaviors are objects with two properties:
   })
 ```
 
-#### Add behavior
+#### Add behavior to an entity
 
 ```javascript
   lizard.behaviors.moveLeft = moveLeft();
@@ -131,8 +128,6 @@ Behaviors are objects with two properties:
 ### Game
 
 #### Game.init(width, height, sprites, ?options) => Promise
-
-Initialize game main loop.
 
 ```javascript
 options: {
@@ -166,7 +161,9 @@ debug = Display the debug tools underneath game window. (Default: `false`)
 
 ### Entity
 
-#### Entity.create(id: string) => object
+#### Entity.create(?id: string) => object
+
+Id is optional. It is needed for Entity.get
 
 #### Entity.addSprite(entity: object, filename: string, ?options: object) => PIXI.Sprite
 
@@ -198,9 +195,11 @@ Default collisionType: `collisionActive`
 
 Other options: `collisionStart` | `collisionEnd`
 
-#### Entity.destroy(entity: object)
+#### Entity.destroy(entity: object | string)
 
 Remove entity, sprite, animation and body.
+
+Can be passed either the entity object or entity id.
 
 #### Entity.getAll()
 
@@ -240,7 +239,7 @@ Physics body. Always has default body with entity as only property.
 
 #### entity.sprite (Pixi Sprite or AnimatedSprit)
 
-Either null, PIXI.Sprite or PIXI.AnimatedSprite
+Either null, PIXI.Sprite, PIXI.AnimatedSprite or Empty sprite
 
 ---
 
@@ -256,9 +255,9 @@ Timer starts at 0 and counts up to duration. (60 = Approx. 1 sec)
 
 The following properties are specified for objects created by Timer.create.
 
-#### timer.run()
+#### timer.run() => bool
 
-Should be called on every game update. Will return true once when duration is reached.
+Should be called on every game update. Increases the counter by 1. Will return true once when duration is reached.
 
 ```javascript
   timerBehavior = () => ({
@@ -444,6 +443,8 @@ In `client` and `server`
  - Use delta when updating entity state, (pass delta to all run functions) (only relevant with a flunctuating time step)
  - Notify about browser not being supported (or javascript not being enabled)
  - Other javascript physics engines?
+ - Logo?
+ - Nicer looking loading screen
  
 #### 0.3: 
 
@@ -454,13 +455,14 @@ STATE MANAGEMENT
 
 BUGS / IMPROVEMENTS
  - Split up readme into different files: https://help.github.com/articles/about-readmes/
- - Loading screen (level1 splash screen)
- - Logo?
+ - Use a real docs site
+ - Progress bar for loading resouces?
  - Fix test linting
  - Add juicying functions
  - Expose default behaviors (scan for gamepads etc)
  - Add better comments for documentation
  - Publish script: Should run tests, build, bump version(maybe), and publish
+ - Add more tests
 
 SOUND
  - Change sound lib to: https://github.com/CreateJS/SoundJS
@@ -469,7 +471,7 @@ SOUND
 SPRITES AND ANIMATIONS
 - Bug: AddSprite has to be used before addBody
 - add a setsprite and setanimation (handle switching between animations easier, Animation.create() ? animation state machine?)
-- Refactor flipSprite ?
+- Refactor flipSprite (or don't use at all)?
 
 BUNDLING
  - Investigate upgrading to webpack (if pixi supports it)
@@ -489,14 +491,15 @@ PHYSICS REFACTOR
 stacktrace: https://github.com/stacktracejs/stacktrace.js
 logger: https://github.com/winstonjs/winston
 
- - Toggle physics / Sprite hitboxes
-
+ - Toggle physics / Sprite hitboxes (different colours?)
  - Use an actual toggle for hitboxes
+ https://www.w3schools.com/howto/howto_css_switch.asp
 
 EXAMPLES:
 
 - platformer
-- multiplayer
+- simple turnbased multiplayer
+- real-time multiplayer
 
 GAMEPAD: 
 
@@ -504,4 +507,15 @@ GAMEPAD:
  - Remove legacy controller code (or keep as fallback)
  - Game should not crash if controller is added after game is started
  
+MULTIPLAYER:
+
+ - Sockets should not be connected 
+ - Display connected players in the debug console
+ - Display ping
+ - Debug console for server??
+ - Prompt to reconnect when connection is lost
+ - Abstract socket.io code away, map socket.io keys 1:1 with network functions
+ - shared constants between server / client
+ - Let user use async / await
+
  Update API docs after everything is done..
