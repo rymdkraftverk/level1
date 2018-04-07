@@ -1,6 +1,6 @@
 {
   "name": "l1",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "level1 client version",
   "main": "./dist/index.js",
   "scripts": {
@@ -8,6 +8,7 @@
     "clean-build": "npm run clean && npm run build",
     "build": "babel src --out-dir dist",
     "build:watch": "npm run build -- --watch",
+    "patch": "npm version patch -m 'Upgrade to %s'",
     "test": "mocha --compilers js:babel-register --require ./test/helper.js --recursive",
     "test:watch": "npm test -- --watch"
   },
