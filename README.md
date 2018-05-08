@@ -18,8 +18,8 @@
 1. [Docs / API: Server](docs/api-server.md)
     - [Server](docs/api-server.md#server)
     - [Net](docs/api-server.md#net)
-1. [Develop](https://github.com/sajmoni/level1#4-develop)
-1. [Dependency references](https://github.com/sajmoni/level1#5-dependency-references)
+1. [Develop](https://github.com/sajmoni/level1#develop)
+1. [Dependency references](https://github.com/sajmoni/level1#dependency-references)
 
 ---
 
@@ -58,6 +58,14 @@ In `client` and `server`
  - Other javascript physics engines?
  - Logo?
  - Nicer looking loading screen
+ - Use a real docs site
+ - Add better comments for documentation
+ - better error logging (winston node-bunyon?)
+stacktrace: https://github.com/stacktracejs/stacktrace.js
+logger: https://github.com/winstonjs/winston
+ - Use an actual toggle for hitboxes
+ https://www.w3schools.com/howto/howto_css_switch.asp
+ - Progress bar for loading resouces?
  
 #### 0.3: 
 
@@ -67,15 +75,13 @@ STATE MANAGEMENT
  - finite state machine (leave to userland?)
 
 BUGS / IMPROVEMENTS
- - Split up readme into different files: https://help.github.com/articles/about-readmes/
- - Use a real docs site
- - Progress bar for loading resouces?
- - Fix test linting
+
  - Add juicying functions
  - Expose default behaviors (scan for gamepads etc)
- - Add better comments for documentation
  - Publish script: Should run tests, build, bump version(maybe), and publish
  - Add more tests
+ - Better error messages when providing custom element for injecting game into
+ - Throw exception if duplicates in sprites.json
 
 SOUND
  - Change sound lib to: https://github.com/CreateJS/SoundJS
@@ -93,20 +99,15 @@ BUNDLING
 
 CROSS PLATFORM
  - Look into converting to iOS and android with cocoonjs or phonegap
+ - Look into Electron for mac/pc desktop
 
 PHYSICS REFACTOR
  - Make Engine addCollision predictable (bodyA is always first entityType)
  - Add a remove collision function
 
- DEBUG 
-
-- better error logging (winston node-bunyon?)
-stacktrace: https://github.com/stacktracejs/stacktrace.js
-logger: https://github.com/winstonjs/winston
+ DEBUG
 
  - Toggle physics / Sprite hitboxes (different colours?)
- - Use an actual toggle for hitboxes
- https://www.w3schools.com/howto/howto_css_switch.asp
 
 EXAMPLES:
 
@@ -130,5 +131,8 @@ MULTIPLAYER:
  - Abstract socket.io code away, map socket.io keys 1:1 with network functions
  - shared constants between server / client
  - Let user use async / await
+
+We need some conept of scenes / components to quickly bulk remove add components and 
+transition between scenes
 
  Update API docs after everything is done..
