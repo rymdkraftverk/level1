@@ -1,0 +1,31 @@
+{
+  "name": "level1-template",
+  "version": "1.0.0",
+  "description": "Template to get started with level1",
+  "main": "index.js",
+  "scripts": {
+    "l1": "yarn add file:../../client",
+    "l1-server": "yarn add file:../../server",
+    "build": "browserify src/client/index.js -o public/bundle.js -t [ babelify ]",
+    "watch": "watchify src/client/index.js -o public/bundle.js -t [ babelify ] --debug",
+    "start": "nodemon src/server"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babelify": "^8.0.0",
+    "browserify": "^14.5.0",
+    "eslint": "^4.11.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "nodemon": "^1.12.1",
+    "watchify": "^3.9.0"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "l1": "file:../../client",
+    "l1-server": "file:../../server"
+  }
+}

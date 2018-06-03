@@ -70,9 +70,10 @@ logger: https://github.com/winstonjs/winston
 #### 0.3: 
 
 STATE MANAGEMENT
- - one way dataflow?
  - global state object and selectors (investigate how to handle global state in games)
  - finite state machine (leave to userland?)
+- Components and one way data flow?
+ - Try to work with immutability
 
 BUGS / IMPROVEMENTS
 
