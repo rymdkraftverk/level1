@@ -17,22 +17,22 @@
   "license": "ISC",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "howler": "^2.0.8",
+    "howler": "^2.0.12",
     "mainloop.js": "^1.0.4",
     "matter-js": "^0.14.1",
-    "mousetrap": "^1.6.1",
-    "pixi.js": "^4.7.0",
-    "socket.io-client": "^2.0.4"
+    "mousetrap": "^1.6.2",
+    "pixi.js": "^4.8.0",
+    "socket.io-client": "^2.1.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "chai": "^4.1.2",
-    "eslint": "^4.16.0",
+    "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0",
-    "mocha": "^5.0.0"
+    "eslint-plugin-import": "^2.12.0",
+    "mocha": "^5.2.0"
   }
 }
