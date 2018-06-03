@@ -1,6 +1,6 @@
 {
   "name": "l1",
-  "version": "0.2.12",
+  "version": "0.2.13",
   "description": "level1 client version",
   "main": "./dist/index.js",
   "scripts": {
@@ -21,6 +21,7 @@
     "mainloop.js": "^1.0.4",
     "matter-js": "^0.14.1",
     "mousetrap": "^1.6.2",
+    "pixi-particles": "^3.0.0",
     "pixi.js": "^4.8.0",
     "socket.io-client": "^2.1.1"
   },

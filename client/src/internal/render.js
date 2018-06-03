@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
-import { setDraw } from './core';
+import 'pixi-particles';
+import * as Core from './core';
 
 const VOID_COLOR = 0xccc;
 
@@ -7,6 +8,7 @@ let stage;
 let renderer;
 let graphics;
 let internalGraphics;
+let emitterContainer;
 let _showHitboxes = false;
 
 function draw() {
@@ -60,13 +62,22 @@ export function initRenderer(width, height, sprites, element) {
     const { view } = renderer;
     element.appendChild(view);
 
-    setDraw(draw);
+    Core.setDraw(draw);
 
     graphics = createPIXIGraphics();
     internalGraphics = createPIXIGraphics();
 
+    emitterContainer = new PIXI.Container();
+    stage.addChild(emitterContainer);
+
     loadAssets(sprites, resolve);
   });
+}
+
+export function addEmitter(id, textures, config) {
+  const emitter = new PIXI.particles.Emitter(emitterContainer, textures, config);
+  emitter.id = id;
+  Core.addEmitter(emitter);
 }
 
 export function getRenderer() {
