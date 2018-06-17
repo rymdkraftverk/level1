@@ -19,10 +19,13 @@ Game.init(600, 400, sprites, { debug: true, physics: true }).then(() => {
   Entity.addBody(square, Physics.Bodies.rectangle(100, 10, 80, 80));
   sprite.scale.set(5);
 
-  Game.addEmitter('player1', [Game.getTexture('particle')], config);
+  Entity.addEmitter(square, {
+    id: 'player1',
+    textures: [Game.getTexture('particle')],
+  });
   setTimeout(() => {
-    Game.getEmitter('player1').emit = true;
-  }, 3000);
+    Entity.emitEmitter(square, { id: 'player1', config });
+  }, 2000);
 
   const floor = Entity.create('floor');
   Entity.addBody(floor, Physics.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));

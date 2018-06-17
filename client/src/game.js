@@ -80,11 +80,3 @@ export function getPIXI() {
 export function getTexture(filename) {
   return Render.getTexture(filename);
 }
-
-export function addEmitter(id, textures, config) {
-  Render.addEmitter(id, textures, config);
-}
-
-export function getEmitter(id) {
-  return Core.getEmitter(id);
-}

@@ -15,6 +15,7 @@ export function create(id) {
   const entity = {
     id: id || null,
     types: [],
+    emitters: [],
     sprite: null,
     text: null,
     hasBody: false,
@@ -55,6 +56,49 @@ export function addType(entity, type) {
 
 export function removeType(entity, type) {
   entity.types = entity.types.filter((t) => t !== type);
+}
+
+/*
+The following properties are required by PIXI Particles when it's created.
+They will be ignored and then overwritten once emitEmitter is used.
+*/
+const defaultParticleEmitter = {
+  lifetime: {
+    min: 0,
+    max: 0,
+  },
+  pos: {
+    x: -999,
+    y: -999,
+  },
+};
+
+export function addEmitter(entity, { id, textures }) {
+  if (!id || !textures) {
+    throw new Error('Entity.addEmitter. Incomplete emitter options provided');
+  }
+  const emitter = Render.getEmitter(textures, {
+    ...defaultParticleEmitter,
+    emit: false,
+    autoUpdate: false,
+  });
+
+  emitter.id = id;
+  emitter.textures = textures;
+  entity.emitters = entity.emitters.concat(emitter);
+}
+
+export function removeEmitter(entity, emitterId) {
+  entity.emitters = entity.emitters.filter((e) => e !== emitterId);
+}
+
+export function getEmitter(entity, emitterId) {
+  return entity.emitters.find((e) => e.id === emitterId);
+}
+
+export function emitEmitter(entity, { id, config }) {
+  const emitter = getEmitter(entity, id);
+  emitter.init(emitter.textures, config);
 }
 
 function applyOptions(sprite, options) {

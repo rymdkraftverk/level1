@@ -2,7 +2,6 @@ import MainLoop from 'mainloop.js';
 import { Engine } from 'matter-js';
 
 let engine;
-let emitters = [];
 let entities = [];
 
 function update(delta) {
@@ -10,10 +9,12 @@ function update(delta) {
     if (engine) {
       Engine.update(engine, delta);
     }
-    emitters.forEach((emitter) => {
-      emitter.update(delta * 0.001);
+    entities.forEach(e => {
+      e.run(e);
+      e.emitters.forEach((emitter) => {
+        emitter.update(delta * 0.001);
+      });
     });
-    entities.forEach(e => e.run(e));
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(`level1 crashed with the following error: ${error.stack}`);
@@ -37,14 +38,6 @@ export function start() {
 
 export function setDraw(draw) {
   MainLoop.setDraw(draw);
-}
-
-export function addEmitter(newEmitter) {
-  emitters = emitters.concat(newEmitter);
-}
-
-export function getEmitter(id) {
-  return emitters.find((emitter) => emitter.id === id);
 }
 
 export function stop() {

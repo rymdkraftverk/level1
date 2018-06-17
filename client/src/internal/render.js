@@ -8,7 +8,7 @@ let stage;
 let renderer;
 let graphics;
 let internalGraphics;
-let emitterContainer;
+let particleContainer;
 let _showHitboxes = false;
 
 function draw() {
@@ -67,17 +67,13 @@ export function initRenderer(width, height, sprites, element) {
     graphics = createPIXIGraphics();
     internalGraphics = createPIXIGraphics();
 
-    emitterContainer = new PIXI.Container();
-    stage.addChild(emitterContainer);
+    particleContainer = new PIXI.Container();
+    // Render it below pixiGraphics
+    particleContainer.zIndex = -9998;
+    add(particleContainer);
 
     loadAssets(sprites, resolve);
   });
-}
-
-export function addEmitter(id, textures, config) {
-  const emitter = new PIXI.particles.Emitter(emitterContainer, textures, config);
-  emitter.id = id;
-  Core.addEmitter(emitter);
 }
 
 export function getRenderer() {
@@ -101,6 +97,10 @@ export function getTexture(filename) {
   if (!resource) throw new Error(`Sprite ${filename} not found. Make sure that it is added to your sprites.json`);
   const { texture } = resource;
   return texture;
+}
+
+export function getEmitter(textures, config) {
+  return new PIXI.particles.Emitter(particleContainer, textures, config);
 }
 
 export function getSprite(filename) {
