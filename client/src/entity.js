@@ -188,12 +188,18 @@ export function destroy(entity) {
 
   Core.remove(entity);
   const {
-    sprite, animation, text, body, hasBody,
+    sprite,
+    animation,
+    text,
+    body,
+    hasBody,
+    emitters,
   } = entity;
   if (sprite) Render.remove(sprite);
   if (animation) Render.remove(animation);
   if (text) Render.remove(text);
   if (hasBody) removeBody(body);
+  emitters.forEach(e => e.destroy());
 }
 
 export function add(entity) {

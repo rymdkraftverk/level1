@@ -24,8 +24,16 @@ Game.init(600, 400, sprites, { debug: true, physics: true }).then(() => {
     textures: [Game.getTexture('particle')],
   });
   setTimeout(() => {
-    Entity.emitEmitter(square, { id: 'player1', config });
+    const newConfig = Object.assign({}, config, { emit: true });
+    Entity.emitEmitter(square, {
+      id: 'player1',
+      config: newConfig,
+    });
   }, 2000);
+
+  setTimeout(() => {
+    Entity.destroy(square);
+  }, 2400);
 
   const floor = Entity.create('floor');
   Entity.addBody(floor, Physics.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));
