@@ -93,7 +93,11 @@ export function removeEmitter(entity, emitterId) {
 }
 
 export function getEmitter(entity, emitterId) {
-  return entity.emitters.find((e) => e.id === emitterId);
+  const emitter = entity.emitters.find((e) => e.id === emitterId);
+  if (!emitter) {
+    throw new Error(`Emitter not found for id: ${emitterId}`);
+  }
+  return emitter;
 }
 
 export function emitEmitter(entity, { id, config }) {
