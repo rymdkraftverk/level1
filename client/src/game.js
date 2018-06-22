@@ -18,7 +18,6 @@ export async function init(width, height, sprites, options) {
     debug,
   } = { ...defaultOptions, ...options };
 
-
   let splashScreen = null;
   const splashScreenTimer = setTimeout(() => {
     splashScreen = setSplashScreen(element);
