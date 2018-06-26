@@ -2,6 +2,8 @@
 
 > Quickly get started creating 2D games in the browser with minimal setup or configuration
 
+level1 is a thin layer on top of pixi.js to enable creating games. The API is designed to be as minimal as possible to be easy to learn and work with.
+
 ## Index
 
 1. [Getting started](docs/getting-started.md#getting-started)
@@ -58,4 +60,3 @@ To test changes, use the `template` project.
  - Physics: [Matter.js](https://github.com/liabru/matter-js)
  - Sound: [Howler.js](https://github.com/goldfire/howler.js)
  - Multiplayer: [Socket.io](https://github.com/socketio/socket.io)
- 
