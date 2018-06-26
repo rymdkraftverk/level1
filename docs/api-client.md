@@ -73,7 +73,7 @@ Other options: `collisionStart` | `collisionEnd`
 
 #### Entity.destroy(entity: object | string)
 
-Remove entity, sprite, animation and body.
+Remove entity, sprite, animation, body and particle emitters.
 
 Can be passed either the entity object or entity id.
 
@@ -86,6 +86,10 @@ Get entitiy by id.
 #### Entity.getByType(type: string)
 
 Get entitiy by type.
+
+#### Entity.addEmitter(entity, { id: string, textures: array[Textures] })
+
+#### Entity.emitEmitters(entity, { id: string, config: object})
 
 #### Entity.isCollding(entity: entity, otherEntity: entity)
 
@@ -119,21 +123,51 @@ Either null, PIXI.Sprite, PIXI.AnimatedSprite or Empty sprite
 
 ---
 
-### Timer
+## Timer
 
-Timer starts at 0 and counts up to duration. (60 = Approx. 1 sec)
-
-#### create(duration: number) => object
+```javascript
+import { Timer } from 'l1'
+```
 
 ---
 
-### Timer object properties
+```javascript
+Timer.create(duration)
+```
+
+Creates a new timer object. Timer starts at 0 and counts up to duration. (60 = Approx. 1 sec)
+
+**Arguments**
+
+`duration` (number): The number of times the timer will be run before returning true.
+
+**Returns**
+
+(Object): A new timer object.
+
+---
+
+## Timer object properties
 
 The following properties are specified for objects created by Timer.create.
 
-#### timer.run() => bool
+---
+
+```javascript
+timer.run()
+```
 
 Should be called on every game update. Increases the counter by 1. Will return true once when duration is reached.
+
+**Arguments**
+
+None.
+
+**Returns**
+
+(boolean): If the timer has reached its duration.
+
+**Example**
 
 ```javascript
   timerBehavior = () => ({
@@ -148,13 +182,39 @@ Should be called on every game update. Increases the counter by 1. Will return t
   })
 ```
 
-#### timer.reset() => void
+---
+
+```javascript
+timer.reset()
+```
 
 Reset counter to 0.
 
-#### timer.counter() => number
+**Arguments**
 
-The current value of the counter.
+None.
+
+**Returns**
+
+Nothing.
+
+---
+
+```javascript
+timer.counter()
+```
+
+The current value of the counter. Starts at 0 and is increased by 1 whenever *run()* is called.
+
+**Arguments**
+
+None.
+
+**Returns**
+
+(Number): The current value of the counter.
+
+---
 
 #### timer.duration() => number
 

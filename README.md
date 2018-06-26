@@ -29,7 +29,26 @@ In `client` and `server`
 
 `npm install` = Install dependencies
 
-`npm run build:watch` = Continously build dist files
+#### Custom commands
+
+Command | Description
+------- | -----------
+`npm run build` | Generate files in the `dist` folder
+`npm run build:watch` | Continously build files in the `dist` folder
+`npm run clean` | Remove the `dist` folder
+`npm run clean-build` | `npm run clean` + `npm run build`
+`npm run test` | Run the tests
+`npm run test:watch` | Continously run the tests
+`npm run patch` | -
+
+#### Workflow
+
+To test changes, use the `template` project.
+
+1. Build the `dist` files in either `client` or `server` (`npm run build:watch`)
+1. Go to the `template` folder
+1. Run `yarn l1` to install `client` or `yarn l1-server` to install `server`
+1. Run `yarn start` and `yarn watch` in separate terminal windows
 
 ---
 
@@ -39,3 +58,4 @@ In `client` and `server`
  - Physics: [Matter.js](https://github.com/liabru/matter-js)
  - Sound: [Howler.js](https://github.com/goldfire/howler.js)
  - Multiplayer: [Socket.io](https://github.com/socketio/socket.io)
+ 
