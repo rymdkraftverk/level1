@@ -2,6 +2,17 @@ import * as PIXI from 'pixi.js';
 import 'pixi-particles';
 import * as Core from './core';
 
+const assetsToLoad = [
+  {
+    key: 'sprites',
+    fileFormat: 'png',
+  },
+  {
+    key: 'fonts',
+    fileFormat: 'fnt',
+  },
+];
+
 const VOID_COLOR = 0xccc;
 
 let stage;
@@ -37,21 +48,34 @@ function createPIXIGraphics() {
   return pixiGraphics;
 }
 
-function loadAssets(sprites, resolve) {
+function loadAssets(assets, resolve) {
   const { loader } = PIXI;
-  sprites.forEach((sprite) => {
-    const file = `assets/${sprite}.png`;
-    loader.add(sprite, file);
+
+  assetsToLoad.forEach(({ key, fileFormat }) => {
+    if (!assets[key]) {
+      return;
+    }
+    assets[key].forEach((asset) => {
+      const file = `assets/${asset}.${fileFormat}`;
+      loader.add(asset, file);
+    });
   });
+
   loader.once('complete', () => {
     resolve();
   });
+
   loader.load();
 }
 
-export function initRenderer(width, height, sprites, element) {
-  return new Promise((resolve, reject) => {
-    if (!sprites) reject(new Error('Sprites should be an array of file names to load'));
+export function initRenderer(width, height, assets, element) {
+  return new Promise((resolve) => {
+    if (!assets) {
+      console.warn('level1: No assets defined! Check the level1 docs for more info');
+    }
+    if (!assets.sprites) {
+      console.warn('level1: No sprites found in the assets file. Make sure that the sprites are a list of filenames to load.');
+    }
 
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
@@ -72,7 +96,7 @@ export function initRenderer(width, height, sprites, element) {
     particleContainer.zIndex = -9998;
     add(particleContainer);
 
-    loadAssets(sprites, resolve);
+    loadAssets(assets, resolve);
   });
 }
 
@@ -122,6 +146,10 @@ export function getAnimation(filenames, animationSpeed) {
 
 export function getText(text, style) {
   return new PIXI.Text(text, style);
+}
+
+export function getBitmapText(text, style) {
+  return new PIXI.extras.BitmapText(text, style);
 }
 
 export function remove(child) {

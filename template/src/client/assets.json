@@ -1,0 +1,9 @@
+{
+  "sprites": [
+    "square",
+    "particle"
+  ],
+  "fonts": [
+    "bitmap-font2"
+  ]
+}

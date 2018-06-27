@@ -156,6 +156,14 @@ export function addText(entity, text, textStyle, options) {
   return textObject;
 }
 
+export function addBitmapText(entity, text, textStyle, options) {
+  const textObject = Render.getBitmapText(text, textStyle);
+  applyOptions(textObject, options);
+  Render.add(textObject);
+  entity.text = textObject;
+  return textObject;
+}
+
 export function addBody(entity, body, syncSpriteWithBody = true) {
   const engine = Core.getPhysicsEngine();
   World.add(engine.world, [body]);

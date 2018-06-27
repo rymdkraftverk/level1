@@ -1,3 +1,14 @@
+## Change entities:
+
+1. Entities have children. 
+2. Children can be sprites, animations, texts and bitmap texts.
+3. Children can’t exist on their own.
+4. Children will be removed when entity is.
+5. Children is an array. 
+6. There is a flag to move entity when child is moved.
+7. Should children be able to be other entities?
+
+
 ## New namespaces:
 
 #### Particles

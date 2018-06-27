@@ -10,7 +10,7 @@ const defaultOptions = {
   debug: false,
 };
 
-export async function init(width, height, sprites, options) {
+export async function init(width, height, assets, options) {
   // Replace default options with user specified ones
   const {
     physics,
@@ -23,7 +23,7 @@ export async function init(width, height, sprites, options) {
     splashScreen = setSplashScreen(element);
   }, TIME_BEFORE_SPLASH_SCREEN_SHOWS);
 
-  await Render.initRenderer(width, height, sprites, element);
+  await Render.initRenderer(width, height, assets, element);
   Core.initMainLoop();
   if (physics) Core.initPhysics();
   start();

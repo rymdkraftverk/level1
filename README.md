@@ -51,6 +51,7 @@ To test changes, use the `template` project.
 1. Go to the `template` folder
 1. Run `yarn l1` to install `client` or `yarn l1-server` to install `server`
 1. Run `yarn start` and `yarn watch` in separate terminal windows
+1. Test your new features!
 
 ---
 

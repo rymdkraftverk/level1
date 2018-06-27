@@ -117,7 +117,7 @@ Map with all behaviors.
 
 Physics body. Always has default body with entity as only property.
 
-#### entity.sprite (Pixi Sprite or AnimatedSprit)
+#### entity.sprite (Pixi Sprite or AnimatedSprite)
 
 Either null, PIXI.Sprite, PIXI.AnimatedSprite or Empty sprite
 
