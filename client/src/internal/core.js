@@ -11,7 +11,7 @@ function update(delta) {
       Engine.update(engine, delta);
     }
     entities.forEach(e => {
-      run(e);
+      runBehaviors(e);
       e.emitters.forEach((emitter) => {
         emitter.update(delta * 0.001);
       });
@@ -23,17 +23,25 @@ function update(delta) {
   }
 }
 
-function run(entity) {
+function runBehaviors(entity) {
   const { behaviors, id } = entity;
-  Object.keys(behaviors).forEach((b) => {
-    const behavior = behaviors[b];
-    if (behavior.init) {
-      behavior.init(behavior, entity);
-      delete behavior.init;
-    }
-    if (!behavior.run) throw new Error(`Behavior ${b} on entity ${id} has no run function`);
-    behavior.run(behavior, entity);
-  });
+
+  Object
+    .entries(behaviors)
+    .forEach(([behaviorName, behavior]) => {
+      const { init, run } = behavior;
+
+      if (init) {
+        init(behavior, entity);
+        delete behavior.init;
+      }
+
+      if (!run) {
+        throw new Error(`Behavior "${behaviorName}" on entity "${id}" has no run function`);
+      }
+
+      run(behavior, entity);
+    });
 
   // Display hitboxes
   const { body, hasBody, sprite } = entity;
