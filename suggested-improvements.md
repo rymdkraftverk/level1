@@ -1,80 +1,74 @@
-## Change entities:
-
-1. Entities have children. 
-2. Children can be sprites, animations, texts and bitmap texts.
-3. Children can’t exist on their own.
-4. Children will be removed when entity is.
-5. Children is an array. 
-6. There is a flag to move entity when child is moved.
-7. Should children be able to be other entities?
-
-
 ## New namespaces:
 
 #### Particles
 
-Particles.add(entity, { id: '', options })
-Particles.emit(entity, { id: '', options })
-
-#### Animation 
-
-1. Entity can have multiple sprites and animations
-2. Add all animations and sprites when entity is created
-3. Animations have a way to be started and stopped.
-4. Sprites have a way to be displayed and hidden.
-5. Multiple animations/sprites can be shown/played at once.
-6. Stopping an animation will hide it.
-
-This would require `entity` to have a concept of x and y, perhaps even width and height, that are separate from pixis x and y.
-
-```javascript
-Animation.add(entity, {
-	id: ‘walking’,
-	textures: [‘walk1’, ‘walk2’],
-	animationSpeed: 0.5,
-	zIndex: 10,
+Particles.emit(entity, { 
+	id: '', 
+	textures: ['yo'],
+	config: particleConfig,
 })
 
-Animation.play(entity, {
-	id: ‘walking’,
-	loop: true,
-	startTexture: ‘walk1’,
-	duration: 30,
-})
-
-Animation.stop(entity, ‘walking’)
-
-Animation.stopAll(entity)
-
-Animation.remove
-```
-
-#### Sprite
-
-Sprite.add(entity, { 
-  id: 'standing',
-  texture: 'standing',
-  zIndex: 10,
-})
-
-Sprite.show(entity, 'standing')
-
-Sprite.hide(entity, 'standing')
-
-Sprite.hideAll(entity)
-
-Sprite.remove(entity, 'standing')
+Particles.stop(entity)
 
 #### Physics
 
-Physics.add(entity, { options })
+Physics.add(entity, Physics.body)
 
-#### Text
+-----
 
-Text.add(entity, {
+```js
+const walkAnimation = Object.freeze({
+	textures: ['walk1', 'walk2'], // throw Error if textures are not set
+	animationSpeed: 0.5, // Default = 0.05
+	zIndex: 10, // Default = 0
+	loop: true, // Default = teuw
+	startTexture: ‘walk1’, // Default textures[0]
+})
+
+Animation.play(player1, {
+	...walkAnimation,
+	animationSpeed: 1,
+})
+Animation.stop(player1)
+
+Sprite.show(player1, {
+	texture: 'walk1', // throw Error if texture is not set
+	zIndex: 10 // Default = 0
+})
+
+Sprite.hide(player1)
+
+Text.show(player1, {
   text: 'hello',
   style: { fontSize: '35px' },
   zIndex: 10,
 })
+Text.hide(player1)
+BitmapText.show()
+BitmapText.hide()
+```
 
-show / hide / remove
+FINAL API:
+
+Entities:
+
+ - Entities have a list of children (other entities)
+ - Entities need to have 1 parent
+ - Children will be removed when entity is.
+ - An entity can have 0 or 1 asset (Sprite, Animation, Text, BitmapText, Particles, Sound)
+ - An entity can have 0 or 1 physics body.
+ - An entity has an x and y position
+ - An entity's position is relative to its parent 
+ - Optional: An entity has width and height. Depends on how collision detection is implemented.
+
+Entity
+ .getRoot
+ .addChild
+ .destroy
+ .get
+ .getAll
+ .getByType
+ .setX / Y
+ .getX / y 
+
+Dependencies should be locked
