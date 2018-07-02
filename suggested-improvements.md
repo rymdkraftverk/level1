@@ -34,6 +34,8 @@ Animation.stop(player1)
 Sprite.show(player1, {
 	texture: 'walk1', // throw Error if texture is not set
 	zIndex: 10 // Default = 0
+	flipX: true // Default = false
+	flipY: true // Default = false
 })
 
 Sprite.hide(player1)
@@ -46,9 +48,24 @@ Text.show(player1, {
 Text.hide(player1)
 BitmapText.show()
 BitmapText.hide()
-```
+Sound.play(player1, {
+	src: 'explosion',
+	volume: 0.1,
+	loop: true,
+})
+Sound.stop(player1)
 
-FINAL API:
+// Suggestion
+Behavior.add(player1, {
+	id: 'running',
+	behavior: running,
+	memoize: true,
+})
+// add() enables us to check for duplicate id's when adding
+
+Behavior.get()
+Behavior.remove()
+```
 
 Entities:
 
@@ -59,16 +76,42 @@ Entities:
  - An entity can have 0 or 1 physics body.
  - An entity has an x and y position
  - An entity's position is relative to its parent 
- - Optional: An entity has width and height. Depends on how collision detection is implemented.
+ - Optional: An entity has width and height. Depends on how collision detection is refactored.
 
-Entity
- .getRoot
- .addChild
- .destroy
- .get
+```js
+const root = Entity.getRoot()
+
+const player1 = Entity.addChild(root, {
+	id: 'player1', 
+	x: 10, 
+	y: 10,
+})
+
+Entity.setX(player1, 100)
+
+const player1Again = Entity.get('player1')
+
+Entity.destroy(player1)
+
+Also
+Emtity
  .getAll
  .getByType
- .setX / Y
  .getX / y 
 
-Dependencies should be locked
+player1
+	.parent
+	.children
+```
+
+Properties on entity need to be treated as immutable:
+
+__internal: {
+	__sprite: Object
+}
+
+Use getters and setters to throw error if properties are set directly
+
+Entity.debug() for pretty print
+
+entity.data or entity.state ??
