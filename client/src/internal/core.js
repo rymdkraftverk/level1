@@ -1,5 +1,6 @@
 import MainLoop from 'mainloop.js';
 import { Engine } from 'matter-js';
+import * as Render from './render';
 
 let engine;
 let entities = [];
@@ -10,7 +11,7 @@ function update(delta) {
       Engine.update(engine, delta);
     }
     entities.forEach(e => {
-      e.run(e);
+      run(e);
       e.emitters.forEach((emitter) => {
         emitter.update(delta * 0.001);
       });
@@ -22,9 +23,31 @@ function update(delta) {
   }
 }
 
+function run(entity) {
+  const { behaviors, id } = entity;
+  Object.keys(behaviors).forEach((b) => {
+    const behavior = behaviors[b];
+    if (behavior.init) {
+      behavior.init(behavior, entity);
+      delete behavior.init;
+    }
+    if (!behavior.run) throw new Error(`Behavior ${b} on entity ${id} has no run function`);
+    behavior.run(behavior, entity);
+  });
+
+  // Display hitboxes
+  const { body, hasBody, sprite } = entity;
+  if (hasBody) {
+    Render.displayBodyBounds(body);
+  } else if (sprite) {
+    Render.displaySpriteBounds(sprite);
+  }
+}
+
 export function initMainLoop() {
   MainLoop
     .setUpdate(update)
+    .setDraw(Render.draw)
     .setMaxAllowedFPS(60);
 }
 
@@ -34,10 +57,6 @@ export function getFPS() {
 
 export function start() {
   MainLoop.start();
-}
-
-export function setDraw(draw) {
-  MainLoop.setDraw(draw);
 }
 
 export function stop() {

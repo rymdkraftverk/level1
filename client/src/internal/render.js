@@ -1,6 +1,5 @@
 import * as PIXI from 'pixi.js';
 import 'pixi-particles';
-import * as Core from './core';
 
 const assetsToLoad = [
   {
@@ -22,7 +21,7 @@ let internalGraphics;
 let particleContainer;
 let _showHitboxes = false;
 
-function draw() {
+export function draw() {
   renderer.render(stage);
   graphics.clear();
   internalGraphics.clear();
@@ -85,8 +84,6 @@ export function initRenderer(width, height, assets, element) {
     renderer.backgroundColor = VOID_COLOR;
     const { view } = renderer;
     element.appendChild(view);
-
-    Core.setDraw(draw);
 
     graphics = createPIXIGraphics();
     internalGraphics = createPIXIGraphics();

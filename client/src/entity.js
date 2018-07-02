@@ -10,8 +10,6 @@ export function create(id) {
     throw new Error(`Entity.create(id) using an already existing id: ${id}`);
   }
 
-  const behaviors = {};
-
   const entity = {
     id: id || null,
     types: [],
@@ -19,26 +17,7 @@ export function create(id) {
     sprite: null,
     text: null,
     hasBody: false,
-    behaviors,
-    run: (entity) => { // eslint-disable-line no-shadow
-      Object.keys(behaviors).forEach((b) => {
-        const behavior = behaviors[b];
-        if (behavior.init) {
-          behavior.init(behavior, entity);
-          delete behavior.init;
-        }
-        if (!behavior.run) throw new Error(`Behavior ${b} on entity ${id} has no run function`);
-        behavior.run(behavior, entity);
-      });
-
-      // Display hitboxes
-      const { body, hasBody, sprite } = entity;
-      if (hasBody) {
-        Render.displayBodyBounds(body);
-      } else if (sprite) {
-        Render.displaySpriteBounds(sprite);
-      }
-    },
+    behaviors: {},
   };
 
   const defaultBody = {
