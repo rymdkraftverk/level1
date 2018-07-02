@@ -120,8 +120,8 @@ export function getTexture(filename) {
   return texture;
 }
 
-export function getEmitter(textures, config) {
-  return new PIXI.particles.Emitter(particleContainer, textures, config);
+export function getEmitter(filenames, config) {
+  return new PIXI.particles.Emitter(particleContainer, filenames.map(getTexture), config);
 }
 
 export function getSprite(filename) {

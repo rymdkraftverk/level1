@@ -21,7 +21,7 @@ Game.init(600, 400, assets, { debug: true, physics: true }).then(() => {
 
   Entity.addEmitter(square, {
     id: 'player1',
-    textures: [Game.getTexture('particle')],
+    textures: ['particle'],
   });
   setTimeout(() => {
     Entity.emitEmitter(square, {
