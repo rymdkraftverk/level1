@@ -6,7 +6,9 @@ import scanGamepads from './behaviors/scanGamepads';
 
 // import createControllerPresets from './controllerPresets';
 
-Game.init(600, 400, assets, { debug: true, physics: true }).then(() => {
+Game.init({
+  width: 600, height: 400, assets, debug: true, physics: true,
+}).then(() => {
   Game.getPhysicsEngine().world.gravity.y = 1;
 
   // createControllerPresets();

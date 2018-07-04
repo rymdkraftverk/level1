@@ -69,10 +69,7 @@ function loadAssets(assets, resolve) {
 
 export function initRenderer(width, height, assets, element) {
   return new Promise((resolve) => {
-    if (!assets) {
-      console.warn('level1: No assets defined! Check the level1 docs for more info');
-    }
-    if (!assets.sprites) {
+    if (assets && !assets.sprites) {
       console.warn('level1: No sprites found in the assets file. Make sure that the sprites are a list of filenames to load.');
     }
 
@@ -93,7 +90,11 @@ export function initRenderer(width, height, assets, element) {
     particleContainer.zIndex = -9998;
     add(particleContainer);
 
-    loadAssets(assets, resolve);
+    if (assets) {
+      loadAssets(assets, resolve);
+    } else {
+      resolve();
+    }
   });
 }
 

@@ -13,6 +13,7 @@ Particles.stop(entity)
 #### Physics
 
 Physics.add(entity, Physics.body)
+Physics.getEngine()
 
 -----
 
@@ -65,6 +66,9 @@ Behavior.add(player1, {
 
 Behavior.get()
 Behavior.remove()
+
+Graphics.create
+Graphics.destroy
 ```
 
 Entities:
@@ -76,7 +80,7 @@ Entities:
  - An entity can have 0 or 1 physics body.
  - An entity has an x and y position
  - An entity's position is relative to its parent 
- - Optional: An entity has width and height. Depends on how collision detection is refactored.
+ - An entity has width and height.
 
 ```js
 const root = Entity.getRoot()

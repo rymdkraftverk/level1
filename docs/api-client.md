@@ -1,22 +1,49 @@
 ## Docs / API: Client
 
-### Game
+## Game
 
-#### Game.init(width, height, sprites, ?options) => Promise
-
-```javascript
-options: {
-  physics: bool,
-  element: HTMLElement,
-  debug: bool,
-}
+```js
+import { Game } from 'l1'
 ```
 
-physics = Enable physics provided by matter-js. (Default: `false`)
+---
 
-element = Where to inject game. (Default: `document.body`)
+```js
+Game.init(options)
+```
 
-debug = Display the debug tools underneath game window. (Default: `false`)
+Required to setup the game.
+
+**Arguments**
+
+`options` (object):
+
+Option | Type | Required | Default | Description
+ -- | -- | -- | -- | -- |
+**width** | Number | [ ] | 800 | The width of the game |
+**height** | Number | [ ] | 600 | The height of the game |
+**assets** | Object | [ ] | - | An object that defines assets for the game. (See: TBD) |
+**element** | HTMLElement | [ ] | `document.body` | Where to inject the game |
+**physics** | Boolean | [ ] | false | Enable physics provided by matter-js |
+**debug** | Boolean | [ ] | false | Display the debug tools underneath game window |
+
+**Returns**
+
+(Promise): A promise that will resolve once all the assets are loaded.
+
+**Example**
+
+```js
+Game.init({
+  width: 800,
+  height: 600,
+}).then(() => {
+  // Game is started
+})
+
+```
+
+---
 
 #### Game.start() => void
 
@@ -222,6 +249,36 @@ None.
 
 ---
 
+### Sprite
+
+---
+
+### Animation
+
+---
+
+### Text
+
+---
+
+### BitmapText
+
+---
+
+### Particles
+
+---
+
+### Graphics
+
+---
+
+### Behavior
+
+*TBD*'
+
+---
+
 ### Sound
 
 #### Sound.getSound(filePath: string, ?options: object)
@@ -240,9 +297,27 @@ https://github.com/goldfire/howler.js#options
 
 ### Util
 
-#### Util.getRandomInRange(from: number, to: number)
+---
+
+```javascript
+Util.getRandomInRange(from, to)
+```
 
 Get a random number in range (from (inclusive) - to (exclusive))
+
+**Arguments**
+
+.
+
+**Returns**
+
+Nothing.
+
+---
+
+#### 
+
+
 
 #### Util.flipSprite(sprite: PIXI.Sprite|PIXI.AnimatedSprite|PIXI.Text)
 

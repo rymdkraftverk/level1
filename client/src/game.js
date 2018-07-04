@@ -5,18 +5,32 @@ import * as Debug from './internal/debug';
 const TIME_BEFORE_SPLASH_SCREEN_SHOWS = 500;
 
 const defaultOptions = {
+  width: 800,
+  height: 600,
   physics: false,
   element: document.body,
   debug: false,
 };
 
-export async function init(width, height, assets, options) {
+export async function init(options) {
   // Replace default options with user specified ones
   const {
+    width,
+    height,
+    assets,
     physics,
     element,
     debug,
+    ...unknownOptions
   } = { ...defaultOptions, ...options };
+
+  if (Object.keys(unknownOptions).length > 0) {
+    throw new Error('level1: Unknown options passed to Game.init()');
+  }
+
+  if (!assets) {
+    console.warn('level1: No assets passed to Game.init()');
+  }
 
   let splashScreen = null;
   const splashScreenTimer = setTimeout(() => {
