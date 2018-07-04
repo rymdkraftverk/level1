@@ -1,6 +1,6 @@
-import { getRandomInRange } from '../src/util';
+import * as Util from '../src/util';
 
-describe('getRandomInRange()', () => {
+describe('Util.getRandomInRange()', () => {
   context('with a range of random integers', () => {
     it('always returns a random integer between those numbers', () => {
       const randomRanges = [
@@ -13,9 +13,21 @@ describe('getRandomInRange()', () => {
 
       randomRanges.forEach(r => {
         const { from, to } = r;
-        const result = getRandomInRange(from, to);
+        const result = Util.getRandomInRange(from, to);
         expect(result).to.satisfy(res => res > from && res < to);
       });
     });
   });
+});
+
+describe('Util.grid()', () => {
+  // TODO
+});
+
+describe('Util.distance()', () => {
+  // TODO
+});
+
+describe('Util.angle()', () => {
+  // TODO
 });

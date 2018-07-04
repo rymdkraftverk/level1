@@ -45,9 +45,9 @@ Game.init({
 
 ---
 
-#### Game.start() => void
-
 #### Game.stop() => void
+
+#### Game.start() => void
 
 #### Game.getRenderer() => PIXI.CanvasRenderer
 
@@ -211,7 +211,7 @@ None.
 
 ---
 
-```javascript
+```js
 timer.reset()
 ```
 
@@ -227,7 +227,7 @@ Nothing.
 
 ---
 
-```javascript
+```js
 timer.counter()
 ```
 
@@ -307,27 +307,146 @@ Get a random number in range (from (inclusive) - to (exclusive))
 
 **Arguments**
 
-.
+`from` (number): Inclusive
+`to` (number): Exclusive
 
 **Returns**
 
-Nothing.
+(Number): The randomly generated number
+
+**Example**
+
+```js
+ // TODO
+```
 
 ---
 
-#### 
+```javascript
+Util.grid(options)
+```
 
+Returns a function to get coordinates. Useful for placing objects on a grid.
+
+**Arguments**
+
+`options` (object):
+
+Option | Type | Required | Default | Description
+ -- | -- | -- | -- | -- |
+**x** | Number | [x] | - | The x coordinate of the top left corner 
+**y** | Number | [x] | - | The y coordinate of the top left corner
+**marginX** | Number | [x] | - | The space between each cell on the x axis
+**marginY** | Number | [x] | - | The space between each cell on the y axis
+**itemsPerRow** | Number | [x] | - | The amount of items on a row before a line break
+
+**Returns**
+
+(Function): A function with the signature: (index) => { x, y }
+
+**Example**
+
+```js
+  const numbers = [1, 2, 3]
+
+  const getCell = Util.grid({
+    x: 10,
+    y: 10,
+    marginX: 10,
+    marginY: 10,
+    itemsPerRow: 2,
+  })
+
+  numbers.map(getCell)
+  // [{ x: 10, y: 10}, {x: 20, y: 10}, {x: 10, y: 20}]
+```
+
+---
+
+```js
+Util.angle(options)
+```
+
+Get the angle between two points, in radians.
+
+**Arguments**
+
+`options` (object):
+
+Option | Type | Required | Default | Description
+ -- | -- | -- | -- | -- |
+**x1** | Number | [x] | - | The x coordinate of the start position
+**y1** | Number | [x] | - | The y coordinate of the start position
+**x2** | Number | [x] | - | The x coordinate of the end position
+**y2** | Number | [x] | - | The y coordinate of the start position
+
+**Returns**
+
+(Number): The angle in radians. 
+
+**Example**
+
+```js
+ // TODO
+```
+
+---
+
+```javascript
+Util.distance(options)
+```
+
+Get the distance between two points.
+
+**Arguments**
+
+`options` (object):
+
+Option | Type | Required | Default | Description
+ -- | -- | -- | -- | -- |
+**x1** | Number | [x] | - | The x coordinate of the start position
+**y1** | Number | [x] | - | The y coordinate of the start position
+**x2** | Number | [x] | - | The x coordinate of the end position
+**y2** | Number | [x] | - | The y coordinate of the start position
+
+**Returns**
+
+(Number): The distance.
+
+**Example**
+
+```js
+ // TODO
+```
+
+---
+
+```js
+ Util.toRadians(degrees)
+```
+
+Convert degrees to radians.
+
+**Arguments**
+
+`degrees` (Number)
+
+**Returns**
+
+(Number): Radians.
+
+**Example**
+
+```js
+ // TODO
+```
+
+---
 
 
 #### Util.flipSprite(sprite: PIXI.Sprite|PIXI.AnimatedSprite|PIXI.Text)
 
 Flip sprite horizontally
-
-#### Util.grid(startX, startY, width, height, itemsPerRow) => (index) => { x, y } 
-
-#### Util.getDistance(startX, startY, endX, endY) => number
-
-#### Util.getAngle(startX, startY, endX, endY) => number (in radians)
 
 ---
 

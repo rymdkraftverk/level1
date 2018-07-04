@@ -2,6 +2,7 @@ export function getRandomInRange(from, to) {
   return Math.floor((Math.random() * (to - from)) + from);
 }
 
+// TODO: Move to Sprite.show: flip=true
 /**
  * Flip Sprite horizontally
  * @param {PIXI.Srite|PIXI.AnimatedSprite|PIXI.Text} sprite
@@ -12,24 +13,32 @@ export function flipSprite(sprite) {
   sprite.flipped = !sprite.flipped;
 }
 
-export const grid = (startX, startY, width, height, itemsPerRow) => (index) => {
+export const grid = ({
+  x, y, marginX, marginY, itemsPerRow,
+}) => (index) => {
   const row = Math.floor(index / itemsPerRow);
   const column = index % itemsPerRow;
   return {
-    x: startX + (column * width),
-    y: startY + (row * height),
+    x: x + (column * marginX),
+    y: y + (row * marginY),
   };
 };
 
-export const getDistance = (startX, startY, endX, endY) =>
-  Math.hypot(Math.abs(endX - startX), Math.abs(endY - startY));
+export const distance = ({
+  x1, y1, x2, y2,
+}) =>
+  Math.hypot(Math.abs(x2 - x1), Math.abs(y2 - y1));
 
-export const getAngle = (startX, startY, goalX, goalY) => {
-  const xDistance = goalX - startX;
-  const yDistance = goalY - startY;
+/* eslint-disable no-shadow */
+export const angle = ({
+  x1, y1, x2, y2,
+}) => {
+  const xDistance = x2 - x1;
+  const yDistance = y2 - y1;
   let angle = Math.atan(yDistance / xDistance);
-  if (startX - goalX < 0) {
+  if (x1 - x2 < 0) {
     angle += Math.PI;
   }
   return angle;
 };
+/* eslint-enable no-shadow */

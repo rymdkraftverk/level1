@@ -12,8 +12,11 @@ Particles.stop(entity)
 
 #### Physics
 
-Physics.add(entity, Physics.body)
+Physics.addBody(entity, Physics.body)
+Physics.addCollision
 Physics.getEngine()
+
+### Matter
 
 -----
 
