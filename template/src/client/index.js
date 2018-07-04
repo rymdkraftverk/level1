@@ -51,7 +51,7 @@ Game.init({
   square.behaviors.scaleText = scaleText();
 
   setTimeout(() => {
-    // Entity.destroy(square);
+    Entity.destroy(square);
   }, 2400);
 
   const floor = Entity.create('floor');

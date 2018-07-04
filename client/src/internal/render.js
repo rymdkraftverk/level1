@@ -151,8 +151,8 @@ export function getBitmapText(text, style) {
 }
 
 export function remove(child) {
-  const removedChild = stage.removeChild(child);
-  return removedChild;
+  child.destroy();
+  stage.removeChild(child);
 }
 
 export function removeAll() {
