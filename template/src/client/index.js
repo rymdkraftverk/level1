@@ -33,7 +33,8 @@ Game.init({
   }, 2000);
 
   const text = Entity.addText(square, 'Hello!', {
-    font: '400px Arial',
+    fontFamily: 'Arial',
+    fontSize: '400px',
     fill: 'white',
   });
 
