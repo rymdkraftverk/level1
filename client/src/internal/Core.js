@@ -1,26 +1,37 @@
 import MainLoop from 'mainloop.js';
 import { Engine } from 'matter-js';
-import * as Render from './render';
+import * as Render from './Render';
+import { assetTypes } from '../Entity';
 
 let engine;
 let entities = [];
+
+const rootEntity = {
+  x: 0,
+  y: 0,
+  children: [],
+  parent: null,
+};
 
 function update(delta) {
   try {
     if (engine) {
       Engine.update(engine, delta);
     }
-    entities.forEach(e => {
-      runBehaviors(e);
-      e.emitters.forEach((emitter) => {
-        emitter.update(delta * 0.001);
-      });
-    });
+    rootEntity.children.forEach((e) => { run(e, delta); });
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(`level1 crashed with the following error: ${error.stack}`);
     stop();
   }
+}
+
+function run(e, delta) {
+  runBehaviors(e);
+  if (e.asset && e.asset.type === assetTypes.PARTICLES) {
+    e.asset.update(delta * 0.001);
+  }
+  e.children.forEach((child) => { run(child, delta); });
 }
 
 function runBehaviors(entity) {
@@ -50,6 +61,10 @@ function runBehaviors(entity) {
   } else if (sprite) {
     Render.displaySpriteBounds(sprite);
   }
+}
+
+export function getRootEntity() {
+  return rootEntity;
 }
 
 export function initMainLoop() {

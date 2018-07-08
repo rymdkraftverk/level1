@@ -61,3 +61,18 @@ To test changes, use the `template` project.
  - Physics: [Matter.js](https://github.com/liabru/matter-js)
  - Sound: [Howler.js](https://github.com/goldfire/howler.js)
  - Multiplayer: [Socket.io](https://github.com/socketio/socket.io)
+
+
+ ## Entities
+
+
+Entities:
+
+ - Entities have a list of children (other entities)
+ - Entities need to have 1 parent
+ - Children will be removed when entity is.
+ - An entity can have 0 or 1 asset (Sprite, Animation, Text, BitmapText, Particles, Sound)
+ - An entity can have 0 or 1 physics body.
+ - An entity has an x and y position
+ - An entity's position is relative to its parent 
+ - An entity has width and height.

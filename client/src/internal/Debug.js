@@ -1,7 +1,7 @@
 import { Composite } from 'matter-js';
-import * as Core from './core';
-import * as Render from './render';
-import * as Entity from '../entity';
+import * as Core from './Core';
+import * as Render from './Render';
+import * as Entity from '../Entity';
 import { save, restore } from './localStorage';
 
 const TIME_BETWEEN_INFO_UPDATES = 1000;

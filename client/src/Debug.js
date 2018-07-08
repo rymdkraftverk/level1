@@ -1,4 +1,4 @@
-import * as Render from './internal/render';
+import * as Render from './internal/Render';
 
 export function togglePrintIDs() {
   // TODO: add button

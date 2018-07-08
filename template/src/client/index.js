@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import { Game, Entity, Timer, Key, Debug, Gamepad, Physics, Sound, Net, Text } from 'l1';
+import { Game, Entity, Timer, Physics, Text, Matter, Sprite, Particles } from 'l1';
 import assets from './assets.json';
 import config from './emitter.json';
 import scanGamepads from './behaviors/scanGamepads';
@@ -9,53 +8,58 @@ import scanGamepads from './behaviors/scanGamepads';
 Game.init({
   width: 600, height: 400, assets, debug: true, physics: true,
 }).then(() => {
-  Game.getPhysicsEngine().world.gravity.y = 1;
+  Physics.getEngine().world.gravity.y = 1;
 
   // createControllerPresets();
 
-  const input = Entity.create('input');
+  const input = Entity.addChild(Entity.getRoot(), { id: 'input' });
   input.behaviors.scan = scanGamepads();
 
-  const square = Entity.create('square');
-  const sprite = Entity.addSprite(square, 'square');
-  Entity.addBody(square, Physics.Bodies.rectangle(100, 10, 80, 80));
-  sprite.scale.set(5);
+  const square = Entity.addChild(Entity.getRoot(), { id: 'square' });
 
-  Entity.addEmitter(square, {
-    id: 'player1',
-    textures: ['particle'],
+  Sprite.show(square, { texture: 'square' });
+  square.asset.scale.set(5);
+
+  Physics.addBody(square, Matter.Bodies.rectangle(100, 10, 80, 80));
+
+  const text = Entity.addChild(square, { id: 'text', x: 10, y: 10 });
+  Text.show(text, {
+    text: 'Hello!',
+    style: {
+      fontFamily: 'Arial',
+      fontSize: '400px',
+      fill: 'white',
+    },
   });
-  setTimeout(() => {
-    Entity.emitEmitter(square, {
-      id: 'player1',
-      config,
-    });
-  }, 2000);
-
-  const text = Entity.addText(square, 'Hello!', {
-    fontFamily: 'Arial',
-    fontSize: '400px',
-    fill: 'white',
-  });
-
-  const originalScale = 10;
-  text.position.x = originalScale;
-  text.position.y = originalScale;
-
-  text.scale.set(0.1);
+  text.asset.scale.set(0.1);
 
   const scaleText = () => ({
     run: (b, e) => {
-      e.text.scale.set(e.text.scale.x * 1.005);
+      e.asset.scale.set(e.asset.scale.x * 1.005);
     },
   });
-  square.behaviors.scaleText = scaleText();
+  text.behaviors.scaleText = scaleText();
 
-  setTimeout(() => {
-    Entity.destroy(square);
-  }, 2400);
+  const selfdestruct = () => ({
+    timer: Timer.create({ duration: 120 }),
+    run: (b, e) => {
+      Timer.run(b.timer);
+      if (b.timer.finished) {
+        const explosion = Entity.addChild(Entity.getRoot(), {
+          x: Entity.getX(square),
+          y: Entity.getY(square),
+        });
+        Particles.emit(explosion, {
+          textures: ['particle'],
+          config,
+        });
+        Entity.destroy(e);
+      }
+    },
+  });
+  square.behaviors.selfdestruct = selfdestruct();
 
-  const floor = Entity.create('floor');
-  Entity.addBody(floor, Physics.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));
+  const floor = Entity.addChild(Entity.getRoot(), { id: 'floor' });
+  Physics.addBody(floor, Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));
 });
 

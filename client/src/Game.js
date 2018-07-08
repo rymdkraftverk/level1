@@ -1,6 +1,6 @@
-import * as Core from './internal/core';
-import * as Render from './internal/render';
-import * as Debug from './internal/debug';
+import * as Core from './internal/Core';
+import * as Render from './internal/Render';
+import * as Debug from './internal/Debug';
 
 const TIME_BEFORE_SPLASH_SCREEN_SHOWS = 500;
 

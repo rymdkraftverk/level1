@@ -121,7 +121,7 @@ export function getTexture(filename) {
   return texture;
 }
 
-export function getEmitter(filenames, config) {
+export function addEmitter(filenames, config) {
   return new PIXI.particles.Emitter(particleContainer, filenames.map(getTexture), config);
 }
 

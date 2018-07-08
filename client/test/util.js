@@ -1,4 +1,4 @@
-import * as Util from '../src/util';
+import * as Util from '../src/Util';
 
 describe('Util.getRandomInRange()', () => {
   context('with a range of random integers', () => {
