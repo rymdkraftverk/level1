@@ -20,12 +20,12 @@ Initializes level1 and starts the game loop.
 
 Option | Type | Required | Default | Description
  -- | -- | -- | -- | -- |
-**width** | Number | - [ ] | 800 | The width of the game |
-**height** | Number | - [ ] | 600 | The height of the game |
-**assets** | Object | - [ ] | - | An object that defines assets for the game. (See: TBD) |
-**element** | HTMLElement | - [ ] | `document.body` | Where to inject the game |
-**physics** | Boolean | - [ ] | false | Enable physics provided by matter-js |
-**debug** | Boolean | - [ ] | false | Display the debug tools underneath game window |
+**width** | Number | [ ] | 800 | The width of the game |
+**height** | Number | [ ] | 600 | The height of the game |
+**assets** | Object | [ ] | - | An object that defines assets for the game. (See: TBD) |
+**element** | HTMLElement | [ ] | `document.body` | Where to inject the game |
+**physics** | Boolean | [ ] | false | Enable physics provided by matter-js |
+**debug** | Boolean | [ ] | false | Display the debug tools underneath game window |
 
 **Returns**
 
@@ -125,11 +125,11 @@ Entity.addChild(parent, options)
 
 Option | Type | Required | Default | Description
  -- | -- | -- | -- | -- 
-**id** | String | - [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
-**x** | Number | - [ ] | 0 | The x position of the entity, relative to the parent.
-**y** | Number | - [ ] | 0 | The y position of the entity, relative to the parent.
-**width** | Number | - [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
-**height** | Number | - [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
+**id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
+**x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
+**y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
+**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
+**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
 
 **Returns**
 
@@ -206,12 +206,18 @@ Get entities by type.
 ---
 
 ```js
-Foo.bar(baz)
+Entity.getRoot()
 ```
+
+Get the root entity. This is the top node in the entity hierarchy.
 
 **Arguments**
 
+Nothing
+
 **Returns**
+
+(Object): The root entity
 
 **Example**
 
@@ -223,9 +229,9 @@ Entity.isColliding(entity, otherEntity)
 
 **Arguments**
 
-`entity` (Object)
+`entity` (Object): The first entity to use for collision detection.
 
-`otherEntity` (Object)
+`otherEntity` (Object) The second entity to use for collision detection.
 
 **Returns**
 
@@ -233,16 +239,15 @@ Entity.isColliding(entity, otherEntity)
 
 ---
 
-
 ```js
-Entity.overlappingRectangleArea(entity, otherEntity)
+Entity.getOverlappingArea(entity, otherEntity)
 ```
 
 **Arguments**
 
-`entity` (Object)
+`entity` (Object): The first entity to use for overlap detection.
 
-`otherEntity` (Object)
+`otherEntity` (Object) The second entity to use for overlap detection.
 
 **Returns**
 
@@ -261,14 +266,8 @@ Property | Type | Description
 **behaviors** | Object | Map with all behaviors
 **body** | Object | Physics body. Always has default body with entity as only property
 **asset** | (*) | Either null, Sprite, Animation, Sound, Particles, Graphics, Text or BitmapText
-**parent** | Object | -
-**children** | Array | -
-
-**Example**
-
-```js
-// TODO
-```
+**parent** | Object | The parent entity.
+**children** | Array | A list of child entities.
 
 ---
 
@@ -290,8 +289,8 @@ Creates a new timer object. Timer starts at 0 and counts up to duration. (60 = A
 
 Option | Type | Required | Default | Description
  -- | -- | -- | -- | -- 
-**duration** | Number | -[x] | - | The number of times the timer will be run before returning true
-**autoReset** | Boolean | -[ ] | false | If true, the timer will reset once the duration is reached
+**duration** | Number | [x] | - | The number of times the timer will be run before returning true
+**autoReset** | Boolean | [ ] | false | If true, the timer will reset once the duration is reached
 
 **Returns**
 
@@ -319,7 +318,7 @@ Nothing.
 Timer.run(timer)
 ```
 
-Increase timer `counter` by 1. Returns true if `duration` is reached.
+Increase timer `counter` by 1. Should be called on every game update. Returns true if `duration` is reached. 
 
 **Arguments**
 
@@ -336,20 +335,6 @@ Increase timer `counter` by 1. Returns true if `duration` is reached.
 The following properties are specified for objects created by Timer.create.
 
 ---
-
-```javascript
-timer.run()
-```
-
-Should be called on every game update. Increases the counter by 1. Will return true once when duration is reached.
-
-**Arguments**
-
-None.
-
-**Returns**
-
-(boolean): If the timer has reached its duration.
 
 **Example**
 
@@ -369,14 +354,14 @@ None.
 ---
 
 ```js
-timer.reset()
+Timer.reset(timer)
 ```
 
 Reset counter to 0.
 
 **Arguments**
 
-None.
+`timer` (Object): The timer objet to reset.
 
 **Returns**
 
@@ -384,25 +369,11 @@ Nothing.
 
 ---
 
-```js
-timer.counter()
-```
-
-The current value of the counter. Starts at 0 and is increased by 1 whenever *run()* is called.
-
-**Arguments**
-
-None.
-
-**Returns**
-
-(Number): The current value of the counter.
-
----
-
-#### timer.duration() => number
-
-#### timer.finished() => bool
+Property | Type | Description
+ -- | -- | --
+**duration** | Number | How many times the `timer` has to be run before it returns `true`. Set by Timer.create.
+**finished** | Boolean | Returns `true` when the `counter` has reached the `duration`.
+**counter** | Number | A number that increases by 1 every time the `timer` is run.
 
 ---
 
@@ -420,9 +391,18 @@ Sprite.show(entity, options)
 
 **Arguments**
 
+`entity` (Object): The entity to apply the sprite to.
+
+`options` (Object):
+
+Option | Type | Required | Default | Description
+ -- | -- | -- | -- | -- 
+**texture** | String | [x] | - | A texture id as specified in `assets.json`.
+**zIndex** | Number | [ ] | 0 | TBD
+
 **Returns**
 
-**Example**
+(PIXI.Sprite): The PIXI sprite object.
 
 ---
 
@@ -432,14 +412,19 @@ Sprite.hide(entity)
 
 **Arguments**
 
+`entity` (object): The entity with the sprite to hide.
+
 **Returns**
 
-**Example**
+Nothing.
+
 ---
 
 ```js
 Sprite.flip(entity)
 ```
+
+TBD
 
 ---
 
@@ -531,7 +516,7 @@ Particles.emit(entity, options)
 
 **Arguments**
 
-`entity`
+`entity` (Object): The entity to apply the particles to.
 
 `options` (Object):
 
@@ -561,7 +546,7 @@ Particles.stop(entity)
 
 **Arguments**
 
-`entity`
+`entity` (Object): The entity with the particles to stop.
 
 **Returns**
 
@@ -578,14 +563,14 @@ import { Graphics } from 'l1'
 ---
 
 ```js
-Graphics.create()
+Graphics.create(entity)
 ```
 
 A graphics object is used to draw lines and shapes.
 
 **Arguments**
 
-None.
+`entity` (object): The entity to apply the graphics object to.
 
 **Returns**
 
@@ -593,11 +578,23 @@ None.
 
 ---
 
-Graphics.destroy()
+```js
+Graphics.destroy(entity)
+```
+
+**Arguments**
+
+`entity` (Object): The entity with the graphics to destroy.
+
+**Returns**
+
+Nothing.
 
 ---
 
 ### Behavior
+
+TBD
 
 Behavior.add()
 Behavior.remove()
@@ -670,12 +667,6 @@ Get a random number in range (from (inclusive) - to (exclusive))
 **Returns**
 
 (Number): The randomly generated number
-
-**Example**
-
-```js
- // TODO
-```
 
 ---
 
@@ -761,10 +752,10 @@ Get the distance between two points.
 
 Option | Type | Required | Default | Description
  -- | -- | -- | -- | -- |
-**x1** | Number | - [x] | - | The x coordinate of the start position
-**y1** | Number | - [x] | - | The y coordinate of the start position
-**x2** | Number | - [x] | - | The x coordinate of the end position
-**y2** | Number | - [x] | - | The y coordinate of the start position
+**x1** | Number | [x] | - | The x coordinate of the start position
+**y1** | Number | [x] | - | The y coordinate of the start position
+**x2** | Number | [x] | - | The x coordinate of the end position
+**y2** | Number | [x] | - | The y coordinate of the start position
 
 **Returns**
 
