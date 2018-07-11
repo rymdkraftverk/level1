@@ -1,6 +1,6 @@
-## Docs / API: Client
+# Docs / API: Client
 
-## Game
+### Game
 
 ```js
 import { Game } from 'l1'
@@ -255,9 +255,18 @@ Entity.getOverlappingArea(entity, otherEntity)
 
 ---
 
+Entity.addType
+Entity.removeType
+Entity.setX
+Entity.getX
+Entity.setY
+Entity.getY
+
+---
+
 ### Entity object properties
 
-The following properties are specified for objects created by Entity.create.
+The following properties are specified for objects created by Entity.addChild.
 
 Property | Type | Description
  -- | -- | --
@@ -302,7 +311,7 @@ Option | Type | Required | Default | Description
 Timer.reset(timer)
 ```
 
-Resets the timer
+Resets the counter to 0.
 
 **Arguments**
 
@@ -328,24 +337,16 @@ Increase timer `counter` by 1. Should be called on every game update. Returns tr
 
 (Boolean): Returns `true` if the timer `duration` is reached.
 
----
-
-## Timer object properties
-
-The following properties are specified for objects created by Timer.create.
-
----
-
 **Example**
 
 ```javascript
   timerBehavior = () => ({
-    timer: Timer.create(100),
+    timer: Timer.create({ duration: 100 }),
     run: (b) => {
-      if (b.timer.run()) {
+      if (Timer.run(b.timer)) {
         // Run code when timer duration is reached
 
-        b.timer.reset();
+        Timer.reset(b.timer);
       }
     } 
   })
@@ -353,21 +354,9 @@ The following properties are specified for objects created by Timer.create.
 
 ---
 
-```js
-Timer.reset(timer)
-```
+## Timer object properties
 
-Reset counter to 0.
-
-**Arguments**
-
-`timer` (Object): The timer objet to reset.
-
-**Returns**
-
-Nothing.
-
----
+The following properties are specified for objects created by Timer.create.
 
 Property | Type | Description
  -- | -- | --
@@ -398,11 +387,24 @@ Sprite.show(entity, options)
 Option | Type | Required | Default | Description
  -- | -- | -- | -- | -- 
 **texture** | String | [x] | - | A texture id as specified in `assets.json`.
+**flipX** | Boolean | [ ] | false | TBD
+**flipY** | Boolean | [ ] | false | TBD
 **zIndex** | Number | [ ] | 0 | TBD
 
 **Returns**
 
 (PIXI.Sprite): The PIXI sprite object.
+
+**Example**
+
+```js
+Sprite.show(player1, {
+	texture: 'walk1',
+	zIndex: 10
+	flipX: true
+	flipY: true
+})
+```
 
 ---
 
@@ -490,7 +492,20 @@ Nothing.
 
 ### Text
 
-Text.show()
+```js
+Text.show(entity, options)
+```
+
+**Example**
+
+```js
+Text.show(player1, {
+  text: 'hello',
+  style: { fontSize: '35px' },
+  zIndex: 10,
+})
+```
+
 Text.hide()
 
 ---

@@ -1,5 +1,5 @@
 import * as Render from './internal/Render';
-import { assetTypes } from './Entity';
+import * as Entity from './Entity';
 
 /*
 The following properties are required by PIXI Particles when it's created.
@@ -9,10 +9,6 @@ const defaultParticleEmitterConfig = {
   lifetime: {
     min: 0,
     max: 0,
-  },
-  pos: {
-    x: -999,
-    y: -999,
   },
 };
 
@@ -25,11 +21,15 @@ export function emit(entity, {
 
   const emitter = Render.addEmitter(textures, {
     ...defaultParticleEmitterConfig,
+    pos: {
+      x: Entity.getX(entity),
+      y: Entity.getY(entity),
+    },
     ...config,
     emit: true,
   });
 
-  emitter.type = assetTypes.PARTICLES;
+  emitter.type = Entity.assetTypes.PARTICLES;
   entity.asset = emitter;
 
   return emitter;

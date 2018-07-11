@@ -1,27 +1,6 @@
 
 ```js
 
-Sprite.show(player1, {
-	texture: 'walk1', // throw Error if texture is not set
-	zIndex: 10 // Default = 0
-	flipX: true // Default = false
-	flipY: true // Default = false
-})
-
-Sprite.hide(player1)
-
-Text.show(player1, {
-  text: 'hello',
-  style: { fontSize: '35px' },
-  zIndex: 10,
-})
-Text.hide(player1)
-
-```
-
-
-```js
-
 const player1 = Entity.addChild(root, {
 	id: 'player1', 
 	x: 10, 
@@ -63,8 +42,14 @@ Move docs to their respective projects
 
 Render hitboxes have to be based on entity bounds not sprite bounds.
 
-Mark entity for removal and remove all "to be removed entities" next update
-
-Fix tests
-
 Add lizard to test animation
+
+Separate setting and changing asset on an entity to prevent against accidentally override an asset
+
+Should entity just be an asset????
+
+Decide if we want anchor point to be in center or top left
+
+Rename sprites to textures in assets.json??
+
+Emitter should not be able to take a position option??
