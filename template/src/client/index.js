@@ -31,10 +31,10 @@ Game.init({
   // createControllerPresets();
   const root = Entity.getRoot();
 
-  const input = Entity.addChild(Entity.getRoot(), { id: 'input' });
+  const input = Entity.addChild(root, { id: 'input' });
   input.behaviors.scan = scanGamepads();
 
-  const square = Entity.addChild(Entity.getRoot(), { id: 'square' });
+  const square = Entity.addChild(root, { id: 'square' });
 
   Sprite.show(square, { texture: 'square' });
   square.asset.scale.set(5);
@@ -94,6 +94,6 @@ Game.init({
   });
   lizard.asset.scale.set(3);
 
-  const floor = Entity.addChild(Entity.getRoot(), { id: 'floor' });
+  const floor = Entity.addChild(root, { id: 'floor' });
   Physics.addBody(floor, Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));
 });

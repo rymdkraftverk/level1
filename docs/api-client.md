@@ -6,6 +6,13 @@
 import { Game } from 'l1'
 ```
 
+ - [Game.init]()
+ - [Game.stop]()
+ - [Game.start]()
+ - [Game.getState]()
+ - [Game.getRenderer]()
+ - [Game.getPIXI]()
+
 ---
 
 ```js
@@ -105,11 +112,32 @@ None.
 
 ---
 
+```js
+Game.getPIXI()
+```
+
+---
+
 ### Entity
 
 ```js
 import { Entity } from 'l1'
 ```
+
+ - [Entity.addChild]()
+ - [Entity.destroy]()
+ - [Entity.getAll]()
+ - [Entity.get]()
+ - [Entity.getByType]()
+ - [Entity.getRoot]()
+ - [Entity.isColliding]()
+ - [Entity.getOverlappingArea]()
+ - [Entity.addType]()
+ - [Entity.removeType]()
+ - [Entity.setX]()
+ - [Entity.getX]()
+ - [Entity.setY]()
+ - [Entity.getY]()
 
 ---
 
@@ -285,6 +313,10 @@ Property | Type | Description
 ```javascript
 import { Timer } from 'l1'
 ```
+
+ - [Timer.create]()
+ - [Timer.run]()
+ - [Timer.reset]()
 
 ---
 
@@ -665,6 +697,16 @@ TODO
 ---
 
 ### Util
+
+```js
+import { Util } from 'l1'
+```
+
+ - [Util.getRandomInRange]()
+ - [Util.distance]()
+ - [Util.grid]()
+ - [Util.angle]()
+ - [Util.toRadians]()
 
 ---
 
