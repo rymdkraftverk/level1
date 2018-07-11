@@ -1,4 +1,5 @@
 import * as Render from './internal/Render';
+import * as Entity from './Entity';
 
 export function play(entity, { textures, speed = 0.05, zIndex = 0 }) {
   const animation = Render.getAnimation(textures, speed);
@@ -8,6 +9,10 @@ export function play(entity, { textures, speed = 0.05, zIndex = 0 }) {
   Render.add(animation);
 
   animation.play();
+
+  if (entity.asset) {
+    Entity.destroyAsset(entity.asset);
+  }
 
   entity.asset = animation;
 

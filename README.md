@@ -2,7 +2,12 @@
 
 > Quickly get started creating 2D games in the browser with minimal setup or configuration
 
-level1 is a thin layer on top of pixi.js to enable creating games. The API is designed to be as minimal as possible to be easy to learn and work with.
+level1 is a library to create games with javascript. It combines rendering from pixi.js with physics
+from matter.js and runs a gameloop etc etc.
+
+The API is designed to be as minimal as possible to be easy to learn and work with.
+
+*This project is experimental and breaking changes might be introduced in any update.*
 
 ## Index
 
@@ -17,6 +22,13 @@ level1 is a thin layer on top of pixi.js to enable creating games. The API is de
     - [Gamepad](docs/api-client.md#gamepad)
     - [Debug](docs/api-client.md#debug)
     - [Net](docs/api-client.md#net)
+    - [Text]
+    - [BitmapText]
+    - [Sprite]
+    - [Animation]
+    - [Particles]
+    - [Graphics]
+    - [Matter]
 1. [Docs / API: Server](docs/api-server.md)
     - [Server](docs/api-server.md#server)
     - [Net](docs/api-server.md#net)
@@ -57,9 +69,12 @@ To test changes, use the `template` project.
 
 ## Dependency references:
 
+ - Game loop: [Mainloop.js]()
  - Rendering: [Pixi.js](https://github.com/pixijs/pixi.js)
+ - Particle effects: [pixi-particles](https://github.com/pixijs/pixi-particles)
  - Physics: [Matter.js](https://github.com/liabru/matter-js)
  - Sound: [Howler.js](https://github.com/goldfire/howler.js)
+ - Keyboard input: [mousetrap]()
  - Multiplayer: [Socket.io](https://github.com/socketio/socket.io)
 
 

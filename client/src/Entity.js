@@ -81,7 +81,15 @@ export function removeType(entity, type) {
   entity.types = entity.types.filter((t) => t !== type);
 }
 
-const destroyChild = (child) => {
+export const destroyAsset = (asset) => {
+  if (asset.type === assetTypes.PARTICLES) {
+    asset.destroy();
+  } else {
+    Render.remove(asset);
+  }
+};
+
+export const destroyChild = (child) => {
   Core.remove(child);
   const {
     asset,
@@ -89,11 +97,7 @@ const destroyChild = (child) => {
     hasBody,
   } = child;
   if (asset) {
-    if (asset.type === assetTypes.PARTICLES) {
-      asset.destroy();
-    } else {
-      Render.remove(asset);
-    }
+    destroyAsset(asset);
     child.asset = null;
   }
   if (hasBody) {
