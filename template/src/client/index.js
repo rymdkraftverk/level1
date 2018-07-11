@@ -1,4 +1,4 @@
-import { Game, Entity, Timer, Physics, Text, Matter, Sprite, Particles } from 'l1';
+import { Game, Entity, Timer, Physics, Text, Matter, Sprite, Particles, Animation } from 'l1';
 import assets from './assets.json';
 import config from './emitter.json';
 import scanGamepads from './behaviors/scanGamepads';
@@ -11,6 +11,7 @@ Game.init({
   Physics.getEngine().world.gravity.y = 1;
 
   // createControllerPresets();
+  const root = Entity.getRoot();
 
   const input = Entity.addChild(Entity.getRoot(), { id: 'input' });
   input.behaviors.scan = scanGamepads();
@@ -22,7 +23,10 @@ Game.init({
 
   Physics.addBody(square, Matter.Bodies.rectangle(100, 10, 80, 80));
 
-  const text = Entity.addChild(square, { id: 'text', x: 10, y: 10 });
+  const text = Entity.addChild(
+    square,
+    { id: 'text', x: -50, y: -50 },
+  );
   Text.show(text, {
     text: 'Hello!',
     style: {
@@ -45,12 +49,12 @@ Game.init({
     run: (b, e) => {
       Timer.run(b.timer);
       if (b.timer.finished) {
-        const explosion = Entity.addChild(Entity.getRoot(), {
+        const explosion = Entity.addChild(root, {
           x: Entity.getX(square),
           y: Entity.getY(square),
         });
         Particles.emit(explosion, {
-          textures: ['particle'],
+          textures: ['square'],
           config,
         });
         Entity.destroy(e);
@@ -58,6 +62,17 @@ Game.init({
     },
   });
   square.behaviors.selfdestruct = selfdestruct();
+
+  const lizard = Entity.addChild(root, {
+    x: 300,
+    y: 50,
+  });
+
+  Animation.play(lizard, {
+    textures: ['lizardFront1', 'lizardFront2'],
+    speed: 0.025,
+  });
+  lizard.asset.scale.set(3);
 
   const floor = Entity.addChild(Entity.getRoot(), { id: 'floor' });
   Physics.addBody(floor, Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));

@@ -1,6 +1,12 @@
 {
   "sprites": [
     "square",
+    "lizardFront1",
+    "lizardFront2",
+    "lizardRight1",
+    "lizardRight2",
+    "lizardBack1",
+    "lizardBack2",
     "particle"
   ],
   "fonts": [

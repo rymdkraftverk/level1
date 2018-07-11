@@ -625,7 +625,7 @@ babel-plugin-transform-strict-mode@^6.24.1:
     babel-runtime "^6.22.0"
     babel-types "^6.24.1"
 
-babel-polyfill@^6.26.0:
+babel-polyfill@6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.26.0.tgz#379937abc67d7895970adc621f284cd966cf2153"
   dependencies:
@@ -2377,7 +2377,7 @@ hosted-git-info@^2.1.4:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.5.0.tgz#6d60e34b3abbc8313062c3b798ef8d901a07af3c"
 
-howler@^2.0.12:
+howler@2.0.12:
   version "2.0.12"
   resolved "https://registry.yarnpkg.com/howler/-/howler-2.0.12.tgz#4b0695fadb2448f9b31ec50c4e327707723d9ed3"
 
@@ -2847,17 +2847,17 @@ kind-of@^6.0.0, kind-of@^6.0.2:
     socket.io "^1.7.2"
 
 "l1@file:../client":
-  version "0.2.18"
+  version "0.3.0"
   dependencies:
-    babel-polyfill "^6.26.0"
-    howler "^2.0.12"
-    mainloop.js "^1.0.4"
-    matter-js "^0.14.1"
-    mousetrap "^1.6.2"
-    pixi-particles "^3.0.0"
-    pixi.js "^4.8.0"
-    socket.io-client "^2.1.1"
-    uuid "^3.3.2"
+    babel-polyfill "6.26.0"
+    howler "2.0.12"
+    mainloop.js "1.0.4"
+    matter-js "0.14.1"
+    mousetrap "1.6.2"
+    pixi-particles "3.0.0"
+    pixi.js "4.8.0"
+    socket.io-client "2.1.1"
+    uuid "3.3.2"
 
 labeled-stream-splicer@^2.0.0:
   version "2.0.0"
@@ -2937,7 +2937,7 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
-mainloop.js@^1.0.4:
+mainloop.js@1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/mainloop.js/-/mainloop.js-1.0.4.tgz#4cc3f1e7a57e4a718de397884a59063c42913e87"
 
@@ -2961,7 +2961,7 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-matter-js@^0.14.1:
+matter-js@0.14.1:
   version "0.14.1"
   resolved "https://registry.yarnpkg.com/matter-js/-/matter-js-0.14.1.tgz#71d967f2de858b1616bfccc1002ab38aab9e350a"
 
@@ -3124,7 +3124,7 @@ module-deps@^5.0.1:
     through2 "^2.0.0"
     xtend "^4.0.0"
 
-mousetrap@^1.6.2:
+mousetrap@1.6.2:
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/mousetrap/-/mousetrap-1.6.2.tgz#caadd9cf886db0986fb2fee59a82f6bd37527587"
 
@@ -3534,11 +3534,11 @@ pixi-gl-core@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/pixi-gl-core/-/pixi-gl-core-1.1.4.tgz#8b4b5c433b31e419bc379dc565ce1b835a91b372"
 
-pixi-particles@^3.0.0:
+pixi-particles@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/pixi-particles/-/pixi-particles-3.0.0.tgz#72394f19d9d81c224d3eb0ad4af3786bf23bdd44"
 
-pixi.js@^4.8.0:
+pixi.js@4.8.0:
   version "4.8.0"
   resolved "https://registry.yarnpkg.com/pixi.js/-/pixi.js-4.8.0.tgz#4b681140f4c40fdf75cbb773d69699da53a62fd5"
   dependencies:
@@ -4109,7 +4109,7 @@ socket.io-client@1.7.4:
     socket.io-parser "2.3.1"
     to-array "0.1.4"
 
-socket.io-client@^2.1.1:
+socket.io-client@2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/socket.io-client/-/socket.io-client-2.1.1.tgz#dcb38103436ab4578ddb026638ae2f21b623671f"
   dependencies:
@@ -4606,13 +4606,13 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
 
+uuid@3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
+
 uuid@^3.0.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
-
-uuid@^3.3.2:
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.2.tgz#1b4af4955eb3077c501c23872fc6513811587131"
 
 validate-npm-package-license@^3.0.1:
   version "3.0.1"
