@@ -4,16 +4,20 @@ Use the template project as a starter.
 
 ### Create game
 
-```javascript
+```js
 import { Game } from 'l1';
-import sprites from './sprites.json';
+import assets from './assets.json';
 
-Game.init(800, 400, sprites).then(() => {
+Game.init({
+  width: 800, 
+  height: 400, 
+  assets,
+}).then(() => {
   // Initialize your game here
 }
 ```
 
-Add link to Game.init
+TODO: Add link to Game.init
 
 ---
 
@@ -98,3 +102,5 @@ Behaviors are objects with two properties:
 ```javascript
   lizard.behaviors.moveLeft = moveLeft();
 ```
+
+#### Assets file
