@@ -5,6 +5,24 @@ import scanGamepads from './behaviors/scanGamepads';
 
 // import createControllerPresets from './controllerPresets';
 
+const lizardRotation = () => ({
+  timer: Timer.create({ duration: 120 }),
+  speed: 0.025,
+  textures: {
+    front: ['lizardFront1', 'lizardFront2'],
+    right: ['lizardRight1', 'lizardRight2'],
+  },
+  run: (b, e) => {
+    if (Timer.run(b.timer)) {
+      const animation = Animation.play(e, {
+        speed: b.speed,
+        textures: b.textures.right,
+      });
+      animation.scale.set(3);
+    }
+  },
+});
+
 Game.init({
   width: 600, height: 400, assets, debug: true, physics: true,
 }).then(() => {
@@ -68,6 +86,8 @@ Game.init({
     y: 50,
   });
 
+  lizard.behaviors.lizardRotation = lizardRotation();
+
   Animation.play(lizard, {
     textures: ['lizardFront1', 'lizardFront2'],
     speed: 0.025,
@@ -77,4 +97,3 @@ Game.init({
   const floor = Entity.addChild(Entity.getRoot(), { id: 'floor' });
   Physics.addBody(floor, Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));
 });
-
