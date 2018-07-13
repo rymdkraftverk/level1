@@ -8,8 +8,6 @@ Separate setting and changing asset on an entity to prevent against accidentally
 
 Should entity just be an asset????
 
-Decide if we want anchor point to be in center or top left
-
 Rename sprites to textures in assets.json??
 
 Emitter should not be able to take a position option??
