@@ -39,7 +39,9 @@ Game.init({
   Sprite.show(square, { texture: 'square' });
   square.asset.scale.set(5);
 
-  Physics.addBody(square, Matter.Bodies.rectangle(100, 10, 80, 80));
+  Physics.addBody(square, Matter.Bodies.rectangle(140, 50, 80, 80, {
+    inertia: Infinity,
+  }));
 
   const text = Entity.addChild(
     square,

@@ -116,7 +116,7 @@ export function getPIXI() {
 
 export function getTexture(filename) {
   const resource = PIXI.loader.resources[filename];
-  if (!resource) throw new Error(`Sprite ${filename} not found. Make sure that it is added to your sprites.json`);
+  if (!resource) throw new Error(`Sprite ${filename} not found. Make sure that it is added to your assets.json`);
   const { texture } = resource;
   return texture;
 }

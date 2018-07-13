@@ -31,9 +31,6 @@ export function show(entity, {
 
   Render.add(sprite);
 
-  // Put the body in the middle of sprite
-  sprite.anchor.set(0.5);
-
   entity.asset = sprite;
 
   return sprite;

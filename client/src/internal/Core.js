@@ -18,7 +18,7 @@ function update(delta) {
     if (engine) {
       Engine.update(engine, delta);
     }
-    rootEntity.children.forEach((e) => { run(e, delta); });
+    rootEntity.children.forEach((e) => { runEntity(e, delta); });
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(`level1 crashed with the following error: ${error.stack}`);
@@ -26,12 +26,12 @@ function update(delta) {
   }
 }
 
-function run(e, delta) {
+function runEntity(e, delta) {
   runBehaviors(e);
   if (e.asset && e.asset.type === assetTypes.PARTICLES) {
     e.asset.update(delta * 0.001);
   }
-  e.children.forEach((child) => { run(child, delta); });
+  e.children.forEach((child) => { runEntity(child, delta); });
 }
 
 function runBehaviors(entity) {

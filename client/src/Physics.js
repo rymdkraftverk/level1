@@ -1,16 +1,27 @@
 import { World, Events } from 'matter-js';
 import * as Core from './internal/Core';
-import syncEntityWithBody from './behaviors/syncEntityWithBody';
 
 export function addBody(entity, body) {
   const engine = getEngine();
+
+  // This is done to move the x and y coordinates of the body to its top left corner.
+  // This will sync the position with pixi.
+  const width = Math.abs(body.bounds.max.x - body.bounds.min.x);
+  const height = Math.abs(body.bounds.max.y - body.bounds.min.y);
+
+  entity.width = width;
+  entity.height = height;
+
+  body.position.x -= (width / 2);
+  body.position.y -= (height / 2);
+  body.positionPrev.x -= (width / 2);
+  body.positionPrev.y -= (height / 2);
+
   World.add(engine.world, [body]);
 
   body.entity = entity;
   entity.body = body;
   entity.hasBody = true;
-
-  entity.behaviors.syncEntityWithBody = syncEntityWithBody();
 
   return body;
 }
@@ -25,7 +36,11 @@ export function getEngine() {
 }
 
 /*
-  addCollision(entityType: string, otherTypes: array[string], onCollision: (bodyA, bodyB) => void, collisionType: string);
+  addCollision(
+    entityType: string,
+    otherTypes: array[string],
+    onCollision: (bodyA, bodyB) => void,
+    collisionType: string);
 */
 export function addCollision(entityType, otherTypes, onCollision, collisionType = 'collisionActive') {
   const engine = Core.getPhysicsEngine();
