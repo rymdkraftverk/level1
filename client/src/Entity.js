@@ -14,8 +14,13 @@ export const assetTypes = {
 };
 
 export function addChild(parent, {
-  id = uuid(), x = 0, y = 0, width = 0, height = 0,
+  id, x = 0, y = 0, width = 0, height = 0,
+} = {
+  id: null, x: 0, y: 0, width: 0, height: 0,
 }) {
+  if (!id) {
+    id = uuid();
+  }
   if (Core.exists(id)) {
     throw new Error(`Entity.create(id) using an already existing id: ${id}`);
   }
