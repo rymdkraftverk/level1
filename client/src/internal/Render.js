@@ -18,7 +18,6 @@ let stage;
 let renderer;
 let graphics;
 let internalGraphics;
-let particleContainer;
 let _showHitboxes = false;
 
 export function draw() {
@@ -85,11 +84,6 @@ export function initRenderer(width, height, assets, element) {
     graphics = createPIXIGraphics();
     internalGraphics = createPIXIGraphics();
 
-    particleContainer = new PIXI.Container();
-    // Render it below pixiGraphics
-    particleContainer.zIndex = -9998;
-    add(particleContainer);
-
     if (assets) {
       loadAssets(assets, resolve);
     } else {
@@ -121,8 +115,14 @@ export function getTexture(filename) {
   return texture;
 }
 
-export function addEmitter(filenames, config) {
-  return new PIXI.particles.Emitter(particleContainer, filenames.map(getTexture), config);
+export function addEmitter(filenames, config, zIndex) {
+  const particleContainer = new PIXI.Container();
+  particleContainer.zIndex = zIndex;
+  add(particleContainer);
+  return {
+    emitter: new PIXI.particles.Emitter(particleContainer, filenames.map(getTexture), config),
+    particleContainer,
+  };
 }
 
 export function getSprite(filename) {

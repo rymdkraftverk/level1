@@ -90,6 +90,7 @@ export function removeType(entity, type) {
 export const destroyAsset = (asset) => {
   if (asset.type === assetTypes.PARTICLES) {
     asset.destroy();
+    Render.remove(asset.particleContainer);
   } else if (asset.type === assetTypes.SOUND) {
     asset.unload();
   } else {

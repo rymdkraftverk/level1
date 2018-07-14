@@ -72,8 +72,7 @@ Game.init({
   const selfdestruct = () => ({
     timer: Timer.create({ duration: 120 }),
     run: (b, e) => {
-      Timer.run(b.timer);
-      if (b.timer.finished) {
+      if (b.timer && Timer.run(b.timer)) {
         const explosion = Entity.addChild(root, {
           x: Entity.getX(square),
           y: Entity.getY(square),
@@ -81,6 +80,7 @@ Game.init({
         Particles.emit(explosion, {
           textures: ['square'],
           config,
+          zIndex: 1,
         });
         Entity.destroy(e);
       }

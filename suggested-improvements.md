@@ -21,3 +21,5 @@ Export PIXI the same way as matter-js is exported??
 Enable passing z-index to particle emitter
 - create new container when emitter is created
 - pass z-index as an option
+
+Add link to source code in docs?

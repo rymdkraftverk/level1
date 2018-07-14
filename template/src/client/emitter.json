@@ -8,10 +8,6 @@
 		"end": 0.01,
 		"minimumScaleMultiplier": 0.1
 	},
-	"color": {
-		"start": "#ffffff",
-		"end": "#ffffff"
-	},
 	"speed": {
 		"start": 150,
 		"end": 50,

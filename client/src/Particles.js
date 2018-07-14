@@ -13,24 +13,29 @@ const defaultParticleEmitterConfig = {
 };
 
 export function emit(entity, {
-  textures, config,
+  textures, config, zIndex = 0,
 }) {
   if (!textures || !config) {
     throw new Error('level1: Particles.emit(entity, { textures, config}): Incorrect arguments');
   }
 
-  const emitter = Render.addEmitter(textures, {
-    ...defaultParticleEmitterConfig,
-    pos: {
-      x: Entity.getX(entity),
-      y: Entity.getY(entity),
+  const { emitter, particleContainer } = Render.addEmitter(
+    textures, {
+      ...defaultParticleEmitterConfig,
+      pos: {
+        x: Entity.getX(entity),
+        y: Entity.getY(entity),
+      },
+      ...config,
+      emit: true,
     },
-    ...config,
-    emit: true,
-  });
+    zIndex,
+  );
 
   emitter.type = Entity.assetTypes.PARTICLES;
   entity.asset = emitter;
+  // TODO: Handle this in a different way?
+  entity.asset.particleContainer = particleContainer;
 
   return emitter;
 }

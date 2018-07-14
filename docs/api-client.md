@@ -5,15 +5,16 @@
 ```js
 import { Game } from 'l1'
 ```
-
- - [Game.init]()
- - [Game.stop]()
- - [Game.start]()
- - [Game.getState]()
- - [Game.getRenderer]()
- - [Game.getPIXI]()
+ - [init](docs/api-client.md#init)
+ - [stop](docs/api-client.md#stop)
+ - [start](docs/api-client.md#start)
+ - [getStage](docs/api-client.md#getstage)
+ - [getRenderer](docs/api-client.md#getrenderer)
+ - [getPIXI](docs/api-client.md#getpixi)
 
 ---
+
+#### init
 
 ```js
 Game.init(options)
@@ -52,6 +53,8 @@ Game.init({
 
 ---
 
+#### stop
+
 ```js
 Game.stop()
 ```
@@ -67,6 +70,8 @@ None.
 Nothing.
 
 ---
+
+#### start
 
 ```js
 Game.start()
@@ -84,6 +89,8 @@ Nothing.
 
 ---
 
+#### getRenderer
+
 ```js
 Game.getRenderer()
 ```
@@ -97,6 +104,8 @@ None.
 (PIXI.WebGLRenderer)
 
 ---
+
+#### getStage
 
 ```js
 Game.getStage()
@@ -112,6 +121,8 @@ None.
 
 ---
 
+#### getPIXI
+
 ```js
 Game.getPIXI()
 ```
@@ -124,22 +135,24 @@ Game.getPIXI()
 import { Entity } from 'l1'
 ```
 
- - [Entity.addChild]()
- - [Entity.destroy]()
- - [Entity.getAll]()
- - [Entity.get]()
- - [Entity.getByType]()
- - [Entity.getRoot]()
- - [Entity.isColliding]()
- - [Entity.getOverlappingArea]()
- - [Entity.addType]()
- - [Entity.removeType]()
- - [Entity.setX]()
- - [Entity.getX]()
- - [Entity.setY]()
- - [Entity.getY]()
+ - [addChild]()
+ - [destroy]()
+ - [getAll]()
+ - [get]()
+ - [getByType]()
+ - [getRoot]()
+ - [isColliding]()
+ - [getOverlappingArea]()
+ - [addType]()
+ - [removeType]()
+ - [getX]()
+ - [setX]()
+ - [getY]()
+ - [setY]()
 
 ---
+
+#### addChild
 
 ```js
 Entity.addChild(parent, options)
@@ -171,6 +184,8 @@ Option | Type | Required | Default | Description
 
 ---
 
+#### destroy
+
 ```js
 Entity.destroy(entity)
 ```
@@ -187,6 +202,8 @@ Nothing.
 
 ---
 
+#### getAll
+
 ```js
 Entity.getAll()
 ```
@@ -200,6 +217,8 @@ None.
 (Array): All entities.
 
 ---
+
+#### get
 
 ```js
 Entity.get(id)
@@ -217,6 +236,8 @@ Get entitiy by id.
 
 ---
 
+#### getByType
+
 ```js
 Entity.getByType(type)
 ```
@@ -232,6 +253,8 @@ Get entities by type.
 (*): Returns a list of found entities, else undefined. 
 
 ---
+
+#### getRoot
 
 ```js
 Entity.getRoot()
@@ -251,6 +274,8 @@ Nothing
 
 ---
 
+#### isColliding
+
 ```js
 Entity.isColliding(entity, otherEntity)
 ```
@@ -266,6 +291,8 @@ Entity.isColliding(entity, otherEntity)
 (Boolean): Returns true if entities are colliding.
 
 ---
+
+#### getOverlappingArea
 
 ```js
 Entity.getOverlappingArea(entity, otherEntity)
@@ -283,14 +310,30 @@ Entity.getOverlappingArea(entity, otherEntity)
 
 ---
 
-Entity.addType
-Entity.removeType
-Entity.setX
-Entity.getX
-Entity.setY
-Entity.getY
+#### addType
 
 ---
+
+#### removeType
+
+---
+
+#### setX
+
+---
+
+#### getX
+
+---
+
+#### setY
+
+---
+
+#### getY
+
+---
+
 
 ### Entity object properties
 
@@ -308,17 +351,19 @@ Property | Type | Description
 
 ---
 
-## Timer
+### Timer
 
 ```javascript
 import { Timer } from 'l1'
 ```
 
- - [Timer.create]()
- - [Timer.run]()
- - [Timer.reset]()
+ - [create]()
+ - [run]()
+ - [reset]()
 
 ---
+
+#### create
 
 ```js
 Timer.create(options)
@@ -339,6 +384,8 @@ Option | Type | Required | Default | Description
 
 ---
 
+#### reset
+
 ```js
 Timer.reset(timer)
 ```
@@ -354,6 +401,8 @@ Resets the counter to 0.
 Nothing.
 
 ---
+
+#### run
 
 ```js
 Timer.run(timer)
@@ -386,7 +435,7 @@ Increase timer `counter` by 1. Should be called on every game update. Returns tr
 
 ---
 
-## Timer object properties
+### Timer object properties
 
 The following properties are specified for objects created by Timer.create.
 
@@ -403,6 +452,10 @@ Property | Type | Description
 ```js
 import { Sprite } from 'l1'
 ```
+
+- [show]()
+- [hide]()
+- [flip]() ?
 
 ---
 
@@ -524,9 +577,27 @@ Nothing.
 
 ### Text
 
+
+```js
+import { Text } from 'l1'
+```
+
+show
+hide
+
+---
+
 ```js
 Text.show(entity, options)
 ```
+
+**Arguments**
+
+TODO
+
+**Returns**
+
+TODO
 
 **Example**
 
@@ -538,14 +609,30 @@ Text.show(player1, {
 })
 ```
 
-Text.hide()
+---
+
+#### hide
 
 ---
 
 ### BitmapText
 
-BitmapText.show()
-BitmapText.hide()
+```js
+import { BitmapText } from 'l1'
+```
+
+- [show]()
+- [hide]()
+
+#### show 
+
+TODO
+
+---
+
+#### hide 
+
+TODO
 
 ---
 
@@ -554,8 +641,10 @@ BitmapText.hide()
 ```js
 import { Particles } from 'l1'
 ```
- - Particles.emit
- - Particles.stop
+
+emit
+
+stop
 
 ---
 
@@ -583,7 +672,7 @@ Option | Type | Required | Default | Description
 
 ```js
 Particles.emit(entity, {
-  textures: ['yo'],
+  textures: ['pixel'],
 	config: particleConfig,
 })
 ```
@@ -610,7 +699,13 @@ Nothing.
 import { Graphics } from 'l1'
 ```
 
+create
+
+destroy
+
 ---
+
+#### create
 
 ```js
 Graphics.create(entity)
@@ -627,6 +722,8 @@ A graphics object is used to draw lines and shapes.
 (Object): A PIXI.Graphics object
 
 ---
+
+#### destroy
 
 ```js
 Graphics.destroy(entity)
@@ -656,6 +753,10 @@ Behavior.remove()
 ```js
 import { Sound } from 'l1'
 ```
+
+play
+
+stop
 
 ---
 
@@ -705,11 +806,11 @@ TODO
 import { Util } from 'l1'
 ```
 
- - [getRandomInRange]()
- - [distance]()
- - [grid]()
- - [angle]()
- - [toRadians]()
+ - [getRandomInRange](docs/api-client.md#getrandominrange)
+ - [distance](docs/api-client.md#distance)
+ - [grid](docs/api-client.md#grid)
+ - [angle](docs/api-client.md#angle)
+ - [toRadians](docs/api-client.md#torandians)
 
 ---
 
@@ -806,6 +907,8 @@ Option | Type | Required | Default | Description
 
 ---
 
+#### distance
+
 ```javascript
 Util.distance(options)
 ```
@@ -834,6 +937,8 @@ Option | Type | Required | Default | Description
 ```
 
 ---
+
+#### toRadians
 
 ```js
  Util.toRadians(degrees)
@@ -871,11 +976,19 @@ http://brm.io/matter-js/docs/
 import { Physics } from 'l1'
 ```
 
+- [addBody](docs/api-client.md#addbody)
+- [removeBody](docs/api-client.md#removebody)
+- [addCollision](docs/api-client.md#addcollision)
+- [removeCollision](docs/api-client.md#removecollision)
+- [removeAllCollisions](docs/api-client.md#removeallcollisions)
+- [getEngine](docs/api-client.md#getengine)
+
 ---
 
 ```js
 Physics.addBody(entity, body)
 ```
+
 
 **Arguments**
 
@@ -895,10 +1008,19 @@ Physics.addBody(entity, body)
 
 ---
 
-Physics.addCollision
-Physics.removeCollision
-Physics.removeAllCollisions
-Physics.getEngine()
+#### addCollision
+
+---
+
+#### removeCollision
+
+---
+
+#### removeAllCollisions
+
+---
+
+#### getEngine
 
 ___
 
@@ -956,7 +1078,12 @@ ___
 import { Key } from 'l1'
 ```
 
+- [add](docs/api-client.md#add)
+- [isDown](docs/api-client.md#isdown)
+
 ---
+
+#### add
 
 ```js
 Key.add(key)
@@ -973,6 +1100,8 @@ Enables a key to be used with Key.isDown
 Nothing.
 
 ---
+
+#### isDown
 
 ```js
 Key.isDown(key)
