@@ -554,6 +554,8 @@ BitmapText.hide()
 ```js
 import { Particles } from 'l1'
 ```
+ - Particles.emit
+ - Particles.stop
 
 ---
 
@@ -569,8 +571,9 @@ Particles.emit(entity, options)
 
 Option | Type | Required | Default | Description
  -- | -- | -- | -- | -- |
-**textures** | Array | - [x] | - | The sprites to use for the emitter, as defined in `assets.json`
-**config** | Object | - [x] | - | The emitter config to use
+**textures** | Array | [x] | - | The sprites to use for the emitter, as defined in `assets.json`
+**config** | Object | [x] | - | The emitter config to use
+**zIndex** | Number | [ ] | 0 | TBD
 
 **Returns**
 
@@ -702,13 +705,15 @@ TODO
 import { Util } from 'l1'
 ```
 
- - [Util.getRandomInRange]()
- - [Util.distance]()
- - [Util.grid]()
- - [Util.angle]()
- - [Util.toRadians]()
+ - [getRandomInRange]()
+ - [distance]()
+ - [grid]()
+ - [angle]()
+ - [toRadians]()
 
 ---
+
+#### getRandomInRange
 
 ```javascript
 Util.getRandomInRange(from, to)
@@ -726,6 +731,8 @@ Get a random number in range (from (inclusive) - to (exclusive))
 (Number): The randomly generated number
 
 ---
+
+#### grid
 
 ```js
 Util.grid(options)
@@ -767,6 +774,8 @@ Option | Type | Required | Default | Description
 ```
 
 ---
+
+#### angle
 
 ```js
 Util.angle(options)
