@@ -1,4 +1,5 @@
 import * as Render from './internal/Render';
+import * as Entity from './Entity';
 
 /**
  * Flip Sprite horizontally
@@ -28,6 +29,10 @@ export function show(entity, {
   }
 
   sprite.zIndex = zIndex;
+  sprite.position.set(
+    Entity.getX(entity),
+    Entity.getY(entity),
+  );
 
   Render.add(sprite);
 
