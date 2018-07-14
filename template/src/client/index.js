@@ -1,4 +1,4 @@
-import { Game, Entity, Timer, Physics, Text, Matter, Sprite, Particles, Animation } from 'l1';
+import { Game, Entity, Timer, Physics, Text, Matter, Sprite, Particles, Animation, Sound } from 'l1';
 import assets from './assets.json';
 import config from './emitter.json';
 import scanGamepads from './behaviors/scanGamepads';
@@ -42,6 +42,11 @@ Game.init({
   Physics.addBody(square, Matter.Bodies.rectangle(140, 50, 80, 80, {
     inertia: Infinity,
   }));
+
+  const appearSound = Entity.addChild(square);
+  Sound.play(appearSound, {
+    src: './sounds/join3.wav',
+  });
 
   const text = Entity.addChild(
     square,

@@ -86,14 +86,18 @@ export function removeType(entity, type) {
   entity.types = entity.types.filter((t) => t !== type);
 }
 
+// TODO: This should not be a part of the public API
 export const destroyAsset = (asset) => {
   if (asset.type === assetTypes.PARTICLES) {
     asset.destroy();
+  } else if (asset.type === assetTypes.SOUND) {
+    asset.unload();
   } else {
     Render.remove(asset);
   }
 };
 
+// TODO: This should not be a part of the public API
 export const destroyChild = (child) => {
   Core.remove(child);
   const {

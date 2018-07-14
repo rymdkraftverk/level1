@@ -16,6 +16,8 @@ export function play(entity, { src, volume, loop }) {
 
   entity.asset = sound;
 
+  entity.asset.type = assetTypes.SOUND;
+
   return sound;
 }
 
