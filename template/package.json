@@ -8,7 +8,7 @@
     "l1-server": "yarn add file:../server",
     "build": "browserify src/client/index.js -o public/bundle.js -t [ babelify ]",
     "watch": "watchify src/client/index.js -o public/bundle.js -t [ babelify ] --debug",
-    "start": "nodemon src/server"
+    "start": "VCAP_APP_PORT=8000 nodemon src/server"
   },
   "author": "",
   "license": "ISC",
