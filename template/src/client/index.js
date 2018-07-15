@@ -19,6 +19,7 @@ const lizardRotation = () => ({
         textures: b.textures.right,
       });
       animation.scale.set(3);
+      animation.anchor.set(0.2);
     }
   },
 });
@@ -91,6 +92,8 @@ Game.init({
   const lizard = Entity.addChild(root, {
     x: 300,
     y: 50,
+    width: 24,
+    height: 24,
   });
 
   lizard.behaviors.lizardRotation = lizardRotation();
@@ -100,6 +103,7 @@ Game.init({
     speed: 0.025,
   });
   lizard.asset.scale.set(3);
+  lizard.asset.anchor.set(0.2);
 
   const floor = Entity.addChild(root, { id: 'floor' });
   Physics.addBody(floor, Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));

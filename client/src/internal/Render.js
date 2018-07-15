@@ -193,13 +193,13 @@ export function displayBodyBounds(body) {
   internalGraphics.lineTo(vertices[0].x, vertices[0].y);
 }
 
-export function displaySpriteBounds(sprite) {
+export function displayEntityBounds(entity) {
   if (!_showHitboxes) return;
 
   internalGraphics.lineStyle(2, 0xFFFFFF, 1);
-  internalGraphics.moveTo(sprite.x, sprite.y);
-  internalGraphics.lineTo(sprite.x + sprite.width, sprite.y);
-  internalGraphics.lineTo(sprite.x + sprite.width, sprite.y + sprite.height);
-  internalGraphics.lineTo(sprite.x, sprite.y + sprite.height);
-  internalGraphics.lineTo(sprite.x, sprite.y);
+  internalGraphics.moveTo(entity.x, entity.y);
+  internalGraphics.lineTo(entity.x + entity.width, entity.y);
+  internalGraphics.lineTo(entity.x + entity.width, entity.y + entity.height);
+  internalGraphics.lineTo(entity.x, entity.y + entity.height);
+  internalGraphics.lineTo(entity.x, entity.y);
 }

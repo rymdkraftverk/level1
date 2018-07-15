@@ -1,12 +1,12 @@
-# Docs / API: Client
+# API: Client
 
 ### Game
 
 ```js
 import { Game } from 'l1'
 ```
- - [init](docs/api-client.md#init)
- - [stop](docs/api-client.md#stop)
+ - [init](#init)
+ - [stop](api-client.md#stop)
  - [start](docs/api-client.md#start)
  - [getStage](docs/api-client.md#getstage)
  - [getRenderer](docs/api-client.md#getrenderer)
@@ -652,6 +652,8 @@ stop
 Particles.emit(entity, options)
 ```
 
+https://pixijs.io/pixi-particles-editor/
+
 **Arguments**
 
 `entity` (Object): The entity to apply the particles to.
@@ -663,6 +665,20 @@ Option | Type | Required | Default | Description
 **textures** | Array | [x] | - | The sprites to use for the emitter, as defined in `assets.json`
 **config** | Object | [x] | - | The emitter config to use
 **zIndex** | Number | [ ] | 0 | TBD
+
+**Emitter config options**
+
+```js
+{
+  pos: {
+    x: Number,
+    y: Number,
+  },
+  color: {
+
+  }
+}
+```
 
 **Returns**
 

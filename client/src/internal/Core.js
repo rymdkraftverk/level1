@@ -55,11 +55,11 @@ function runBehaviors(entity) {
     });
 
   // Display hitboxes
-  const { body, hasBody, sprite } = entity;
+  const { body, hasBody } = entity;
   if (hasBody) {
     Render.displayBodyBounds(body);
-  } else if (sprite) {
-    Render.displaySpriteBounds(sprite);
+  } else if (entity.width > 0 && entity.height > 0) {
+    Render.displayEntityBounds(entity);
   }
 }
 
