@@ -1,9 +1,14 @@
 import * as Render from './internal/Render';
+import * as Entity from './Entity';
 
 export function show(entity, { text, style, zIndex = 0 }) {
   const textObject = Render.getText(text, style);
 
   textObject.zIndex = zIndex;
+  textObject.position.set(
+    Entity.getX(entity),
+    Entity.getY(entity),
+  );
 
   Render.add(textObject);
 
