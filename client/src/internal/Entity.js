@@ -45,3 +45,17 @@ export function getOverlappingArea(entity, otherEntity) {
 
   return dX * dY;
 }
+
+export function getX({ x, parent }) {
+  if (parent) {
+    return x + getX(parent);
+  }
+  return x;
+}
+
+export function getY({ y, parent }) {
+  if (parent) {
+    return y + getY(parent);
+  }
+  return y;
+}

@@ -1,6 +1,7 @@
 import MainLoop from 'mainloop.js';
 import { Engine } from 'matter-js';
 import * as Render from './Render';
+import * as InternalEntity from './Entity';
 import { assetTypes } from '../Entity';
 
 let engine;
@@ -28,6 +29,7 @@ function update(delta) {
 
 function runEntity(e, delta) {
   runBehaviors(e);
+  syncEntityAssetPosition(e);
   if (e.asset && e.asset.type === assetTypes.PARTICLES) {
     e.asset.update(delta * 0.001);
   }
@@ -60,6 +62,17 @@ function runBehaviors(entity) {
     Render.displayBodyBounds(body);
   } else if (entity.width > 0 && entity.height > 0) {
     Render.displayEntityBounds(entity);
+  }
+}
+
+function syncEntityAssetPosition(entity) {
+  if (entity.hasBody) {
+    entity.x = entity.body.position.x;
+    entity.y = entity.body.position.y;
+  }
+
+  if (entity.asset && entity.asset.position) {
+    entity.asset.position.set(InternalEntity.getX(entity), InternalEntity.getY(entity));
   }
 }
 

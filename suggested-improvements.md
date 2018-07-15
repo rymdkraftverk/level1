@@ -16,6 +16,10 @@ List emitter options in level1
 
 Sprite with flipx/flipy should be used in template project
 
+Use yarn everywhere?
+
 Add link to source code in docs?
 
 Abstraction suggestion: hitbox
+
+Choose where to inject the debug tools / Put debug tools in the chrome development tools 

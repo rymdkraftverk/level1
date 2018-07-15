@@ -3,7 +3,6 @@ import * as Core from './internal/Core';
 import * as Render from './internal/Render';
 import * as InternalEntity from './internal/Entity';
 import * as Physics from './Physics';
-import syncAssetWithEntity from './behaviors/syncAssetWithEntity';
 
 export const assetTypes = {
   SPRITE: 'sprite',
@@ -44,8 +43,6 @@ export function addChild(parent, {
   };
   entity.body = defaultBody;
 
-  entity.behaviors.syncAssetWithEntity = syncAssetWithEntity();
-
   parent.children = parent.children.concat(entity);
 
   Core.add(entity);
@@ -64,18 +61,12 @@ export function setY(entity, y) {
   entity.y = y;
 }
 
-export function getX({ x, parent }) {
-  if (parent) {
-    return x + getX(parent);
-  }
-  return x;
+export function getX(entity) {
+  return InternalEntity.getX(entity);
 }
 
-export function getY({ y, parent }) {
-  if (parent) {
-    return y + getY(parent);
-  }
-  return y;
+export function getY(entity) {
+  return InternalEntity.getY(entity);
 }
 
 export function addType(entity, type) {
