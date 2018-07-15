@@ -6,11 +6,11 @@
 import { Game } from 'l1'
 ```
  - [init](#init)
- - [stop](api-client.md#stop)
- - [start](docs/api-client.md#start)
- - [getStage](docs/api-client.md#getstage)
- - [getRenderer](docs/api-client.md#getrenderer)
- - [getPIXI](docs/api-client.md#getpixi)
+ - [stop](#stop)
+ - [start](#start)
+ - [getStage](#getstage)
+ - [getRenderer](#getrenderer)
+ - [getPIXI](#getpixi)
 
 ---
 
