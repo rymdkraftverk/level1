@@ -57,7 +57,7 @@ function loadAssets(assets, resolve) {
   loader.load();
 }
 
-export function initRenderer(width, height, assets, element) {
+export function initRenderer(width, height, assets, element, options) {
   return new Promise((resolve) => {
     if (assets && !assets.sprites) {
       console.warn('level1: No sprites found in the assets file. Make sure that the sprites are a list of filenames to load.');
@@ -67,7 +67,7 @@ export function initRenderer(width, height, assets, element) {
 
     stage = new PIXI.Container();
 
-    renderer = new PIXI.WebGLRenderer(width, height);
+    renderer = new PIXI.WebGLRenderer({ width, height, ...options });
     renderer.backgroundColor = VOID_COLOR;
     const { view } = renderer;
     element.appendChild(view);

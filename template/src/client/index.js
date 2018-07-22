@@ -48,7 +48,12 @@ const lizardMove = (start, end) => ({
 
 
 Game.init({
-  width: 600, height: 400, assets, debug: true, physics: true,
+  width: 600,
+  height: 400,
+  assets,
+  debug: true,
+  physics: true,
+  antialias: true,
 }).then(() => {
   Physics.getEngine().world.gravity.y = 1;
 

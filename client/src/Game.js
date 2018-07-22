@@ -21,12 +21,8 @@ export async function init(options) {
     physics,
     element,
     debug,
-    ...unknownOptions
+    ...pixiOptions
   } = { ...defaultOptions, ...options };
-
-  if (Object.keys(unknownOptions).length > 0) {
-    throw new Error('level1: Unknown options passed to Game.init()');
-  }
 
   if (!assets) {
     console.warn('level1: No assets passed to Game.init()');
@@ -37,7 +33,7 @@ export async function init(options) {
     splashScreen = setSplashScreen(element);
   }, TIME_BEFORE_SPLASH_SCREEN_SHOWS);
 
-  await Render.initRenderer(width, height, assets, element);
+  await Render.initRenderer(width, height, assets, element, pixiOptions);
   Core.initMainLoop();
   if (physics) Core.initPhysics();
   start();
