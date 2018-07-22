@@ -1,4 +1,4 @@
-import { Game, Entity, Timer, Physics, Text, Matter, Sprite, Particles, Animation, Sound } from 'l1';
+import { Game, Entity, Timer, Physics, Text, Matter, Sprite, Particles, Animation, Sound, Graphics } from 'l1';
 import assets from './assets.json';
 import config from './emitter.json';
 import scanGamepads from './behaviors/scanGamepads';
@@ -23,6 +23,29 @@ const lizardRotation = () => ({
     }
   },
 });
+
+const direction = {
+  LEFT: 'left',
+  RIGHT: 'right',
+};
+
+const lizardMove = (start, end) => ({
+  direction: direction.LEFT,
+  run: (b, e) => {
+    if (b.direction === direction.LEFT) {
+      e.x = Entity.getX(e) - 1;
+      if (e.x < start) {
+        b.direction = direction.RIGHT;
+      }
+    } else if (b.direction === direction.RIGHT) {
+      e.x = Entity.getX(e) + 6;
+      if (e.x > end) {
+        b.direction = direction.LEFT;
+      }
+    }
+  },
+});
+
 
 Game.init({
   width: 600, height: 400, assets, debug: true, physics: true,
@@ -97,6 +120,7 @@ Game.init({
   });
 
   lizard.behaviors.lizardRotation = lizardRotation();
+  lizard.behaviors.lizardMove = lizardMove(50, 450);
 
   Animation.play(lizard, {
     textures: ['lizardFront1', 'lizardFront2'],
@@ -104,6 +128,20 @@ Game.init({
   });
   lizard.asset.scale.set(3);
   lizard.asset.anchor.set(0.2);
+
+  const box = Entity.addChild(root);
+  const boxGraphics = Graphics.create(box, { zIndex: 10 });
+
+  // set a fill and line style
+  boxGraphics.beginFill(0xFF3300);
+  boxGraphics.lineStyle(4, 0xffd900, 1);
+
+  // draw a shape
+  boxGraphics.moveTo(50, 50);
+  boxGraphics.lineTo(250, 50);
+  boxGraphics.lineTo(100, 100);
+  boxGraphics.lineTo(50, 50);
+  boxGraphics.endFill();
 
   const floor = Entity.addChild(root, { id: 'floor' });
   Physics.addBody(floor, Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));

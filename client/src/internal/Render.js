@@ -16,13 +16,11 @@ const VOID_COLOR = 0xccc;
 
 let stage;
 let renderer;
-let graphics;
 let internalGraphics;
 let _showHitboxes = false;
 
 export function draw() {
   renderer.render(stage);
-  graphics.clear();
   internalGraphics.clear();
 }
 
@@ -37,13 +35,6 @@ function updateRenderLayers() {
 export function add(child) {
   stage.addChild(child);
   updateRenderLayers();
-}
-
-function createPIXIGraphics() {
-  const pixiGraphics = new PIXI.Graphics();
-  pixiGraphics.zIndex = 9999;
-  add(pixiGraphics);
-  return pixiGraphics;
 }
 
 function loadAssets(assets, resolve) {
@@ -81,8 +72,9 @@ export function initRenderer(width, height, assets, element) {
     const { view } = renderer;
     element.appendChild(view);
 
-    graphics = createPIXIGraphics();
-    internalGraphics = createPIXIGraphics();
+    internalGraphics = new PIXI.Graphics();
+    internalGraphics.zIndex = 9999;
+    add(internalGraphics);
 
     if (assets) {
       loadAssets(assets, resolve);
@@ -98,10 +90,6 @@ export function getRenderer() {
 
 export function getStage() {
   return stage;
-}
-
-export function getGraphics() {
-  return graphics;
 }
 
 export function getPIXI() {
@@ -148,6 +136,10 @@ export function getText(text, style) {
 
 export function getBitmapText(text, style) {
   return new PIXI.extras.BitmapText(text, style);
+}
+
+export function getGraphics() {
+  return new PIXI.Graphics();
 }
 
 export function remove(child) {

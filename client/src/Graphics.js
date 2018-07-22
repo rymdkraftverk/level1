@@ -1,10 +1,30 @@
+import * as Render from './internal/Render';
+import * as Entity from './Entity';
 
-// entity
-// options = (zIndex)
-export function create() {
-  // TODO
+export function create(entity, { zIndex = 0 } = { zIndex: 0 }) {
+  const graphics = Render.getGraphics();
+
+  graphics.zIndex = zIndex;
+
+  Render.add(graphics);
+
+  if (entity.asset) {
+    Entity.destroyAsset(entity.asset);
+  }
+
+  entity.asset = graphics;
+
+  return graphics;
 }
 
-export function destroy() {
-  // TODO
+export function destroy(entity) {
+  const {
+    asset,
+  } = entity;
+
+  if (asset) {
+    Render.remove(asset);
+  }
+
+  entity.asset = null;
 }
