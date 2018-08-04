@@ -9,10 +9,10 @@ export function isColliding(entity, otherEntity) {
   otherEntity.halfHeight = (otherEntity.height / 2);
 
   // Find the center points of each sprite
-  entity.centerX = entity.x + entity.halfWidth;
-  entity.centerY = entity.y + entity.halfHeight;
-  otherEntity.centerX = otherEntity.x + otherEntity.halfWidth;
-  otherEntity.centerY = otherEntity.y + otherEntity.halfHeight;
+  entity.centerX = getX(entity) + entity.halfWidth;
+  entity.centerY = getY(entity) + entity.halfHeight;
+  otherEntity.centerX = getX(otherEntity) + otherEntity.halfWidth;
+  otherEntity.centerY = getY(otherEntity) + otherEntity.halfHeight;
 
   // Calculate the distance vector between the entitys
   const vx = entity.centerX - otherEntity.centerX;

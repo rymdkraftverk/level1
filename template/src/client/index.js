@@ -46,6 +46,17 @@ const lizardMove = (start, end) => ({
   },
 });
 
+const checkCollision = () => ({
+  init: (b, e) => {
+
+  },
+  run: (b, e) => {
+    if (Entity.isColliding(e, Entity.get('box'))) {
+      console.log('COLLIDING!');
+    }
+  },
+});
+
 
 Game.init({
   width: 600,
@@ -125,6 +136,7 @@ Game.init({
   });
 
   lizard.behaviors.lizardRotation = lizardRotation();
+  lizard.behaviors.checkCollision = checkCollision();
   lizard.behaviors.lizardMove = lizardMove(50, 450);
 
   Animation.play(lizard, {
@@ -134,7 +146,7 @@ Game.init({
   lizard.asset.scale.set(3);
   lizard.asset.anchor.set(0.2);
 
-  const box = Entity.addChild(root);
+  const box = Entity.addChild(root, { id: 'box', width: 100, height: 100 });
   const boxGraphics = Graphics.create(box, { zIndex: 10 });
 
   // set a fill and line style

@@ -24,6 +24,8 @@ export function add(entity, {
   if (exists(entity, id)) {
     throw new Error(`Behavior with id ${id} already exists on entity ${entity.id}`);
   }
+
+  // TOOD: Throw error if behavior is not an object OR has no run function
   behavior.id = id;
   entity.behaviors = entity.behaviors.concat(behavior);
 }
