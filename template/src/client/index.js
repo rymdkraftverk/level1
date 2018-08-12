@@ -1,4 +1,16 @@
-import { Game, Entity, Timer, Physics, Text, Matter, Sprite, Particles, Animation, Sound, Graphics } from 'l1';
+import {
+  Game,
+  Entity,
+  Timer,
+  Physics,
+  Text,
+  Matter,
+  Sprite,
+  Particles,
+  Animation,
+  Sound,
+  Graphics,
+} from 'l1';
 import assets from './assets.json';
 import config from './emitter.json';
 import scanGamepads from './behaviors/scanGamepads';
@@ -29,6 +41,7 @@ const direction = {
   RIGHT: 'right',
 };
 
+/* eslint-disable no-param-reassign */
 const lizardMove = (start, end) => ({
   direction: direction.LEFT,
   run: (b, e) => {
@@ -45,18 +58,15 @@ const lizardMove = (start, end) => ({
     }
   },
 });
+/* eslint-enable no-param-reassign */
 
 const checkCollision = () => ({
-  init: (b, e) => {
-
-  },
   run: (b, e) => {
     if (Entity.isColliding(e, Entity.get('box'))) {
       console.log('COLLIDING!');
     }
   },
 });
-
 
 Game.init({
   width: 600,
