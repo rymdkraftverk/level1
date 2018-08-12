@@ -11,7 +11,7 @@ const url = process.env.URL || 'localhost';
 
 app.use(express.static('public'));
 
-/* 
+/*
 options
 {
   network: bool
