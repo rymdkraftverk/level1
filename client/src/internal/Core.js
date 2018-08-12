@@ -2,7 +2,6 @@ import MainLoop from 'mainloop.js';
 import { Engine } from 'matter-js';
 import * as Render from './Render';
 import * as InternalEntity from './Entity';
-import { assetTypes } from '../Entity';
 
 let engine;
 let entities = [];
@@ -30,7 +29,7 @@ function update(delta) {
 function runEntity(e, delta) {
   runBehaviors(e);
   syncEntityAssetPosition(e);
-  if (e.asset && e.asset.type === assetTypes.PARTICLES) {
+  if (e.asset && e.asset.type === InternalEntity.assetTypes.PARTICLES) {
     e.asset.update(delta * 0.001);
   }
   e.children.forEach((child) => { runEntity(child, delta); });

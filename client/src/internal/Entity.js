@@ -59,3 +59,11 @@ export function getY({ y, parent }) {
   }
   return y;
 }
+
+export const assetTypes = {
+  SPRITE: 'sprite',
+  ANIMATION: 'animation',
+  PARTICLES: 'particles',
+  SOUND: 'sound',
+  GRAPHICS: 'graphics',
+};

@@ -262,7 +262,8 @@ export function addPreset(typeId, controllerPreset) {
   Object.keys(l1Controllers).forEach((c) => {
     const controller = l1Controllers[c];
     if (controller.typeId === typeId) {
-      preset.configure(controller);
+      // TODO: Fix preset being undefined
+      // preset.configure(controller);
     }
   });
 }
@@ -288,7 +289,9 @@ window.addEventListener('gamepaddisconnected', removegamepad);
 
 function scangamepads() {
   // eslint-disable-next-line no-nested-ternary
-  const gamepads = navigator.getGamepads ? navigator.getGamepads() : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads() : []);
+  const gamepads = navigator.getGamepads
+    ? navigator.getGamepads()
+    : (navigator.webkitGetGamepads ? navigator.webkitGetGamepads() : []);
   for (let i = 0; i < gamepads.length; i += 1) {
     if (gamepads[i]) {
       if (gamepads[i].index in controllers) {

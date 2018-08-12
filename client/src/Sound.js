@@ -1,8 +1,8 @@
 import { Howl } from 'howler';
-import { assetTypes } from './Entity';
+import { assetTypes } from './internal/Entity';
 
 /*
- Check Howler docs for available options
+  Check Howler docs for available options
 */
 const getSound = (filePath, options) => new Howl({
   src: [filePath],

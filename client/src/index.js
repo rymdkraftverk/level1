@@ -1,5 +1,7 @@
 import 'babel-polyfill';
 
+const Matter = require('matter-js');
+
 const Game = require('./Game');
 const Entity = require('./Entity');
 const Timer = require('./Timer');
@@ -16,8 +18,6 @@ const Particles = require('./Particles');
 const Text = require('./Text');
 const BitmapText = require('./BitmapText');
 const Graphics = require('./Graphics');
-
-const Matter = require('matter-js');
 
 module.exports = {
   Game,

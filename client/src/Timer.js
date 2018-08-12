@@ -21,7 +21,8 @@ export function run(timer) {
       timer.counter += 1;
     }
     return false;
-  } else if (timer.counter < timer.duration) {
+  }
+  if (timer.counter < timer.duration) {
     timer.counter += 1;
     return false;
   }

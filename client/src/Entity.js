@@ -4,13 +4,7 @@ import * as Render from './internal/Render';
 import * as InternalEntity from './internal/Entity';
 import * as Physics from './Physics';
 
-export const assetTypes = {
-  SPRITE: 'sprite',
-  ANIMATION: 'animation',
-  PARTICLES: 'particles',
-  SOUND: 'sound',
-  GRAPHICS: 'graphics',
-};
+export { assetTypes } from './internal/Entity';
 
 export function addChild(parent, {
   id, x = 0, y = 0, width = 0, height = 0,
@@ -79,10 +73,10 @@ export function removeType(entity, type) {
 
 // TODO: This should not be a part of the public API
 export const destroyAsset = (asset) => {
-  if (asset.type === assetTypes.PARTICLES) {
+  if (asset.type === InternalEntity.assetTypes.PARTICLES) {
     asset.destroy();
     Render.remove(asset.particleContainer);
-  } else if (asset.type === assetTypes.SOUND) {
+  } else if (asset.type === InternalEntity.assetTypes.SOUND) {
     asset.unload();
   } else {
     Render.remove(asset);

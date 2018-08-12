@@ -18,4 +18,3 @@ export function on(key, func) {
 export function emit(key, data) {
   socket.emit(key, data);
 }
-
