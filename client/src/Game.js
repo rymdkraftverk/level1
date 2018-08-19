@@ -1,6 +1,7 @@
 import * as Core from './internal/Core';
 import * as Render from './internal/Render';
 import * as Debug from './internal/Debug';
+import * as Entity from './Entity';
 
 const TIME_BEFORE_SPLASH_SCREEN_SHOWS = 500;
 
@@ -11,6 +12,10 @@ const defaultOptions = {
   element: document.body,
   debug: false,
 };
+
+let gameWidth;
+let gameHeight;
+let ratio = 1;
 
 export async function init(options) {
   // Replace default options with user specified ones
@@ -27,6 +32,9 @@ export async function init(options) {
   if (!assets) {
     console.warn('level1: No assets passed to Game.init()');
   }
+
+  gameWidth = width;
+  gameHeight = height;
 
   let splashScreen = null;
   const splashScreenTimer = setTimeout(() => {
@@ -88,4 +96,31 @@ export function getPIXI() {
 
 export function getTexture(filename) {
   return Render.getTexture(filename);
+}
+
+export function resize(width, height) {
+  ratio = Math.min(width / gameWidth, height / gameHeight);
+  getStage()
+    .scale
+    .set(ratio);
+
+  getRenderer()
+    .resize(gameWidth * ratio, gameHeight * ratio);
+
+  /*
+    The following code is needed to counteract the scale change on the whole canvas since
+    texts get distorted by PIXI when you try to change their scale.
+    Texts instead change size by setting their fontSize.
+  */
+  Entity.getAll()
+    .forEach((e) => {
+      if (e.originalSize) {
+        e.asset.style.fontSize = e.originalSize * ratio;
+        e.asset.scale.set(1 / ratio);
+      }
+    });
+}
+
+export function getRatio() {
+  return ratio;
 }

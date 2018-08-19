@@ -156,20 +156,52 @@ Game.init({
   lizard.asset.scale.set(3);
   lizard.asset.anchor.set(0.2);
 
-  const box = Entity.addChild(root, { id: 'box', width: 100, height: 100 });
-  const boxGraphics = Graphics.create(box, { zIndex: 10 });
-
-  // set a fill and line style
-  boxGraphics.beginFill(0xFF3300);
-  boxGraphics.lineStyle(4, 0xffd900, 1);
-
-  // draw a shape
-  boxGraphics.moveTo(50, 50);
-  boxGraphics.lineTo(250, 50);
-  boxGraphics.lineTo(100, 100);
-  boxGraphics.lineTo(50, 50);
-  boxGraphics.endFill();
+  // createBox();
 
   const floor = Entity.addChild(root, { id: 'floor' });
   Physics.addBody(floor, Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));
+
+  const resizeGame = () => {
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    Game.resize(screenWidth, screenHeight);
+  };
+  window.addEventListener('resize', resizeGame);
+  resizeGame();
+
+  const textEntity = Entity.addChild(
+    root,
+    {
+      x: 50,
+      y: 50,
+    },
+  );
+
+  Text.show(
+    textEntity,
+    {
+      text: 'Testing scaling!',
+      style: {
+        fontFamily: 'Arial',
+        fontSize: 36,
+        fill: 'white',
+      },
+    },
+  );
+
+  const createBox = () => {
+    const box = Entity.addChild(root, { id: 'box', width: 100, height: 100 });
+    const boxGraphics = Graphics.create(box, { zIndex: 10 });
+
+    // set a fill and line style
+    boxGraphics.beginFill(0xFF3300);
+    boxGraphics.lineStyle(4, 0xffd900, 1);
+
+    // draw a shape
+    boxGraphics.moveTo(50, 50);
+    boxGraphics.lineTo(250, 50);
+    boxGraphics.lineTo(100, 100);
+    boxGraphics.lineTo(50, 50);
+    boxGraphics.endFill();
+  };
 });
