@@ -75,6 +75,8 @@ export function initRenderer(width, height, assets, element, options) {
     internalGraphics = new PIXI.Graphics();
     internalGraphics.zIndex = 9999;
     add(internalGraphics);
+    console.log('window.location', window.location);
+    fetch('/assets').then(data => data.text()).then(console.log);
 
     if (assets) {
       loadAssets(assets, resolve);

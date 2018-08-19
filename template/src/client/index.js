@@ -19,10 +19,10 @@ import scanGamepads from './behaviors/scanGamepads';
 
 const lizardRotation = () => ({
   timer: Timer.create({ duration: 120 }),
-  speed: 0.025,
+  speed: 0.075,
   textures: {
     front: ['lizardFront1', 'lizardFront2'],
-    right: ['lizardRight1', 'lizardRight2'],
+    right: ['Samurai-move-1', 'Samurai-move-2'],
   },
   run: (b, e) => {
     if (Timer.run(b.timer)) {
@@ -30,7 +30,7 @@ const lizardRotation = () => ({
         speed: b.speed,
         textures: b.textures.right,
       });
-      animation.scale.set(3);
+      animation.scale.set(2);
       animation.anchor.set(0.2);
     }
   },
@@ -46,12 +46,12 @@ const lizardMove = (start, end) => ({
   direction: direction.LEFT,
   run: (b, e) => {
     if (b.direction === direction.LEFT) {
-      e.x = Entity.getX(e) - 1;
+      e.x = Entity.getX(e) - 3;
       if (e.x < start) {
         b.direction = direction.RIGHT;
       }
     } else if (b.direction === direction.RIGHT) {
-      e.x = Entity.getX(e) + 6;
+      e.x = Entity.getX(e) + 10;
       if (e.x > end) {
         b.direction = direction.LEFT;
       }
@@ -60,13 +60,18 @@ const lizardMove = (start, end) => ({
 });
 /* eslint-enable no-param-reassign */
 
-const checkCollision = () => ({
-  run: (b, e) => {
-    if (Entity.isColliding(e, Entity.get('box'))) {
-      console.log('COLLIDING!');
-    }
-  },
-});
+// const checkCollision = () => ({
+//   init: (b, e) => {
+
+//   },
+//   run: (b, e) => {
+//     if (Entity.isColliding(e, Entity.get('box'))) {
+//       console.log('COLLIDING!');
+//     }
+//   },
+// });
+
+const root = Entity.getRoot();
 
 Game.init({
   width: 600,
@@ -79,7 +84,6 @@ Game.init({
   Physics.getEngine().world.gravity.y = 1;
 
   // createControllerPresets();
-  const root = Entity.getRoot();
 
   const input = Entity.addChild(root, { id: 'input' });
   input.behaviors.scan = scanGamepads();
@@ -145,17 +149,41 @@ Game.init({
     height: 24,
   });
 
-  lizard.behaviors.lizardRotation = lizardRotation();
-  lizard.behaviors.checkCollision = checkCollision();
-  lizard.behaviors.lizardMove = lizardMove(50, 450);
+  // lizard.behaviors.lizardRotation = lizardRotation();
+  // lizard.behaviors.checkCollision = checkCollision();
+  // lizard.behaviors.lizardMove = lizardMove(100, 450);
 
   Animation.play(lizard, {
-    textures: ['lizardFront1', 'lizardFront2'],
-    speed: 0.025,
+    textures: [
+      'samurai-attack-1',
+      'samurai-attack-1',
+      'samurai-attack-1',
+      'samurai-attack-1',
+      'samurai-attack-2',
+      'samurai-attack-3',
+      'samurai-attack-4',
+      'samurai-attack-5',
+      'samurai-attack-6',
+      'samurai-attack-7',
+      'samurai-attack-7',
+      'samurai-attack-7',
+      'samurai-attack-7',
+      'samurai-attack-8',
+      'samurai-attack-8',
+      'samurai-attack-8',
+    ],
+    speed: 0.4,
   });
   lizard.asset.scale.set(3);
   lizard.asset.anchor.set(0.2);
 
+  // createBox();
+
+  const floor = Entity.addChild(root, { id: 'floor' });
+  Physics.addBody(floor, Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));
+});
+
+const createBox = () => {
   const box = Entity.addChild(root, { id: 'box', width: 100, height: 100 });
   const boxGraphics = Graphics.create(box, { zIndex: 10 });
 
@@ -169,7 +197,4 @@ Game.init({
   boxGraphics.lineTo(100, 100);
   boxGraphics.lineTo(50, 50);
   boxGraphics.endFill();
-
-  const floor = Entity.addChild(root, { id: 'floor' });
-  Physics.addBody(floor, Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));
-});
+};
