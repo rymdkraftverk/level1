@@ -9,7 +9,7 @@
     "build": "babel src --out-dir dist",
     "build:watch": "npm run build -- --watch",
     "patch": "npm version patch -m 'Upgrade to %s'",
-    "publish": "np",
+    "release": "np",
     "lint": "eslint src",
     "test": "mocha --compilers js:babel-register --require ./test/helper.js --recursive",
     "test:watch": "npm test -- --watch"
