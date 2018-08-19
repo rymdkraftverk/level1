@@ -1,33 +1,11 @@
 export function isColliding(entity, otherEntity) {
-  // hit will determine whether there's a collision
-  let hit = false;
-
-  // Find the half-widths and half-heights of each sprite
-  entity.halfWidth = (entity.width / 2);
-  entity.halfHeight = (entity.height / 2);
-  otherEntity.halfWidth = (otherEntity.width / 2);
-  otherEntity.halfHeight = (otherEntity.height / 2);
-
-  // Find the center points of each sprite
-  entity.centerX = getX(entity) + entity.halfWidth;
-  entity.centerY = getY(entity) + entity.halfHeight;
-  otherEntity.centerX = getX(otherEntity) + otherEntity.halfWidth;
-  otherEntity.centerY = getY(otherEntity) + otherEntity.halfHeight;
-
-  // Calculate the distance vector between the entitys
-  const vx = entity.centerX - otherEntity.centerX;
-  const vy = entity.centerY - otherEntity.centerY;
-
-  // Figure out the combined half-widths and half-heights
-  const combinedHalfWidths = entity.halfWidth + otherEntity.halfWidth;
-  const combinedHalfHeights = entity.halfHeight + otherEntity.halfHeight;
-
-  // Check for a collision on the x and y axis
-  if (Math.abs(vx) < combinedHalfWidths && Math.abs(vy) < combinedHalfHeights) {
-    hit = true;
+  if (getX(entity) + entity.width >= getX(otherEntity)
+    && getX(otherEntity) + otherEntity.width >= getX(entity)
+    && getY(entity) + entity.width >= getY(otherEntity)
+    && getY(otherEntity) + otherEntity.width >= getY(entity)) {
+    return true;
   }
-
-  return hit;
+  return false;
 }
 
 export function getOverlappingArea(entity, otherEntity) {
