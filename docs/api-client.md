@@ -167,6 +167,7 @@ Entity.addChild(parent, options)
 Option | Type | Required | Default | Description
  -- | -- | -- | -- | -- 
 **id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
+**types** | Array | [ ] | [] | Types are used to group entities together.
 **x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
 **y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
 **width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.

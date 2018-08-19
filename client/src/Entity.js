@@ -7,9 +7,9 @@ import * as Physics from './Physics';
 export { assetTypes } from './internal/Entity';
 
 export function addChild(parent, {
-  id, x = 0, y = 0, width = 0, height = 0,
+  id, x = 0, y = 0, width = 0, height = 0, types = [],
 } = {
-  id: null, x: 0, y: 0, width: 0, height: 0,
+  id: null, x: 0, y: 0, width: 0, height: 0, types: [],
 }) {
   if (!id) {
     id = uuid();
@@ -25,8 +25,8 @@ export function addChild(parent, {
     width,
     height,
     parent,
+    types,
     children: [],
-    types: [],
     asset: null,
     hasBody: false,
     behaviors: {},

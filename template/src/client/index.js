@@ -84,7 +84,7 @@ Game.init({
   const input = Entity.addChild(root, { id: 'input' });
   input.behaviors.scan = scanGamepads();
 
-  const square = Entity.addChild(root, { id: 'square' });
+  const square = Entity.addChild(root, { id: 'square', types: ['square', 'player'] });
 
   Sprite.show(square, { texture: 'square' });
   square.asset.scale.set(5);
@@ -156,8 +156,6 @@ Game.init({
   lizard.asset.scale.set(3);
   lizard.asset.anchor.set(0.2);
 
-  // createBox();
-
   const floor = Entity.addChild(root, { id: 'floor' });
   Physics.addBody(floor, Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));
 
@@ -204,4 +202,5 @@ Game.init({
     boxGraphics.lineTo(50, 50);
     boxGraphics.endFill();
   };
+  createBox();
 });
