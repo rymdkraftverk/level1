@@ -9,6 +9,7 @@
     "build": "babel src --out-dir dist",
     "build:watch": "npm run build -- --watch",
     "patch": "npm version patch -m 'Upgrade to %s'",
+    "publish": "np",
     "lint": "eslint src",
     "test": "mocha --compilers js:babel-register --require ./test/helper.js --recursive",
     "test:watch": "npm test -- --watch"
@@ -22,6 +23,7 @@
     "mainloop.js": "1.0.4",
     "matter-js": "0.14.2",
     "mousetrap": "1.6.2",
+    "np": "3.0.4",
     "pixi-particles": "3.0.0",
     "pixi.js": "4.8.1",
     "socket.io-client": "2.1.1",
