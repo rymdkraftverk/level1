@@ -154,3 +154,9 @@ describe('isCollding', () => {
     expect(isColliding(entity, otherEntity)).to.equal(false);
   });
 });
+
+describe('destroy', () => {
+  it('destroys entity and all descendants', () => {
+
+  });
+});

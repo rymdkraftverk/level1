@@ -118,7 +118,7 @@ export function destroy(entity) {
     .filter(child => child.id !== entity.id);
 
   destroyChild(entity);
-  entity.children.forEach(destroyChild);
+  entity.children.forEach(destroy);
 }
 
 // TODO: Keep?

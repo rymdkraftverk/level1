@@ -112,6 +112,21 @@ Game.init({
   });
   text.asset.scale.set(0.1);
 
+  const text2 = Entity.addChild(
+    text,
+    { id: 'text2', x: -50, y: -50 },
+  );
+
+  Text.show(text2, {
+    text: 'Hello222!',
+    style: {
+      fontFamily: 'Arial',
+      fontSize: '400px',
+      fill: 'white',
+    },
+  });
+  text.asset.scale.set(0.1);
+
   const scaleText = () => ({
     run: (b, e) => {
       e.asset.scale.set(e.asset.scale.x * 1.005);
