@@ -31,7 +31,7 @@ Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
 **width** | Number | [ ] | 800 | The width of the game
 **height** | Number | [ ] | 600 | The height of the game
-**assets** | Object | [ ] | - | An object that defines assets for the game. (See: TBD)
+**assets** | Object | [ ] | - | An object that defines assets for the game. This is only needed if level1 can't read the contents of the assets folder.
 **element** | HTMLElement | [ ] | `document.body` | Where to inject the game
 **physics** | Boolean | [ ] | false | Enable physics provided by matter-js
 **debug** | Boolean | [ ] | false | Display the debug tools underneath game window

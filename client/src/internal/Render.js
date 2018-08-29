@@ -1,6 +1,8 @@
 import * as PIXI from 'pixi.js';
 import 'pixi-particles';
 
+const ASSETS_FOLDER = 'assets';
+
 const assetsToLoad = [
   {
     key: 'sprites',
@@ -45,14 +47,12 @@ function loadAssets(assets, resolve) {
       return;
     }
     assets[key].forEach((asset) => {
-      const file = `assets/${asset}.${fileFormat}`;
+      const file = `${ASSETS_FOLDER}/${asset}.${fileFormat}`;
       loader.add(asset, file);
     });
   });
 
-  loader.once('complete', () => {
-    resolve();
-  });
+  loader.once('complete', resolve);
 
   loader.load();
 }
@@ -79,7 +79,34 @@ export function initRenderer(width, height, assets, element, pixiOptions) {
     if (assets) {
       loadAssets(assets, resolve);
     } else {
-      resolve();
+      /* Load all assets from the public/assets folder */
+      fetch(`/${ASSETS_FOLDER}`)
+        .then(data => data.text())
+        .then(html => {
+          const el = document.createElement('html');
+          el.innerHTML = html;
+          const inAssetFolder = [...el.querySelectorAll(`a[href^='/${ASSETS_FOLDER}']`)];
+          if (inAssetFolder.length > 0) {
+            const { loader } = PIXI;
+
+            inAssetFolder
+              .map((f) => f.innerHTML)
+              .forEach((fileName) => {
+                if (fileName === '../') {
+                  return;
+                }
+                const name = fileName.substring(0, fileName.lastIndexOf('.'));
+                loader.add(name, `${ASSETS_FOLDER}/${fileName}`);
+              });
+
+            loader.once('complete', resolve);
+
+            loader.load();
+          } else {
+            console.warn('level1: No assets detected in assets folder');
+            resolve();
+          }
+        });
     }
   });
 }
