@@ -1,20 +1,21 @@
 # API: Client
 
-### Game
+## Game
 
 ```js
 import { Game } from 'l1'
 ```
- - [init](#init)
- - [stop](#stop)
- - [start](#start)
- - [getStage](#getstage)
- - [getRenderer](#getrenderer)
- - [getPIXI](#getpixi)
+
+- [init](#init)
+- [stop](#stop)
+- [start](#start)
+- [getStage](#getstage)
+- [getRenderer](#getrenderer)
+- [getPIXI](#getpixi)
 
 ---
 
-#### init
+### init
 
 ```js
 Game.init(options)
@@ -22,24 +23,29 @@ Game.init(options)
 
 Initializes level1 and starts the game loop.
 
-**Arguments**
+#### Arguments
 
 `options` (object):
 
 Option | Type | Required | Default | Description
- -- | -- | -- | -- | -- |
-**width** | Number | [ ] | 800 | The width of the game |
-**height** | Number | [ ] | 600 | The height of the game |
-**assets** | Object | [ ] | - | An object that defines assets for the game. (See: TBD) |
-**element** | HTMLElement | [ ] | `document.body` | Where to inject the game |
-**physics** | Boolean | [ ] | false | Enable physics provided by matter-js |
-**debug** | Boolean | [ ] | false | Display the debug tools underneath game window |
+-- | -- | -- | -- | -- |
+**width** | Number | [ ] | 800 | The width of the game
+**height** | Number | [ ] | 600 | The height of the game
+**assets** | Object | [ ] | - | An object that defines assets for the game. (See: TBD)
+**element** | HTMLElement | [ ] | `document.body` | Where to inject the game
+**physics** | Boolean | [ ] | false | Enable physics provided by matter-js
+**debug** | Boolean | [ ] | false | Display the debug tools underneath game window
+**pixi** | Object | [ ] | - | Options object that will be passed to WebGLRenderer
 
-**Returns**
+Pixi options reference:
+
+http://pixijs.download/dev/docs/PIXI.WebGLRenderer.html#WebGLRenderer
+
+#### Returns
 
 (Promise): A promise that will resolve once all the assets are loaded.
 
-**Example**
+#### Example
 
 ```js
 Game.init({
@@ -53,7 +59,7 @@ Game.init({
 
 ---
 
-#### stop
+### stop
 
 ```js
 Game.stop()
@@ -61,11 +67,11 @@ Game.stop()
 
 Stop the game loop.
 
-**Arguments**
+#### Arguments
 
 None.
 
-**Returns**
+#### Returns
 
 Nothing.
 

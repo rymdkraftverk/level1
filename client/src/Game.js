@@ -18,6 +18,8 @@ let gameHeight;
 let ratio = 1;
 
 export async function init(options) {
+  const { pixi: pixiOptions, ...level1Options } = options;
+
   // Replace default options with user specified ones
   const {
     width,
@@ -26,8 +28,7 @@ export async function init(options) {
     physics,
     element,
     debug,
-    ...pixiOptions
-  } = { ...defaultOptions, ...options };
+  } = { ...defaultOptions, ...level1Options };
 
   if (!assets) {
     console.warn('level1: No assets passed to Game.init()');

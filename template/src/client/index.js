@@ -74,7 +74,9 @@ Game.init({
   assets,
   debug: true,
   physics: true,
-  antialias: true,
+  pixi: {
+    antialias: true,
+  },
 }).then(() => {
   Physics.getEngine().world.gravity.y = 1;
 
