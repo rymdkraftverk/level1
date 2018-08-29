@@ -9,7 +9,7 @@
     "lint": "eslint src",
     "build": "browserify src/client/index.js -o public/bundle.js -t [ babelify ]",
     "watch": "watchify src/client/index.js -o public/bundle.js -t [ babelify ] --debug",
-    "start": "VCAP_APP_PORT=8000 nodemon src/server"
+    "start": "http-server -p 8000"
   },
   "author": "",
   "license": "ISC",
@@ -21,6 +21,7 @@
     "eslint": "^5.4.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
+    "http-server": "^0.11.1",
     "nodemon": "^1.18.3",
     "watchify": "^3.11.0"
   },
