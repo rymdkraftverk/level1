@@ -30,10 +30,6 @@ export async function init(options) {
     debug,
   } = { ...defaultOptions, ...level1Options };
 
-  if (!assets) {
-    console.warn('level1: No assets passed to Game.init()');
-  }
-
   gameWidth = width;
   gameHeight = height;
 
