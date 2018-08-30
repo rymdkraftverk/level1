@@ -1,5 +1,22 @@
 # API: Client
 
+- [Game](#game)
+- [Entity](#entity)
+- [Timer](#timer)
+- [Sound](#sound)
+- [Util](#util)
+- [Physics](#physics)
+- [Gamepad](#gamepad)
+- [Debug](#debug)
+- [Net](#net)
+- [Text](#text)
+- [BitmapText](#bitmaptext)
+- [Sprite](#sprite)
+- [Animation](#animation)
+- [Particles](#particles)
+- [Graphics](#graphics)
+- [Matter](#matter)
+
 ## Game
 
 ```js
@@ -658,6 +675,8 @@ stop
 ```js
 Particles.emit(entity, options)
 ```
+
+Note: The position of particles is not synced with the entity's position!
 
 https://pixijs.io/pixi-particles-editor/
 

@@ -22,13 +22,13 @@ The API is designed to be as minimal as possible to be easy to learn and work wi
     - [Gamepad](docs/api-client.md#gamepad)
     - [Debug](docs/api-client.md#debug)
     - [Net](docs/api-client.md#net)
-    - [Text]
-    - [BitmapText]
-    - [Sprite]
-    - [Animation]
-    - [Particles]
-    - [Graphics]
-    - [Matter]
+    - [Text](docs/api-client.md#text)
+    - [BitmapText](docs/api-client.md#bitmaptext)
+    - [Sprite](docs/api-client.md#sprite)
+    - [Animation](docs/api-client.md#animation)
+    - [Particles](docs/api-client.md#particles)
+    - [Graphics](docs/api-client.md#graphics)
+    - [Matter](docs/api-client.md#matter)
 1. [Docs / API: Server](docs/api-server.md)
     - [Server](docs/api-server.md#server)
     - [Net](docs/api-server.md#net)
@@ -43,7 +43,7 @@ In `client` and `server`
 
 `npm install` = Install dependencies
 
-#### Custom commands
+### Custom commands
 
 Command | Description
 ------- | -----------
@@ -55,7 +55,7 @@ Command | Description
 `npm run test:watch` | Continously run the tests
 `npm run patch` | -
 
-#### Workflow
+### Workflow
 
 To test changes, use the `template` project.
 
@@ -67,27 +67,27 @@ To test changes, use the `template` project.
 
 ---
 
-## Dependency references:
+## Dependency references
 
- - Game loop: [Mainloop.js]()
- - Rendering: [Pixi.js](https://github.com/pixijs/pixi.js)
- - Particle effects: [pixi-particles](https://github.com/pixijs/pixi-particles)
- - Physics: [Matter.js](https://github.com/liabru/matter-js)
- - Sound: [Howler.js](https://github.com/goldfire/howler.js)
- - Keyboard input: [mousetrap]()
- - Multiplayer: [Socket.io](https://github.com/socketio/socket.io)
+- Game loop: [Mainloop.js]()
+- Rendering: [Pixi.js](https://github.com/pixijs/pixi.js)
+- Particle effects: [pixi-particles](https://github.com/pixijs/pixi-particles)
+- Physics: [Matter.js](https://github.com/liabru/matter-js)
+- Sound: [Howler.js](https://github.com/goldfire/howler.js)
+- Keyboard input: [mousetrap]()
+- Multiplayer: [Socket.io](https://github.com/socketio/socket.io)
 
 
- ## Entities
+## Entities
 
 
 Entities:
 
- - Entities have a list of children (other entities)
- - Entities need to have 1 parent
- - Children will be removed when entity is.
- - An entity can have 0 or 1 asset (Sprite, Animation, Text, BitmapText, Particles, Sound)
- - An entity can have 0 or 1 physics body.
- - An entity has an x and y position
- - An entity's position is relative to its parent 
- - An entity has width and height.
+- Entities have a list of children (other entities)
+- Entities need to have 1 parent
+- Children will be removed when entity is.
+- An entity can have 0 or 1 asset (Sprite, Animation, Text, BitmapText, Particles, Sound)
+- An entity can have 0 or 1 physics body.
+- An entity has an x and y position
+- An entity's position is relative to its parent 
+- An entity has width and height.
