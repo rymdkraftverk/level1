@@ -137,7 +137,7 @@ Game.init({
           y: Entity.getY(square),
         });
         Particles.emit(explosion, {
-          textures: ['square'],
+          textures: ['square', 'particle'],
           config,
           zIndex: 1,
         });

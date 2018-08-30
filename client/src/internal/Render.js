@@ -58,7 +58,7 @@ function loadAssets(assets, resolve) {
 }
 
 export function initRenderer(width, height, assets, element, pixiOptions) {
-  return new Promise((resolve) => {
+  return new Promise(async (resolve) => {
     if (assets && !assets.sprites) {
       console.warn('level1: No sprites found in the assets file. Make sure that the sprites are a list of filenames to load.');
     }
@@ -79,37 +79,48 @@ export function initRenderer(width, height, assets, element, pixiOptions) {
     if (assets) {
       loadAssets(assets, resolve);
     } else {
+      const { loader } = PIXI;
       /* Load all assets from the public/assets folder */
-      fetch(`/${ASSETS_FOLDER}`)
-        .then(data => data.text())
-        .then(html => {
-          const el = document.createElement('html');
-          el.innerHTML = html;
-          const inAssetFolder = [...el.querySelectorAll(`a[href^='/${ASSETS_FOLDER}']`)];
-          if (inAssetFolder.length > 0) {
-            const { loader } = PIXI;
-
-            inAssetFolder
-              .map((f) => f.innerHTML)
-              .forEach((fileName) => {
-                if (fileName === '../') {
-                  return;
-                }
-                const name = fileName.substring(0, fileName.lastIndexOf('.'));
-                loader.add(name, `${ASSETS_FOLDER}/${fileName}`);
-              });
-
-            loader.once('complete', resolve);
-
-            loader.load();
-          } else {
-            console.warn('level1: No assets detected in assets folder');
-            resolve();
-          }
-        });
+      await loadAssetsFromServer(ASSETS_FOLDER);
+      loader.once('complete', resolve);
+      loader.load();
     }
   });
 }
+
+const loadAssetsFromServer = (path) => new Promise((resolve) => {
+  fetch(`/${path}`)
+    .then(data => data.text())
+    .then(async html => {
+      const el = document.createElement('html');
+      el.innerHTML = html;
+      const inAssetFolder = [...el.querySelectorAll(`a[href^='/${path}']`)];
+      if (inAssetFolder.length > 0) {
+        const { loader } = PIXI;
+        let subFolders = [];
+
+        inAssetFolder
+          .map((f) => f.innerHTML)
+          .forEach((fileName) => {
+            if (fileName === '../') {
+              return;
+            }
+
+            if (fileName.lastIndexOf('/') === fileName.length - 1) {
+              subFolders = subFolders.concat(fileName.substring(0, fileName.length - 1));
+            }
+
+            const name = fileName.substring(0, fileName.lastIndexOf('.'));
+            loader.add(name, `${path}/${fileName}`);
+          });
+        await Promise.all(subFolders.map((subfolder) => loadAssetsFromServer(`${path}/${subfolder}`)));
+        resolve();
+      } else {
+        console.warn('level1: No assets detected in assets folder');
+        resolve();
+      }
+    });
+});
 
 export function getRenderer() {
   return renderer;
