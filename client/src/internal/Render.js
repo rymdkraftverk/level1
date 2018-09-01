@@ -57,13 +57,20 @@ function loadAssets(assets, resolve) {
   loader.load();
 }
 
-export function initRenderer(width, height, assets, element, pixiOptions) {
+export function initRenderer(width, height, assets, element, pixiOptions, pixiSettings) {
   return new Promise(async (resolve) => {
     if (assets && !assets.sprites) {
       console.warn('level1: No sprites found in the assets file. Make sure that the sprites are a list of filenames to load.');
     }
 
-    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+    if (pixiSettings) {
+      Object
+        .entries(pixiSettings)
+        .forEach(([key, value]) => {
+          PIXI.settings[key] = value;
+        });
+    }
+    // PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.LINEAR;
 
     stage = new PIXI.Container();
 

@@ -18,7 +18,12 @@ let gameHeight;
 let ratio = 1;
 
 export async function init(options) {
-  const { pixi: pixiOptions, ...level1Options } = options;
+  const {
+    pixi = {
+      options: null,
+      settings: null,
+    }, ...level1Options
+  } = options;
 
   // Replace default options with user specified ones
   const {
@@ -38,7 +43,13 @@ export async function init(options) {
     splashScreen = setSplashScreen(element);
   }, TIME_BEFORE_SPLASH_SCREEN_SHOWS);
 
-  await Render.initRenderer(width, height, assets, element, pixiOptions);
+
+  const {
+    options: pixiOptions,
+    settings: pixiSettings,
+  } = pixi;
+
+  await Render.initRenderer(width, height, assets, element, pixiOptions, pixiSettings);
   Core.initMainLoop();
   if (physics) Core.initPhysics();
   start();
