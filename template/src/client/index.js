@@ -10,6 +10,7 @@ import {
   Animation,
   Sound,
   Graphics,
+  PIXI,
 } from 'l1';
 // import assets from './assets.json';
 import config from './emitter.json';
@@ -68,7 +69,12 @@ Game.init({
   debug: true,
   physics: true,
   pixi: {
-    antialias: true,
+    options: {
+      antialias: true,
+    },
+    settings: {
+      SCALE_MODE: PIXI.SCALE_MODES.LINEAR,
+    },
   },
 }).then(() => {
   Physics.getEngine().world.gravity.y = 1;

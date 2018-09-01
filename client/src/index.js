@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 
 const Matter = require('matter-js');
+const PIXI = require('pixi.js');
 
 const Game = require('./Game');
 const Entity = require('./Entity');
@@ -37,4 +38,5 @@ module.exports = {
   BitmapText,
   Graphics,
   Matter,
+  PIXI,
 };

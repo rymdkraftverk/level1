@@ -28,7 +28,6 @@ import { Game } from 'l1'
 - [start](#start)
 - [getStage](#getstage)
 - [getRenderer](#getrenderer)
-- [getPIXI](#getpixi)
 
 ---
 
@@ -144,34 +143,26 @@ None.
 
 ---
 
-#### getPIXI
-
-```js
-Game.getPIXI()
-```
-
----
-
 ### Entity
 
 ```js
 import { Entity } from 'l1'
 ```
 
- - [addChild]()
- - [destroy]()
- - [getAll]()
- - [get]()
- - [getByType]()
- - [getRoot]()
- - [isColliding]()
- - [getOverlappingArea]()
- - [addType]()
- - [removeType]()
- - [getX]()
- - [setX]()
- - [getY]()
- - [setY]()
+- [addChild]()
+- [destroy]()
+- [getAll]()
+- [get]()
+- [getByType]()
+- [getRoot]()
+- [isColliding]()
+- [getOverlappingArea]()
+- [addType]()
+- [removeType]()
+- [getX]()
+- [setX]()
+- [getY]()
+- [setY]()
 
 ---
 
