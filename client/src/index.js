@@ -19,6 +19,7 @@ const Particles = require('./Particles');
 const Text = require('./Text');
 const BitmapText = require('./BitmapText');
 const Graphics = require('./Graphics');
+const Filter = require('./Filter');
 
 module.exports = {
   Game,
@@ -37,6 +38,7 @@ module.exports = {
   Text,
   BitmapText,
   Graphics,
+  Filter,
   Matter,
   PIXI,
 };

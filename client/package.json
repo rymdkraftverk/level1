@@ -1,6 +1,6 @@
 {
   "name": "l1",
-  "version": "0.3.19",
+  "version": "0.3.20",
   "description": "level1 client version",
   "main": "./dist/index.js",
   "scripts": {
@@ -24,6 +24,7 @@
     "matter-js": "0.14.2",
     "mousetrap": "1.6.2",
     "np": "3.0.4",
+    "pixi-filters": "2.6.1",
     "pixi-particles": "3.0.1",
     "pixi.js": "4.8.1",
     "socket.io-client": "2.1.1",

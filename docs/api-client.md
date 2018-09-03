@@ -769,6 +769,83 @@ Graphics.destroy(entity)
 **Returns**
 
 Nothing.
+---
+
+## Filter
+
+```js
+import { Filter } from 'l1'
+```
+
+- [add](#add)
+- [clear](#clear)
+- [Filter](#Filter)
+
+---
+
+### add
+
+```js
+Filter.add(entity, filter)
+```
+
+Filters can be any built in filter in Pixi or any filter from `pixi-filters`
+
+http://pixijs.download/dev/docs/PIXI.filters.html
+
+https://github.com/pixijs/pixi-filters
+
+
+#### Arguments
+
+`entity` (object): The entity to apply the filter to.
+
+`filter` (Filter): The filter constructor
+
+#### Returns
+
+(Filter): The filter instance
+
+#### Example
+
+```js
+Filter.add(entity, Filter.Filter.GlowFilter)
+```
+
+---
+
+### clear
+
+```js
+Filter.clear(entity)
+```
+
+Removes all filters from entity
+
+#### Arguments
+
+`entity` (Object): The entity with the filters to remove
+
+#### Returns
+
+Nothing.
+
+---
+
+### Filter
+
+```js
+Filter.Filter
+```
+
+Object that contains all filters
+
+
+#### Example
+
+```js
+Filter.add(entity, Filter.Filter.GlowFilter)
+```
 
 ---
 

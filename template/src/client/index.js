@@ -11,6 +11,7 @@ import {
   Sound,
   Graphics,
   PIXI,
+  Filter,
 } from 'l1';
 // import assets from './assets.json';
 import config from './emitter.json';
@@ -73,7 +74,7 @@ Game.init({
       antialias: true,
     },
     settings: {
-      SCALE_MODE: PIXI.SCALE_MODES.LINEAR,
+      SCALE_MODE: PIXI.SCALE_MODES.NEAREST,
     },
   },
 }).then(() => {
@@ -187,6 +188,8 @@ Game.init({
   });
   lizard.asset.scale.set(3);
   lizard.asset.anchor.set(0.2);
+
+  Filter.add(lizard, Filter.Filter.GlowFilter);
 
   const floor = Entity.addChild(root, { id: 'floor' });
   Physics.addBody(floor, Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));

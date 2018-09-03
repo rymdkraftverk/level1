@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import 'pixi-particles';
+import 'pixi-filters';
 
 const ASSETS_FOLDER = 'assets';
 

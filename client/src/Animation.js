@@ -7,6 +7,7 @@ export function play(entity, { textures, speed = 0.05, zIndex = 0 }) {
   animation.position.set(Entity.getX(entity), Entity.getY(entity));
 
   animation.zIndex = zIndex;
+  animation.filters = [];
 
   Render.add(animation);
 

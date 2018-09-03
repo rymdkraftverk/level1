@@ -29,6 +29,7 @@ export function show(entity, {
   }
 
   sprite.zIndex = zIndex;
+  sprite.filters = [];
   sprite.position.set(
     Entity.getX(entity),
     Entity.getY(entity),
