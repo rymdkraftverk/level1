@@ -100,6 +100,7 @@ const loadAssetsFromServer = (path) => new Promise((resolve) => {
   fetch(`/${path}`)
     .then(data => data.text())
     .then(async html => {
+      // Create a dom element from the response in order to find the right node
       const el = document.createElement('html');
       el.innerHTML = html;
       const inAssetFolder = [...el.querySelectorAll(`a[href^='/${path}']`)];
@@ -114,12 +115,18 @@ const loadAssetsFromServer = (path) => new Promise((resolve) => {
               return;
             }
 
+            // Check if the fileName is a folder
             if (fileName.lastIndexOf('/') === fileName.length - 1) {
               subFolders = subFolders.concat(fileName.substring(0, fileName.length - 1));
+              // Else we have a file that we should load
+            } else {
+              const name = fileName.substring(0, fileName.lastIndexOf('.'));
+              if (name.length === 0) {
+                console.warn(`level1: Asset loader ignoring ${fileName} due to empty file name`);
+              } else {
+                loader.add(name, `${path}/${fileName}`);
+              }
             }
-
-            const name = fileName.substring(0, fileName.lastIndexOf('.'));
-            loader.add(name, `${path}/${fileName}`);
           });
         await Promise.all(subFolders.map((subfolder) => loadAssetsFromServer(`${path}/${subfolder}`)));
         resolve();
