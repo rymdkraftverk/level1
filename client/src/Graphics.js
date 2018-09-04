@@ -5,6 +5,7 @@ export function create(entity, { zIndex = 0 } = { zIndex: 0 }) {
   const graphics = Render.getGraphics();
 
   graphics.zIndex = zIndex;
+  graphics.filters = [];
 
   Render.add(graphics);
 
