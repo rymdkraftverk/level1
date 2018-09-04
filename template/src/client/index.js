@@ -108,32 +108,33 @@ Game.init({
     text: 'Hello!',
     style: {
       fontFamily: 'Arial',
-      fontSize: '400px',
+      fontSize: 20,
       fill: 'white',
     },
   });
   text.asset.scale.set(0.1);
 
-  const text2 = Entity.addChild(
-    text,
-    { id: 'text2', x: -50, y: -50 },
-  );
+  // const text2 = Entity.addChild(
+  //   text,
+  //   { id: 'text2', x: -50, y: -50 },
+  // );
 
-  Text.show(text2, {
-    text: 'Hello222!',
-    style: {
-      fontFamily: 'Arial',
-      fontSize: '400px',
-      fill: 'white',
-    },
-  });
-  text.asset.scale.set(0.1);
+  // Text.show(text2, {
+  //   text: 'Hello222!',
+  //   style: {
+  //     fontFamily: 'Arial',
+  //     fontSize: '400px',
+  //     fill: 'white',
+  //   },
+  // });
 
   const scaleText = () => ({
     run: (b, e) => {
-      e.asset.scale.set(e.asset.scale.x * 1.005);
+      // e.asset.scale.set(e.asset.scale.x * 1.005);
+      // Text.scale(e, e.asset.style.fontSize + 0.0001);
     },
   });
+  Text.scale(text, text.asset.style.fontSize + 100);
   text.behaviors.scaleText = scaleText();
 
   const selfdestruct = () => ({
@@ -153,7 +154,7 @@ Game.init({
       }
     },
   });
-  square.behaviors.selfdestruct = selfdestruct();
+  // square.behaviors.selfdestruct = selfdestruct();
 
   const lizard = Entity.addChild(root, {
     x: 300,

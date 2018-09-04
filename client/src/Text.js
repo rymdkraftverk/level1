@@ -6,7 +6,6 @@ export function show(entity, { text, style, zIndex = 0 }) {
   /*
     This is done to scale text up and down depending on if the canvas has been resized.
   */
-  // TODO: Handle fontSize being string
   const updatedStyle = {
     ...style,
     fontSize: style.fontSize * Game.getRatio(),
@@ -47,4 +46,12 @@ export function hide(entity) {
   }
 
   entity.asset = null;
+}
+
+/*
+  This is required to be used for any scale change of Text
+*/
+export function scale(entity, fontSize) {
+  entity.originalSize = fontSize;
+  entity.asset.style.fontSize = fontSize * Game.getRatio();
 }
