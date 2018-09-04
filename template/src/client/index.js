@@ -191,7 +191,7 @@ Game.init({
   lizard.asset.scale.set(3);
   lizard.asset.anchor.set(0.2);
 
-  Filter.add(lizard, Filter.Filter.GlowFilter);
+  Filter.add(lizard, new Filter.Filter.GlowFilter());
 
   const floor = Entity.addChild(root, { id: 'floor' });
   Physics.addBody(floor, Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));

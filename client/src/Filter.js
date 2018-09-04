@@ -7,12 +7,9 @@ export function add(entity, filter) {
     throw new Error(`Trying to apply filter to entity "${entity.id}" without asset, use Sprite.show or Animation.play first`);
   }
 
-  // eslint-disable-next-line new-cap
-  const filterInstance = new filter();
+  entity.asset.filters = entity.asset.filters.concat(filter);
 
-  entity.asset.filters = entity.asset.filters.concat(filterInstance);
-
-  return filterInstance;
+  return filter;
 }
 
 export function clear(entity) {
