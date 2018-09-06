@@ -4,13 +4,69 @@
 import l1 from 'l1'
 ```
 
-## Game loop
+## Table of contents
+
+### Game
 
 - [init](#init)
 - [stop](#stop)
 - [start](#start)
 - [getStage](#getstage)
 - [getRenderer](#getrenderer)
+
+### Entity creators
+
+- [entity]()
+- [sprite]()
+- [animation]()
+- [graphics]()
+- [particles]()
+- [text]()
+- [bitmapText]()
+- [sound]()
+
+### Entity utils
+
+- [destroy]()
+- [getAllEntities]()
+- [get]()
+- [getByType]()
+- [isColliding]()
+- [getOverlappingArea]()
+- [addType]()
+- [removeType]()
+- [getX]()
+- [setX]()
+- [getY]()
+- [setY]()
+- [flip]() ?
+
+### Entity modifiers
+
+- [addFilter](#addFilter)
+- [clearFilters](#clearFilters)
+- [removeFilter](#removeFilter)
+- [Filter](#Filter)
+- [addBehavior](#addBehavior)
+- [removeBehavior](#removeBehavior)
+- [addBody](docs/api-client.md#addbody)
+- [removeBody](docs/api-client.md#removebody)
+- [addCollision](docs/api-client.md#addcollision)
+- [removeCollision](docs/api-client.md#removecollision)
+- [removeAllCollisions](docs/api-client.md#removeallcollisions)
+
+### Utils
+
+- [getRandomInRange](docs/api-client.md#getrandominrange)
+- [distance](docs/api-client.md#distance)
+- [grid](docs/api-client.md#grid)
+- [angle](docs/api-client.md#angle)
+- [toRadians](docs/api-client.md#torandians)
+
+## Keyboard input
+
+- [addKey](docs/api-client.md#addKey)
+- [isKeyDown](docs/api-client.md#isKeyDown)
 
 ---
 
@@ -34,11 +90,20 @@ Option | Type | Required | Default | Description
 **element** | HTMLElement | [ ] | `document.body` | Where to inject the game
 **physics** | Boolean | [ ] | false | Enable physics provided by matter-js
 **debug** | Boolean | [ ] | false | Display the debug tools underneath game window
-**pixi** | Object | [ ] | - | Options object that will be passed to WebGLRenderer
+**pixi** | Object | [ ] | - | Object with pixi options
 
-Pixi options reference:
-
-http://pixijs.download/dev/docs/PIXI.WebGLRenderer.html#WebGLRenderer
+```js
+  pixi: {
+    options: {
+      // Options to the WebGLRenderer goes here
+      // http://pixijs.download/dev/docs/PIXI.WebGLRenderer.html#WebGLRenderer
+    },
+    settings: {
+      // Pixi settings goes here
+      // http://pixijs.download/dev/docs/PIXI.settings.html
+    }
+  }
+```
 
 #### Returns
 
@@ -50,6 +115,14 @@ http://pixijs.download/dev/docs/PIXI.WebGLRenderer.html#WebGLRenderer
 l1.init({
   width: 800,
   height: 600,
+  pixi: {
+    options: {
+        antialias: true,
+    }
+    settings: {
+        SCALE_MODE: PIXI.SCALE_MODES.NEAREST,
+    }
+  }
 }).then(() => {
   // Game is started
 })
@@ -126,26 +199,6 @@ None.
 
 ---
 
-## Entity
-
-- [entity]()
-- [sprite]()
-- [flip]() ?
-- [destroy]()
-- [getAllEntities]()
-- [get]()
-- [getByType]()
-- [isColliding]()
-- [getOverlappingArea]()
-- [addType]()
-- [removeType]()
-- [getX]()
-- [setX]()
-- [getY]()
-- [setY]()
-
----
-
 ### entity
 
 ```js
@@ -166,7 +219,7 @@ Option | Type | Required | Default | Description
 **y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
 **width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
 **height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
-**parent** | Object | [ ] | null | The parent entity. Will make this entities position relative to the parent position.
+**parent** | Object | [ ] | null | The parent entity. Will make this entities position relative to the parent position. If parent is destroyed, this entity will also be destroyed.
 
 #### Returns
 
@@ -177,152 +230,6 @@ Option | Type | Required | Default | Description
 ```js
 // TODO
 ```
-
----
-
-### destroy
-
-```js
-l1.destroy(entity)
-```
-
-Removes the entity, its asset and all its children.
-
-**Arguments**
-
-`entity` (Object|String): The entity to remove. Optionally an entity id.
-
-**Returns**
-
-Nothing.
-
----
-
-### getAllEntities
-
-```js
-l1.getAllEntities()
-```
-
-**Arguments**
-
-None.
-
-**Returns**
-
-(Array): All entities.
-
----
-
-### get
-
-```js
-l1.get(id)
-```
-
-Get entitiy by id.
-
-**Arguments**
-
-`id` (String): The entity id.
-
-**Returns**
-
-(*): Returns the found entity, else undefined.
-
----
-
-#### getByType
-
-```js
-l1.getByType(type)
-```
-
-Get entities by type.
-
-#### Arguments
-
-`type` (String): The entity type.
-
-#### Returns
-
-(*): Returns a list of found entities, else undefined.
-
----
-
-### isColliding
-
-```js
-l1.isColliding(entity, otherEntity)
-```
-
-#### Arguments
-
-`entity` (Object): The first entity to use for collision detection.
-
-`otherEntity` (Object) The second entity to use for collision detection.
-
-#### Returns
-
-(Boolean): Returns true if entities are colliding.
-
----
-
-### getOverlappingArea
-
-```js
-l1.getOverlappingArea(entity, otherEntity)
-```
-
-#### Arguments
-
-`entity` (Object): The first entity to use for overlap detection.
-
-`otherEntity` (Object) The second entity to use for overlap detection.
-
-#### Returns
-
-(Number): The area that is overlapping.
-
----
-
-#### addType
-
----
-
-#### removeType
-
----
-
-#### setX
-
----
-
-#### getX
-
----
-
-#### setY
-
----
-
-#### getY
-
----
-
-### Entity object properties
-
-The following properties are specified for objects created by Entity.addChild.
-
-Property | Type | Description
--- | -- | --
-**id** | String | Unique id
-**types** | Array | Type field to group entities together, also used for collisions
-**behaviors** | Object | Map with all behaviors
-**body** | Object | Physics body. Always has default body with entity as only property
-**asset** | (*) | Either null, Sprite, Animation, Sound, Particles, Graphics, Text or BitmapText
-**parent** | Object | The parent entity.
-**children** | Array | A list of child entities.
 
 ---
 
@@ -368,19 +275,10 @@ l1.sprite({
 ---
 
 ```js
-l1.flip(entity)
-```
-
-TBD
-
----
-
-```js
-Animation.play(entity, options)
 l1.animation(options)
 ```
 
-**Arguments**
+#### Arguments
 
 `entity` (object): The entity to apply the animation to.
 
@@ -536,19 +434,157 @@ A graphics object is used to draw lines and shapes.
 
 ---
 
-## Entity modifiers
+### destroy
 
-- [addFilter](#addFilter)
-- [clearFilters](#clearFilters)
-- [removeFilter](#removeFilter)
-- [Filter](#Filter)
-- [addBehavior](#addBehavior)
-- [removeBehavior](#removeBehavior)
-- [addBody](docs/api-client.md#addbody)
-- [removeBody](docs/api-client.md#removebody)
-- [addCollision](docs/api-client.md#addcollision)
-- [removeCollision](docs/api-client.md#removecollision)
-- [removeAllCollisions](docs/api-client.md#removeallcollisions)
+```js
+l1.destroy(entity)
+```
+
+Removes the entity, its asset and all its children.
+
+**Arguments**
+
+`entity` (Object|String): The entity to remove. Optionally an entity id.
+
+**Returns**
+
+Nothing.
+
+---
+
+### getAllEntities
+
+```js
+l1.getAllEntities()
+```
+
+**Arguments**
+
+None.
+
+**Returns**
+
+(Array): All entities.
+
+---
+
+### get
+
+```js
+l1.get(id)
+```
+
+Get entitiy by id.
+
+**Arguments**
+
+`id` (String): The entity id.
+
+**Returns**
+
+(*): Returns the found entity, else undefined.
+
+---
+
+#### getByType
+
+```js
+l1.getByType(type)
+```
+
+Get entities by type.
+
+#### Arguments
+
+`type` (String): The entity type.
+
+#### Returns
+
+(*): Returns a list of found entities, else undefined.
+
+---
+
+### isColliding
+
+```js
+l1.isColliding(entity, otherEntity)
+```
+
+#### Arguments
+
+`entity` (Object): The first entity to use for collision detection.
+
+`otherEntity` (Object) The second entity to use for collision detection.
+
+#### Returns
+
+(Boolean): Returns true if entities are colliding.
+
+---
+
+### getOverlappingArea
+
+```js
+l1.getOverlappingArea(entity, otherEntity)
+```
+
+#### Arguments
+
+`entity` (Object): The first entity to use for overlap detection.
+
+`otherEntity` (Object) The second entity to use for overlap detection.
+
+#### Returns
+
+(Number): The area that is overlapping.
+
+---
+
+#### addType
+
+---
+
+#### removeType
+
+---
+
+#### setX
+
+---
+
+#### getX
+
+---
+
+#### setY
+
+---
+
+#### getY
+
+---
+
+### Entity object properties
+
+The following properties are specified for objects created by Entity.addChild.
+
+Property | Type | Description
+-- | -- | --
+**id** | String | Unique id
+**types** | Array | Type field to group entities together, also used for collisions
+**behaviors** | Object | Map with all behaviors
+**body** | Object | Physics body. Always has default body with entity as only property
+**asset** | (*) | Either null, Sprite, Animation, Sound, Particles, Graphics, Text or BitmapText
+**parent** | Object | The parent entity.
+**children** | Array | A list of child entities.
+
+---
+
+```js
+l1.flip(entity)
+```
+
+TBD
 
 ---
 
@@ -709,16 +745,6 @@ l1.sound({
   loop: true,
 })
 ```
-
----
-
-## Utils
-
-- [getRandomInRange](docs/api-client.md#getrandominrange)
-- [distance](docs/api-client.md#distance)
-- [grid](docs/api-client.md#grid)
-- [angle](docs/api-client.md#angle)
-- [toRadians](docs/api-client.md#torandians)
 
 ---
 
@@ -971,14 +997,7 @@ Nothing.
 
 ---
 
-## Keyboard input
-
-- [addKey](docs/api-client.md#addKey)
-- [isKeyDown](docs/api-client.md#isKeyDown)
-
----
-
-### add
+### addKey
 
 ```js
 l1.addKey(key)
