@@ -35,6 +35,7 @@ import { Game } from 'l1'
 
 ```js
 Game.init(options)
+l1.init()
 ```
 
 Initializes level1 and starts the game loop.
@@ -79,6 +80,7 @@ Game.init({
 
 ```js
 Game.stop()
+l1.stop()
 ```
 
 Stop the game loop.
@@ -97,6 +99,7 @@ Nothing.
 
 ```js
 Game.start()
+l1.start
 ```
 
 Start the game loop.
@@ -115,6 +118,7 @@ Nothing.
 
 ```js
 Game.getRenderer()
+l1.getRenderer
 ```
 
 **Arguments**
@@ -131,6 +135,7 @@ None.
 
 ```js
 Game.getStage()
+l1.getStage()
 ```
 
 **Arguments**
@@ -170,6 +175,7 @@ import { Entity } from 'l1'
 
 ```js
 Entity.addChild(parent, options)
+l1.entity()
 ```
 
 **Arguments**
@@ -203,6 +209,7 @@ Option | Type | Required | Default | Description
 
 ```js
 Entity.destroy(entity)
+l1.destroy()
 ```
 
 Removes the entity, its asset and all its children.
@@ -221,6 +228,7 @@ Nothing.
 
 ```js
 Entity.getAll()
+l1.getAllEntities()
 ```
 
 **Arguments**
@@ -237,6 +245,7 @@ None.
 
 ```js
 Entity.get(id)
+l1.get()
 ```
 
 Get entitiy by id.
@@ -255,6 +264,7 @@ Get entitiy by id.
 
 ```js
 Entity.getByType(type)
+l1.getByType()
 ```
 
 Get entities by type.
@@ -273,6 +283,7 @@ Get entities by type.
 
 ```js
 Entity.getRoot()
+<deleted>
 ```
 
 Get the root entity. This is the top node in the entity hierarchy.
@@ -293,6 +304,7 @@ Nothing
 
 ```js
 Entity.isColliding(entity, otherEntity)
+l1.isColliding()
 ```
 
 **Arguments**
@@ -311,6 +323,7 @@ Entity.isColliding(entity, otherEntity)
 
 ```js
 Entity.getOverlappingArea(entity, otherEntity)
+l1.getOverlappingArea()
 ```
 
 **Arguments**
@@ -476,6 +489,7 @@ import { Sprite } from 'l1'
 
 ```js
 Sprite.show(entity, options)
+l1.sprite()
 ```
 
 **Arguments**
@@ -524,6 +538,7 @@ Nothing.
 
 ```js
 Sprite.flip(entity)
+l1.flip()
 ```
 
 TBD
@@ -540,6 +555,7 @@ import { Animation } from 'l1'
 
 ```js
 Animation.play(entity, options)
+l1.animation()
 ```
 
 **Arguments**
@@ -604,6 +620,7 @@ hide
 
 ```js
 Text.show(entity, options)
+l1.text()
 ```
 
 **Arguments**
@@ -665,6 +682,7 @@ stop
 
 ```js
 Particles.emit(entity, options)
+l1.particles()
 ```
 
 Note: The position of particles is not synced with the entity's position!
@@ -742,6 +760,7 @@ destroy
 
 ```js
 Graphics.create(entity)
+l1.graphics()
 ```
 
 A graphics object is used to draw lines and shapes.
@@ -787,6 +806,7 @@ import { Filter } from 'l1'
 
 ```js
 Filter.add(entity, filter)
+l1.addFilter()
 ```
 
 Filters can be any built in filter in Pixi or any filter from `pixi-filters`
@@ -818,6 +838,8 @@ Filter.add(entity, Filter.Filter.GlowFilter)
 
 ```js
 Filter.clear(entity)
+l1.removeFilter()
+l1.clearFilters()
 ```
 
 Removes all filters from entity
@@ -854,7 +876,9 @@ Filter.add(entity, Filter.Filter.GlowFilter)
 TBD
 
 Behavior.add()
+l1.addBehavior()
 Behavior.remove()
+l1.removeBehavior()
 
 ---
 
@@ -872,6 +896,7 @@ stop
 
 ```js
 Sound.play(entity, options)
+l1.sound()
 ```
 
 **Arguments**
@@ -928,6 +953,7 @@ import { Util } from 'l1'
 
 ```javascript
 Util.getRandomInRange(from, to)
+l1.getRandomInRange()
 ```
 
 Get a random number in range (from (inclusive) - to (exclusive))
@@ -947,6 +973,7 @@ Get a random number in range (from (inclusive) - to (exclusive))
 
 ```js
 Util.grid(options)
+l1.grid()
 ```
 
 Returns a function to get coordinates. Useful for placing objects on a grid.
@@ -990,6 +1017,7 @@ Option | Type | Required | Default | Description
 
 ```js
 Util.angle(options)
+l1.angle()
 ```
 
 Get the angle between two points, in radians.
@@ -1021,6 +1049,7 @@ Option | Type | Required | Default | Description
 
 ```javascript
 Util.distance(options)
+l1.distance()
 ```
 
 Get the distance between two points.
@@ -1051,7 +1080,8 @@ Option | Type | Required | Default | Description
 #### toRadians
 
 ```js
- Util.toRadians(degrees)
+Util.toRadians(degrees)
+l1.toRadians()
 ```
 
 Convert degrees to radians.
