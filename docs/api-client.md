@@ -11,6 +11,10 @@ import l1 from 'l1'
 - [init](#init)
 - [stop](#stop)
 - [start](#start)
+- isRunning
+- getTexture
+- resize
+- getRatio
 - [getStage](#getstage)
 - [getRenderer](#getrenderer)
 
@@ -744,6 +748,8 @@ onTimerEnd({ entity, data })
 
 onRemove({ entity, data })
 
+If loop is true, the value of `removeOnComplete` is ignored
+
 #### Returns
 
 (Object): The behavior instance
@@ -1025,15 +1031,15 @@ addPreset('MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)', new L1C
 
 ## Debug
 
-### toggleHitBoxes
+### setShowHitboxes
 
 ```js
-l1.toggleHitBoxes()
+l1.setShowHitboxes(show)
 ```
 
 #### Arguments
 
-None.
+`show` (boolean): If true, display hitboxes
 
 #### Returns
 
