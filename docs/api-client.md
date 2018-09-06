@@ -70,6 +70,8 @@ import l1 from 'l1'
 
 ---
 
+## Game
+
 ### init
 
 ```js
@@ -198,6 +200,8 @@ None.
 (PIXI.Container): The root PIXI container
 
 ---
+
+## Entity creators
 
 ### entity
 
@@ -403,7 +407,14 @@ Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
 **textures** | Array | [x] | - | The sprites to use for the emitter
 **config** | Object | [x] | - | The emitter config to use
-**zIndex** | Number | [ ] | 0 | TBD
+**id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
+**zIndex** | Number | [ ] | 0 | TODO
+**parent** | Object | [ ] | null | TODO
+**types** | Array | [ ] | [] | Types are used to group entities together.
+**x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
+**y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
+**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
+**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
 
 #### Emitter config options
 
@@ -446,13 +457,26 @@ A graphics object is used to draw lines and shapes.
 
 #### Arguments
 
-`options` (object): The entity to apply the graphics object to.
+`options` (object):
+
+Option | Type | Required | Default | Description
+-- | -- | -- | -- | -- |
+**id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
+**zIndex** | Number | [ ] | 0 | TODO
+**parent** | Object | [ ] | null | TODO
+**types** | Array | [ ] | [] | Types are used to group entities together.
+**x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
+**y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
+**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
+**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
 
 #### Returns
 
 (Object): A graphics entity
 
 ---
+
+## Entity utils
 
 ### destroy
 
