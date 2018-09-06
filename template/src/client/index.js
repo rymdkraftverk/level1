@@ -138,15 +138,6 @@ Game.init({
       test: 'test',
     },
     removeOnComplete: true,
-    onUpdate: ({ data, entity, counter }) => {
-      console.log('onUpdate', counter);
-    },
-    onInit: ({ data, entity }) => {
-      console.log('ON INIT', data.test + entity.id);
-    },
-    onRemove: ({ data, entity }) => {
-      console.log('ON REMOVE', data.test + entity.id);
-    },
     onTimerEnd: ({ data, entity }) => {
       console.log('ON TIMER END', data.test + entity.id);
       const explosion = Entity.addChild(root, {
@@ -158,7 +149,7 @@ Game.init({
         config,
         zIndex: 1,
       });
-      // Entity.destroy(entity);
+      Entity.destroy(entity);
     },
   });
   Behavior.add(square, selfdestruct());

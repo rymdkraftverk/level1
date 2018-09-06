@@ -26,6 +26,7 @@ export function add(entity, {
   const newBehaviorObject = {
     id,
     data,
+    removed: false,
     initHasBeenCalled: false,
     timer: Timer.create({ duration: timer }),
     // eslint-disable-next-line no-shadow
@@ -54,12 +55,16 @@ export function add(entity, {
         if (loop) {
           Timer.reset(behavior.timer);
         } else if (removeOnComplete) {
-          behavior.remove({ data, entity });
+          behavior.remove({ data, entity, behavior });
         }
       }
     },
     // eslint-disable-next-line no-shadow
-    remove: ({ data, entity }) => {
+    remove: ({ behavior, data, entity }) => {
+      if (behavior.removed) {
+        return;
+      }
+      behavior.removed = true;
       entity.behaviors = entity.behaviors.filter((b) => b.id !== id);
       if (onRemove) {
         onRemove({ data, entity });
@@ -72,7 +77,7 @@ export function add(entity, {
 
 export function remove(entity, id) {
   const behavior = get(entity, id);
-  behavior.remove({ entity, data: behavior.data });
+  behavior.remove({ entity, data: behavior.data, behavior });
 }
 
 export function get(entity, id) {

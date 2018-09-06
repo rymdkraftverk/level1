@@ -100,8 +100,8 @@ export const destroyChild = (child) => {
     child.body = null;
     child.hasBody = false;
   }
-  child.behaviors = child.behaviors.forEach((b) => {
-    b.remove({ data: b.data, entity: child });
+  child.behaviors = child.behaviors.forEach((behavior) => {
+    behavior.remove({ data: behavior.data, entity: child, behavior });
   });
 };
 
