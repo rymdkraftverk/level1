@@ -12,12 +12,9 @@ import {
   Graphics,
   PIXI,
   Filter,
+  Behavior,
 } from 'l1';
-// import assets from './assets.json';
 import config from './emitter.json';
-import scanGamepads from './behaviors/scanGamepads';
-
-// import createControllerPresets from './controllerPresets';
 
 const lizardRotation = () => ({
   timer: Timer.create({ duration: 120 }),
@@ -26,15 +23,13 @@ const lizardRotation = () => ({
     front: ['lizardFront1', 'lizardFront2'],
     right: ['Samurai-move-1', 'Samurai-move-2'],
   },
-  run: (b, e) => {
-    if (Timer.run(b.timer)) {
-      const animation = Animation.play(e, {
-        speed: b.speed,
-        textures: b.textures.right,
-      });
-      animation.scale.set(2);
-      animation.anchor.set(0.2);
-    }
+  onTimerEnd: (b, e) => {
+    const animation = Animation.play(e, {
+      speed: b.speed,
+      textures: b.textures.right,
+    });
+    animation.scale.set(2);
+    animation.anchor.set(0.2);
   },
 });
 
@@ -46,7 +41,7 @@ const direction = {
 /* eslint-disable no-param-reassign */
 const lizardMove = (start, end) => ({
   direction: direction.LEFT,
-  run: (b, e) => {
+  onUpdate: (b, e) => {
     if (b.direction === direction.LEFT) {
       e.x = Entity.getX(e) - 3;
       if (e.x < start) {
@@ -82,8 +77,8 @@ Game.init({
 
   // createControllerPresets();
 
-  const input = Entity.addChild(root, { id: 'input' });
-  input.behaviors.scan = scanGamepads();
+  // const input = Entity.addChild(root, { id: 'input' });
+  // input.behaviors.scan = scanGamepads();
 
   const square = Entity.addChild(root, { id: 'square', types: ['square', 'player'] });
 
@@ -128,33 +123,45 @@ Game.init({
   //   },
   // });
 
-  const scaleText = () => ({
-    run: (b, e) => {
-      // e.asset.scale.set(e.asset.scale.x * 1.005);
-      // Text.scale(e, e.asset.style.fontSize + 0.0001);
-    },
-  });
-  Text.scale(text, text.asset.style.fontSize + 100);
-  text.behaviors.scaleText = scaleText();
+  // const scaleText = () => ({
+  //   run: (b, e) => {
+  //     // e.asset.scale.set(e.asset.scale.x * 1.005);
+  //     // Text.scale(e, e.asset.style.fontSize + 0.0001);
+  //   },
+  // });
+  // Text.scale(text, text.asset.style.fontSize + 100);
+  // Behavior.add(text, scaleText());
 
   const selfdestruct = () => ({
-    timer: Timer.create({ duration: 120 }),
-    run: (b, e) => {
-      if (b.timer && Timer.run(b.timer)) {
-        const explosion = Entity.addChild(root, {
-          x: Entity.getX(square),
-          y: Entity.getY(square),
-        });
-        Particles.emit(explosion, {
-          textures: ['square', 'particle'],
-          config,
-          zIndex: 1,
-        });
-        Entity.destroy(e);
-      }
+    timer: 120,
+    data: {
+      test: 'test',
+    },
+    removeOnComplete: true,
+    onUpdate: ({ data, entity, counter }) => {
+      console.log('onUpdate', counter);
+    },
+    onInit: ({ data, entity }) => {
+      console.log('ON INIT', data.test + entity.id);
+    },
+    onRemove: ({ data, entity }) => {
+      console.log('ON REMOVE', data.test + entity.id);
+    },
+    onTimerEnd: ({ data, entity }) => {
+      console.log('ON TIMER END', data.test + entity.id);
+      const explosion = Entity.addChild(root, {
+        x: Entity.getX(square),
+        y: Entity.getY(square),
+      });
+      Particles.emit(explosion, {
+        textures: ['square', 'particle'],
+        config,
+        zIndex: 1,
+      });
+      // Entity.destroy(entity);
     },
   });
-  // square.behaviors.selfdestruct = selfdestruct();
+  Behavior.add(square, selfdestruct());
 
   const lizard = Entity.addChild(root, {
     x: 300,

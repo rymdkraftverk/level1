@@ -29,7 +29,7 @@ export function addChild(parent, {
     children: [],
     asset: null,
     hasBody: false,
-    behaviors: {},
+    behaviors: [],
   };
 
   const defaultBody = {
@@ -100,7 +100,9 @@ export const destroyChild = (child) => {
     child.body = null;
     child.hasBody = false;
   }
-  child.behaviors = {};
+  child.behaviors = child.behaviors.forEach((b) => {
+    b.remove({ data: b.data, entity: child });
+  });
 };
 
 export function destroy(entity) {

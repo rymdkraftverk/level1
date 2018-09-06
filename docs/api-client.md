@@ -713,7 +713,7 @@ NOT IMPLEMENTED
 l1.addBehavior(entity, options)
 ```
 
-Behaviors are run every update
+Behaviors are updated every update
 
 #### Arguments
 

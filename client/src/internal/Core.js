@@ -36,23 +36,21 @@ function runEntity(e, delta) {
 }
 
 function runBehaviors(entity) {
-  const { behaviors, id } = entity;
+  const { behaviors } = entity;
 
-  Object
-    .entries(behaviors)
-    .forEach(([behaviorName, behavior]) => {
-      const { init, run } = behavior;
+  behaviors
+    .forEach((
+      behavior,
+    ) => {
+      const {
+        init, update: updateBehavior, data, initHasBeenCalled,
+      } = behavior;
 
-      if (init) {
-        init(behavior, entity);
-        delete behavior.init;
+      if (!initHasBeenCalled) {
+        init({ data, entity, behavior });
       }
 
-      if (!run) {
-        throw new Error(`Behavior "${behaviorName}" on entity "${id}" has no run function`);
-      }
-
-      run(behavior, entity);
+      updateBehavior({ behavior, entity, data });
     });
 
   // Display hitboxes

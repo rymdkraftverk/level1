@@ -7,18 +7,18 @@ function exists(entity, id) {
 
 export function add(entity, {
   id = uuid(),
-  timer,
-  loop,
-  removeOnComplete,
-  run,
-  onTimerEnd,
-  onInit,
-  onRemove,
+  timer = 0,
+  loop = false,
+  removeOnComplete = true,
+  onUpdate = null,
+  onTimerEnd = null,
+  onInit = null,
+  onRemove = null,
   enabled = true,
-  data,
+  data = null,
   // TODO: Implement
   // memoize = false,
-}) {
+} = {}) {
   if (exists(entity, id)) {
     throw new Error(`Behavior with id ${id} already exists on entity ${entity.id}`);
   }
@@ -26,40 +26,43 @@ export function add(entity, {
   const newBehaviorObject = {
     id,
     data,
+    initHasBeenCalled: false,
     timer: Timer.create({ duration: timer }),
     // eslint-disable-next-line no-shadow
-    init: ({ behavior, entity }) => {
+    init: ({ behavior, data, entity }) => {
       if (onInit) {
-        onInit({ behavior, entity });
+        onInit({ data, entity });
       }
+      behavior.initHasBeenCalled = true;
     },
     // eslint-disable-next-line no-shadow
-    run: ({ behavior, entity }) => {
+    update: ({ behavior, entity, data }) => {
       if (!enabled) {
         return;
       }
-      if (run) {
-        run({
+      if (onUpdate) {
+        onUpdate({
           counter: behavior.timer.counter,
-          behavior,
           entity,
+          data,
         });
       }
-      if (Timer.run(behavior.timer)) {
+      if (behavior.timer && Timer.run(behavior.timer)) {
         if (onTimerEnd) {
-          onTimerEnd({ behavior, entity });
+          onTimerEnd({ data, entity });
         }
         if (loop) {
           Timer.reset(behavior.timer);
         } else if (removeOnComplete) {
-          behavior.remove({ behavior, entity });
+          behavior.remove({ data, entity });
         }
       }
     },
     // eslint-disable-next-line no-shadow
-    remove: ({ behavior, entity }) => {
+    remove: ({ data, entity }) => {
+      entity.behaviors = entity.behaviors.filter((b) => b.id !== id);
       if (onRemove) {
-        onRemove({ behavior, entity });
+        onRemove({ data, entity });
       }
     },
   };
@@ -68,7 +71,8 @@ export function add(entity, {
 }
 
 export function remove(entity, id) {
-  entity.behaviors = entity.behaviors.filter((behavior) => behavior.id !== id);
+  const behavior = get(entity, id);
+  behavior.remove({ entity, data: behavior.data });
 }
 
 export function get(entity, id) {
