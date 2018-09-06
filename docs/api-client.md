@@ -63,7 +63,7 @@ import l1 from 'l1'
 - [angle](docs/api-client.md#angle)
 - [toRadians](docs/api-client.md#torandians)
 
-## Keyboard input
+### Keyboard input
 
 - [addKey](docs/api-client.md#addKey)
 - [isKeyDown](docs/api-client.md#isKeyDown)
@@ -219,7 +219,7 @@ Option | Type | Required | Default | Description
 **y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
 **width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
 **height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
-**parent** | Object | [ ] | null | The parent entity. Will make this entities position relative to the parent position. If parent is destroyed, this entity will also be destroyed.
+**parent** | Object | [ ] | null | The parent entity. Will make this entity's position relative to the parent position. If parent is destroyed, this entity will also be destroyed.
 
 #### Returns
 
@@ -232,6 +232,8 @@ Option | Type | Required | Default | Description
 ```
 
 ---
+
+### sprite
 
 ```js
 l1.sprite(options)
@@ -250,7 +252,7 @@ Option | Type | Required | Default | Description
 **types** | Array | [ ] | [] | Types are used to group entities together.
 **flipX** | Boolean | [ ] | false | TBD
 **flipY** | Boolean | [ ] | false | TBD
-**parent** | Object | [ ] | false | TBD
+**parent** | Object | [ ] | null | TBD
 **zIndex** | Number | [ ] | 0 | The stacking order of the sprite entity
 **x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
 **y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
@@ -274,6 +276,8 @@ l1.sprite({
 
 ---
 
+### animation
+
 ```js
 l1.animation(options)
 ```
@@ -286,21 +290,21 @@ l1.animation(options)
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | --
-**textures** | Array | - [x] | - | A list of texture id's
-**speed** | Number | - [ ] | 0.05 | The speed of toggling between textures. Higher number equals faster speed.
-**zIndex** | Number | - [ ] | 0 | TODO
-**parent** | Object | - [ ] | 0 | TODO
+**textures** | Array | [x] | - | A list of texture id's
 **id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
+**speed** | Number | [ ] | 0.05 | The speed of toggling between textures. Higher number equals faster speed.
+**zIndex** | Number | [ ] | 0 | TODO
+**parent** | Object | [ ] | 0 | TODO
 **types** | Array | [ ] | [] | Types are used to group entities together.
 **x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
 **y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
 **width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
 **height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
-**loop(not implemented)** | Boolean | - [ ] | true | If the animation should loop from the first texture when complete.
+**loop(not implemented)** | Boolean | [ ] | true | If the animation should loop from the first texture when complete.
 
 #### Returns
 
-(PIXI.AnimatedSprite): The PIXI animation object.
+(Object): The animation entity
 
 #### Example
 
@@ -311,13 +315,16 @@ const walkAnimation = {
     zIndex: 10,
 }
 
-Animation.play({
+const animation = l1.animation({
     ...walkAnimation,
     speed: 1,
 })
+animation.asset.scale.set(2)
 ```
 
 ---
+
+### text
 
 ```js
 l1.text(options)
@@ -325,25 +332,38 @@ l1.text(options)
 
 #### Arguments
 
-TODO
+`options` (object):
+
+Option | Type | Required | Default | Description
+-- | -- | -- | -- | --
+**text** | String | [x] | - | The text to display
+**style** | Object | [x] | - | A PIXI [TextStyle](http://pixijs.download/dev/docs/PIXI.TextStyle.html) object
+**id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
+**zIndex** | Number | [ ] | 0 | TODO
+**parent** | Object | [ ] | null | TODO
+**types** | Array | [ ] | [] | Types are used to group entities together.
+**x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
+**y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
+**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
+**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
 
 #### Returns
 
-TODO
+(Object): The text entity
 
 #### Example
 
 ```js
 l1.text({
     text: 'hello',
-    style: { fontSize: '35px' },
+    style: { fontSize: 35 },
     zIndex: 10,
 })
 ```
 
 ---
 
-- [bitmapText]()
+### bitmapText
 
 ```js
 l1.bitmapText(options)
@@ -442,11 +462,11 @@ l1.destroy(entity)
 
 Removes the entity, its asset and all its children.
 
-**Arguments**
+#### Arguments
 
 `entity` (Object|String): The entity to remove. Optionally an entity id.
 
-**Returns**
+#### Returns
 
 Nothing.
 
@@ -458,11 +478,11 @@ Nothing.
 l1.getAllEntities()
 ```
 
-**Arguments**
+#### Arguments
 
 None.
 
-**Returns**
+#### Returns
 
 (Array): All entities.
 
@@ -474,13 +494,13 @@ None.
 l1.get(id)
 ```
 
-Get entitiy by id.
+Get entity by id.
 
-**Arguments**
+#### Arguments
 
 `id` (String): The entity id.
 
-**Returns**
+#### Returns
 
 (*): Returns the found entity, else undefined.
 
@@ -540,27 +560,27 @@ l1.getOverlappingArea(entity, otherEntity)
 
 ---
 
-#### addType
+### addType
 
 ---
 
-#### removeType
+### removeType
 
 ---
 
-#### setX
+### setX
 
 ---
 
-#### getX
+### getX
 
 ---
 
-#### setY
+### setY
 
 ---
 
-#### getY
+### getY
 
 ---
 
@@ -572,9 +592,9 @@ Property | Type | Description
 -- | -- | --
 **id** | String | Unique id
 **types** | Array | Type field to group entities together, also used for collisions
-**behaviors** | Object | Map with all behaviors
+**behaviors** | Array | A list of all behaviors
 **body** | Object | Physics body. Always has default body with entity as only property
-**asset** | (*) | Either null, Sprite, Animation, Sound, Particles, Graphics, Text or BitmapText
+**asset** | (*) | Either null, `sprite`, `animation`, `sound`, `particles`, `graphics`, `text` or `bitmapText`
 **parent** | Object | The parent entity.
 **children** | Array | A list of child entities.
 
