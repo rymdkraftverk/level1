@@ -18,7 +18,7 @@ import l1 from 'l1'
 ### Entity creators
 
 - [animation](#animation)
-- [bitmapText](#bitmapText)
+- [bitmapText](#bitmaptext)
 - [entity](#entity)
 - [graphics](#graphics)
 - [particles](#particles)
@@ -30,34 +30,34 @@ import l1 from 'l1'
 
 - [destroy](#destroy)
 - [get](#get)
-- [getAllEntities](#getAllEntities)
-- [getById](#getById)
-- [getByType](#getByType)
-- [getOverlappingArea](#getOverlappingArea)
-- [getX](#getX)
-- [getY](#getY)
+- [getAllEntities](#getallentities)
+- [getById](#getbydd)
+- [getByType](#getbytype)
+- [getOverlappingArea](#getoverlappingarea)
+- [getX](#getx)
+- [getY](#gety)
 - [hide](#hide)
-- [isColliding](#isColliding)
+- [isColliding](#iscolliding)
 - [show](#show)
 
 ### Entity modifiers
 
-- [addBehavior](#addBehavior)
+- [addBehavior](#addbehavior)
 - [addBody](#addbody)
 - [addCollision](#addcollision)
-- [addFilter](#addFilter)
-- [addType](#addType)
-- [clearFilters](#clearFilters)
-- [Filter](#Filter)
-- [getBehavior](#getBehavior)
+- [addFilter](#addfilter)
+- [addType](#addyype)
+- [clearFilters](#clearfilters)
+- [Filter](#filter)
+- [getBehavior](#getbehavior)
 - [removeAllCollisions](#removeallcollisions)
-- [removeBehavior](#removeBehavior)
+- [removeBehavior](#removebehavior)
 - [removeBody](#removebody)
 - [removeCollision](#removecollision)
-- [removeFilter](#removeFilter)
-- [removeType](#removeType)
-- [resetBehavior](#resetBehavior)
-- [scaleText](#scaleText)
+- [removeFilter](#removefilter)
+- [removeType](#removetype)
+- [resetBehavior](#resetbehavior)
+- [scaleText](#scaletext)
 
 ### Utils
 
@@ -69,8 +69,8 @@ import l1 from 'l1'
 
 ### Keyboard input
 
-- [addKey](#addKey)
-- [isKeyDown](#isKeyDown)
+- [addKey](#addkey)
+- [isKeyDown](#iskeydown)
 
 ---
 
