@@ -5,7 +5,6 @@ const PIXI = require('pixi.js');
 
 const Game = require('./Game');
 const Entity = require('./Entity');
-const Timer = require('./Timer');
 const Gamepad = require('./Gamepad');
 const Key = require('./Key');
 const Debug = require('./Debug');
@@ -25,7 +24,6 @@ const Behavior = require('./Behavior');
 module.exports = {
   Game,
   Entity,
-  Timer,
   Gamepad,
   Key,
   Debug,
