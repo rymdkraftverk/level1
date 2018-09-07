@@ -2,7 +2,7 @@ import * as Render from '../../internal/Render';
 import * as Core from '../../internal/Core';
 import getX from '../entityUtil/getX';
 import getY from '../entityUtil/getY';
-import getNewEntityInstance from './getNewEntityInstance';
+import getNewEntity from './getNewEntity';
 
 /**
  * Flip Sprite horizontally
@@ -21,7 +21,20 @@ export default (options) => {
     // flipY = false,
     zIndex = 0,
   } = options;
-  const spriteInstance = Render.getNewPIXISprite(texture);
+
+  if (!texture) {
+    throw new Error('Sprite created without "texture"');
+  }
+
+  const {
+    id,
+  } = options;
+
+  if (id && Core.exists(id)) {
+    throw new Error(`Sprite created using an already existing id: ${id}`);
+  }
+
+  const sprite = Render.getNewPIXISprite(texture);
 
   // TODO: Handle flipping
   // if (flipX) {
@@ -36,18 +49,18 @@ export default (options) => {
   //   sprite.flipY = flipY;
   // }
 
-  const entityInstance = getNewEntityInstance(options);
+  const entity = getNewEntity(options);
 
-  spriteInstance.zIndex = zIndex;
-  spriteInstance.filters = [];
-  spriteInstance.position.set(
-    getX(entityInstance),
-    getY(entityInstance),
+  sprite.zIndex = zIndex;
+  sprite.filters = [];
+  sprite.position.set(
+    getX(entity),
+    getY(entity),
   );
 
-  Render.add(spriteInstance);
+  Render.add(sprite);
 
-  entityInstance.asset = spriteInstance;
+  entity.asset = sprite;
 
-  return Core.addEntity(entityInstance);
+  return Core.addEntity(entity);
 };

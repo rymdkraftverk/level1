@@ -1,12 +1,11 @@
 import {
   Game,
   Entity,
-  Timer,
   Physics,
   Text,
   Matter,
   Particles,
-  Animation,
+  animation,
   Sound,
   Graphics,
   PIXI,
@@ -19,22 +18,22 @@ import {
 } from 'l1';
 import config from './emitter.json';
 
-const lizardRotation = () => ({
-  timer: Timer.create({ duration: 120 }),
-  speed: 0.075,
-  textures: {
-    front: ['lizardFront1', 'lizardFront2'],
-    right: ['Samurai-move-1', 'Samurai-move-2'],
-  },
-  onComplete: (b, e) => {
-    const animation = Animation.play(e, {
-      speed: b.speed,
-      textures: b.textures.right,
-    });
-    animation.scale.set(2);
-    animation.anchor.set(0.2);
-  },
-});
+// const lizardRotation = () => ({
+//   timer: Timer.create({ duration: 120 }),
+//   speed: 0.075,
+//   textures: {
+//     front: ['lizardFront1', 'lizardFront2'],
+//     right: ['Samurai-move-1', 'Samurai-move-2'],
+//   },
+//   onComplete: (b, e) => {
+//     const animation = Animation.play(e, {
+//       speed: b.speed,
+//       textures: b.textures.right,
+//     });
+//     animation.scale.set(2);
+//     animation.anchor.set(0.2);
+//   },
+// });
 
 const direction = {
   LEFT: 'left',
@@ -163,18 +162,11 @@ Game.init({
   });
   Behavior.add(square, selfdestruct());
 
-  const lizard = entity({
+  const lizard = animation({
     x: 300,
     y: 50,
     width: 24,
     height: 24,
-  });
-
-  // lizard.behaviors.lizardRotation = lizardRotation();
-  // lizard.behaviors.checkCollision = checkCollision();
-  // lizard.behaviors.lizardMove = lizardMove(100, 450);
-
-  Animation.play(lizard, {
     textures: [
       'samurai-attack-1',
       'samurai-attack-1',
@@ -195,6 +187,11 @@ Game.init({
     ],
     speed: 0.4,
   });
+
+  // lizard.behaviors.lizardRotation = lizardRotation();
+  // lizard.behaviors.checkCollision = checkCollision();
+  // lizard.behaviors.lizardMove = lizardMove(100, 450);
+
   lizard.asset.scale.set(3);
   lizard.asset.anchor.set(0.2);
 

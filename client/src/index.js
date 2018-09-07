@@ -12,7 +12,6 @@ const Physics = require('./Physics');
 const Util = require('./Util');
 const Sound = require('./Sound');
 const Net = require('./Net');
-const Animation = require('./Animation');
 const Particles = require('./Particles');
 const Text = require('./Text');
 const BitmapText = require('./BitmapText');
@@ -22,6 +21,7 @@ const Behavior = require('./Behavior');
 
 const entity = require('./next/entityCreator/entity').default;
 const sprite = require('./next/entityCreator/sprite').default;
+const animation = require('./next/entityCreator/animation').default;
 
 const getX = require('./next/entityUtil/getX').default;
 const getY = require('./next/entityUtil/getY').default;
@@ -36,7 +36,6 @@ module.exports = {
   Util,
   Sound,
   Net,
-  Animation,
   Particles,
   Text,
   BitmapText,
@@ -45,6 +44,7 @@ module.exports = {
   Behavior,
   Matter,
   PIXI,
+  animation,
   entity,
   sprite,
   getX,

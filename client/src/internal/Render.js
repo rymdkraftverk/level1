@@ -166,7 +166,7 @@ export function getNewPIXISprite(filename) {
   return new PIXI.Sprite(getTexture(filename));
 }
 
-export function getAnimation(filenames, animationSpeed) {
+export function getNewPIXIAnimatedSprite(filenames, animationSpeed) {
   const textures = [];
 
   filenames.forEach((filename) => {
