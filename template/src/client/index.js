@@ -1,25 +1,4 @@
-import {
-  text,
-  Matter,
-  animation,
-  PIXI,
-  Filter,
-  entity,
-  sprite,
-  getX,
-  getY,
-  graphics,
-  addBehavior,
-  scaleText,
-  init,
-  getPhysicsEngine,
-  resize,
-  addFilter,
-  sound,
-  addBody,
-  destroy,
-  particles,
-} from 'l1';
+import l1 from 'l1';
 import config from './emitter.json';
 
 // const lizardRotation = () => ({
@@ -49,12 +28,12 @@ const lizardMove = (start, end) => ({
   direction: direction.LEFT,
   onUpdate: (b, e) => {
     if (b.direction === direction.LEFT) {
-      e.x = getX(e) - 3;
+      e.x = l1.getX(e) - 3;
       if (e.x < start) {
         b.direction = direction.RIGHT;
       }
     } else if (b.direction === direction.RIGHT) {
-      e.x = getX(e) + 10;
+      e.x = l1.getX(e) + 10;
       if (e.x > end) {
         b.direction = direction.LEFT;
       }
@@ -63,7 +42,7 @@ const lizardMove = (start, end) => ({
 });
 /* eslint-enable no-param-reassign */
 
-init({
+l1.init({
   width: 600,
   height: 400,
   debug: true,
@@ -73,37 +52,37 @@ init({
       antialias: true,
     },
     settings: {
-      SCALE_MODE: PIXI.SCALE_MODES.NEAREST,
+      SCALE_MODE: l1.PIXI.SCALE_MODES.NEAREST,
     },
   },
 }).then(() => {
-  getPhysicsEngine().world.gravity.y = 1;
+  l1.getPhysicsEngine().world.gravity.y = 1;
 
   // createControllerPresets();
 
   // const input = Entity.addChild(root, { id: 'input' });
   // input.behaviors.scan = scanGamepads();
 
-  const square = sprite({
+  const square = l1.sprite({
     id: 'square',
     types: ['square', 'player'],
     texture: 'square',
   });
 
   square.asset.scale.set(5);
-  addFilter(new Filter.GlowFilter(), square);
+  l1.addFilter(new l1.Filter.GlowFilter(), square);
 
-  addBody(Matter.Bodies.rectangle(140, 50, 80, 80, {
+  l1.addBody(l1.Matter.Bodies.rectangle(140, 50, 80, 80, {
     inertia: Infinity,
   }), square);
 
-  sound({
+  l1.sound({
     src: './sounds/join3.wav',
     volume: 0.2,
     parent: square,
   });
 
-  const helloText = text(
+  const helloText = l1.text(
     {
       text: 'Hello!',
       style: {
@@ -140,11 +119,11 @@ init({
       // Text.scale(e, e.asset.style.fontSize + 0.0001);
     },
   });
-  scaleText(
+  l1.scaleText(
     helloText.asset.style.fontSize + 100,
     helloText,
   );
-  addBehavior(scaleTextBehavior(), helloText);
+  l1.addBehavior(scaleTextBehavior(), helloText);
 
   const selfdestruct = () => ({
     endTime: 120,
@@ -153,19 +132,19 @@ init({
     },
     removeOnComplete: true,
     onComplete: ({ entity: e }) => {
-      particles({
-        x: getX(square),
-        y: getY(square),
+      l1.particles({
+        x: l1.getX(square),
+        y: l1.getY(square),
         textures: ['square', 'particle'],
         config,
         zIndex: 1,
       });
-      destroy(e);
+      l1.destroy(e);
     },
   });
-  addBehavior(selfdestruct(), square);
+  l1.addBehavior(selfdestruct(), square);
 
-  const lizard = animation({
+  const lizard = l1.animation({
     x: 300,
     y: 50,
     width: 24,
@@ -198,23 +177,23 @@ init({
   lizard.asset.scale.set(3);
   lizard.asset.anchor.set(0.2);
 
-  addFilter(new Filter.GlowFilter(), lizard);
+  l1.addFilter(new l1.Filter.GlowFilter(), lizard);
 
-  const floor = entity({ id: 'floor' });
-  addBody(
-    Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }),
+  const floor = l1.entity({ id: 'floor' });
+  l1.addBody(
+    l1.Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }),
     floor,
   );
 
   const resizeGame = () => {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
-    resize(screenWidth, screenHeight);
+    l1.resize(screenWidth, screenHeight);
   };
   window.addEventListener('resize', resizeGame);
   resizeGame();
 
-  text(
+  l1.text(
     {
       text: 'Testing scaling!',
       style: {
@@ -228,7 +207,7 @@ init({
   );
 
   const createShape = () => {
-    const { asset: shapeGraphics } = graphics({
+    const { asset: shapeGraphics } = l1.graphics({
       id: 'shape',
       width: 100,
       height: 100,
