@@ -744,11 +744,11 @@ onUpdate({ entity, data, counter })
 
 The timer counter can be used with animations
 
-onTimerEnd({ entity, data })
+onComplete({ entity, data })
 
 onRemove({ entity, data })
 
-If loop is true, the value of `removeOnComplete` is ignored
+If loop is `true`, the value of `removeOnComplete` is ignored
 
 #### Returns
 
