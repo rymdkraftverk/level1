@@ -72,6 +72,10 @@ import l1 from 'l1'
 - [addKey](#addkey)
 - [isKeyDown](#iskeydown)
 
+### Physics
+
+- [getPhysicsEngine](#getphysicsengine)
+
 ---
 
 ## Game
@@ -239,83 +243,6 @@ Nothing.
 
 ## Entity creators
 
-### entity
-
-```js
-l1.entity(options)
-```
-
-Use this to create a generic entity with no visuals. One example use case is a container for other entities.
-
-#### Arguments
-
-`options` (object):
-
-Option | Type | Required | Default | Description
--- | -- | -- | -- | -- 
-**id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
-**types** | Array | [ ] | [] | Types are used to group entities together.
-**x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
-**y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
-**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
-**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
-**parent** | Object | [ ] | null | The parent entity. Will make this entity's position relative to the parent position. If parent is destroyed, this entity will also be destroyed.
-
-#### Returns
-
-(object): The created entity.
-
-#### Example
-
-```js
-// TODO
-```
-
----
-
-### sprite
-
-```js
-l1.sprite(options)
-```
-
-Create a new sprite entity
-
-#### Arguments
-
-`options` (Object):
-
-Option | Type | Required | Default | Description
--- | -- | -- | -- | --
-**texture** | String | [x] | - | A texture filename from the `assets` folder.
-**id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
-**types** | Array | [ ] | [] | Types are used to group entities together.
-**flipX** | Boolean | [ ] | false | TBD
-**flipY** | Boolean | [ ] | false | TBD
-**parent** | Object | [ ] | null | TBD
-**zIndex** | Number | [ ] | 0 | The stacking order of the sprite entity
-**x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
-**y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
-**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
-**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
-
-#### Returns
-
-(Object): The sprite entity
-
-#### Example
-
-```js
-l1.sprite({
-    texture: 'walk1',
-    zIndex: 10,
-    flipX: true,
-    flipY: true,
-})
-```
-
----
-
 ### animation
 
 ```js
@@ -364,45 +291,6 @@ animation.asset.scale.set(2)
 
 ---
 
-### text
-
-```js
-l1.text(options)
-```
-
-#### Arguments
-
-`options` (object):
-
-Option | Type | Required | Default | Description
--- | -- | -- | -- | --
-**text** | String | [x] | - | The text to display
-**style** | Object | [x] | - | A PIXI [TextStyle](http://pixijs.download/dev/docs/PIXI.TextStyle.html) object
-**id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
-**zIndex** | Number | [ ] | 0 | TODO
-**parent** | Object | [ ] | null | TODO
-**types** | Array | [ ] | [] | Types are used to group entities together.
-**x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
-**y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
-**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
-**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
-
-#### Returns
-
-(Object): The text entity
-
-#### Example
-
-```js
-l1.text({
-    text: 'hello',
-    style: { fontSize: 35 },
-    zIndex: 10,
-})
-```
-
----
-
 ### bitmapText
 
 ```js
@@ -426,6 +314,70 @@ l1.bitmapText({
     zIndex: 10,
 })
 ```
+
+---
+
+### entity
+
+```js
+l1.entity(options)
+```
+
+Use this to create a generic entity with no visuals. One example use case is a container for other entities.
+
+#### Arguments
+
+`options` (object):
+
+Option | Type | Required | Default | Description
+-- | -- | -- | -- | -- 
+**id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
+**types** | Array | [ ] | [] | Types are used to group entities together.
+**x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
+**y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
+**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
+**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
+**parent** | Object | [ ] | null | The parent entity. Will make this entity's position relative to the parent position. If parent is destroyed, this entity will also be destroyed.
+
+#### Returns
+
+(object): The created entity.
+
+#### Example
+
+```js
+// TODO
+```
+
+---
+
+
+### graphics
+
+```js
+l1.graphics(options)
+```
+
+A graphics object is used to draw lines and shapes.
+
+#### Arguments
+
+`options` (object):
+
+Option | Type | Required | Default | Description
+-- | -- | -- | -- | -- |
+**id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
+**zIndex** | Number | [ ] | 0 | TODO
+**parent** | Object | [ ] | null | TODO
+**types** | Array | [ ] | [] | Types are used to group entities together.
+**x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
+**y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
+**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
+**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
+
+#### Returns
+
+(Object): A graphics entity
 
 ---
 
@@ -483,35 +435,6 @@ l1.particles({
 
 ---
 
-### graphics
-
-```js
-l1.graphics(options)
-```
-
-A graphics object is used to draw lines and shapes.
-
-#### Arguments
-
-`options` (object):
-
-Option | Type | Required | Default | Description
--- | -- | -- | -- | -- |
-**id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
-**zIndex** | Number | [ ] | 0 | TODO
-**parent** | Object | [ ] | null | TODO
-**types** | Array | [ ] | [] | Types are used to group entities together.
-**x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
-**y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
-**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
-**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
-
-#### Returns
-
-(Object): A graphics entity
-
----
-
 ```js
 l1.sound(options)
 ```
@@ -542,6 +465,88 @@ l1.sound({
 
 ---
 
+### sprite
+
+```js
+l1.sprite(options)
+```
+
+Create a new sprite entity
+
+#### Arguments
+
+`options` (Object):
+
+Option | Type | Required | Default | Description
+-- | -- | -- | -- | --
+**texture** | String | [x] | - | A texture filename from the `assets` folder.
+**id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
+**types** | Array | [ ] | [] | Types are used to group entities together.
+**flipX** | Boolean | [ ] | false | TBD
+**flipY** | Boolean | [ ] | false | TBD
+**parent** | Object | [ ] | null | TBD
+**zIndex** | Number | [ ] | 0 | The stacking order of the sprite entity
+**x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
+**y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
+**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
+**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
+
+#### Returns
+
+(Object): The sprite entity
+
+#### Example
+
+```js
+l1.sprite({
+    texture: 'walk1',
+    zIndex: 10,
+    flipX: true,
+    flipY: true,
+})
+```
+
+---
+
+### text
+
+```js
+l1.text(options)
+```
+
+#### Arguments
+
+`options` (object):
+
+Option | Type | Required | Default | Description
+-- | -- | -- | -- | --
+**text** | String | [x] | - | The text to display
+**style** | Object | [x] | - | A PIXI [TextStyle](http://pixijs.download/dev/docs/PIXI.TextStyle.html) object
+**id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
+**zIndex** | Number | [ ] | 0 | TODO
+**parent** | Object | [ ] | null | TODO
+**types** | Array | [ ] | [] | Types are used to group entities together.
+**x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
+**y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
+**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
+**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
+
+#### Returns
+
+(Object): The text entity
+
+#### Example
+
+```js
+l1.text({
+    text: 'hello',
+    style: { fontSize: 35 },
+    zIndex: 10,
+})
+```
+
+---
+
 ## Entity utils
 
 ### destroy
@@ -562,6 +567,26 @@ Nothing.
 
 ---
 
+### get
+
+```js
+l1.get(id)
+```
+
+Get entity by id.
+
+`getById` is an alias for `get`
+
+#### Arguments
+
+`id` (String): The entity id.
+
+#### Returns
+
+(*): Returns the found entity, else undefined.
+
+---
+
 ### getAllEntities
 
 ```js
@@ -575,24 +600,6 @@ None.
 #### Returns
 
 (Array): All entities.
-
----
-
-### get
-
-```js
-l1.get(id)
-```
-
-Get entity by id.
-
-#### Arguments
-
-`id` (String): The entity id.
-
-#### Returns
-
-(*): Returns the found entity, else undefined.
 
 ---
 
@@ -614,24 +621,6 @@ Get entities by type.
 
 ---
 
-### isColliding
-
-```js
-l1.isColliding(otherEntity, entity)
-```
-
-#### Arguments
-
-`entity` (Object): The first entity to use for collision detection.
-
-`otherEntity` (Object) The second entity to use for collision detection.
-
-#### Returns
-
-(Boolean): Returns true if entities are colliding.
-
----
-
 ### getOverlappingArea
 
 ```js
@@ -650,27 +639,63 @@ l1.getOverlappingArea(otherEntity, entity)
 
 ---
 
-### addType
-
----
-
-### removeType
-
----
-
-### setX
-
----
-
 ### getX
 
----
+```js
+l1.getX(entity)
+```
 
-### setY
+Gets the absolute x coordinate of an entity
+
+#### Arguments
+
+`entity` (Object)
+
+#### Returns
+
+(Number): The absolute x coordinate
 
 ---
 
 ### getY
+
+```js
+l1.getY(entity)
+```
+
+Gets the absolute y coordinate of an entity
+
+#### Arguments
+
+`entity` (Object)
+
+#### Returns
+
+(Number): The absolute y coordinate
+
+---
+
+### hide
+
+Not implemented yet
+
+---
+
+### isColliding
+
+```js
+l1.isColliding(otherEntity, entity)
+```
+
+#### Arguments
+
+`entity` (Object): The first entity to use for collision detection.
+
+`otherEntity` (Object) The second entity to use for collision detection.
+
+#### Returns
+
+(Boolean): Returns true if entities are colliding.
 
 ---
 
@@ -863,67 +888,7 @@ l1.removeBehavior()
 
 ---
 
-### getRandomInRange
-
-```javascript
-l1.getRandomInRange(from, to)
-```
-
-Get a random number in range (from (inclusive) - to (exclusive))
-
-#### Arguments
-
-`from` (number): Inclusive
-`to` (number): Exclusive
-
-#### Returns
-
-(Number): The randomly generated number
-
----
-
-### grid
-
-```js
-l1.grid(options)
-```
-
-Returns a function to get coordinates. Useful for placing objects on a grid.
-
-#### Arguments
-
-`options` (object):
-
-Option | Type | Required | Default | Description
--- | -- | -- | -- | -- |
-**x** | Number | - [x] | - | The x coordinate of the top left corner 
-**y** | Number | - [x] | - | The y coordinate of the top left corner
-**marginX** | Number | - [x] | - | The space between each cell on the x axis
-**marginY** | Number | - [x] | - | The space between each cell on the y axis
-**itemsPerRow** | Number | - [x] | - | The amount of items on a row before a line break
-
-#### Returns
-
-(Function): A function with the signature: (index) => { x, y }
-
-#### Example
-
-```js
-  const numbers = [1, 2, 3]
-
-  const getCell = Util.grid({
-    x: 10,
-    y: 10,
-    marginX: 10,
-    marginY: 10,
-    itemsPerRow: 2,
-  })
-
-  numbers.map(getCell)
-  // [{ x: 10, y: 10}, {x: 20, y: 10}, {x: 10, y: 20}]
-```
-
----
+## Util
 
 ### angle
 
@@ -939,10 +904,10 @@ Get the angle between two points, in radians.
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
-**x1** | Number | - [x] | - | The x coordinate of the start position
-**y1** | Number | - [x] | - | The y coordinate of the start position
-**x2** | Number | - [x] | - | The x coordinate of the end position
-**y2** | Number | - [x] | - | The y coordinate of the start position
+**x1** | Number | [x] | - | The x coordinate of the start position
+**y1** | Number | [x] | - | The y coordinate of the start position
+**x2** | Number | [x] | - | The x coordinate of the end position
+**y2** | Number | [x] | - | The y coordinate of the start position
 
 #### Returns
 
@@ -988,13 +953,76 @@ Option | Type | Required | Default | Description
 
 ---
 
+
+### getRandomInRange
+
+```javascript
+l1.getRandomInRange(from, to)
+```
+
+Get a random number in range (from (inclusive) - to (exclusive))
+
+#### Arguments
+
+`from` (number): Inclusive
+`to` (number): Exclusive
+
+#### Returns
+
+(Number): The randomly generated number
+
+---
+
+### grid
+
+```js
+l1.grid(options)
+```
+
+Returns a function to get coordinates. Useful for placing objects on a grid.
+
+#### Arguments
+
+`options` (object):
+
+Option | Type | Required | Default | Description
+-- | -- | -- | -- | -- |
+**x** | Number | [x] | - | The x coordinate of the top left corner 
+**y** | Number | [x] | - | The y coordinate of the top left corner
+**marginX** | Number | [x] | - | The space between each cell on the x axis
+**marginY** | Number | [x] | - | The space between each cell on the y axis
+**itemsPerRow** | Number | [x] | - | The amount of items on a row before a line break
+
+#### Returns
+
+(Function): A function with the signature: (index) => { x, y }
+
+#### Example
+
+```js
+  const numbers = [1, 2, 3]
+
+  const getCell = Util.grid({
+    x: 10,
+    y: 10,
+    marginX: 10,
+    marginY: 10,
+    itemsPerRow: 2,
+  })
+
+  numbers.map(getCell)
+  // [{ x: 10, y: 10}, {x: 20, y: 10}, {x: 10, y: 20}]
+```
+
+---
+
 ### toRadians
 
 ```js
 l1.toRadians(degrees)
 ```
 
-Convert degrees to radians.
+Converts degrees to radians.
 
 #### Arguments
 
@@ -1017,10 +1045,6 @@ Convert degrees to radians.
 Exposes the complete Matter.js API.
 
 http://brm.io/matter-js/docs/
-
----
-
-- [getPhysicsEngine](docs/api-client.md#getphysicsengine)
 
 ---
 
@@ -1067,6 +1091,7 @@ A physics body from Matter.js
 Returns the physics engine
 
 ---
+
 
 ## Gamepad
 
