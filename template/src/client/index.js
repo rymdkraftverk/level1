@@ -1,7 +1,7 @@
 import {
   Entity,
   Physics,
-  Text,
+  text,
   Matter,
   Particles,
   animation,
@@ -14,6 +14,7 @@ import {
   getY,
   graphics,
   addBehavior,
+  scaleText,
   init,
   getPhysicsEngine,
   resize,
@@ -101,24 +102,24 @@ init({
     volume: 0.2,
   });
 
-  const text = entity(
+  const helloText = text(
     {
+      text: 'Hello!',
+      style: {
+        fontFamily: 'Arial',
+        fontSize: 20,
+        fill: 'white',
+      },
       id: 'text',
       x: -50,
       y: -50,
       parent: square,
     },
   );
-  console.log('text', text);
-  Text.show(text, {
-    text: 'Hello!',
-    style: {
-      fontFamily: 'Arial',
-      fontSize: 20,
-      fill: 'white',
-    },
-  });
-  text.asset.scale.set(0.1);
+
+  console.log('helloText', helloText);
+
+  helloText.asset.scale.set(0.1);
 
   // const text2 = Entity.addChild(
   //   text,
@@ -134,14 +135,17 @@ init({
   //   },
   // });
 
-  const scaleText = () => ({
+  const scaleTextBehavior = () => ({
     onUpdate: ({ counter }) => {
       // e.asset.scale.set(e.asset.scale.x * 1.005);
       // Text.scale(e, e.asset.style.fontSize + 0.0001);
     },
   });
-  Text.scale(text, text.asset.style.fontSize + 100);
-  addBehavior(scaleText(), text);
+  scaleText(
+    helloText.asset.style.fontSize + 100,
+    helloText,
+  );
+  addBehavior(scaleTextBehavior(), helloText);
 
   const selfdestruct = () => ({
     endTime: 120,
@@ -210,15 +214,7 @@ init({
   window.addEventListener('resize', resizeGame);
   resizeGame();
 
-  const textEntity = entity(
-    {
-      x: 50,
-      y: 50,
-    },
-  );
-
-  Text.show(
-    textEntity,
+  text(
     {
       text: 'Testing scaling!',
       style: {
@@ -226,6 +222,8 @@ init({
         fontSize: 36,
         fill: 'white',
       },
+      x: 50,
+      y: 50,
     },
   );
 

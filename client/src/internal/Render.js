@@ -179,7 +179,7 @@ export function getNewPIXIAnimatedSprite(filenames, animationSpeed) {
   return animation;
 }
 
-export function getText(text, style) {
+export function getNewPIXIText(text, style) {
   return new PIXI.Text(text, style);
 }
 
