@@ -34,6 +34,8 @@ export default (options) => {
     throw new Error(`Sprite created using an already existing id: ${id}`);
   }
 
+  const entity = getNewEntity(options);
+
   const sprite = Render.getNewPIXISprite(texture);
 
   // TODO: Handle flipping
@@ -48,8 +50,6 @@ export default (options) => {
   //   sprite.scale.y *= -1;
   //   sprite.flipY = flipY;
   // }
-
-  const entity = getNewEntity(options);
 
   sprite.zIndex = zIndex;
   sprite.filters = [];

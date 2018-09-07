@@ -187,7 +187,7 @@ export function getBitmapText(text, style) {
   return new PIXI.extras.BitmapText(text, style);
 }
 
-export function getGraphics() {
+export function getNewPIXIGraphics() {
   return new PIXI.Graphics();
 }
 

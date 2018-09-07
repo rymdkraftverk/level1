@@ -6,13 +6,13 @@ import {
   Particles,
   animation,
   Sound,
-  Graphics,
   PIXI,
   Filter,
   entity,
   sprite,
   getX,
   getY,
+  graphics,
   addBehavior,
   init,
   getPhysicsEngine,
@@ -229,20 +229,26 @@ init({
     },
   );
 
-  const createBox = () => {
-    const box = entity({ id: 'box', width: 100, height: 100 });
-    const boxGraphics = Graphics.create(box, { zIndex: 10 });
+  const createShape = () => {
+    const { asset: shapeGraphics } = graphics({
+      id: 'shape',
+      width: 100,
+      height: 100,
+      x: 300,
+      y: 200,
+      zIndex: 10,
+    });
 
     // set a fill and line style
-    boxGraphics.beginFill(0xFF3300);
-    boxGraphics.lineStyle(4, 0xffd900, 1);
+    shapeGraphics.beginFill(0xFF3300);
+    shapeGraphics.lineStyle(4, 0xffd900, 1);
 
     // draw a shape
-    boxGraphics.moveTo(50, 50);
-    boxGraphics.lineTo(250, 50);
-    boxGraphics.lineTo(100, 100);
-    boxGraphics.lineTo(50, 50);
-    boxGraphics.endFill();
+    shapeGraphics.moveTo(50, 50);
+    shapeGraphics.lineTo(250, 50);
+    shapeGraphics.lineTo(100, 100);
+    shapeGraphics.lineTo(50, 50);
+    shapeGraphics.endFill();
   };
-  createBox();
+  createShape();
 });

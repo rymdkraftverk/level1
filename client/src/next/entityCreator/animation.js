@@ -23,9 +23,9 @@ export default (options) => {
     throw new Error(`Animation created using an already existing id: ${id}`);
   }
 
-  const animation = Render.getNewPIXIAnimatedSprite(textures, speed);
-
   const entity = getNewEntity(options);
+
+  const animation = Render.getNewPIXIAnimatedSprite(textures, speed);
 
   animation.position.set(
     getX(entity),

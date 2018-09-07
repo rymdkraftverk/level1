@@ -15,13 +15,13 @@ const Net = require('./Net');
 const Particles = require('./Particles');
 const Text = require('./Text');
 const BitmapText = require('./BitmapText');
-const Graphics = require('./Graphics');
 const Filter = require('./Filter');
 const Behavior = require('./Behavior');
 
 const entity = require('./next/entityCreator/entity').default;
 const sprite = require('./next/entityCreator/sprite').default;
 const animation = require('./next/entityCreator/animation').default;
+const graphics = require('./next/entityCreator/graphics').default;
 
 const addBehavior = require('./next/entityModifier/addBehavior').default;
 
@@ -49,7 +49,6 @@ module.exports = {
   Particles,
   Text,
   BitmapText,
-  Graphics,
   Filter,
   Behavior,
   Matter,
@@ -57,6 +56,7 @@ module.exports = {
   animation,
   entity,
   sprite,
+  graphics,
   getX,
   getY,
   addBehavior,
