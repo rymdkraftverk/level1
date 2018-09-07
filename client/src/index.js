@@ -13,8 +13,6 @@ const Sound = require('./Sound');
 const Net = require('./Net');
 const Particles = require('./Particles');
 const BitmapText = require('./BitmapText');
-const Filter = require('./Filter');
-const Behavior = require('./Behavior');
 
 const entity = require('./next/entityCreator/entity').default;
 const sprite = require('./next/entityCreator/sprite').default;
@@ -23,6 +21,13 @@ const graphics = require('./next/entityCreator/graphics').default;
 const text = require('./next/entityCreator/text').default;
 
 const addBehavior = require('./next/entityModifier/addBehavior').default;
+const addFilter = require('./next/entityModifier/addFilter').default;
+const clearFilters = require('./next/entityModifier/clearFilters').default;
+const Filter = require('./next/entityModifier/Filter').default;
+const getBehavior = require('./next/entityModifier/getBehavior').default;
+// const removeBehavior = require('./next/entityModifier/removeBehavior').default;
+const removeFilter = require('./next/entityModifier/removeFilter').default;
+const resetBehavior = require('./next/entityModifier/resetBehavior').default;
 const scaleText = require('./next/entityModifier/scaleText').default;
 
 const getX = require('./next/entityUtil/getX').default;
@@ -48,8 +53,6 @@ module.exports = {
   Particles,
   text,
   BitmapText,
-  Filter,
-  Behavior,
   Matter,
   PIXI,
   animation,
@@ -67,4 +70,10 @@ module.exports = {
   resize,
   start,
   stop,
+  addFilter,
+  clearFilters,
+  Filter,
+  getBehavior,
+  removeFilter,
+  resetBehavior,
 };

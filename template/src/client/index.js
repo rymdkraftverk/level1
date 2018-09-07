@@ -18,6 +18,7 @@ import {
   init,
   getPhysicsEngine,
   resize,
+  addFilter,
 } from 'l1';
 import config from './emitter.json';
 
@@ -90,7 +91,7 @@ init({
   });
 
   square.asset.scale.set(5);
-  Filter.add(square, Filter.Filter.GlowFilter);
+  addFilter(new Filter.GlowFilter(), square);
 
   Physics.addBody(square, Matter.Bodies.rectangle(140, 50, 80, 80, {
     inertia: Infinity,
@@ -116,8 +117,6 @@ init({
       parent: square,
     },
   );
-
-  console.log('helloText', helloText);
 
   helloText.asset.scale.set(0.1);
 
@@ -201,7 +200,7 @@ init({
   lizard.asset.scale.set(3);
   lizard.asset.anchor.set(0.2);
 
-  Filter.add(lizard, new Filter.Filter.GlowFilter());
+  addFilter(new Filter.GlowFilter(), lizard);
 
   const floor = entity({ id: 'floor' });
   Physics.addBody(floor, Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));
