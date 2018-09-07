@@ -617,7 +617,7 @@ Get entities by type.
 ### isColliding
 
 ```js
-l1.isColliding(entity, otherEntity)
+l1.isColliding(otherEntity, entity)
 ```
 
 #### Arguments
@@ -635,7 +635,7 @@ l1.isColliding(entity, otherEntity)
 ### getOverlappingArea
 
 ```js
-l1.getOverlappingArea(entity, otherEntity)
+l1.getOverlappingArea(otherEntity, entity)
 ```
 
 #### Arguments
@@ -733,7 +733,7 @@ TBD
 ### addFilter
 
 ```js
-l1.addFilter(entity, options)
+l1.addFilter(options, entity)
 ```
 
 Filters can be any built in filter in Pixi or any filter from `pixi-filters`
@@ -756,7 +756,7 @@ https://github.com/pixijs/pixi-filters
 #### Example
 
 ```js
-l1.addFilter(entity, Filter.Filter.GlowFilter())
+l1.addFilter(new l1.Filter.GlowFilter(), entity)
 ```
 
 ---
@@ -764,8 +764,7 @@ l1.addFilter(entity, Filter.Filter.GlowFilter())
 ### clearFilters
 
 ```js
-Filter.clear(entity)
-l1.clearFilters()
+l1.clearFilters(entity)
 ```
 
 Removes all filters from entity
@@ -792,13 +791,13 @@ Object that contains all filters
 #### Example
 
 ```js
-Filter.add(entity, Filter.Filter.GlowFilter)
+Filter.add(new l1.Filter.GlowFilter(), entity)
 ```
 
 #### removeFilter
 
 ```js
-l1.removeFilter(entity, filterId)
+l1.removeFilter(filterId, entity)
 ```
 
 NOT IMPLEMENTED
@@ -808,7 +807,7 @@ NOT IMPLEMENTED
 ### addBehavior
 
 ```js
-l1.addBehavior(entity, options)
+l1.addBehavior(options, entity)
 ```
 
 Behaviors are triggered every update. (Default: 60 times per second)
@@ -851,9 +850,11 @@ If loop is `true`, the value of `removeOnComplete` is ignored
 #### Example
 
 ```js
-l1.addBehavior(entity, {
+const move = () => ({
   id: 'move',
 })
+
+l1.addBehavior(move(), entity)
 ```
 
 ---
@@ -1026,7 +1027,7 @@ http://brm.io/matter-js/docs/
 ### addBody
 
 ```js
-l1.addBody(entity, body)
+l1.addBody(body, entity)
 ```
 
 A physics body from Matter.js
