@@ -93,6 +93,7 @@ Game.init({
   const appearSound = Entity.addChild(square);
   Sound.play(appearSound, {
     src: './sounds/join3.wav',
+    volume: 0.2,
   });
 
   const text = Entity.addChild(
@@ -123,17 +124,17 @@ Game.init({
   //   },
   // });
 
-  // const scaleText = () => ({
-  //   run: (b, e) => {
-  //     // e.asset.scale.set(e.asset.scale.x * 1.005);
-  //     // Text.scale(e, e.asset.style.fontSize + 0.0001);
-  //   },
-  // });
-  // Text.scale(text, text.asset.style.fontSize + 100);
-  // Behavior.add(text, scaleText());
+  const scaleText = () => ({
+    onUpdate: ({ counter }) => {
+      // e.asset.scale.set(e.asset.scale.x * 1.005);
+      // Text.scale(e, e.asset.style.fontSize + 0.0001);
+    },
+  });
+  Text.scale(text, text.asset.style.fontSize + 100);
+  Behavior.add(text, scaleText());
 
   const selfdestruct = () => ({
-    timer: 120,
+    endTime: 120,
     data: {
       test: 'test',
     },

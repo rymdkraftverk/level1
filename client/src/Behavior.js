@@ -1,5 +1,4 @@
 import uuid from 'uuid/v4';
-import * as Timer from './Timer';
 
 function exists(entity, id) {
   return entity.behaviors.some((behavior) => behavior.id === id);
@@ -7,7 +6,7 @@ function exists(entity, id) {
 
 export function add(entity, {
   id = uuid(),
-  timer = 0,
+  endTime = 0,
   loop = false,
   removeOnComplete = true,
   onUpdate = null,
@@ -27,8 +26,9 @@ export function add(entity, {
     id,
     data,
     removed: false,
+    finished: false,
+    counter: 0,
     initHasBeenCalled: false,
-    timer: Timer.create({ duration: timer }),
     // eslint-disable-next-line no-shadow
     init: ({ behavior, data, entity }) => {
       if (onInit) {
@@ -43,21 +43,23 @@ export function add(entity, {
       }
       if (onUpdate) {
         onUpdate({
-          counter: behavior.timer.counter,
+          counter: behavior.counter,
           entity,
           data,
         });
       }
-      if (behavior.timer && Timer.run(behavior.timer)) {
+      if (behavior.counter === endTime && !behavior.finished) {
+        behavior.finished = true;
         if (onTimerEnd) {
           onTimerEnd({ data, entity });
         }
         if (loop) {
-          Timer.reset(behavior.timer);
+          behavior.reset({ behavior });
         } else if (removeOnComplete) {
           behavior.remove({ data, entity, behavior });
         }
       }
+      behavior.counter += 1;
     },
     // eslint-disable-next-line no-shadow
     remove: ({ behavior, data, entity }) => {
@@ -69,6 +71,10 @@ export function add(entity, {
       if (onRemove) {
         onRemove({ data, entity });
       }
+    },
+    reset: ({ behavior }) => {
+      behavior.counter = 0;
+      behavior.finished = false;
     },
   };
 
@@ -86,5 +92,5 @@ export function get(entity, id) {
 
 export function reset(entity, id) {
   const behavior = get(entity, id);
-  Timer.reset(behavior.timer);
+  behavior.reset({ behavior });
 }
