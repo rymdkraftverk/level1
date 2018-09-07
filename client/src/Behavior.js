@@ -10,7 +10,7 @@ export function add(entity, {
   loop = false,
   removeOnComplete = true,
   onUpdate = null,
-  onTimerEnd = null,
+  onComplete = null,
   onInit = null,
   onRemove = null,
   enabled = true,
@@ -50,8 +50,8 @@ export function add(entity, {
       }
       if (behavior.counter === endTime && !behavior.finished) {
         behavior.finished = true;
-        if (onTimerEnd) {
-          onTimerEnd({ data, entity });
+        if (onComplete) {
+          onComplete({ data, entity });
         }
         if (loop) {
           behavior.reset({ behavior });

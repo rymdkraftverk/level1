@@ -729,11 +729,11 @@ Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
 **id** | String | [ ] | uuid | Used to find the behavior when it's removed
 **endTime** | Number | [ ] | 0 | How many updates until the behavior is complete
-**loop** | Boolean | [ ] | false | If true, the behaviors timer will be automatically restarted upon completion
+**loop** | Boolean | [ ] | false | If true, the behaviors counter will be automatically reset upon completion
 **removeOnComplete** | Boolean | [ ] | true | If true, the behavior will automatically be removed upon completion
 **onInit** | Function | [ ] | - | A callback that is executed the first time the behavior is run
 **onUpdate** | Function | [ ] | - | A callback that is executed on every update (Default: 60 times per second)
-**onTimerEnd** | Function | [ ] | - | A callback that is executed when the timer reaches completion
+**onComplete** | Function | [ ] | - | A callback that is executed when the behavior reaches completion
 **onRemove** | Function | [ ] | - | A callback that is executed when the behavior is removed
 **enabled** | Function | [ ] | true | Can be set to false to prevent the behaviors timer from being updated
 **data** | Object | [ ] | - | An object that can hold arbitrary data.

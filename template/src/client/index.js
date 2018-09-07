@@ -23,7 +23,7 @@ const lizardRotation = () => ({
     front: ['lizardFront1', 'lizardFront2'],
     right: ['Samurai-move-1', 'Samurai-move-2'],
   },
-  onTimerEnd: (b, e) => {
+  onComplete: (b, e) => {
     const animation = Animation.play(e, {
       speed: b.speed,
       textures: b.textures.right,
@@ -139,7 +139,7 @@ Game.init({
       test: 'test',
     },
     removeOnComplete: true,
-    onTimerEnd: ({ data, entity }) => {
+    onComplete: ({ data, entity }) => {
       console.log('ON TIMER END', data.test + entity.id);
       const explosion = Entity.addChild(root, {
         x: Entity.getX(square),
