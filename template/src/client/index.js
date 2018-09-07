@@ -1,5 +1,4 @@
 import {
-  Game,
   Entity,
   Physics,
   Text,
@@ -10,11 +9,14 @@ import {
   Graphics,
   PIXI,
   Filter,
-  Behavior,
   entity,
   sprite,
   getX,
   getY,
+  addBehavior,
+  init,
+  getPhysicsEngine,
+  resize,
 } from 'l1';
 import config from './emitter.json';
 
@@ -59,7 +61,7 @@ const lizardMove = (start, end) => ({
 });
 /* eslint-enable no-param-reassign */
 
-Game.init({
+init({
   width: 600,
   height: 400,
   debug: true,
@@ -73,7 +75,7 @@ Game.init({
     },
   },
 }).then(() => {
-  Physics.getEngine().world.gravity.y = 1;
+  getPhysicsEngine().world.gravity.y = 1;
 
   // createControllerPresets();
 
@@ -139,7 +141,7 @@ Game.init({
     },
   });
   Text.scale(text, text.asset.style.fontSize + 100);
-  Behavior.add(text, scaleText());
+  addBehavior(scaleText(), text);
 
   const selfdestruct = () => ({
     endTime: 120,
@@ -160,7 +162,7 @@ Game.init({
       Entity.destroy(e);
     },
   });
-  Behavior.add(square, selfdestruct());
+  addBehavior(selfdestruct(), square);
 
   const lizard = animation({
     x: 300,
@@ -203,7 +205,7 @@ Game.init({
   const resizeGame = () => {
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
-    Game.resize(screenWidth, screenHeight);
+    resize(screenWidth, screenHeight);
   };
   window.addEventListener('resize', resizeGame);
   resizeGame();

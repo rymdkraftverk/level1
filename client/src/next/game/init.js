@@ -1,7 +1,7 @@
-import * as Core from './internal/Core';
-import * as Render from './internal/Render';
-import * as Debug from './internal/Debug';
-import * as Entity from './Entity';
+import * as Core from '../../internal/Core';
+import * as Render from '../../internal/Render';
+import * as Debug from '../../internal/Debug';
+import start from './start';
 
 const TIME_BEFORE_SPLASH_SCREEN_SHOWS = 500;
 
@@ -15,9 +15,8 @@ const defaultOptions = {
 
 let gameWidth;
 let gameHeight;
-let ratio = 1;
 
-export async function init(options) {
+export default async (options) => {
   const {
     pixi = {
       options: null,
@@ -59,7 +58,7 @@ export async function init(options) {
   if (splashScreen) {
     splashScreen.remove();
   }
-}
+};
 
 function setSplashScreen(element) {
   const splash = document.createElement('div');
@@ -74,53 +73,6 @@ function setSplashScreen(element) {
   return splash;
 }
 
-export function start() {
-  Core.start();
-}
+export const getGameWidth = () => gameWidth;
 
-export function stop() {
-  Core.stop();
-}
-
-export function getRenderer() {
-  return Render.getRenderer();
-}
-
-export function getStage() {
-  return Render.getStage();
-}
-
-export function getPhysicsEngine() {
-  return Core.getPhysicsEngine();
-}
-
-export function getTexture(filename) {
-  return Render.getTexture(filename);
-}
-
-export function resize(width, height) {
-  ratio = Math.min(width / gameWidth, height / gameHeight);
-  getStage()
-    .scale
-    .set(ratio);
-
-  getRenderer()
-    .resize(gameWidth * ratio, gameHeight * ratio);
-
-  /*
-    The following code is needed to counteract the scale change on the whole canvas since
-    texts get distorted by PIXI when you try to change their scale.
-    Texts instead change size by setting their fontSize.
-  */
-  Entity.getAll()
-    .forEach((e) => {
-      if (e.originalSize) {
-        e.asset.style.fontSize = e.originalSize * ratio;
-        e.asset.scale.set(1 / ratio);
-      }
-    });
-}
-
-export function getRatio() {
-  return ratio;
-}
+export const getGameHeight = () => gameHeight;

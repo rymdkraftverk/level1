@@ -1,7 +1,7 @@
 import * as Render from './internal/Render';
-import * as Game from './Game';
 import getX from './next/entityUtil/getX';
 import getY from './next/entityUtil/getY';
+import { getRatio } from './next/game/resize';
 
 export function show(entity, { text, style, zIndex = 0 }) {
   /*
@@ -9,7 +9,7 @@ export function show(entity, { text, style, zIndex = 0 }) {
   */
   const updatedStyle = {
     ...style,
-    fontSize: style.fontSize * Game.getRatio(),
+    fontSize: style.fontSize * getRatio(),
   };
 
   const textObject = Render.getText(text, updatedStyle);
@@ -27,7 +27,7 @@ export function show(entity, { text, style, zIndex = 0 }) {
 
     This can be removed when Pixi makes it possible to scale text objects.
   */
-  textObject.scale.set(1 / Game.getRatio());
+  textObject.scale.set(1 / getRatio());
   entity.originalSize = style.fontSize;
 
   Render.add(textObject);
@@ -54,5 +54,5 @@ export function hide(entity) {
 */
 export function scale(entity, fontSize) {
   entity.originalSize = fontSize;
-  entity.asset.style.fontSize = fontSize * Game.getRatio();
+  entity.asset.style.fontSize = fontSize * getRatio();
 }
