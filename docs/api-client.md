@@ -8,73 +8,105 @@ import l1 from 'l1'
 
 ### Game
 
-- [init](#init)
-- [stop](#stop)
-- [start](#start)
-- isRunning
-- getTexture
-- resize
-- getRatio
-- [getStage](#getstage)
 - [getRenderer](#getrenderer)
+- [getStage](#getstage)
+- [init](#init)
+- [resize](#resize)
+- [start](#start)
+- [stop](#stop)
 
 ### Entity creators
 
-- [entity]()
-- [sprite]()
-- [animation]()
-- [graphics]()
-- [particles]()
-- [text]()
-- [bitmapText]()
-- [sound]()
+- [animation](#animation)
+- [bitmapText](#bitmapText)
+- [entity](#entity)
+- [graphics](#graphics)
+- [particles](#particles)
+- [sound](#sound)
+- [sprite](#sprite)
+- [text](#text)
 
 ### Entity utils
 
-- [destroy]()
-- [getAllEntities]()
-- [get]()
-- [getByType]()
-- [isColliding]()
-- [getOverlappingArea]()
-- [addType]()
-- [removeType]()
-- [getX]()
-- [setX]()
-- [getY]()
-- [setY]()
-- [flip]() ?
+- [destroy](#destroy)
+- [get](#get)
+- [getAllEntities](#getAllEntities)
+- [getById](#getById)
+- [getByType](#getByType)
+- [getOverlappingArea](#getOverlappingArea)
+- [getX](#getX)
+- [getY](#getY)
+- [hide](#hide)
+- [isColliding](#isColliding)
+- [show](#show)
 
 ### Entity modifiers
 
-- [addFilter](#addFilter)
-- [clearFilters](#clearFilters)
-- [removeFilter](#removeFilter)
-- [Filter](#Filter)
 - [addBehavior](#addBehavior)
+- [addBody](#addbody)
+- [addCollision](#addcollision)
+- [addFilter](#addFilter)
+- [addType](#addType)
+- [clearFilters](#clearFilters)
+- [Filter](#Filter)
+- [getBehavior](#getBehavior)
+- [removeAllCollisions](#removeallcollisions)
 - [removeBehavior](#removeBehavior)
-- [addBody](docs/api-client.md#addbody)
-- [removeBody](docs/api-client.md#removebody)
-- [addCollision](docs/api-client.md#addcollision)
-- [removeCollision](docs/api-client.md#removecollision)
-- [removeAllCollisions](docs/api-client.md#removeallcollisions)
+- [removeBody](#removebody)
+- [removeCollision](#removecollision)
+- [removeFilter](#removeFilter)
+- [removeType](#removeType)
+- [resetBehavior](#resetBehavior)
+- [scaleText](#scaleText)
 
 ### Utils
 
-- [getRandomInRange](docs/api-client.md#getrandominrange)
-- [distance](docs/api-client.md#distance)
-- [grid](docs/api-client.md#grid)
-- [angle](docs/api-client.md#angle)
-- [toRadians](docs/api-client.md#torandians)
+- [angle](#angle)
+- [distance](#distance)
+- [getRandomInRange](#getrandominrange)
+- [grid](#grid)
+- [toRadians](#torandians)
 
 ### Keyboard input
 
-- [addKey](docs/api-client.md#addKey)
-- [isKeyDown](docs/api-client.md#isKeyDown)
+- [addKey](#addKey)
+- [isKeyDown](#isKeyDown)
 
 ---
 
 ## Game
+
+### getRenderer
+
+```js
+l1.getRenderer()
+```
+
+#### Arguments
+
+None.
+
+#### Returns
+
+(PIXI.WebGLRenderer)
+
+---
+
+### getStage
+
+```js
+l1.getStage()
+```
+
+#### Arguments
+
+None.
+
+#### Returns
+
+(PIXI.Container): The root PIXI container
+
+---
 
 ### init
 
@@ -137,6 +169,56 @@ l1.init({
 
 ---
 
+### resize
+
+```js
+l1.resize(width, height)
+```
+
+Resize the renderer and stage. Use this when setting the width and height based on the window size.
+
+#### Arguments
+
+`width` (object): The new width of the renderer.
+
+`height` (object): The new height of the renderer.
+
+#### Returns
+
+Nothing.
+
+#### Example
+
+```js
+const resizeGame = () => {
+  const screenWidth = window.innerWidth
+  const screenHeight = window.innerHeight
+  l1.resize(screenWidth, screenHeight)
+}
+
+window.addEventListener('resize', resizeGame)
+```
+
+---
+
+### start
+
+```js
+l1.start()
+```
+
+Start the game loop. Game is automatically started when using `l1.init`.
+
+#### Arguments
+
+None.
+
+#### Returns
+
+Nothing.
+
+---
+
 ### stop
 
 ```js
@@ -152,56 +234,6 @@ None.
 #### Returns
 
 Nothing.
-
----
-
-#### start
-
-```js
-l1.start()
-```
-
-Start the game loop. Game is automatically started when using `l1.init`.
-
-**Arguments**
-
-None.
-
-**Returns**
-
-Nothing.
-
----
-
-#### getRenderer
-
-```js
-l1.getRenderer()
-```
-
-**Arguments**
-
-None.
-
-**Returns**
-
-(PIXI.WebGLRenderer)
-
----
-
-#### getStage
-
-```js
-l1.getStage()
-```
-
-**Arguments**
-
-None.
-
-**Returns**
-
-(PIXI.Container): The root PIXI container
 
 ---
 
