@@ -152,7 +152,7 @@ export function getTexture(filename) {
   return texture;
 }
 
-export function addEmitter(filenames, config, zIndex) {
+export function addNewPixiParticleEmitter(filenames, config, zIndex) {
   const particleContainer = new PIXI.Container();
   particleContainer.zIndex = zIndex;
   add(particleContainer);
@@ -183,7 +183,7 @@ export function getNewPIXIText(text, style) {
   return new PIXI.Text(text, style);
 }
 
-export function getBitmapText(text, style) {
+export function getNewPIXIBitmapText(text, style) {
   return new PIXI.extras.BitmapText(text, style);
 }
 

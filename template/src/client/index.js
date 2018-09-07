@@ -1,11 +1,7 @@
 import {
-  Entity,
-  Physics,
   text,
   Matter,
-  Particles,
   animation,
-  Sound,
   PIXI,
   Filter,
   entity,
@@ -19,6 +15,10 @@ import {
   getPhysicsEngine,
   resize,
   addFilter,
+  sound,
+  addBody,
+  destroy,
+  particles,
 } from 'l1';
 import config from './emitter.json';
 
@@ -93,14 +93,14 @@ init({
   square.asset.scale.set(5);
   addFilter(new Filter.GlowFilter(), square);
 
-  Physics.addBody(square, Matter.Bodies.rectangle(140, 50, 80, 80, {
+  addBody(Matter.Bodies.rectangle(140, 50, 80, 80, {
     inertia: Infinity,
-  }));
+  }), square);
 
-  const appearSound = entity({ parent: square });
-  Sound.play(appearSound, {
+  sound({
     src: './sounds/join3.wav',
     volume: 0.2,
+    parent: square,
   });
 
   const helloText = text(
@@ -153,16 +153,14 @@ init({
     },
     removeOnComplete: true,
     onComplete: ({ entity: e }) => {
-      const explosion = entity({
+      particles({
         x: getX(square),
         y: getY(square),
-      });
-      Particles.emit(explosion, {
         textures: ['square', 'particle'],
         config,
         zIndex: 1,
       });
-      Entity.destroy(e);
+      destroy(e);
     },
   });
   addBehavior(selfdestruct(), square);
@@ -203,7 +201,10 @@ init({
   addFilter(new Filter.GlowFilter(), lizard);
 
   const floor = entity({ id: 'floor' });
-  Physics.addBody(floor, Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));
+  addBody(
+    Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }),
+    floor,
+  );
 
   const resizeGame = () => {
     const screenWidth = window.innerWidth;

@@ -1,7 +1,9 @@
-import * as Render from './internal/Render';
-import * as Entity from './Entity';
-import getX from './next/entityUtil/getX';
-import getY from './next/entityUtil/getY';
+import * as Render from '../../internal/Render';
+import * as Entity from '../../internal/Entity';
+import * as Core from '../../internal/Core';
+import getX from '../entityUtil/getX';
+import getY from '../entityUtil/getY';
+import getNewEntity from './getNewEntity';
 
 /*
 The following properties are required by PIXI Particles when it's created.
@@ -14,14 +16,20 @@ const defaultParticleEmitterConfig = {
   },
 };
 
-export function emit(entity, {
-  textures, config, zIndex = 0,
-}) {
+export default (options) => {
+  const {
+    textures,
+    config,
+    zIndex = 0,
+  } = options;
+
   if (!textures || !config) {
     throw new Error('level1: Particles.emit(entity, { textures, config}): Incorrect arguments');
   }
 
-  const { emitter, particleContainer } = Render.addEmitter(
+  const entity = getNewEntity(options);
+
+  const { emitter, particleContainer } = Render.addNewPixiParticleEmitter(
     textures, {
       ...defaultParticleEmitterConfig,
       pos: {
@@ -34,22 +42,9 @@ export function emit(entity, {
     zIndex,
   );
 
-  emitter.type = Entity.assetTypes.PARTICLES;
   entity.asset = emitter;
-  // TODO: Handle this in a different way?
   entity.asset.particleContainer = particleContainer;
+  entity.asset.type = Entity.assetTypes.PARTICLES;
 
-  return emitter;
-}
-
-export function stop(entity) {
-  const {
-    asset,
-  } = entity;
-
-  if (asset) {
-    asset.destroy();
-  }
-
-  entity.asset = null;
-}
+  return Core.addEntity(entity);
+};

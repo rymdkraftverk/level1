@@ -1,7 +1,7 @@
-import * as Entity from '../../Entity';
 import { getGameWidth, getGameHeight } from './init';
 import getStage from './getStage';
 import getRenderer from './getRenderer';
+import getAllEntities from '../entityUtil/getAllEntities';
 
 let ratio = 1;
 
@@ -26,7 +26,7 @@ export default (width, height) => {
     texts get distorted by PIXI when you try to change their scale.
     Texts instead change size by setting their fontSize.
   */
-  Entity.getAll()
+  getAllEntities()
     .forEach((e) => {
       if (e.originalSize) {
         e.asset.style.fontSize = e.originalSize * ratio;
