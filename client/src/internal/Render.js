@@ -162,7 +162,7 @@ export function addEmitter(filenames, config, zIndex) {
   };
 }
 
-export function getSprite(filename) {
+export function getNewPIXISprite(filename) {
   return new PIXI.Sprite(getTexture(filename));
 }
 

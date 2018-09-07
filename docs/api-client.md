@@ -480,6 +480,36 @@ Option | Type | Required | Default | Description
 
 ---
 
+```js
+l1.sound(options)
+```
+
+#### Arguments
+
+`options` (object):
+
+Option | Type | Required | Default | Description
+-- | -- | -- | -- | -- |
+**src** | String | [x] | - | The sound to play.
+**volume** | Number | [ ] | 0.5 | The volume
+**loop** | Boolean | [ ] | false | If the sound should be played continuously.
+
+#### Returns
+
+(object): The sound entity
+
+#### Example
+
+```js
+l1.sound({
+  src: 'explosion',
+  volume: 0.1,
+  loop: true,
+})
+```
+
+---
+
 ## Entity utils
 
 ### destroy
@@ -609,6 +639,38 @@ l1.getOverlappingArea(entity, otherEntity)
 ---
 
 ### getY
+
+---
+
+### hide
+
+```js
+l1.hide(entity)
+```
+
+#### Arguments
+
+`entity` (Object): The entity to hide.
+
+#### Returns
+
+(Object): The hidden entity
+
+---
+
+### show
+
+```js
+l1.show(entity)
+```
+
+#### Arguments
+
+`entity` (Object): The hidden entity to show.
+
+#### Returns
+
+(Object): The entity
 
 ---
 
@@ -765,36 +827,6 @@ l1.addBehavior(entity, {
 ---
 
 l1.removeBehavior()
-
----
-
-```js
-l1.sound(options)
-```
-
-#### Arguments
-
-`options` (object):
-
-Option | Type | Required | Default | Description
--- | -- | -- | -- | -- |
-**src** | String | [x] | - | The sound to play.
-**volume** | Number | [ ] | 0.5 | The volume
-**loop** | Boolean | [ ] | false | If the sound should be played continuously.
-
-#### Returns
-
-(object): The sound entity
-
-#### Example
-
-```js
-l1.sound({
-  src: 'explosion',
-  volume: 0.1,
-  loop: true,
-})
-```
 
 ---
 

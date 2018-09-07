@@ -1,6 +1,7 @@
 import * as Render from './internal/Render';
-import * as Entity from './Entity';
 import * as Game from './Game';
+import getX from './next/entityUtil/getX';
+import getY from './next/entityUtil/getY';
 
 export function show(entity, { text, style, zIndex = 0 }) {
   /*
@@ -15,8 +16,8 @@ export function show(entity, { text, style, zIndex = 0 }) {
 
   textObject.zIndex = zIndex;
   textObject.position.set(
-    Entity.getX(entity),
-    Entity.getY(entity),
+    getX(entity),
+    getY(entity),
 
   );
 

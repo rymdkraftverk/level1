@@ -5,7 +5,6 @@ import {
   Physics,
   Text,
   Matter,
-  Sprite,
   Particles,
   Animation,
   Sound,
@@ -13,6 +12,10 @@ import {
   PIXI,
   Filter,
   Behavior,
+  entity,
+  sprite,
+  getX,
+  getY,
 } from 'l1';
 import config from './emitter.json';
 
@@ -43,12 +46,12 @@ const lizardMove = (start, end) => ({
   direction: direction.LEFT,
   onUpdate: (b, e) => {
     if (b.direction === direction.LEFT) {
-      e.x = Entity.getX(e) - 3;
+      e.x = getX(e) - 3;
       if (e.x < start) {
         b.direction = direction.RIGHT;
       }
     } else if (b.direction === direction.RIGHT) {
-      e.x = Entity.getX(e) + 10;
+      e.x = getX(e) + 10;
       if (e.x > end) {
         b.direction = direction.LEFT;
       }
@@ -56,8 +59,6 @@ const lizardMove = (start, end) => ({
   },
 });
 /* eslint-enable no-param-reassign */
-
-const root = Entity.getRoot();
 
 Game.init({
   width: 600,
@@ -80,9 +81,12 @@ Game.init({
   // const input = Entity.addChild(root, { id: 'input' });
   // input.behaviors.scan = scanGamepads();
 
-  const square = Entity.addChild(root, { id: 'square', types: ['square', 'player'] });
+  const square = sprite({
+    id: 'square',
+    types: ['square', 'player'],
+    texture: 'square',
+  });
 
-  Sprite.show(square, { texture: 'square' });
   square.asset.scale.set(5);
   Filter.add(square, Filter.Filter.GlowFilter);
 
@@ -90,16 +94,21 @@ Game.init({
     inertia: Infinity,
   }));
 
-  const appearSound = Entity.addChild(square);
+  const appearSound = entity({ parent: square });
   Sound.play(appearSound, {
     src: './sounds/join3.wav',
     volume: 0.2,
   });
 
-  const text = Entity.addChild(
-    square,
-    { id: 'text', x: -50, y: -50 },
+  const text = entity(
+    {
+      id: 'text',
+      x: -50,
+      y: -50,
+      parent: square,
+    },
   );
+  console.log('text', text);
   Text.show(text, {
     text: 'Hello!',
     style: {
@@ -139,23 +148,22 @@ Game.init({
       test: 'test',
     },
     removeOnComplete: true,
-    onComplete: ({ data, entity }) => {
-      console.log('ON TIMER END', data.test + entity.id);
-      const explosion = Entity.addChild(root, {
-        x: Entity.getX(square),
-        y: Entity.getY(square),
+    onComplete: ({ entity: e }) => {
+      const explosion = entity({
+        x: getX(square),
+        y: getY(square),
       });
       Particles.emit(explosion, {
         textures: ['square', 'particle'],
         config,
         zIndex: 1,
       });
-      Entity.destroy(entity);
+      Entity.destroy(e);
     },
   });
   Behavior.add(square, selfdestruct());
 
-  const lizard = Entity.addChild(root, {
+  const lizard = entity({
     x: 300,
     y: 50,
     width: 24,
@@ -192,7 +200,7 @@ Game.init({
 
   Filter.add(lizard, new Filter.Filter.GlowFilter());
 
-  const floor = Entity.addChild(root, { id: 'floor' });
+  const floor = entity({ id: 'floor' });
   Physics.addBody(floor, Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }));
 
   const resizeGame = () => {
@@ -203,8 +211,7 @@ Game.init({
   window.addEventListener('resize', resizeGame);
   resizeGame();
 
-  const textEntity = Entity.addChild(
-    root,
+  const textEntity = entity(
     {
       x: 50,
       y: 50,
@@ -224,7 +231,7 @@ Game.init({
   );
 
   const createBox = () => {
-    const box = Entity.addChild(root, { id: 'box', width: 100, height: 100 });
+    const box = entity({ id: 'box', width: 100, height: 100 });
     const boxGraphics = Graphics.create(box, { zIndex: 10 });
 
     // set a fill and line style

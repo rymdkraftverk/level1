@@ -1,4 +1,3 @@
-import uuid from 'uuid/v4';
 import * as Core from './internal/Core';
 import * as Render from './internal/Render';
 import * as InternalEntity from './internal/Entity';
@@ -6,61 +5,12 @@ import * as Physics from './Physics';
 
 export { assetTypes } from './internal/Entity';
 
-export function addChild(parent, {
-  id, x = 0, y = 0, width = 0, height = 0, types = [],
-} = {
-  id: null, x: 0, y: 0, width: 0, height: 0, types: [],
-}) {
-  if (!id) {
-    id = uuid();
-  }
-  if (Core.exists(id)) {
-    throw new Error(`Entity.create(id) using an already existing id: ${id}`);
-  }
-
-  const entity = {
-    id,
-    x,
-    y,
-    width,
-    height,
-    parent,
-    types,
-    children: [],
-    asset: null,
-    hasBody: false,
-    behaviors: [],
-  };
-
-  const defaultBody = {
-    entity,
-  };
-  entity.body = defaultBody;
-
-  parent.children = parent.children.concat(entity);
-
-  Core.add(entity);
-  return entity;
-}
-
-export function getRoot() {
-  return Core.getRootEntity();
-}
-
 export function setX(entity, x) {
   entity.x = x;
 }
 
 export function setY(entity, y) {
   entity.y = y;
-}
-
-export function getX(entity) {
-  return InternalEntity.getX(entity);
-}
-
-export function getY(entity) {
-  return InternalEntity.getY(entity);
 }
 
 export function addType(entity, type) {

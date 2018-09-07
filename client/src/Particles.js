@@ -1,5 +1,7 @@
 import * as Render from './internal/Render';
 import * as Entity from './Entity';
+import getX from './next/entityUtil/getX';
+import getY from './next/entityUtil/getY';
 
 /*
 The following properties are required by PIXI Particles when it's created.
@@ -23,8 +25,8 @@ export function emit(entity, {
     textures, {
       ...defaultParticleEmitterConfig,
       pos: {
-        x: Entity.getX(entity),
-        y: Entity.getY(entity),
+        x: getX(entity),
+        y: getY(entity),
       },
       ...config,
       emit: true,

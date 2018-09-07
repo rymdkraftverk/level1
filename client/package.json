@@ -20,6 +20,7 @@
   "dependencies": {
     "babel-polyfill": "6.26.0",
     "howler": "2.0.15",
+    "lodash": "4.17.10",
     "mainloop.js": "1.0.4",
     "matter-js": "0.14.2",
     "mousetrap": "1.6.2",

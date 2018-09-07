@@ -13,13 +13,18 @@ const Util = require('./Util');
 const Sound = require('./Sound');
 const Net = require('./Net');
 const Animation = require('./Animation');
-const Sprite = require('./Sprite');
 const Particles = require('./Particles');
 const Text = require('./Text');
 const BitmapText = require('./BitmapText');
 const Graphics = require('./Graphics');
 const Filter = require('./Filter');
 const Behavior = require('./Behavior');
+
+const entity = require('./next/entityCreator/entity').default;
+const sprite = require('./next/entityCreator/sprite').default;
+
+const getX = require('./next/entityUtil/getX').default;
+const getY = require('./next/entityUtil/getY').default;
 
 module.exports = {
   Game,
@@ -32,7 +37,6 @@ module.exports = {
   Sound,
   Net,
   Animation,
-  Sprite,
   Particles,
   Text,
   BitmapText,
@@ -41,4 +45,8 @@ module.exports = {
   Behavior,
   Matter,
   PIXI,
+  entity,
+  sprite,
+  getX,
+  getY,
 };

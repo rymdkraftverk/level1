@@ -1,13 +1,14 @@
 import * as Render from './internal/Render';
-import * as Entity from './Entity';
+import getX from './next/entityUtil/getX';
+import getY from './next/entityUtil/getY';
 
 export function show(entity, { text, style, zIndex = 0 }) {
   const textObject = Render.getBitmapText(text, style);
 
   textObject.zIndex = zIndex;
   textObject.position.set(
-    Entity.getX(entity),
-    Entity.getY(entity),
+    getX(entity),
+    getY(entity),
   );
 
   Render.add(textObject);

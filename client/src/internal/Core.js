@@ -7,6 +7,7 @@ let engine;
 let entities = [];
 
 const rootEntity = {
+  id: 'level1_internal_root_entity',
   x: 0,
   y: 0,
   children: [],
@@ -120,8 +121,17 @@ export function exists(id) {
   return entities.some(e => e.id === id);
 }
 
-export function add(entity) {
+export function addEntity(entity) {
+  const defaultBody = {
+    entity,
+  };
+  entity.body = defaultBody;
+
+  entity.parent.children = entity.parent.children.concat(entity);
+
   entities = entities.concat(entity);
+
+  return entity;
 }
 
 export function remove(entity) {
