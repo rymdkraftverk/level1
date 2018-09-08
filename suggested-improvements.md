@@ -18,7 +18,3 @@ Particles
 
 Sound
 <Insert sound generator>
-
-Entity modifier functions are auto-curried and easily composable.
-
-Behavior config should be returned from functions, to make sure a unique copy is created every time.

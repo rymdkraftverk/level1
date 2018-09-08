@@ -126,13 +126,13 @@ Initializes level1 and starts the game loop.
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
-**width** | Number | [ ] | 800 | The width of the game
-**height** | Number | [ ] | 600 | The height of the game
 **assets** | Object | [ ] | - | An object that defines assets for the game. This is only needed if level1 can't read the contents of the assets folder.
-**element** | HTMLElement | [ ] | `document.body` | Where to inject the game
-**physics** | Boolean | [ ] | false | Enable physics provided by matter-js
 **debug** | Boolean | [ ] | false | Display the debug tools underneath game window
+**element** | HTMLElement | [ ] | `document.body` | Where to inject the game
+**height** | Number | [ ] | 600 | The height of the game
+**physics** | Boolean | [ ] | false | Enable physics provided by matter-js
 **pixi** | Object | [ ] | - | Object with pixi options
+**width** | Number | [ ] | 800 | The width of the game
 
 ```js
   pixi: {
@@ -257,16 +257,16 @@ l1.animation(options)
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | --
-**textures** | Array | [x] | - | A list of texture id's
+**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
 **id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
+**parent** | Object | [ ] | null | The parent entity. Entity's position will be relative to the parent position. If parent is destroyed, this entity will also be destroyed.
 **speed** | Number | [ ] | 0.05 | The speed of toggling between textures. Higher number equals faster speed.
-**zIndex** | Number | [ ] | 0 | TODO
-**parent** | Object | [ ] | 0 | TODO
+**textures** | Array | [x] | - | A list of texture id's
 **types** | Array | [ ] | [] | Types are used to group entities together.
+**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
 **x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
 **y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
-**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
-**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
+**zIndex** | Number | [ ] | 0 | The stacking order of the entity
 **loop(not implemented)** | Boolean | [ ] | true | If the animation should loop from the first texture when complete.
 
 #### Returns
@@ -282,11 +282,11 @@ const walkAnimation = {
     zIndex: 10,
 }
 
-const animation = l1.animation({
+const entity = l1.animation({
     ...walkAnimation,
     speed: 1,
 })
-animation.asset.scale.set(2)
+entity.asset.scale.set(2)
 ```
 
 ---
@@ -330,14 +330,14 @@ Use this to create a generic entity with no visuals. One example use case is a c
 `options` (object):
 
 Option | Type | Required | Default | Description
--- | -- | -- | -- | -- 
+-- | -- | -- | -- | --
+**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
 **id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
 **types** | Array | [ ] | [] | Types are used to group entities together.
+**parent** | Object | [ ] | null | The parent entity. Entity's position will be relative to the parent position. If parent is destroyed, this entity will also be destroyed.
+**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
 **x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
 **y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
-**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
-**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
-**parent** | Object | [ ] | null | The parent entity. Will make this entity's position relative to the parent position. If parent is destroyed, this entity will also be destroyed.
 
 #### Returns
 
@@ -350,7 +350,6 @@ Option | Type | Required | Default | Description
 ```
 
 ---
-
 
 ### graphics
 
@@ -366,18 +365,24 @@ A graphics object is used to draw lines and shapes.
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
+**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
 **id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
-**zIndex** | Number | [ ] | 0 | TODO
-**parent** | Object | [ ] | null | TODO
+**parent** | Object | [ ] | null | The parent entity. Entity's position will be relative to the parent position. If parent is destroyed, this entity will also be destroyed.
 **types** | Array | [ ] | [] | Types are used to group entities together.
+**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
 **x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
 **y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
-**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
-**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
+**zIndex** | Number | [ ] | 0 | The stacking order of the entity
 
 #### Returns
 
 (Object): A graphics entity
+
+#### Example
+
+```js
+// TODO
+```
 
 ---
 
@@ -393,16 +398,16 @@ https://pixijs.io/pixi-particles-editor/
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
-**textures** | Array | [x] | - | The sprites to use for the emitter
 **config** | Object | [x] | - | The emitter config to use
+**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
 **id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
-**zIndex** | Number | [ ] | 0 | TODO
-**parent** | Object | [ ] | null | TODO
+**parent** | Object | [ ] | null | The parent entity. Entity's position will be relative to the parent position. If parent is destroyed, this entity will also be destroyed.
+**textures** | Array | [x] | - | The sprites to use for the emitter
 **types** | Array | [ ] | [] | Types are used to group entities together.
+**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
 **x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
 **y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
-**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
-**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
+**zIndex** | Number | [ ] | 0 | The stacking order of the entity
 
 #### Emitter config options
 
@@ -445,9 +450,9 @@ l1.sound(options)
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
+**loop** | Boolean | [ ] | false | If the sound should be played continuously.
 **src** | String | [x] | - | The sound to play.
 **volume** | Number | [ ] | 0.5 | The volume
-**loop** | Boolean | [ ] | false | If the sound should be played continuously.
 
 #### Returns
 
@@ -459,7 +464,7 @@ Option | Type | Required | Default | Description
 l1.sound({
   src: 'explosion',
   volume: 0.1,
-  loop: true,
+  loop: false,
 })
 ```
 
@@ -479,17 +484,17 @@ Create a new sprite entity
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | --
-**texture** | String | [x] | - | A texture filename from the `assets` folder.
+**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
 **id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
+**parent** | Object | [ ] | null | The parent entity. Entity's position will be relative to the parent position. If parent is destroyed, this entity will also be destroyed.
+**texture** | String | [x] | - | A texture filename from the `assets` folder.
 **types** | Array | [ ] | [] | Types are used to group entities together.
-**flipX** | Boolean | [ ] | false | TBD
-**flipY** | Boolean | [ ] | false | TBD
-**parent** | Object | [ ] | null | TBD
-**zIndex** | Number | [ ] | 0 | The stacking order of the sprite entity
+**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
 **x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
 **y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
-**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
-**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
+**zIndex** | Number | [ ] | 0 | The stacking order of the entity
+**flipX (not implemented)** | Boolean | [ ] | false | TBD
+**flipY (not implemented** | Boolean | [ ] | false | TBD
 
 #### Returns
 
@@ -498,12 +503,12 @@ Option | Type | Required | Default | Description
 #### Example
 
 ```js
-l1.sprite({
+const entity = l1.sprite({
     texture: 'walk1',
     zIndex: 10,
-    flipX: true,
-    flipY: true,
 })
+
+entity.asset.scale.set(2)
 ```
 
 ---
@@ -520,16 +525,16 @@ l1.text(options)
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | --
-**text** | String | [x] | - | The text to display
-**style** | Object | [x] | - | A PIXI [TextStyle](http://pixijs.download/dev/docs/PIXI.TextStyle.html) object
+**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
 **id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
-**zIndex** | Number | [ ] | 0 | TODO
-**parent** | Object | [ ] | null | TODO
+**parent** | Object | [ ] | null | The parent entity. Entity's position will be relative to the parent position. If parent is destroyed, this entity will also be destroyed.
+**style** | Object | [x] | - | A PIXI [TextStyle](http://pixijs.download/dev/docs/PIXI.TextStyle.html) object
+**text** | String | [x] | - | The text to display
 **types** | Array | [ ] | [] | Types are used to group entities together.
+**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
 **x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
 **y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
-**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
-**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
+**zIndex** | Number | [ ] | 0 | The stacking order of the entity
 
 #### Returns
 
@@ -544,6 +549,22 @@ l1.text({
     zIndex: 10,
 })
 ```
+
+---
+
+### Entity object properties
+
+The following properties are specified for objects created by any Entity creator function.
+
+Property | Type | Description
+-- | -- | --
+**asset** | (*) | Either null, `sprite`, `animation`, `sound`, `particles`, `graphics`, `text` or `bitmapText`
+**behaviors** | Array | A list of all behaviors
+**body** | Object | Physics body. Always has default body with entity as only property
+**children ** | Array | A list of child entities.
+**id** | String | Unique id
+**parent** | Object | [ ] | null | The parent entity. Entity's position will be relative to the parent position. If parent is destroyed, this entity will also be destroyed.
+**types** | Array | Type field to group entities together, also used for collisions
 
 ---
 
@@ -629,9 +650,9 @@ l1.getOverlappingArea(otherEntity, entity)
 
 #### Arguments
 
-`entity` (Object): The first entity to use for overlap detection.
-
 `otherEntity` (Object) The second entity to use for overlap detection.
+
+`entity` (Object): The first entity to use for overlap detection.
 
 #### Returns
 
@@ -689,9 +710,9 @@ l1.isColliding(otherEntity, entity)
 
 #### Arguments
 
-`entity` (Object): The first entity to use for collision detection.
-
 `otherEntity` (Object) The second entity to use for collision detection.
+
+`entity` (Object): The first entity to use for collision detection.
 
 #### Returns
 
@@ -721,6 +742,8 @@ l1.hide(entity)
 l1.show(entity)
 ```
 
+Not implemented
+
 #### Arguments
 
 `entity` (Object): The hidden entity to show.
@@ -731,34 +754,40 @@ l1.show(entity)
 
 ---
 
-### Entity object properties
+## Entity modifiers
 
-The following properties are specified for objects created by Entity.addChild.
+Entity modifier functions are auto-curried and easily composable. The entity is always the last argument.
 
-Property | Type | Description
--- | -- | --
-**id** | String | Unique id
-**types** | Array | Type field to group entities together, also used for collisions
-**behaviors** | Array | A list of all behaviors
-**body** | Object | Physics body. Always has default body with entity as only property
-**asset** | (*) | Either null, `sprite`, `animation`, `sound`, `particles`, `graphics`, `text` or `bitmapText`
-**parent** | Object | The parent entity.
-**children** | Array | A list of child entities.
-
----
+### addBody
 
 ```js
-l1.flip(entity)
+l1.addBody(body, entity)
 ```
 
-TBD
+A physics body from Matter.js
+
+#### Arguments
+
+`body` (Matter.body): A Matter body.
+
+`entity` (object): The entity to apply body to.
+
+#### Returns
+
+(Object): The created body.
+
+#### Example
+
+```js
+// TODO
+```
 
 ---
 
 ### addFilter
 
 ```js
-l1.addFilter(options, entity)
+l1.addFilter(filter, entity)
 ```
 
 Filters can be any built in filter in Pixi or any filter from `pixi-filters`
@@ -767,12 +796,11 @@ http://pixijs.download/dev/docs/PIXI.filters.html
 
 https://github.com/pixijs/pixi-filters
 
-
 #### Arguments
 
-`entity` (object): The entity to apply the filter to. Has to be `sprite` or `animation`
-
 `filter` (Filter): The filter instance
+
+`entity` (object): The entity to apply the filter to. Has to be `sprite` or `animation`
 
 #### Returns
 
@@ -807,11 +835,10 @@ Nothing.
 ### Filter
 
 ```js
-Filter.Filter
+l1.Filter
 ```
 
 Object that contains all filters
-
 
 #### Example
 
@@ -839,9 +866,9 @@ Behaviors are triggered every update. (Default: 60 times per second)
 
 #### Arguments
 
-`entity` (Object): The entity to apply the the behavior to
-
 `options` (Object): The behavior instance
+
+`entity` (Object): The entity to apply the the behavior to
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
@@ -856,17 +883,17 @@ Option | Type | Required | Default | Description
 **enabled** | Function | [ ] | true | Can be set to false to prevent the behaviors timer from being updated
 **data** | Object | [ ] | - | An object that can hold arbitrary data.
 
+Note: If loop is `true`, the value of `removeOnComplete` is ignored
+
 onInit({ entity, data })
 
 onUpdate({ entity, data, counter })
 
-The timer counter can be used with animations
+The counter can be used with animations
 
 onComplete({ entity, data })
 
 onRemove({ entity, data })
-
-If loop is `true`, the value of `removeOnComplete` is ignored
 
 #### Returns
 
@@ -875,6 +902,7 @@ If loop is `true`, the value of `removeOnComplete` is ignored
 #### Example
 
 ```js
+// Behavior config should be returned from functions, to make sure a unique copy is created every time.
 const move = () => ({
   id: 'move',
 })
@@ -884,7 +912,11 @@ l1.addBehavior(move(), entity)
 
 ---
 
-l1.removeBehavior()
+```js
+l1.removeBehavior(id, entity)
+```
+
+TODO
 
 ---
 
@@ -1048,41 +1080,21 @@ http://brm.io/matter-js/docs/
 
 ---
 
-### addBody
-
-```js
-l1.addBody(body, entity)
-```
-
-A physics body from Matter.js
-
-#### Arguments
-
-`entity` (object): The entity to apply body to.
-
-`body` (Matter.body): A Matter body.
-
-#### Returns
-
-(Object): The created body.
-
-#### Example
-
-```js
-// TODO
-```
-
----
-
 ### addCollision
+
+TODO
 
 ---
 
 ### removeCollision
 
+TODO
+
 ---
 
 ### removeAllCollisions
+
+TODO
 
 ---
 
@@ -1091,7 +1103,6 @@ A physics body from Matter.js
 Returns the physics engine
 
 ---
-
 
 ## Gamepad
 
@@ -1136,6 +1147,10 @@ l1.setShowHitboxes(show)
 Nothing.
 
 ---
+
+## Keyboard input
+
+TODO
 
 ### addKey
 
