@@ -251,8 +251,6 @@ l1.animation(options)
 
 #### Arguments
 
-`entity` (object): The entity to apply the animation to.
-
 `options` (object):
 
 Option | Type | Required | Default | Description
