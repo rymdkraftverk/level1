@@ -11,7 +11,7 @@
     "patch": "npm version patch -m 'Upgrade to %s'",
     "release": "np",
     "lint": "eslint src",
-    "test": "mocha --compilers js:babel-register --require ./test/helper.js --recursive",
+    "test": "mocha ./src/**/*.test.js --require babel-register --require ./test/helper.js",
     "test:watch": "npm test -- --watch"
   },
   "keywords": [],
