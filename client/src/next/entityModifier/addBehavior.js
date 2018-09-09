@@ -30,6 +30,7 @@ export default curry(({
     finished: false,
     counter: 0,
     initHasBeenCalled: false,
+    // TODO: remove all functions from behavior to behavior runner
     // eslint-disable-next-line no-shadow
     init: ({ behavior, data, entity }) => {
       if (onInit) {
@@ -80,4 +81,6 @@ export default curry(({
   };
 
   entity.behaviors = entity.behaviors.concat(newBehaviorObject);
+
+  return entity;
 });

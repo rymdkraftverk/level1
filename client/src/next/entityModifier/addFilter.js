@@ -7,5 +7,5 @@ export default curry((filter, entity) => {
 
   entity.asset.filters = entity.asset.filters.concat(filter);
 
-  return filter;
+  return entity;
 });

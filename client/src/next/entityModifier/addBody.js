@@ -1,7 +1,8 @@
 import { World } from 'matter-js';
+import curry from 'lodash/fp/curry';
 import getPhysicsEngine from '../physics/getPhysicsEngine';
 
-export default (body, entity) => {
+export default curry((body, entity) => {
   const engine = getPhysicsEngine();
 
   const width = Math.abs(body.bounds.max.x - body.bounds.min.x);
@@ -23,5 +24,5 @@ export default (body, entity) => {
   entity.body = body;
   entity.hasBody = true;
 
-  return body;
-};
+  return entity;
+});

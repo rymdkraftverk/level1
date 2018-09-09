@@ -7,4 +7,5 @@ import { getRatio } from '../game/resize';
 export default curry((fontSize, entity) => {
   entity.originalSize = fontSize;
   entity.asset.style.fontSize = fontSize * getRatio();
+  return entity;
 });
