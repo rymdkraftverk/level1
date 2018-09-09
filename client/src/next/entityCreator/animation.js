@@ -7,7 +7,6 @@ import getNewEntity from './getNewEntity';
 export default (options) => {
   const {
     textures,
-    speed = 0.05,
     zIndex = 0,
   } = options;
 
@@ -25,7 +24,7 @@ export default (options) => {
 
   const entity = getNewEntity(options);
 
-  const animation = Render.getNewPIXIAnimatedSprite(textures, speed);
+  const animation = Render.getNewPIXIAnimatedSprite(textures);
 
   animation.position.set(
     getX(entity),

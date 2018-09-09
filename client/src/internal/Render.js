@@ -71,7 +71,6 @@ export function initRenderer(width, height, assets, element, pixiOptions, pixiSe
           PIXI.settings[key] = value;
         });
     }
-    // PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.LINEAR;
 
     stage = new PIXI.Container();
 
@@ -166,16 +165,8 @@ export function getNewPIXISprite(filename) {
   return new PIXI.Sprite(getTexture(filename));
 }
 
-export function getNewPIXIAnimatedSprite(filenames, animationSpeed) {
-  const textures = [];
-
-  filenames.forEach((filename) => {
-    textures.push(getTexture(filename));
-  });
-
-  const animation = new PIXI.extras.AnimatedSprite(textures);
-  animation.animationSpeed = animationSpeed;
-
+export function getNewPIXIAnimatedSprite(filenames) {
+  const animation = new PIXI.extras.AnimatedSprite(filenames.map(getTexture));
   return animation;
 }
 

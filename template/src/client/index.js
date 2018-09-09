@@ -3,14 +3,12 @@ import config from './emitter.json';
 
 // const lizardRotation = () => ({
 //   timer: Timer.create({ duration: 120 }),
-//   speed: 0.075,
 //   textures: {
 //     front: ['lizardFront1', 'lizardFront2'],
 //     right: ['Samurai-move-1', 'Samurai-move-2'],
 //   },
 //   onComplete: (b, e) => {
 //     const animation = Animation.play(e, {
-//       speed: b.speed,
 //       textures: b.textures.right,
 //     });
 //     animation.scale.set(2);
@@ -167,8 +165,8 @@ l1.init({
       'samurai-attack-8',
       'samurai-attack-8',
     ],
-    speed: 0.4,
   });
+  lizard.asset.animationSpeed = 0.4;
 
   // lizard.behaviors.lizardRotation = lizardRotation();
   // lizard.behaviors.checkCollision = checkCollision();
