@@ -24,7 +24,7 @@ export default (options) => {
   } = options;
 
   if (!textures || !config) {
-    throw new Error('level1: Particles.emit(entity, { textures, config}): Incorrect arguments');
+    throw new Error('level1: l1.particles({ textures, config}): Incorrect arguments');
   }
 
   const entity = getNewEntity(options);

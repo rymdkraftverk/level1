@@ -154,6 +154,6 @@ export function isPhysicsEnabled() {
 }
 
 export function getPhysicsEngine() {
-  if (!isPhysicsEnabled()) throw new Error('Physics not initialized. Set physics to true when calling Game.init');
+  if (!isPhysicsEnabled()) throw new Error('Physics not initialized. Set physics to true when calling l1.init');
   return engine;
 }

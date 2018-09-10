@@ -18,3 +18,12 @@ Particles
 
 Sound
 <Insert sound generator>
+
+
+Pixi utils lib instead, exposing pixi stuff to the user
+
+Pixi game tools
+Loop
+Entity -> Behaviour concept
+Preload textures to use
+ Get started quickly developing games using PIXI

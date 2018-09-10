@@ -23,7 +23,7 @@ export default (options) => {
   } = options;
 
   if (!texture) {
-    throw new Error('Sprite created without "texture"');
+    throw new Error('level1: l1.sprite created without "texture"');
   }
 
   const {
@@ -31,7 +31,7 @@ export default (options) => {
   } = options;
 
   if (id && Core.exists(id)) {
-    throw new Error(`Sprite created using an already existing id: ${id}`);
+    throw new Error(`level1: l1.sprite created using an already existing id: ${id}`);
   }
 
   const entity = getNewEntity(options);

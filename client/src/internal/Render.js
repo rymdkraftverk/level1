@@ -146,7 +146,7 @@ export function getStage() {
 
 export function getTexture(filename) {
   const resource = PIXI.loader.resources[filename];
-  if (!resource) throw new Error(`Sprite ${filename} not found. Make sure that it is added to your assets.json`);
+  if (!resource) throw new Error(`level1: Sprite "${filename}" not found.`);
   const { texture } = resource;
   return texture;
 }

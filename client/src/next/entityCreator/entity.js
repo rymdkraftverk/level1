@@ -6,7 +6,7 @@ export default (options) => {
     id,
   } = options;
   if (id && Core.exists(id)) {
-    throw new Error(`Entity created using an already existing id: ${id}`);
+    throw new Error(`level1: l1.entity created using an already existing id: ${id}`);
   }
 
   const entityInstance = getNewEntity(options);

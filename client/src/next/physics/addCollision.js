@@ -24,7 +24,7 @@ export function addCollision(entityType, otherTypes, onCollision, collisionType 
     pairs.forEach(({ bodyA, bodyB }) => {
       const typesA = getTypes(bodyA);
       const typesB = getTypes(bodyB);
-      if (!typesA || !typesB) throw new Error('Trying to check collision on entities ');
+      if (!typesA || !typesB) throw new Error('level1: Trying to check collision on entities ');
 
       if (collisionCheck(typesA, typesB) || collisionCheck(typesB, typesA)) {
         onCollision(bodyA, bodyB);

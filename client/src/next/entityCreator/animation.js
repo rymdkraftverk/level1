@@ -11,7 +11,7 @@ export default (options) => {
   } = options;
 
   if (!textures) {
-    throw new Error('Animation created without "textures".');
+    throw new Error('level1: l1.animation created without "textures".');
   }
 
   const {
@@ -19,7 +19,7 @@ export default (options) => {
   } = options;
 
   if (id && Core.exists(id)) {
-    throw new Error(`Animation created using an already existing id: ${id}`);
+    throw new Error(`level1: l1.animation created using an already existing id: ${id}`);
   }
 
   const entity = getNewEntity(options);

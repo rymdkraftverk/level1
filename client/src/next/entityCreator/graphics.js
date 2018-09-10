@@ -12,7 +12,7 @@ export default (options) => {
   } = options;
 
   if (id && Core.exists(id)) {
-    throw new Error(`Graphics created using an already existing id: ${id}`);
+    throw new Error(`level1: Graphics created using an already existing id: ${id}`);
   }
 
   const entity = getNewEntity(options);

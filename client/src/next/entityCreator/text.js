@@ -13,11 +13,11 @@ export default (options) => {
   } = options;
 
   if (!text) {
-    throw new Error('Text created without "text"');
+    throw new Error('level1: l1.text created without "text"');
   }
 
   if (!style) {
-    throw new Error('Text created without "style"');
+    throw new Error('level1: l1.text created without "style"');
   }
 
   const {
@@ -25,7 +25,7 @@ export default (options) => {
   } = options;
 
   if (id && Core.exists(id)) {
-    throw new Error(`Sprite created using an already existing id: ${id}`);
+    throw new Error(`level1: l1.text created using an already existing id: ${id}`);
   }
 
   /*
