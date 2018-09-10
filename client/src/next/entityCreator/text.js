@@ -12,7 +12,7 @@ export default (options) => {
     zIndex = 0,
   } = options;
 
-  if (!text) {
+  if (text === null || text === undefined) {
     throw new Error('level1: l1.text created without "text"');
   }
 
