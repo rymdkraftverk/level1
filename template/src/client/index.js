@@ -22,18 +22,20 @@ const direction = {
 };
 
 /* eslint-disable no-param-reassign */
-const lizardMove = (start, end) => ({
-  direction: direction.LEFT,
-  onUpdate: (b, e) => {
-    if (b.direction === direction.LEFT) {
-      e.x = l1.getX(e) - 3;
-      if (e.x < start) {
-        b.direction = direction.RIGHT;
+const move = (start, end) => ({
+  data: {
+    direction: direction.LEFT,
+  },
+  onUpdate: ({ entity, data }) => {
+    if (data.direction === direction.LEFT) {
+      entity.x = l1.getX(entity) - 3;
+      if (entity.x < start) {
+        data.direction = direction.RIGHT;
       }
-    } else if (b.direction === direction.RIGHT) {
-      e.x = l1.getX(e) + 10;
-      if (e.x > end) {
-        b.direction = direction.LEFT;
+    } else if (data.direction === direction.RIGHT) {
+      entity.x = l1.getX(entity) + 10;
+      if (entity.x > end) {
+        data.direction = direction.LEFT;
       }
     }
   },
@@ -167,6 +169,9 @@ l1.init({
     ],
   });
   lizard.asset.animationSpeed = 0.4;
+
+  l1
+    .addBehavior(move(100, 500), lizard);
 
   // lizard.behaviors.lizardRotation = lizardRotation();
   // lizard.behaviors.checkCollision = checkCollision();

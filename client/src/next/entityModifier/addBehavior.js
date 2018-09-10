@@ -48,7 +48,7 @@ export default curry(({
           data,
         });
       }
-      if (behavior.counter === endTime && !behavior.finished) {
+      if (behavior.endTime > 0 && behavior.counter === endTime && !behavior.finished) {
         behavior.finished = true;
         if (onComplete) {
           onComplete({ data, entity });
