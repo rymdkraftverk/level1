@@ -43,6 +43,13 @@ const move = (start, end) => ({
 });
 /* eslint-enable no-param-reassign */
 
+const onCompleteTest = () => ({
+  endTime: 20,
+  onComplete: () => {
+    console.log('COMPLETE!');
+  },
+});
+
 l1.init({
   width: 600,
   height: 400,
@@ -171,8 +178,8 @@ l1.init({
   });
   lizard.asset.animationSpeed = 0.4;
 
-  l1
-    .addBehavior(move(100, 500), lizard);
+  l1.addBehavior(move(100, 500), lizard);
+  l1.addBehavior(onCompleteTest(), lizard);
 
   // lizard.behaviors.lizardRotation = lizardRotation();
   // lizard.behaviors.checkCollision = checkCollision();
