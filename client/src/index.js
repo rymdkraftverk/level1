@@ -25,7 +25,7 @@ const clearFilters = require('./next/entityModifier/clearFilters').default;
 const Filter = require('./next/entityModifier/Filter').default;
 const getBehavior = require('./next/entityModifier/getBehavior').default;
 const removeAllCollisions = require('./next/entityModifier/removeAllCollisions').default;
-// const removeBehavior = require('./next/entityModifier/removeBehavior').default;
+const removeBehavior = require('./next/entityModifier/removeBehavior').default;
 const removeBody = require('./next/entityModifier/removeBody').default;
 const removeCollision = require('./next/entityModifier/removeCollision').default;
 const removeFilter = require('./next/entityModifier/removeFilter').default;
@@ -72,6 +72,7 @@ module.exports = {
   getX,
   getY,
   addBehavior,
+  removeBehavior,
   scaleText,
   getPhysicsEngine,
   getRenderer,

@@ -23,6 +23,7 @@ const direction = {
 
 /* eslint-disable no-param-reassign */
 const move = (start, end) => ({
+  id: 'move',
   data: {
     direction: direction.LEFT,
   },
@@ -35,7 +36,7 @@ const move = (start, end) => ({
     } else if (data.direction === direction.RIGHT) {
       entity.x = l1.getX(entity) + 10;
       if (entity.x > end) {
-        data.direction = direction.LEFT;
+        l1.removeBehavior('move', entity);
       }
     }
   },
