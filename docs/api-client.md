@@ -273,14 +273,14 @@ Option | Type | Required | Default | Description
 
 ```js
 const walkAnimation = {
+    id: 'walk',
     textures: ['walk1', 'walk2'],
-    speed: 0.5,
     zIndex: 10,
 }
 
 const entity = l1.animation({
     ...walkAnimation,
-    speed: 1,
+    zIndex: 5,
 })
 entity.asset.scale.set(2)
 ```

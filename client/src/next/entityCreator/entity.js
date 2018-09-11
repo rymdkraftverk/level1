@@ -1,7 +1,7 @@
 import * as Core from '../../internal/Core';
 import getNewEntity from './getNewEntity';
 
-export default (options) => {
+export default (options = {}) => {
   const {
     id,
   } = options;

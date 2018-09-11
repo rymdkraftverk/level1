@@ -90,6 +90,8 @@ l1.init({
     parent: square,
   });
 
+  l1.entity();
+
   const helloText = l1.text(
     {
       text: 'Hello!',
