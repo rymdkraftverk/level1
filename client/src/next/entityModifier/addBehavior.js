@@ -16,9 +16,14 @@ export default curry(({
   onRemove = null,
   enabled = true,
   data = {},
+  ...unknownProperties
 } = {}, entity) => {
   if (exists(entity, id)) {
     throw new Error(`level1: Behavior with id ${id} already exists on entity ${entity.id}`);
+  }
+
+  if (Object.keys(unknownProperties).length > 0) {
+    throw new Error(`Unknown properties on behavior "${id}": ${Object.keys(unknownProperties)}`);
   }
 
   const newBehaviorObject = {
