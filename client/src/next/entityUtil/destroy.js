@@ -30,7 +30,7 @@ const destroyChild = (child) => {
     child.body = null;
     child.hasBody = false;
   }
-  child.behaviors = child.behaviors.forEach((behavior) => {
+  child.behaviors.forEach((behavior) => {
     behavior.remove({ data: behavior.data, entity: child, behavior });
   });
 };
