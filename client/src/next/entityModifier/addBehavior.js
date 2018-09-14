@@ -15,7 +15,7 @@ export default curry(({
   onInit = null,
   onRemove = null,
   enabled = true,
-  data = null,
+  data = {},
 } = {}, entity) => {
   if (exists(entity, id)) {
     throw new Error(`level1: Behavior with id ${id} already exists on entity ${entity.id}`);
