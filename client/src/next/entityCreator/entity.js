@@ -9,7 +9,7 @@ export default (options = {}) => {
     throw new Error(`level1: l1.entity created using an already existing id: ${id}`);
   }
 
-  const entityInstance = getNewEntity(options);
+  const entity = getNewEntity(options);
 
-  return Core.addEntity(entityInstance);
+  return Core.addEntity(entity);
 };
