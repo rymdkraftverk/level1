@@ -18,16 +18,16 @@ const sound = require('./next/entityCreator/sound').default;
 
 const addBehavior = require('./next/entityModifier/addBehavior').default;
 const addBody = require('./next/entityModifier/addBody').default;
-const addCollision = require('./next/entityModifier/addCollision').default;
+// const addCollision = require('./next/entityModifier/addCollision').default;
 const addFilter = require('./next/entityModifier/addFilter').default;
 const addType = require('./next/entityModifier/addType').default;
 const clearFilters = require('./next/entityModifier/clearFilters').default;
 const Filter = require('./next/entityModifier/Filter').default;
 const getBehavior = require('./next/entityModifier/getBehavior').default;
-const removeAllCollisions = require('./next/entityModifier/removeAllCollisions').default;
+// const removeAllCollisions = require('./next/entityModifier/removeAllCollisions').default;
 const removeBehavior = require('./next/entityModifier/removeBehavior').default;
 const removeBody = require('./next/entityModifier/removeBody').default;
-const removeCollision = require('./next/entityModifier/removeCollision').default;
+// const removeCollision = require('./next/entityModifier/removeCollision').default;
 const removeFilter = require('./next/entityModifier/removeFilter').default;
 const removeType = require('./next/entityModifier/removeType').default;
 const resetBehavior = require('./next/entityModifier/resetBehavior').default;
@@ -96,11 +96,11 @@ module.exports = {
   particles,
   sound,
   addBody,
-  addCollision,
+  // addCollision,
   addType,
-  removeAllCollisions,
+  // removeAllCollisions,
   removeBody,
-  removeCollision,
+  // removeCollision,
   removeType,
   destroy,
   get,

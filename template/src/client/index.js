@@ -180,7 +180,8 @@ l1.init({
   });
   lizard.asset.animationSpeed = 0.4;
 
-  l1.addBehavior(move(100, 500), lizard);
+  const moveB = l1.addBehavior(move(100, 500));
+  moveB(lizard);
   l1.addBehavior(onCompleteTest(), lizard);
 
   // lizard.behaviors.lizardRotation = lizardRotation();
