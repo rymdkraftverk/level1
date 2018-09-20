@@ -135,6 +135,9 @@ l1.init({
   );
   l1.addBehavior(scaleTextBehavior(), helloText);
 
+  // Test that removing a behavior that does not exist doesn't crash
+  l1.removeBehavior('doesNotExist', helloText);
+
   const selfdestruct = () => ({
     endTime: 120,
     data: {
