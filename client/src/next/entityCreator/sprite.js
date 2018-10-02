@@ -1,8 +1,7 @@
 import * as Render from '../../internal/Render';
 import * as Core from '../../internal/Core';
-import getX from '../entityUtil/getX';
-import getY from '../entityUtil/getY';
 import getNewEntity from './getNewEntity';
+import getDisplayObject from './getDisplayObject';
 
 /**
  * Flip Sprite horizontally
@@ -16,19 +15,17 @@ import getNewEntity from './getNewEntity';
 
 export default (options) => {
   const {
+    id,
     texture,
     // flipX = false,
     // flipY = false,
     zIndex = 0,
+    parent,
   } = options;
 
   if (!texture) {
     throw new Error('level1: l1.sprite created without "texture"');
   }
-
-  const {
-    id,
-  } = options;
 
   if (id && Core.exists(id)) {
     throw new Error(`level1: l1.sprite created using an already existing id: ${id}`);
@@ -53,12 +50,8 @@ export default (options) => {
 
   sprite.zIndex = zIndex;
   sprite.filters = [];
-  sprite.position.set(
-    getX(entity),
-    getY(entity),
-  );
 
-  Render.add(sprite);
+  Render.add(getDisplayObject(parent), sprite);
 
   entity.asset = sprite;
 

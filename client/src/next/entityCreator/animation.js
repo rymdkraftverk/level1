@@ -1,12 +1,12 @@
 import * as Render from '../../internal/Render';
 import * as Core from '../../internal/Core';
-import getX from '../entityUtil/getX';
-import getY from '../entityUtil/getY';
 import getNewEntity from './getNewEntity';
+import getDisplayObject from './getDisplayObject';
 
 export default (options) => {
   const {
     textures,
+    parent,
     zIndex = 0,
   } = options;
 
@@ -26,15 +26,10 @@ export default (options) => {
 
   const animation = Render.getNewPIXIAnimatedSprite(textures);
 
-  animation.position.set(
-    getX(entity),
-    getY(entity),
-  );
-
   animation.zIndex = zIndex;
   animation.filters = [];
 
-  Render.add(animation);
+  Render.add(getDisplayObject(parent), animation);
 
   animation.play();
 

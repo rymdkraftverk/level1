@@ -7,7 +7,7 @@ const Gamepad = require('./Gamepad');
 const Key = require('./Key');
 const Net = require('./Net');
 
-const entity = require('./next/entityCreator/entity').default;
+const container = require('./next/entityCreator/container').default;
 const sprite = require('./next/entityCreator/sprite').default;
 const animation = require('./next/entityCreator/animation').default;
 const graphics = require('./next/entityCreator/graphics').default;
@@ -39,8 +39,6 @@ const getAllEntities = require('./next/entityUtil/getAllEntities').default;
 const getById = require('./next/entityUtil/getById').default;
 const getByType = require('./next/entityUtil/getByType').default;
 const getOverlappingArea = require('./next/entityUtil/getOverlappingArea').default;
-const getX = require('./next/entityUtil/getX').default;
-const getY = require('./next/entityUtil/getY').default;
 const isColliding = require('./next/entityUtil/isColliding').default;
 
 const getRenderer = require('./next/game/getRenderer').default;
@@ -66,11 +64,9 @@ module.exports = {
   PIXI,
   text,
   animation,
-  entity,
+  container,
   sprite,
   graphics,
-  getX,
-  getY,
   addBehavior,
   removeBehavior,
   scaleText,

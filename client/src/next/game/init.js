@@ -13,9 +13,6 @@ const defaultOptions = {
   debug: false,
 };
 
-let gameWidth;
-let gameHeight;
-
 export default async (options) => {
   const {
     pixi = {
@@ -34,8 +31,8 @@ export default async (options) => {
     debug,
   } = { ...defaultOptions, ...level1Options };
 
-  gameWidth = width;
-  gameHeight = height;
+  Render.setGameWidth(width);
+  Render.setGameHeight(height);
 
   let splashScreen = null;
   const splashScreenTimer = setTimeout(() => {
@@ -72,7 +69,3 @@ function setSplashScreen(element) {
   element.appendChild(splash);
   return splash;
 }
-
-export const getGameWidth = () => gameWidth;
-
-export const getGameHeight = () => gameHeight;

@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import 'pixi-particles';
 import 'pixi-filters';
+import getGlobalPosition from './getGlobalPosition';
 
 const ASSETS_FOLDER = 'assets';
 
@@ -17,27 +18,30 @@ const assetsToLoad = [
 
 const VOID_COLOR = 0xccc;
 
-let stage;
-let renderer;
-let internalGraphics;
+let _stage;
+let _renderer;
+let _internalGraphics;
 let _showHitboxes = false;
+let _ratio = 1;
+let _gameWidth;
+let _gameHeight;
 
 export function draw() {
-  renderer.render(stage);
-  internalGraphics.clear();
+  _renderer.render(_stage);
+  _internalGraphics.clear();
 }
 
-function updateRenderLayers() {
-  stage.children.sort((a, b) => {
+function updateRenderLayers(displayObject) {
+  displayObject.children.sort((a, b) => {
     a.zIndex = a.zIndex || 0;
     b.zIndex = b.zIndex || 0;
     return a.zIndex - b.zIndex;
   });
 }
 
-export function add(child) {
-  stage.addChild(child);
-  updateRenderLayers();
+export function add(parent, child) {
+  parent.addChild(child);
+  updateRenderLayers(parent);
 }
 
 function loadAssets(assets, resolve) {
@@ -72,16 +76,16 @@ export function initRenderer(width, height, assets, element, pixiOptions, pixiSe
         });
     }
 
-    stage = new PIXI.Container();
+    _stage = new PIXI.Container();
 
-    renderer = new PIXI.WebGLRenderer({ width, height, ...pixiOptions });
-    renderer.backgroundColor = VOID_COLOR;
-    const { view } = renderer;
+    _renderer = new PIXI.WebGLRenderer({ width, height, ...pixiOptions });
+    _renderer.backgroundColor = VOID_COLOR;
+    const { view } = _renderer;
     element.appendChild(view);
 
-    internalGraphics = new PIXI.Graphics();
-    internalGraphics.zIndex = 9999;
-    add(internalGraphics);
+    _internalGraphics = new PIXI.Graphics();
+    _internalGraphics.zIndex = 9999;
+    add(getStage(), _internalGraphics);
 
     if (assets) {
       loadAssets(assets, resolve);
@@ -137,11 +141,11 @@ const loadAssetsFromServer = (path) => new Promise((resolve) => {
 });
 
 export function getRenderer() {
-  return renderer;
+  return _renderer;
 }
 
 export function getStage() {
-  return stage;
+  return _stage;
 }
 
 export function getTexture(filename) {
@@ -151,10 +155,10 @@ export function getTexture(filename) {
   return texture;
 }
 
-export function addNewPixiParticleEmitter(filenames, config, zIndex) {
+export function addNewPixiParticleEmitter(parent, filenames, config, zIndex) {
   const particleContainer = new PIXI.Container();
   particleContainer.zIndex = zIndex;
-  add(particleContainer);
+  add(parent, particleContainer);
   return {
     emitter: new PIXI.particles.Emitter(particleContainer, filenames.map(getTexture), config),
     particleContainer,
@@ -182,13 +186,13 @@ export function getNewPIXIGraphics() {
   return new PIXI.Graphics();
 }
 
-export function remove(child) {
+export function remove(parent, child) {
   child.destroy();
-  stage.removeChild(child);
+  parent.removeChild(child);
 }
 
 export function removeAll() {
-  stage.removeChildren();
+  _stage.removeChildren();
 }
 
 export function showHitboxes(show) {
@@ -205,33 +209,53 @@ export function displayBodyBounds(body) {
 
   const { vertices } = body.parts[0];
 
-  internalGraphics.lineStyle(2, 0xFFFFFF, 1);
-  internalGraphics.moveTo(vertices[0].x, vertices[0].y);
+  _internalGraphics
+    .lineStyle(2, 0xFFFFFF, 1)
+    .moveTo(vertices[0].x, vertices[0].y);
 
   for (let i = 1; i < vertices.length; i += 1) {
     if (!vertices[i - 1].isInternal) {
-      internalGraphics.lineTo(vertices[i].x, vertices[i].y);
+      _internalGraphics.lineTo(vertices[i].x, vertices[i].y);
     } else {
-      internalGraphics.moveTo(vertices[i].x, vertices[i].y);
+      _internalGraphics.moveTo(vertices[i].x, vertices[i].y);
     }
     if (vertices[i].isInternal) {
-      internalGraphics.moveTo(
+      _internalGraphics.moveTo(
         vertices[(i + 1) % vertices.length].x,
         vertices[(i + 1) % vertices.length].y,
       );
     }
   }
 
-  internalGraphics.lineTo(vertices[0].x, vertices[0].y);
+  _internalGraphics.lineTo(vertices[0].x, vertices[0].y);
 }
+
+// TODO:
 
 export function displayEntityBounds(entity) {
   if (!_showHitboxes) return;
 
-  internalGraphics.lineStyle(2, 0xFFFFFF, 1);
-  internalGraphics.moveTo(entity.x, entity.y);
-  internalGraphics.lineTo(entity.x + entity.width, entity.y);
-  internalGraphics.lineTo(entity.x + entity.width, entity.y + entity.height);
-  internalGraphics.lineTo(entity.x, entity.y + entity.height);
-  internalGraphics.lineTo(entity.x, entity.y);
+  const {
+    width,
+    height,
+  } = entity.asset;
+
+  const { x, y } = getGlobalPosition(entity, getRatio());
+
+  _internalGraphics
+    .lineStyle(2, 0xFFFFFF, 1)
+    .moveTo(x, y)
+    .lineTo(x + width, y)
+    .lineTo(x + width, y + height)
+    .lineTo(x, y + height)
+    .lineTo(x, y);
 }
+
+export const getRatio = () => _ratio;
+export const setRatio = (ratio) => { _ratio = ratio; };
+
+export const getGameWidth = () => _gameWidth;
+export const setGameWidth = (gameWidth) => { _gameWidth = gameWidth; };
+
+export const getGameHeight = () => _gameHeight;
+export const setGameHeight = (gameHeight) => { _gameHeight = gameHeight; };

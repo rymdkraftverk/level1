@@ -1,5 +1,6 @@
 import { isColliding } from '../../../internal/Entity';
 
+// TODO: Use real pixi entities to test this
 describe('isCollding', () => {
   const grandParent = {
     y: 20,

@@ -1,13 +1,13 @@
 import * as Render from '../../internal/Render';
 import * as Core from '../../internal/Core';
-import getX from '../entityUtil/getX';
-import getY from '../entityUtil/getY';
 import getNewEntity from './getNewEntity';
+import getDisplayObject from './getDisplayObject';
 
 export default (options) => {
   const {
     text,
     style,
+    parent,
     zIndex = 0,
   } = options;
 
@@ -32,12 +32,8 @@ export default (options) => {
   const textObject = Render.getNewPIXIBitmapText(text, style);
 
   textObject.zIndex = zIndex;
-  textObject.position.set(
-    getX(entity),
-    getY(entity),
-  );
 
-  Render.add(textObject);
+  Render.add(getDisplayObject(parent), textObject);
 
   entity.asset = textObject;
 

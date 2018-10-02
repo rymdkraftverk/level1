@@ -1,9 +1,8 @@
 import * as Render from '../../internal/Render';
 import * as Entity from '../../internal/Entity';
 import * as Core from '../../internal/Core';
-import getX from '../entityUtil/getX';
-import getY from '../entityUtil/getY';
 import getNewEntity from './getNewEntity';
+import getDisplayObject from './getDisplayObject';
 
 /*
 The following properties are required by PIXI Particles when it's created.
@@ -14,6 +13,10 @@ const defaultParticleEmitterConfig = {
     min: 0,
     max: 0,
   },
+  pos: {
+    x: 0,
+    y: 0,
+  },
 };
 
 export default (options) => {
@@ -21,6 +24,7 @@ export default (options) => {
     textures,
     config,
     zIndex = 0,
+    parent,
   } = options;
 
   if (!textures || !config) {
@@ -30,12 +34,9 @@ export default (options) => {
   const entity = getNewEntity(options);
 
   const { emitter, particleContainer } = Render.addNewPixiParticleEmitter(
+    getDisplayObject(parent),
     textures, {
       ...defaultParticleEmitterConfig,
-      pos: {
-        x: getX(entity),
-        y: getY(entity),
-      },
       ...config,
       emit: true,
     },

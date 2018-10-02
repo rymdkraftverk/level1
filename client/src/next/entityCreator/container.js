@@ -1,3 +1,4 @@
+import { Container } from 'pixi.js';
 import * as Render from '../../internal/Render';
 import * as Core from '../../internal/Core';
 import getNewEntity from './getNewEntity';
@@ -9,21 +10,20 @@ export default (options = {}) => {
     zIndex = 0,
     parent,
   } = options;
-
   if (id && Core.exists(id)) {
-    throw new Error(`level1: Graphics created using an already existing id: ${id}`);
+    throw new Error(`level1: l1.container created using an already existing id: ${id}`);
   }
 
   const entity = getNewEntity(options);
 
-  const graphics = Render.getNewPIXIGraphics();
+  const container = new Container();
 
-  graphics.zIndex = zIndex;
-  graphics.filters = [];
+  container.zIndex = zIndex;
+  container.filters = [];
 
-  Render.add(getDisplayObject(parent), graphics);
+  Render.add(getDisplayObject(parent), container);
 
-  entity.asset = graphics;
+  entity.asset = container;
 
   return Core.addEntity(entity);
 };

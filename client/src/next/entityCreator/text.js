@@ -1,15 +1,14 @@
 import * as Render from '../../internal/Render';
 import * as Core from '../../internal/Core';
-import getX from '../entityUtil/getX';
-import getY from '../entityUtil/getY';
-import { getRatio } from '../game/resize';
 import getNewEntity from './getNewEntity';
+import getDisplayObject from './getDisplayObject';
 
 export default (options) => {
   const {
     text,
     style,
     zIndex = 0,
+    parent,
   } = options;
 
   if (text === null || text === undefined) {
@@ -33,7 +32,7 @@ export default (options) => {
   */
   const updatedStyle = {
     ...style,
-    fontSize: style.fontSize * getRatio(),
+    fontSize: style.fontSize * Render.getRatio(),
   };
 
   const entity = getNewEntity(options);
@@ -41,10 +40,6 @@ export default (options) => {
   const textObject = Render.getNewPIXIText(text, updatedStyle);
 
   textObject.zIndex = zIndex;
-  textObject.position.set(
-    getX(entity),
-    getY(entity),
-  );
 
   /*
     This is done to counteract the scale change on the canvas. Since changing the scale
@@ -52,10 +47,10 @@ export default (options) => {
 
     This can be removed when Pixi makes it possible to scale text objects.
   */
-  textObject.scale.set(1 / getRatio());
+  textObject.scale.set(1 / Render.getRatio());
   entity.originalSize = style.fontSize;
 
-  Render.add(textObject);
+  Render.add(getDisplayObject(parent), textObject);
 
   entity.asset = textObject;
 

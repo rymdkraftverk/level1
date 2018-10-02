@@ -1,11 +1,31 @@
+import getGlobalPosition from './getGlobalPosition';
+import * as Render from './Render';
+
 export function isColliding(entity, otherEntity) {
-  if (getX(entity) + entity.width >= getX(otherEntity)
-    && getX(otherEntity) + otherEntity.width >= getX(entity)
-    && getY(entity) + entity.width >= getY(otherEntity)
-    && getY(otherEntity) + otherEntity.width >= getY(entity)) {
-    return true;
-  }
-  return false;
+  const {
+    entityWidth,
+    entityHeight,
+  } = entity.asset;
+
+  const {
+    x: entityX,
+    y: entityY,
+  } = getGlobalPosition(entity, Render.getRatio());
+
+  const {
+    otherEntityWidth,
+    otherEntityHeight,
+  } = otherEntity.asset;
+
+  const {
+    x: otherEntityX,
+    y: otherEntityY,
+  } = getGlobalPosition(otherEntity, Render.getRatio());
+
+  return (entityX + entityWidth >= otherEntityX
+    && otherEntityX + otherEntityWidth >= entityX
+    && entityY + entityHeight >= otherEntityY
+    && otherEntityY + otherEntityHeight >= entityY);
 }
 
 export function getOverlappingArea(entity, otherEntity) {
@@ -13,29 +33,35 @@ export function getOverlappingArea(entity, otherEntity) {
     return 0;
   }
 
-  const minX = Math.max(entity.x, otherEntity.x);
-  const maxX = Math.min(entity.x + entity.width, otherEntity.x + otherEntity.width);
+  const {
+    entityWidth,
+    entityHeight,
+  } = entity.asset;
+
+  const {
+    x: entityX,
+    y: entityY,
+  } = getGlobalPosition(entity, Render.getRatio());
+
+  const {
+    otherEntityWidth,
+    otherEntityHeight,
+  } = otherEntity.asset;
+
+  const {
+    x: otherEntityX,
+    y: otherEntityY,
+  } = getGlobalPosition(otherEntity, Render.getRatio());
+
+  const minX = Math.max(entityX, otherEntityX);
+  const maxX = Math.min(entityX + entityWidth, otherEntityX + otherEntityWidth);
   const dX = maxX - minX;
 
-  const minY = Math.max(entity.y, otherEntity.y);
-  const maxY = Math.min(entity.y + entity.height, otherEntity.y + otherEntity.height);
+  const minY = Math.max(entityY, otherEntityY);
+  const maxY = Math.min(entityY + entityHeight, otherEntityY + otherEntityHeight);
   const dY = maxY - minY;
 
   return dX * dY;
-}
-
-export function getX({ x, parent }) {
-  if (parent) {
-    return x + getX(parent);
-  }
-  return x;
-}
-
-export function getY({ y, parent }) {
-  if (parent) {
-    return y + getY(parent);
-  }
-  return y;
 }
 
 export const assetTypes = {
