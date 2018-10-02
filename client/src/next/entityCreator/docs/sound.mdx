@@ -1,0 +1,31 @@
+---
+name: sound
+---
+
+```js
+l1.sound(options)
+```
+
+#### Arguments
+
+`options` (object):
+
+Option | Type | Required | Default | Description
+-- | -- | -- | -- | -- |
+**loop** | Boolean | [ ] | false | If the sound should be played continuously.
+**src** | String | [x] | - | The sound to play.
+**volume** | Number | [ ] | 0.5 | The volume
+
+#### Returns
+
+(object): The sound entity
+
+#### Example
+
+```js
+l1.sound({
+  src: 'explosion',
+  volume: 0.1,
+  loop: false,
+})
+```
