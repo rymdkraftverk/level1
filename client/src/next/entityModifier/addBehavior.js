@@ -32,55 +32,15 @@ export default curry(({
     removed: false,
     finished: false,
     counter: 0,
+    endTime,
     initHasBeenCalled: false,
-    // TODO: remove all functions from behavior to behavior runner
-    // eslint-disable-next-line no-shadow
-    init: ({ behavior, data, entity }) => {
-      if (onInit) {
-        onInit({ data, entity });
-      }
-      behavior.initHasBeenCalled = true;
-    },
-    // eslint-disable-next-line no-shadow
-    update: ({ behavior, entity, data }) => {
-      if (!enabled) {
-        return;
-      }
-      if (onUpdate) {
-        onUpdate({
-          counter: behavior.counter,
-          entity,
-          data,
-        });
-      }
-      if (endTime > 0 && behavior.counter === endTime && !behavior.finished) {
-        behavior.finished = true;
-        if (onComplete) {
-          onComplete({ data, entity });
-        }
-        if (loop) {
-          behavior.reset({ behavior });
-        } else if (removeOnComplete) {
-          behavior.remove({ data, entity, behavior });
-        }
-      }
-      behavior.counter += 1;
-    },
-    // eslint-disable-next-line no-shadow
-    remove: ({ behavior, data, entity }) => {
-      if (behavior.removed) {
-        return;
-      }
-      behavior.removed = true;
-      entity.behaviors = entity.behaviors.filter((b) => b.id !== id);
-      if (onRemove) {
-        onRemove({ data, entity });
-      }
-    },
-    reset: ({ behavior }) => {
-      behavior.counter = 0;
-      behavior.finished = false;
-    },
+    loop,
+    removeOnComplete,
+    onComplete,
+    enabled,
+    onInit,
+    onUpdate,
+    onRemove,
   };
 
   entity.behaviors = entity.behaviors.concat(newBehaviorObject);

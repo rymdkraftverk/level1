@@ -2,6 +2,8 @@ import MainLoop from 'mainloop.js';
 import { Engine } from 'matter-js';
 import * as Render from './Render';
 import * as InternalEntity from './Entity';
+import removeBehavior from '../next/entityModifier/removeBehavior';
+import resetBehavior from '../next/entityModifier/resetBehavior';
 
 let engine;
 let entities = [];
@@ -32,21 +34,45 @@ function runEntity(e, delta) {
 }
 
 function runBehaviors(entity) {
-  const { behaviors } = entity;
-
-  behaviors
-    .forEach((
-      behavior,
-    ) => {
+  entity
+    .behaviors
+    .forEach((behavior) => {
       const {
-        init, update: updateBehavior, data, initHasBeenCalled,
+        data,
       } = behavior;
 
-      if (!initHasBeenCalled) {
-        init({ data, entity, behavior });
+      if (!behavior.initHasBeenCalled) {
+        if (behavior.onInit) {
+          behavior.onInit({ data, entity });
+        }
+        behavior.initHasBeenCalled = true;
       }
 
-      updateBehavior({ behavior, entity, data });
+      if (!behavior.enabled) {
+        return;
+      }
+
+      if (behavior.onUpdate) {
+        behavior.onUpdate({
+          counter: behavior.counter,
+          entity,
+          data,
+        });
+      }
+
+      if (behavior.endTime > 0 && behavior.counter === behavior.endTime && !behavior.finished) {
+        behavior.finished = true;
+        if (behavior.onComplete) {
+          behavior.onComplete({ data, entity });
+        }
+        if (behavior.loop) {
+          resetBehavior(behavior.id, entity);
+        } else if (behavior.removeOnComplete) {
+          removeBehavior(behavior.id, entity);
+        }
+      }
+
+      behavior.counter += 1;
     });
 
   // Display hitboxes

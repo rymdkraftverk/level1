@@ -2,6 +2,7 @@ import * as Core from '../../internal/Core';
 import * as Render from '../../internal/Render';
 import * as InternalEntity from '../../internal/Entity';
 import removeBody from '../entityModifier/removeBody';
+import removeBehavior from '../entityModifier/removeBehavior';
 
 const destroyAsset = (asset) => {
   if (asset.type === InternalEntity.assetTypes.PARTICLES) {
@@ -43,11 +44,7 @@ const destroy = (entity) => {
   }
 
   entity.behaviors.forEach((behavior) => {
-    behavior.remove({
-      data: behavior.data,
-      entity,
-      behavior,
-    });
+    removeBehavior(behavior.id, entity);
   });
 };
 
