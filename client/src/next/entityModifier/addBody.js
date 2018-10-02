@@ -2,7 +2,7 @@ import { World } from 'matter-js';
 import curry from 'lodash/fp/curry';
 import getPhysicsEngine from '../physics/getPhysicsEngine';
 
-export default curry((body, entity) => {
+export default curry((entity, body) => {
   const engine = getPhysicsEngine();
 
   const width = Math.abs(body.bounds.max.x - body.bounds.min.x);

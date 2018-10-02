@@ -36,7 +36,7 @@ const move = (start, end) => ({
     } else if (data.direction === direction.RIGHT) {
       entity.asset.x += 10;
       if (entity.asset.x > end) {
-        l1.removeBehavior('move', entity);
+        l1.removeBehavior(entity, 'move');
       }
     }
   },
@@ -81,11 +81,17 @@ l1.init({
   });
 
   square.asset.scale.set(5);
-  l1.addFilter(new l1.Filter.GlowFilter(), square);
+  l1.addFilter(
+    square,
+    new l1.Filter.GlowFilter(),
+  );
 
-  l1.addBody(l1.Matter.Bodies.rectangle(140, 50, 80, 80, {
-    inertia: Infinity,
-  }), square);
+  l1.addBody(
+    square,
+    l1.Matter.Bodies.rectangle(140, 50, 80, 80, {
+      inertia: Infinity,
+    }),
+  );
 
   l1.sound({
     src: './sounds/join3.wav',
@@ -111,12 +117,12 @@ l1.init({
   helloText.asset.y = 0;
 
   l1.scaleText(
-    helloText.asset.style.fontSize + 30,
     helloText,
+    helloText.asset.style.fontSize + 30,
   );
 
   // Test that removing a behavior that does not exist doesn't crash
-  l1.removeBehavior('doesNotExist', helloText);
+  l1.removeBehavior(helloText, 'doesNotExist');
 
   const selfdestruct = () => ({
     endTime: 120,
@@ -142,7 +148,7 @@ l1.init({
       l1.destroy(e);
     },
   });
-  l1.addBehavior(selfdestruct(), square);
+  l1.addBehavior(square, selfdestruct());
 
   const lizard = l1.animation({
     textures: [
@@ -169,16 +175,23 @@ l1.init({
   lizard.asset.x = 200;
   lizard.asset.y = 50;
 
-  const moveB = l1.addBehavior(move(100, 500));
-  moveB(lizard);
-  l1.addBehavior(onCompleteTest(), lizard);
+  const addToLizard = l1.addBehavior(lizard);
+  addToLizard(move(100, 500));
 
-  l1.addFilter(new l1.Filter.GlowFilter(), lizard);
+  l1.addBehavior(
+    lizard,
+    onCompleteTest(),
+  );
+
+  l1.addFilter(
+    lizard,
+    new l1.Filter.GlowFilter(),
+  );
 
   const floor = l1.container({ id: 'floor' });
   l1.addBody(
-    l1.Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }),
     floor,
+    l1.Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }),
   );
 
   const resizeGame = () => {

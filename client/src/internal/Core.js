@@ -66,9 +66,9 @@ function runBehaviors(entity) {
           behavior.onComplete({ data, entity });
         }
         if (behavior.loop) {
-          resetBehavior(behavior.id, entity);
+          resetBehavior(entity, behavior.id);
         } else if (behavior.removeOnComplete) {
-          removeBehavior(behavior.id, entity);
+          removeBehavior(entity, behavior.id);
         }
       }
 

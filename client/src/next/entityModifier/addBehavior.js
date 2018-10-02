@@ -5,19 +5,22 @@ function exists(entity, id) {
   return entity.behaviors.some((behavior) => behavior.id === id);
 }
 
-export default curry(({
-  id = uuid(),
-  endTime = 0,
-  loop = false,
-  removeOnComplete = true,
-  onUpdate = null,
-  onComplete = null,
-  onInit = null,
-  onRemove = null,
-  enabled = true,
-  data = {},
-  ...unknownProperties
-}, entity) => {
+export default curry((
+  entity,
+  {
+    id = uuid(),
+    endTime = 0,
+    loop = false,
+    removeOnComplete = true,
+    onUpdate = null,
+    onComplete = null,
+    onInit = null,
+    onRemove = null,
+    enabled = true,
+    data = {},
+    ...unknownProperties
+  },
+) => {
   if (exists(entity, id)) {
     throw new Error(`level1: Behavior with id ${id} already exists on entity ${entity.id}`);
   }

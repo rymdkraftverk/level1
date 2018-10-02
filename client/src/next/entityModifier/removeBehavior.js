@@ -1,8 +1,8 @@
 import curry from 'lodash/fp/curry';
 import getBehavior from './getBehavior';
 
-export default curry((id, entity) => {
-  const behavior = getBehavior(id, entity);
+export default curry((entity, id) => {
+  const behavior = getBehavior(entity, id);
   if (!behavior) {
     console.warn(`level1: tried to remove non-existant behavior "${id}" from entity: "${entity.id}"`);
   } else {

@@ -44,7 +44,7 @@ const destroy = (entity) => {
   }
 
   entity.behaviors.forEach((behavior) => {
-    removeBehavior(behavior.id, entity);
+    removeBehavior(entity, behavior.id);
   });
 };
 
