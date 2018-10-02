@@ -4,7 +4,7 @@ import * as Render from './Render';
 import { save, restore } from './localStorage';
 import getAllEntities from '../next/entityUtil/getAllEntities';
 
-const TIME_BETWEEN_INFO_UPDATES = 1000;
+const TIME_BETWEEN_INFO_UPDATES = 100;
 
 const TOGGLE_HITBOXES = 'toggle-hitboxes';
 

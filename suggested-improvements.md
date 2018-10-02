@@ -7,6 +7,8 @@ It takes pixi and adds a game loop with the concept of entities and behaviours. 
 
 level1 uses Pixi webGLRenderer only.
 
+The purpose is to add sound and physics to pixis renderer, and also other useful utils to aid with game development.
+
 Text style
 https://pixijs.io/pixi-text-style/#
 
