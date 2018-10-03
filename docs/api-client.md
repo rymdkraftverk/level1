@@ -84,14 +84,6 @@ addPreset('MY-POWER CO.,LTD. USB Joystick (Vendor: 0e8f Product: 310d)', new L1C
 
 ---
 
-## Debug
-
-### setShowHitboxes
-
-```js
-l1.setShowHitboxes(show)
-```
-
 #### Arguments
 
 `show` (boolean): If true, display hitboxes
