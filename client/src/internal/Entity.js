@@ -1,26 +1,17 @@
-import getGlobalPosition from './getGlobalPosition';
-import * as Render from './Render';
-
 export function isColliding(entity, otherEntity) {
-  const {
-    entityWidth,
-    entityHeight,
-  } = entity.asset;
-
   const {
     x: entityX,
     y: entityY,
-  } = getGlobalPosition(entity, Render.getRatio());
-
-  const {
-    otherEntityWidth,
-    otherEntityHeight,
-  } = otherEntity.asset;
+    width: entityWidth,
+    height: entityHeight,
+  } = entity;
 
   const {
     x: otherEntityX,
     y: otherEntityY,
-  } = getGlobalPosition(otherEntity, Render.getRatio());
+    width: otherEntityWidth,
+    height: otherEntityHeight,
+  } = otherEntity;
 
   return (entityX + entityWidth >= otherEntityX
     && otherEntityX + otherEntityWidth >= entityX
@@ -34,24 +25,18 @@ export function getOverlappingArea(entity, otherEntity) {
   }
 
   const {
-    entityWidth,
-    entityHeight,
-  } = entity.asset;
-
-  const {
     x: entityX,
     y: entityY,
-  } = getGlobalPosition(entity, Render.getRatio());
-
-  const {
-    otherEntityWidth,
-    otherEntityHeight,
-  } = otherEntity.asset;
+    width: entityWidth,
+    height: entityHeight,
+  } = entity;
 
   const {
     x: otherEntityX,
     y: otherEntityY,
-  } = getGlobalPosition(otherEntity, Render.getRatio());
+    width: otherEntityWidth,
+    height: otherEntityHeight,
+  } = otherEntity;
 
   const minX = Math.max(entityX, otherEntityX);
   const maxX = Math.min(entityX + entityWidth, otherEntityX + otherEntityWidth);

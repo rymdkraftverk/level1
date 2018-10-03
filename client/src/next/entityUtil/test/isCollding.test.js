@@ -1,31 +1,12 @@
 import { isColliding } from '../../../internal/Entity';
 
-// TODO: Use real pixi entities to test this
 describe('isCollding', () => {
-  const grandParent = {
-    y: 20,
-    x: 20,
-    parent: null,
-  };
-
-  const parent = {
-    x: 10,
-    y: 10,
-    parent: grandParent,
-  };
-
   const entity = {
-    x: 5,
-    y: 5,
+    x: 25,
+    y: 25,
     width: 10,
     height: 10,
-    parent,
   };
-  /*
-    Absolute position:
-    x: 35
-    y: 35
-  */
 
   it('colliding', () => {
     const otherEntity = {
@@ -33,7 +14,6 @@ describe('isCollding', () => {
       y: 30,
       width: 10,
       height: 10,
-      parent: null,
     };
 
     expect(isColliding(entity, otherEntity)).to.equal(true);
@@ -45,7 +25,6 @@ describe('isCollding', () => {
       y: 100,
       width: 10,
       height: 10,
-      parent: null,
     };
 
     expect(isColliding(entity, otherEntity)).to.equal(false);
