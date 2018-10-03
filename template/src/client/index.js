@@ -1,21 +1,6 @@
 import l1 from 'l1';
 import config from './emitter.json';
 
-const lizardRotation = () => ({
-  timer: Timer.create({ duration: 120 }),
-  textures: {
-    front: ['lizardFront1', 'lizardFront2'],
-    right: ['Samurai-move-1', 'Samurai-move-2'],
-  },
-  onComplete: (b, e) => {
-    const animation = Animation.play(e, {
-      textures: b.textures.right,
-    });
-    animation.scale.set(2);
-    animation.anchor.set(0.2);
-  },
-});
-
 const direction = {
   LEFT: 'left',
   RIGHT: 'right',
@@ -26,6 +11,9 @@ const move = (start, end) => ({
   id: 'move',
   data: {
     direction: direction.LEFT,
+  },
+  onRemove: ({ entity }) => {
+    l1.removeFilter(entity, 'glow');
   },
   onUpdate: ({ entity, data }) => {
     if (data.direction === direction.LEFT) {
@@ -186,6 +174,7 @@ l1.init({
   l1.addFilter(
     lizard,
     new l1.Filter.GlowFilter(),
+    'glow',
   );
 
   const floor = l1.container({ id: 'floor' });

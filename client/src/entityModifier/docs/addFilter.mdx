@@ -5,7 +5,7 @@ name: addFilter
 # addFilter
 
 ```js
-l1.addFilter(entity, filter)
+l1.addFilter(entity, filter, id)
 ```
 
 Add a filter to an entity. Is auto-curried.
@@ -22,6 +22,8 @@ https://github.com/pixijs/pixi-filters
 
 `filter` (Filter): The filter instance
 
+`id` (String): Filter id to use when removing (Optional)
+
 ## Returns
 
 (Entity): The entity that had the filter applied to it.
@@ -32,5 +34,6 @@ https://github.com/pixijs/pixi-filters
 l1.addFilter(
   entity, 
   new l1.Filter.GlowFilter(),
+  'glow',
 )
 ```
