@@ -3,58 +3,58 @@ import '@babel/polyfill';
 const Matter = require('matter-js');
 const PIXI = require('pixi.js');
 
-const Gamepad = require('./Gamepad');
-const Key = require('./Key');
-const Net = require('./Net');
+const Gamepad = require('./input/Gamepad');
+const Key = require('./input/Key');
+const Net = require('./net/Net');
 
-const container = require('./next/entityCreator/container').default;
-const sprite = require('./next/entityCreator/sprite').default;
-const animation = require('./next/entityCreator/animation').default;
-const graphics = require('./next/entityCreator/graphics').default;
-const text = require('./next/entityCreator/text').default;
-const bitmapText = require('./next/entityCreator/bitmapText').default;
-const particles = require('./next/entityCreator/particles').default;
-const sound = require('./next/entityCreator/sound').default;
+const container = require('./entityCreator/container').default;
+const sprite = require('./entityCreator/sprite').default;
+const animation = require('./entityCreator/animation').default;
+const graphics = require('./entityCreator/graphics').default;
+const text = require('./entityCreator/text').default;
+const bitmapText = require('./entityCreator/bitmapText').default;
+const particles = require('./entityCreator/particles').default;
+const sound = require('./entityCreator/sound').default;
 
-const addBehavior = require('./next/entityModifier/addBehavior').default;
-const addBody = require('./next/entityModifier/addBody').default;
-// const addCollision = require('./next/entityModifier/addCollision').default;
-const addFilter = require('./next/entityModifier/addFilter').default;
-const addType = require('./next/entityModifier/addType').default;
-const clearFilters = require('./next/entityModifier/clearFilters').default;
-const Filter = require('./next/entityModifier/Filter').default;
-const getBehavior = require('./next/entityModifier/getBehavior').default;
-// const removeAllCollisions = require('./next/entityModifier/removeAllCollisions').default;
-const removeBehavior = require('./next/entityModifier/removeBehavior').default;
-const removeBody = require('./next/entityModifier/removeBody').default;
-// const removeCollision = require('./next/entityModifier/removeCollision').default;
-const removeFilter = require('./next/entityModifier/removeFilter').default;
-const removeType = require('./next/entityModifier/removeType').default;
-const resetBehavior = require('./next/entityModifier/resetBehavior').default;
-const scaleText = require('./next/entityModifier/scaleText').default;
+const addBehavior = require('./entityModifier/addBehavior').default;
+const addBody = require('./entityModifier/addBody').default;
+// const addCollision = require('./entityModifier/addCollision').default;
+const addFilter = require('./entityModifier/addFilter').default;
+const addType = require('./entityModifier/addType').default;
+const clearFilters = require('./entityModifier/clearFilters').default;
+const Filter = require('./entityModifier/Filter').default;
+const getBehavior = require('./entityModifier/getBehavior').default;
+// const removeAllCollisions = require('./entityModifier/removeAllCollisions').default;
+const removeBehavior = require('./entityModifier/removeBehavior').default;
+const removeBody = require('./entityModifier/removeBody').default;
+// const removeCollision = require('./entityModifier/removeCollision').default;
+const removeFilter = require('./entityModifier/removeFilter').default;
+const removeType = require('./entityModifier/removeType').default;
+const resetBehavior = require('./entityModifier/resetBehavior').default;
+const scaleText = require('./entityModifier/scaleText').default;
 
-const destroy = require('./next/entityUtil/destroy').default;
-const get = require('./next/entityUtil/get').default;
-const getAllEntities = require('./next/entityUtil/getAllEntities').default;
-const getById = require('./next/entityUtil/getById').default;
-const getByType = require('./next/entityUtil/getByType').default;
-const getOverlappingArea = require('./next/entityUtil/getOverlappingArea').default;
-const isColliding = require('./next/entityUtil/isColliding').default;
+const destroy = require('./entityUtil/destroy').default;
+const get = require('./entityUtil/get').default;
+const getAllEntities = require('./entityUtil/getAllEntities').default;
+const getById = require('./entityUtil/getById').default;
+const getByType = require('./entityUtil/getByType').default;
+const getOverlappingArea = require('./entityUtil/getOverlappingArea').default;
+const isColliding = require('./entityUtil/isColliding').default;
 
-const getRenderer = require('./next/game/getRenderer').default;
-const getStage = require('./next/game/getStage').default;
-const init = require('./next/game/init').default;
-const resize = require('./next/game/resize').default;
-const start = require('./next/game/start').default;
-const stop = require('./next/game/stop').default;
+const getRenderer = require('./game/getRenderer').default;
+const getStage = require('./game/getStage').default;
+const init = require('./game/init').default;
+const resize = require('./game/resize').default;
+const start = require('./game/start').default;
+const stop = require('./game/stop').default;
 
-const getPhysicsEngine = require('./next/physics/getPhysicsEngine').default;
+const getPhysicsEngine = require('./physics/getPhysicsEngine').default;
 
-const angle = require('./next/util/angle').default;
-const distance = require('./next/util/distance').default;
-const getRandomInRange = require('./next/util/getRandomInRange').default;
-const grid = require('./next/util/grid').default;
-const toRadians = require('./next/util/toRadians').default;
+const angle = require('./util/angle').default;
+const distance = require('./util/distance').default;
+const getRandomInRange = require('./util/getRandomInRange').default;
+const grid = require('./util/grid').default;
+const toRadians = require('./util/toRadians').default;
 
 module.exports = {
   Gamepad,

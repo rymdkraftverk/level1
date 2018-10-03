@@ -2,8 +2,8 @@ import MainLoop from 'mainloop.js';
 import { Engine } from 'matter-js';
 import * as Render from './Render';
 import * as InternalEntity from './Entity';
-import removeBehavior from '../next/entityModifier/removeBehavior';
-import resetBehavior from '../next/entityModifier/resetBehavior';
+import removeBehavior from '../entityModifier/removeBehavior';
+import resetBehavior from '../entityModifier/resetBehavior';
 
 let engine;
 let entities = [];

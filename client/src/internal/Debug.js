@@ -2,7 +2,7 @@ import { Composite } from 'matter-js';
 import * as Core from './Core';
 import * as Render from './Render';
 import { save, restore } from './localStorage';
-import getAllEntities from '../next/entityUtil/getAllEntities';
+import getAllEntities from '../entityUtil/getAllEntities';
 
 const TIME_BETWEEN_INFO_UPDATES = 100;
 
