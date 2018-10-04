@@ -42,6 +42,7 @@ const getOverlappingArea = require('./entityUtil/getOverlappingArea').default;
 const isColliding = require('./entityUtil/isColliding').default;
 
 const getRenderer = require('./game/getRenderer').default;
+const getScreenScale = require('./game/getScreenScale').default;
 const getStage = require('./game/getStage').default;
 const init = require('./game/init').default;
 const resize = require('./game/resize').default;
@@ -74,6 +75,7 @@ module.exports = {
   getRenderer,
   getStage,
   init,
+  getScreenScale,
   resize,
   start,
   stop,
