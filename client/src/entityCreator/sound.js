@@ -19,6 +19,7 @@ export default (options) => {
     src,
     volume,
     loop,
+    parent,
   } = options;
 
   if (id && Core.exists(id)) {
@@ -29,11 +30,18 @@ export default (options) => {
     id,
     types,
     behaviors,
+    children: [],
   };
 
   const sound = getSound(src, { volume, loop });
 
   sound.play();
+
+  entity.parent = null;
+  if (parent) {
+    entity.parent = parent;
+    entity.parent.children = entity.parent.children.concat(entity);
+  }
 
   entity.asset = sound;
   entity.asset.type = assetTypes.SOUND;
