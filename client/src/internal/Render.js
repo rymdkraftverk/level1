@@ -174,8 +174,6 @@ export function getShowHitboxes() {
 }
 
 export function displayBodyBounds(body) {
-  if (!_showHitboxes) return;
-
   const { vertices } = body.parts[0];
 
   _internalGraphics
@@ -199,11 +197,7 @@ export function displayBodyBounds(body) {
   _internalGraphics.lineTo(vertices[0].x, vertices[0].y);
 }
 
-// TODO:
-
 export function displayEntityBounds(entity) {
-  if (!_showHitboxes) return;
-
   const {
     width,
     height,

@@ -17,6 +17,7 @@ export default (options, asset) => {
     asset: null,
     hasBody: false,
     behaviors: [],
+    children: [],
   };
 
   asset.zIndex = zIndex;
@@ -30,6 +31,12 @@ export default (options, asset) => {
     entity,
   };
   entity.body = defaultBody;
+
+  entity.parent = null;
+  if (parent) {
+    entity.parent = parent;
+    entity.parent.children = entity.parent.children.concat(entity);
+  }
 
   Core.addEntity(entity);
 

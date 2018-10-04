@@ -22,6 +22,8 @@ function update(delta) {
 }
 
 function runEntity(e, delta) {
+  if (e._destroyed) return;
+
   runBehaviors(e);
 
   if (e.hasBody) {
@@ -30,6 +32,18 @@ function runEntity(e, delta) {
 
   if (e.asset && e.asset.type === InternalEntity.assetTypes.PARTICLES) {
     e.asset.update(delta * 0.001);
+  }
+
+  if (Render.showHitboxes()) {
+    const { body, hasBody, asset } = e;
+    if (hasBody) {
+      Render.displayBodyBounds(body);
+    } else if (asset
+      && asset.type !== InternalEntity.assetTypes.SOUND
+      && asset.width > 0
+      && asset.height > 0) {
+      Render.displayEntityBounds(e);
+    }
   }
 }
 
@@ -74,18 +88,6 @@ function runBehaviors(entity) {
 
       behavior.counter += 1;
     });
-
-  // Display hitboxes
-  // TODO: Make the show hitboxes check here instead
-  const { body, hasBody } = entity;
-  if (hasBody) {
-    Render.displayBodyBounds(body);
-  } else if (entity.asset
-    && entity.asset.type !== InternalEntity.assetTypes.SOUND
-    && entity.asset.width > 0
-    && entity.asset.height > 0) {
-    Render.displayEntityBounds(entity);
-  }
 }
 
 function syncEntityBodyPosition(entity) {

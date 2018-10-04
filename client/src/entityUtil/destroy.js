@@ -6,13 +6,25 @@ import removeBehavior from '../entityModifier/removeBehavior';
 
 const destroyAsset = (asset) => {
   if (asset.type === InternalEntity.assetTypes.PARTICLES) {
-    asset.destroy();
     Render.remove(asset.parent, asset.particleContainer);
   } else if (asset.type === InternalEntity.assetTypes.SOUND) {
     asset.unload();
   } else {
     Render.remove(asset.parent, asset);
   }
+};
+
+const destroyEntity = (entity) => {
+  entity._destroyed = true;
+  entity.behaviors.forEach((behavior) => {
+    removeBehavior(entity, behavior.id);
+  });
+  if (entity.hasBody) {
+    removeBody(entity.body);
+    entity.hasBody = false;
+    entity.body = null;
+  }
+  entity.children.forEach(destroyEntity);
 };
 
 const destroy = (entity) => {
@@ -24,28 +36,19 @@ const destroy = (entity) => {
     return;
   }
 
+  if (entity._destroyed) {
+    console.warn(`Entity ${entity} has already been destroyed`);
+    return;
+  }
+
   Core.remove(entity);
 
-  const {
-    asset,
-    body,
-    hasBody,
-  } = entity;
-
-  if (asset) {
-    destroyAsset(asset);
+  if (entity.asset) {
+    destroyAsset(entity.asset);
     entity.asset = null;
   }
 
-  if (hasBody) {
-    entity.hasBody = false;
-    entity.body = null;
-    removeBody(body);
-  }
-
-  entity.behaviors.forEach((behavior) => {
-    removeBehavior(entity, behavior.id);
-  });
+  destroyEntity(entity);
 };
 
 export default destroy;
