@@ -1,39 +1,28 @@
-import * as Render from '../internal/Render';
+import * as PIXI from 'pixi.js';
 import * as Core from '../internal/Core';
-import getNewEntity from './getNewEntity';
-import getDisplayObject from './getDisplayObject';
+import * as Render from '../internal/Render';
+import createNewEntity from './createNewEntity';
 
 export default (options) => {
   const {
-    textures,
-    parent,
-    zIndex = 0,
-  } = options;
-
-  if (!textures) {
-    throw new Error('level1: l1.animation created without "textures".');
-  }
-
-  const {
     id,
+    textures,
   } = options;
 
   if (id && Core.exists(id)) {
     throw new Error(`level1: l1.animation created using an already existing id: ${id}`);
   }
 
-  const entity = getNewEntity(options);
+  if (!textures) {
+    throw new Error('level1: l1.animation created without "textures"');
+  }
 
-  const animation = Render.getNewPIXIAnimatedSprite(textures);
+  const entity = createNewEntity(
+    options,
+    new PIXI.extras.AnimatedSprite(textures.map(Render.getTexture)),
+  );
 
-  animation.zIndex = zIndex;
-  animation.filters = [];
+  entity.asset.play();
 
-  Render.add(getDisplayObject(parent), animation);
-
-  animation.play();
-
-  entity.asset = animation;
-
-  return Core.addEntity(entity);
+  return entity;
 };

@@ -1,7 +1,7 @@
 import { Howl } from 'howler';
+import uuid from 'uuid/v4';
 import { assetTypes } from '../internal/Entity';
 import * as Core from '../internal/Core';
-import getNewEntity from './getNewEntity';
 
 /*
   Check Howler docs for available options
@@ -13,12 +13,23 @@ const getSound = (filePath, options) => new Howl({
 
 export default (options) => {
   const {
+    id = uuid(),
+    types = [],
+    behaviors = [],
     src,
     volume,
     loop,
   } = options;
 
-  const entity = getNewEntity(options);
+  if (id && Core.exists(id)) {
+    throw new Error(`level1: l1.sound created using an already existing id: ${id}`);
+  }
+
+  const entity = {
+    id,
+    types,
+    behaviors,
+  };
 
   const sound = getSound(src, { volume, loop });
 

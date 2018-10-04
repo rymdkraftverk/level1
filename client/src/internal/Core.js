@@ -137,14 +137,7 @@ export function exists(id) {
 }
 
 export function addEntity(entity) {
-  const defaultBody = {
-    entity,
-  };
-  entity.body = defaultBody;
-
   entities = entities.concat(entity);
-
-  return entity;
 }
 
 export function remove(entity) {

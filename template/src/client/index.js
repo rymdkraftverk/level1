@@ -138,6 +138,10 @@ l1.init({
   });
   l1.addBehavior(square, selfdestruct());
 
+  const lizardContainer = l1.container({
+    id: 'lizardContainer',
+  });
+
   const lizard = l1.animation({
     textures: [
       'samurai-attack-1',
@@ -157,6 +161,7 @@ l1.init({
       'samurai-attack-8',
       'samurai-attack-8',
     ],
+    parent: lizardContainer,
   });
 
   lizard.asset.animationSpeed = 0.4;
@@ -178,6 +183,7 @@ l1.init({
   );
 
   const floor = l1.container({ id: 'floor' });
+  console.log('floor', floor);
   l1.addBody(
     floor,
     l1.Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }),

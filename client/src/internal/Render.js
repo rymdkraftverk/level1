@@ -155,39 +155,8 @@ export function getTexture(filename) {
   return texture;
 }
 
-export function addNewPixiParticleEmitter(parent, filenames, config, zIndex) {
-  const particleContainer = new PIXI.Container();
-  particleContainer.zIndex = zIndex;
-  add(parent, particleContainer);
-  return {
-    emitter: new PIXI.particles.Emitter(particleContainer, filenames.map(getTexture), config),
-    particleContainer,
-  };
-}
-
-export function getNewPIXISprite(filename) {
-  return new PIXI.Sprite(getTexture(filename));
-}
-
-export function getNewPIXIAnimatedSprite(filenames) {
-  const animation = new PIXI.extras.AnimatedSprite(filenames.map(getTexture));
-  return animation;
-}
-
-export function getNewPIXIText(text, style) {
-  return new PIXI.Text(text, style);
-}
-
-export function getNewPIXIBitmapText(text, style) {
-  return new PIXI.extras.BitmapText(text, style);
-}
-
-export function getNewPIXIGraphics() {
-  return new PIXI.Graphics();
-}
-
 export function remove(parent, child) {
-  child.destroy();
+  child.destroy({ children: true });
   parent.removeChild(child);
 }
 

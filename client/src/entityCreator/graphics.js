@@ -1,29 +1,20 @@
-import * as Render from '../internal/Render';
+import * as PIXI from 'pixi.js';
 import * as Core from '../internal/Core';
-import getNewEntity from './getNewEntity';
-import getDisplayObject from './getDisplayObject';
+import createNewEntity from './createNewEntity';
 
 export default (options = {}) => {
   const {
     id,
-    zIndex = 0,
-    parent,
   } = options;
 
   if (id && Core.exists(id)) {
-    throw new Error(`level1: Graphics created using an already existing id: ${id}`);
+    throw new Error(`level1: l1.graphics created using an already existing id: ${id}`);
   }
 
-  const entity = getNewEntity(options);
+  const entity = createNewEntity(
+    options,
+    new PIXI.Graphics(),
+  );
 
-  const graphics = Render.getNewPIXIGraphics();
-
-  graphics.zIndex = zIndex;
-  graphics.filters = [];
-
-  Render.add(getDisplayObject(parent), graphics);
-
-  entity.asset = graphics;
-
-  return Core.addEntity(entity);
+  return entity;
 };

@@ -1,17 +1,20 @@
-import * as Render from '../internal/Render';
+import * as PIXI from 'pixi.js';
 import * as Core from '../internal/Core';
-import getNewEntity from './getNewEntity';
-import getDisplayObject from './getDisplayObject';
+import * as Render from '../internal/Render';
+import createNewEntity from './createNewEntity';
 
 export default (options) => {
   const {
+    id,
     text,
     style,
-    parent,
-    zIndex = 0,
   } = options;
 
-  if (!text) {
+  if (id && Core.exists(id)) {
+    throw new Error(`level1: l1.bitmapText created using an already existing id: ${id}`);
+  }
+
+  if (text === null || text === undefined) {
     throw new Error('level1: l1.bitmapText created without "text"');
   }
 
@@ -19,23 +22,27 @@ export default (options) => {
     throw new Error('level1: l1.bitmapText created without "style"');
   }
 
-  const {
-    id,
-  } = options;
+  /*
+    This is done to scale text up and down depending on if the canvas has been resized.
+  */
+  const updatedStyle = {
+    ...style,
+    fontSize: style.fontSize * Render.getRatio(),
+  };
 
-  if (id && Core.exists(id)) {
-    throw new Error(`level1: l1.bitmapText created using an already existing id: ${id}`);
-  }
+  const entity = createNewEntity(
+    options,
+    new PIXI.extras.BitmapText(text, updatedStyle),
+  );
 
-  const entity = getNewEntity(options);
+  /*
+  This is done to counteract the scale change on the canvas. Since changing the scale
+  of a text object will make it blurry.
 
-  const textObject = Render.getNewPIXIBitmapText(text, style);
+  This can be removed when Pixi makes it possible to scale text objects.
+*/
+  entity.asset.scale.set(1 / Render.getRatio());
+  entity.originalSize = style.fontSize;
 
-  textObject.zIndex = zIndex;
-
-  Render.add(getDisplayObject(parent), textObject);
-
-  entity.asset = textObject;
-
-  return Core.addEntity(entity);
+  return entity;
 };

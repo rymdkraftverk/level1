@@ -1,12 +1,12 @@
+import * as PIXI from 'pixi.js';
 import * as Render from '../internal/Render';
 import * as Entity from '../internal/Entity';
 import * as Core from '../internal/Core';
-import getNewEntity from './getNewEntity';
-import getDisplayObject from './getDisplayObject';
+import createNewEntity from './createNewEntity';
 
 /*
 The following properties are required by PIXI Particles when it's created.
-They will be ignored and then overwritten once emitEmitter is used.
+This is used as a safety net if these properties are not provided in the user config.
 */
 const defaultParticleEmitterConfig = {
   lifetime: {
@@ -21,31 +21,43 @@ const defaultParticleEmitterConfig = {
 
 export default (options) => {
   const {
+    id,
     textures,
     config,
-    zIndex = 0,
-    parent,
   } = options;
 
-  if (!textures || !config) {
-    throw new Error('level1: l1.particles({ textures, config}): Incorrect arguments');
+  if (id && Core.exists(id)) {
+    throw new Error(`level1: l1.particles created using an already existing id: ${id}`);
   }
 
-  const entity = getNewEntity(options);
+  if (!textures) {
+    throw new Error('level1: l1.particles created without "textures"');
+  }
 
-  const { emitter, particleContainer } = Render.addNewPixiParticleEmitter(
-    getDisplayObject(parent),
-    textures, {
+  if (!config) {
+    throw new Error('level1: l1.particles created without "config"');
+  }
+
+  const particleContainer = new PIXI.Container();
+
+  const entity = createNewEntity(
+    options,
+    particleContainer,
+  );
+
+  const emitter = new PIXI.particles.Emitter(
+    particleContainer,
+    textures.map(Render.getTexture),
+    {
       ...defaultParticleEmitterConfig,
       ...config,
       emit: true,
     },
-    zIndex,
   );
 
   entity.asset = emitter;
   entity.asset.particleContainer = particleContainer;
   entity.asset.type = Entity.assetTypes.PARTICLES;
 
-  return Core.addEntity(entity);
+  return entity;
 };

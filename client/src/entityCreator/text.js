@@ -1,15 +1,18 @@
-import * as Render from '../internal/Render';
+import * as PIXI from 'pixi.js';
 import * as Core from '../internal/Core';
-import getNewEntity from './getNewEntity';
-import getDisplayObject from './getDisplayObject';
+import * as Render from '../internal/Render';
+import createNewEntity from './createNewEntity';
 
 export default (options) => {
   const {
+    id,
     text,
     style,
-    zIndex = 0,
-    parent,
   } = options;
+
+  if (id && Core.exists(id)) {
+    throw new Error(`level1: l1.text created using an already existing id: ${id}`);
+  }
 
   if (text === null || text === undefined) {
     throw new Error('level1: l1.text created without "text"');
@@ -17,14 +20,6 @@ export default (options) => {
 
   if (!style) {
     throw new Error('level1: l1.text created without "style"');
-  }
-
-  const {
-    id,
-  } = options;
-
-  if (id && Core.exists(id)) {
-    throw new Error(`level1: l1.text created using an already existing id: ${id}`);
   }
 
   /*
@@ -35,11 +30,7 @@ export default (options) => {
     fontSize: style.fontSize * Render.getRatio(),
   };
 
-  const entity = getNewEntity(options);
-
-  const textObject = Render.getNewPIXIText(text, updatedStyle);
-
-  textObject.zIndex = zIndex;
+  const entity = createNewEntity(options, new PIXI.Text(text, updatedStyle));
 
   /*
     This is done to counteract the scale change on the canvas. Since changing the scale
@@ -47,12 +38,8 @@ export default (options) => {
 
     This can be removed when Pixi makes it possible to scale text objects.
   */
-  textObject.scale.set(1 / Render.getRatio());
+  entity.asset.scale.set(1 / Render.getRatio());
   entity.originalSize = style.fontSize;
 
-  Render.add(getDisplayObject(parent), textObject);
-
-  entity.asset = textObject;
-
-  return Core.addEntity(entity);
+  return entity;
 };
