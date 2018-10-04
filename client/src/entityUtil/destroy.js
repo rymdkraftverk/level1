@@ -16,14 +16,19 @@ const destroyAsset = (asset) => {
 
 const destroyEntity = (entity) => {
   entity._destroyed = true;
+
+  Core.remove(entity);
+
   entity.behaviors.forEach((behavior) => {
     removeBehavior(entity, behavior.id);
   });
+
   if (entity.hasBody) {
     removeBody(entity.body);
     entity.hasBody = false;
     entity.body = null;
   }
+
   entity.children.forEach(destroyEntity);
 };
 
@@ -40,8 +45,6 @@ const destroy = (entity) => {
     console.warn(`Entity ${entity.id} has already been destroyed`);
     return;
   }
-
-  Core.remove(entity);
 
   if (entity.asset) {
     destroyAsset(entity.asset);
