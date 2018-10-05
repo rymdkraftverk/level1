@@ -26,6 +26,8 @@ function runEntity(e, delta) {
 
   runBehaviors(e);
 
+  if (e._destroyed) return;
+
   if (e.hasBody) {
     syncEntityBodyPosition(e);
   }
@@ -51,6 +53,8 @@ function runBehaviors(entity) {
   entity
     .behaviors
     .forEach((behavior) => {
+      if (entity._destroyed) return;
+
       const {
         data,
       } = behavior;
