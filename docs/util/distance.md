@@ -5,8 +5,7 @@ name: distance
 # distance
 
 ```javascript
-Util.distance(options)
-l1.distance()
+l1.distance(options)
 ```
 
 Get the distance between two points.

@@ -1,17 +1,15 @@
-## Getting started
+# Getting started
 
 Use the template project as a starter.
 
-### Create game
+## Create game
 
 ```js
-import { Game } from 'l1';
-import assets from './assets.json';
+import l1 from 'l1';
 
-Game.init({
-  width: 800, 
-  height: 400, 
-  assets,
+l1.init({
+  width: 800,
+  height: 400,
 }).then(() => {
   // Initialize your game here
 }
