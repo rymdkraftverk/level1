@@ -18,7 +18,6 @@ Particles
 Sound
 <Insert sound generator>
 
-
 Pixi utils lib instead, exposing pixi stuff to the user
 
 Pixi game tools
@@ -37,8 +36,3 @@ Absolute position == world transform
 
 Use pixi container in level1 and use that for moving multiple entities at once
 Z-index needs to be handled per container
-
-
-Gotchas:
-
-Text cannot be resized by using the asset.scale property and keep the same visual quality, due to current limitations in pixi. Instead you need to use `l1.scaleText`.
