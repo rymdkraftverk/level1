@@ -56,8 +56,8 @@
 
 ### Utils
 
-- [angle](#angle)
-- [distance](#distance)
+- [angle](https://rymdkraftverk.github.io/level1/util/angle)
+- [distance](util/distance)
 - [getRandomInRange](#getrandominrange)
 - [grid](#grid)
 - [toRadians](#torandians)
