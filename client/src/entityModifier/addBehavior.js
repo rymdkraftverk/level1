@@ -34,7 +34,6 @@ export default curry((
   const newBehaviorObject = {
     id,
     data,
-    removed: false,
     finished: false,
     counter: 0,
     endTime,
