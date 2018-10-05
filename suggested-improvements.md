@@ -24,15 +24,6 @@ Pixi game tools
 Loop
 Entity -> Behaviour concept
 Preload textures to use
+
  Get started quickly developing games using PIXI
 
-Changes to be more pixi utils:
-
-entity => container (use pixi container)
-Which means that x,y,width,height is not passed to entity creator anymore
-
-Absolute position == world transform
-“Don’t include anything that is already in pixi)
-
-Use pixi container in level1 and use that for moving multiple entities at once
-Z-index needs to be handled per container
