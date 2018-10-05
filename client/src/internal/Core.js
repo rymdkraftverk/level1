@@ -34,7 +34,7 @@ function runEntity(e, delta) {
     e.asset.update(delta * 0.001);
   }
 
-  if (Render.showHitboxes()) {
+  if (Render.getShowHitboxes()) {
     const { body, hasBody, asset } = e;
     if (hasBody) {
       Render.displayBodyBounds(body);

@@ -164,7 +164,7 @@ export function removeAll() {
   _stage.removeChildren();
 }
 
-export function showHitboxes(show) {
+export function setShowHitboxes(show) {
   _showHitboxes = show;
   return _showHitboxes;
 }

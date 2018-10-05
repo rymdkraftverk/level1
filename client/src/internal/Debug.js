@@ -12,7 +12,7 @@ const idsToLoadFromLocalStorage = [
   {
     id: TOGGLE_HITBOXES,
     onRestore(restoredValue) {
-      Render.showHitboxes(restoredValue);
+      Render.setShowHitboxes(restoredValue);
     },
   },
 ];
@@ -88,7 +88,7 @@ export function initDebugTools() {
   });
 
   createButton('Toggle hitboxes', () => {
-    const toggled = Render.showHitboxes(!Render.getShowHitboxes());
+    const toggled = Render.setShowHitboxes(!Render.getShowHitboxes());
     save(TOGGLE_HITBOXES, toggled);
   });
 
