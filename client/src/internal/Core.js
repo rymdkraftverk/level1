@@ -2,23 +2,18 @@ import MainLoop from 'mainloop.js';
 import { Engine } from 'matter-js';
 import * as Render from './Render';
 import * as InternalEntity from './Entity';
+import removeBehavior from '../entityModifier/removeBehavior';
+import resetBehavior from '../entityModifier/resetBehavior';
 
 let engine;
 let entities = [];
-
-const rootEntity = {
-  x: 0,
-  y: 0,
-  children: [],
-  parent: null,
-};
 
 function update(delta) {
   try {
     if (engine) {
       Engine.update(engine, delta);
     }
-    rootEntity.children.forEach((e) => { runEntity(e, delta); });
+    entities.forEach((e) => { runEntity(e, delta); });
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error(`level1 crashed with the following error: ${error.stack}`);
@@ -27,56 +22,81 @@ function update(delta) {
 }
 
 function runEntity(e, delta) {
+  if (e._destroyed) return;
+
   runBehaviors(e);
-  syncEntityAssetPosition(e);
+
+  if (e._destroyed) return;
+
+  if (e.hasBody) {
+    syncEntityBodyPosition(e);
+  }
+
   if (e.asset && e.asset.type === InternalEntity.assetTypes.PARTICLES) {
     e.asset.update(delta * 0.001);
   }
-  e.children.forEach((child) => { runEntity(child, delta); });
+
+  if (Render.getShowHitboxes()) {
+    const { body, hasBody, asset } = e;
+    if (hasBody) {
+      Render.displayBodyBounds(body);
+    } else if (asset
+      && asset.type !== InternalEntity.assetTypes.SOUND
+      && asset.width > 0
+      && asset.height > 0) {
+      Render.displayEntityBounds(e);
+    }
+  }
 }
 
 function runBehaviors(entity) {
-  const { behaviors, id } = entity;
+  entity
+    .behaviors
+    .forEach((behavior) => {
+      if (entity._destroyed) return;
 
-  Object
-    .entries(behaviors)
-    .forEach(([behaviorName, behavior]) => {
-      const { init, run } = behavior;
+      const {
+        data,
+      } = behavior;
 
-      if (init) {
-        init(behavior, entity);
-        delete behavior.init;
+      if (!behavior.initHasBeenCalled) {
+        if (behavior.onInit) {
+          behavior.onInit({ data, entity });
+        }
+        behavior.initHasBeenCalled = true;
       }
 
-      if (!run) {
-        throw new Error(`Behavior "${behaviorName}" on entity "${id}" has no run function`);
+      if (!behavior.enabled) {
+        return;
       }
 
-      run(behavior, entity);
+      if (behavior.onUpdate) {
+        behavior.onUpdate({
+          counter: behavior.counter,
+          entity,
+          data,
+        });
+      }
+
+      if (behavior.endTime > 0 && behavior.counter === behavior.endTime && !behavior.finished) {
+        behavior.finished = true;
+        if (behavior.onComplete) {
+          behavior.onComplete({ data, entity });
+        }
+        if (behavior.loop) {
+          resetBehavior(entity, behavior.id);
+        } else if (behavior.removeOnComplete) {
+          removeBehavior(entity, behavior.id);
+        }
+      }
+
+      behavior.counter += 1;
     });
-
-  // Display hitboxes
-  const { body, hasBody } = entity;
-  if (hasBody) {
-    Render.displayBodyBounds(body);
-  } else if (entity.width > 0 && entity.height > 0) {
-    Render.displayEntityBounds(entity);
-  }
 }
 
-function syncEntityAssetPosition(entity) {
-  if (entity.hasBody) {
-    entity.x = entity.body.position.x;
-    entity.y = entity.body.position.y;
-  }
-
-  if (entity.asset && entity.asset.position) {
-    entity.asset.position.set(InternalEntity.getX(entity), InternalEntity.getY(entity));
-  }
-}
-
-export function getRootEntity() {
-  return rootEntity;
+function syncEntityBodyPosition(entity) {
+  entity.asset.x = entity.body.position.x;
+  entity.asset.y = entity.body.position.y;
 }
 
 export function initMainLoop() {
@@ -122,7 +142,7 @@ export function exists(id) {
   return entities.some(e => e.id === id);
 }
 
-export function add(entity) {
+export function addEntity(entity) {
   entities = entities.concat(entity);
 }
 
@@ -146,6 +166,36 @@ export function isPhysicsEnabled() {
 }
 
 export function getPhysicsEngine() {
-  if (!isPhysicsEnabled()) throw new Error('Physics not initialized. Set physics to true when calling Game.init');
+  if (!isPhysicsEnabled()) throw new Error('Physics not initialized. Set physics to true when calling l1.init');
   return engine;
+}
+
+export function resize(width, height) {
+  Render.setRatio(Math.min(
+    width / Render.getGameWidth(),
+    height / Render.getGameHeight(),
+  ));
+
+  Render.getStage()
+    .scale
+    .set(Render.getRatio());
+
+  Render.getRenderer()
+    .resize(
+      Render.getGameWidth() * Render.getRatio(),
+      Render.getGameHeight() * Render.getRatio(),
+    );
+
+  /*
+    The following code is needed to counteract the scale change on the whole canvas since
+    texts get distorted by PIXI when you try to change their scale.
+    Texts instead change size by setting their fontSize.
+  */
+  getEntities()
+    .forEach((e) => {
+      if (e.originalSize) {
+        e.asset.style.fontSize = e.originalSize * Render.getRatio();
+        e.asset.scale.set(1 / Render.getRatio());
+      }
+    });
 }
