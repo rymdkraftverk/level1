@@ -16,13 +16,10 @@ Use this to create a generic entity with no visuals. One example use case is a c
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | --
-**height** | Number | [ ] | 0 | The height of the entity. Used for non-physics based collision detection.
 **id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
 **types** | Array | [ ] | [] | Types are used to group entities together.
 **parent** | Object | [ ] | null | The parent entity. Entity's position will be relative to the parent position. If parent is destroyed, this entity will also be destroyed.
-**width** | Number | [ ] | 0 | The width of the entity. Used for non-physics based collision detection.
-**x** | Number | [ ] | 0 | The x position of the entity, relative to the parent.
-**y** | Number | [ ] | 0 | The y position of the entity, relative to the parent.
+**zIndex** | Number | [ ] | 0 | The stacking order of the entity
 
 ## Returns
 
