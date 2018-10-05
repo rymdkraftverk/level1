@@ -77,9 +77,7 @@ To test changes, use the `template` project.
 - Keyboard input: [mousetrap]()
 - Multiplayer: [Socket.io](https://github.com/socketio/socket.io)
 
-
 ## Entities
-
 
 Entities:
 

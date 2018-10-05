@@ -1,10 +1,10 @@
 import { Composite } from 'matter-js';
 import * as Core from './Core';
 import * as Render from './Render';
-import * as Entity from '../Entity';
 import { save, restore } from './localStorage';
+import getAllEntities from '../entityUtil/getAllEntities';
 
-const TIME_BETWEEN_INFO_UPDATES = 1000;
+const TIME_BETWEEN_INFO_UPDATES = 100;
 
 const TOGGLE_HITBOXES = 'toggle-hitboxes';
 
@@ -12,7 +12,7 @@ const idsToLoadFromLocalStorage = [
   {
     id: TOGGLE_HITBOXES,
     onRestore(restoredValue) {
-      Render.showHitboxes(restoredValue);
+      Render.setShowHitboxes(restoredValue);
     },
   },
 ];
@@ -88,7 +88,7 @@ export function initDebugTools() {
   });
 
   createButton('Toggle hitboxes', () => {
-    const toggled = Render.showHitboxes(!Render.getShowHitboxes());
+    const toggled = Render.setShowHitboxes(!Render.getShowHitboxes());
     save(TOGGLE_HITBOXES, toggled);
   });
 
@@ -104,7 +104,7 @@ export function initDebugTools() {
   const createInfoRow = makeCreateInfoRow(infoContainer);
 
   createInfoRow('fps: ', getFPS);
-  createInfoRow('entities: ', getAllEntities);
+  createInfoRow('entities: ', getAmountOfEntities);
   createInfoRow('sprites: ', getAllSprites);
   if (Core.isPhysicsEnabled()) {
     createInfoRow('bodies: ', getAllBodies);
@@ -124,8 +124,8 @@ export function initDebugTools() {
 function getFPS() {
   return Math.round(Core.getFPS());
 }
-function getAllEntities() {
-  return Entity.getAll().length;
+function getAmountOfEntities() {
+  return getAllEntities().length;
 }
 function getAllSprites() {
   // Remove 2 children that are Graphics objects added to the game by level1

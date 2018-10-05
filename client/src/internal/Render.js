@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import 'pixi-particles';
 import 'pixi-filters';
+import getGlobalPosition from './getGlobalPosition';
 
 const ASSETS_FOLDER = 'assets';
 
@@ -17,27 +18,30 @@ const assetsToLoad = [
 
 const VOID_COLOR = 0xccc;
 
-let stage;
-let renderer;
-let internalGraphics;
+let _stage;
+let _renderer;
+let _internalGraphics;
 let _showHitboxes = false;
+let _ratio = 1;
+let _gameWidth;
+let _gameHeight;
 
 export function draw() {
-  renderer.render(stage);
-  internalGraphics.clear();
+  _renderer.render(_stage);
+  _internalGraphics.clear();
 }
 
-function updateRenderLayers() {
-  stage.children.sort((a, b) => {
+function updateRenderLayers(displayObject) {
+  displayObject.children.sort((a, b) => {
     a.zIndex = a.zIndex || 0;
     b.zIndex = b.zIndex || 0;
     return a.zIndex - b.zIndex;
   });
 }
 
-export function add(child) {
-  stage.addChild(child);
-  updateRenderLayers();
+export function add(parent, child) {
+  parent.addChild(child);
+  updateRenderLayers(parent);
 }
 
 function loadAssets(assets, resolve) {
@@ -71,18 +75,17 @@ export function initRenderer(width, height, assets, element, pixiOptions, pixiSe
           PIXI.settings[key] = value;
         });
     }
-    // PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.LINEAR;
 
-    stage = new PIXI.Container();
+    _stage = new PIXI.Container();
 
-    renderer = new PIXI.WebGLRenderer({ width, height, ...pixiOptions });
-    renderer.backgroundColor = VOID_COLOR;
-    const { view } = renderer;
+    _renderer = new PIXI.WebGLRenderer({ width, height, ...pixiOptions });
+    _renderer.backgroundColor = VOID_COLOR;
+    const { view } = _renderer;
     element.appendChild(view);
 
-    internalGraphics = new PIXI.Graphics();
-    internalGraphics.zIndex = 9999;
-    add(internalGraphics);
+    _internalGraphics = new PIXI.Graphics();
+    _internalGraphics.zIndex = 9999;
+    add(getStage(), _internalGraphics);
 
     if (assets) {
       loadAssets(assets, resolve);
@@ -138,69 +141,30 @@ const loadAssetsFromServer = (path) => new Promise((resolve) => {
 });
 
 export function getRenderer() {
-  return renderer;
+  return _renderer;
 }
 
 export function getStage() {
-  return stage;
+  return _stage;
 }
 
 export function getTexture(filename) {
   const resource = PIXI.loader.resources[filename];
-  if (!resource) throw new Error(`Sprite ${filename} not found. Make sure that it is added to your assets.json`);
+  if (!resource) throw new Error(`level1: Sprite "${filename}" not found.`);
   const { texture } = resource;
   return texture;
 }
 
-export function addEmitter(filenames, config, zIndex) {
-  const particleContainer = new PIXI.Container();
-  particleContainer.zIndex = zIndex;
-  add(particleContainer);
-  return {
-    emitter: new PIXI.particles.Emitter(particleContainer, filenames.map(getTexture), config),
-    particleContainer,
-  };
-}
-
-export function getSprite(filename) {
-  return new PIXI.Sprite(getTexture(filename));
-}
-
-export function getAnimation(filenames, animationSpeed) {
-  const textures = [];
-
-  filenames.forEach((filename) => {
-    textures.push(getTexture(filename));
-  });
-
-  const animation = new PIXI.extras.AnimatedSprite(textures);
-  animation.animationSpeed = animationSpeed;
-
-  return animation;
-}
-
-export function getText(text, style) {
-  return new PIXI.Text(text, style);
-}
-
-export function getBitmapText(text, style) {
-  return new PIXI.extras.BitmapText(text, style);
-}
-
-export function getGraphics() {
-  return new PIXI.Graphics();
-}
-
-export function remove(child) {
-  child.destroy();
-  stage.removeChild(child);
+export function remove(parent, child) {
+  child.destroy({ children: true });
+  parent.removeChild(child);
 }
 
 export function removeAll() {
-  stage.removeChildren();
+  _stage.removeChildren();
 }
 
-export function showHitboxes(show) {
+export function setShowHitboxes(show) {
   _showHitboxes = show;
   return _showHitboxes;
 }
@@ -210,37 +174,51 @@ export function getShowHitboxes() {
 }
 
 export function displayBodyBounds(body) {
-  if (!_showHitboxes) return;
-
   const { vertices } = body.parts[0];
 
-  internalGraphics.lineStyle(2, 0xFFFFFF, 1);
-  internalGraphics.moveTo(vertices[0].x, vertices[0].y);
+  _internalGraphics
+    .lineStyle(2, 0xFFFFFF, 1)
+    .moveTo(vertices[0].x, vertices[0].y);
 
   for (let i = 1; i < vertices.length; i += 1) {
     if (!vertices[i - 1].isInternal) {
-      internalGraphics.lineTo(vertices[i].x, vertices[i].y);
+      _internalGraphics.lineTo(vertices[i].x, vertices[i].y);
     } else {
-      internalGraphics.moveTo(vertices[i].x, vertices[i].y);
+      _internalGraphics.moveTo(vertices[i].x, vertices[i].y);
     }
     if (vertices[i].isInternal) {
-      internalGraphics.moveTo(
+      _internalGraphics.moveTo(
         vertices[(i + 1) % vertices.length].x,
         vertices[(i + 1) % vertices.length].y,
       );
     }
   }
 
-  internalGraphics.lineTo(vertices[0].x, vertices[0].y);
+  _internalGraphics.lineTo(vertices[0].x, vertices[0].y);
 }
 
 export function displayEntityBounds(entity) {
-  if (!_showHitboxes) return;
+  const {
+    width,
+    height,
+  } = entity.asset;
 
-  internalGraphics.lineStyle(2, 0xFFFFFF, 1);
-  internalGraphics.moveTo(entity.x, entity.y);
-  internalGraphics.lineTo(entity.x + entity.width, entity.y);
-  internalGraphics.lineTo(entity.x + entity.width, entity.y + entity.height);
-  internalGraphics.lineTo(entity.x, entity.y + entity.height);
-  internalGraphics.lineTo(entity.x, entity.y);
+  const { x, y } = getGlobalPosition(entity, getRatio());
+
+  _internalGraphics
+    .lineStyle(2, 0xFFFFFF, 1)
+    .moveTo(x, y)
+    .lineTo(x + width, y)
+    .lineTo(x + width, y + height)
+    .lineTo(x, y + height)
+    .lineTo(x, y);
 }
+
+export const getRatio = () => _ratio;
+export const setRatio = (ratio) => { _ratio = ratio; };
+
+export const getGameWidth = () => _gameWidth;
+export const setGameWidth = (gameWidth) => { _gameWidth = gameWidth; };
+
+export const getGameHeight = () => _gameHeight;
+export const setGameHeight = (gameHeight) => { _gameHeight = gameHeight; };

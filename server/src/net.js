@@ -9,13 +9,13 @@ const on = (key, func) => {
 };
 
 const emit = (key, data) => {
-  if (!io) throw new Error('Error: No network instance created');
+  if (!io) throw new Error('level1: No network instance created');
 
   io.emit(key, data);
 };
 
 const broadcast = (key, data) => {
-  if (!io) throw new Error('Error: No network instance created');
+  if (!io) throw new Error('level1: No network instance created');
 
   io.sockets.emit(key, data);
 };
