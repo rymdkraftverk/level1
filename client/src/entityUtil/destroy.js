@@ -37,12 +37,12 @@ const destroy = (entity) => {
     entity = Core.get(entity);
   }
   if (!entity) {
-    console.warn(`Tried to remove non-existant Entity: ${entity.id}`);
+    console.warn(`level1: Tried to remove non-existant Entity: ${entity.id}`);
     return;
   }
 
   if (entity._destroyed) {
-    console.warn(`Entity ${entity.id} has already been destroyed`);
+    console.warn(`level1: Entity ${entity.id} has already been destroyed`);
     return;
   }
 

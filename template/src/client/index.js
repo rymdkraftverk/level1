@@ -126,13 +126,16 @@ l1.init({
           config,
           {
             pos: {
-              x: square.asset.x,
-              y: square.asset.y,
+              x: e
+                .asset
+                .toGlobal(new l1.PIXI.Point(0, 0)).x / l1.getScreenScale(),
+              y: e
+                .asset
+                .toGlobal(new l1.PIXI.Point(0, 0)).y / l1.getScreenScale(),
             },
           },
         ),
       });
-
       l1.destroy(e);
     },
   });
@@ -171,10 +174,48 @@ l1.init({
   const addToLizard = l1.addBehavior(lizard);
   addToLizard(move(100, 500));
 
+  l1.particles({
+    parent: lizard,
+    textures: ['square', 'particle'],
+    zIndex: 1,
+    config: Object.assign(
+      config,
+      {
+        pos: {
+          x: 0,
+          y: 0,
+        },
+      },
+    ),
+  });
+
   l1.addBehavior(
     lizard,
     onCompleteTest(),
   );
+
+  const behaviorToRemove = () => ({
+    id: 'behaviorToRemove',
+    onRemove: () => {
+      console.log('behavior removed');
+    },
+  });
+
+  l1.addBehavior(
+    lizard,
+    behaviorToRemove(),
+  );
+
+  l1.removeBehavior(
+    lizard,
+    'behaviorToRemove',
+  );
+
+  l1.addBehavior(
+    lizard,
+    behaviorToRemove(),
+  );
+
 
   l1.addFilter(
     lizard,
