@@ -2,9 +2,9 @@
 
 ### Game
 
-- [getRenderer](game/getrenderer)
-- [getScreenScale](game/getscreenscale)
-- [getStage](game/getstage)
+- [getRenderer](game/getRenderer)
+- [getScreenScale](game/getScreenScale)
+- [getStage](game/getStage)
 - [init](game/init)
 - [resize](game/resize)
 - [start](game/start)
@@ -13,7 +13,7 @@
 ### Entity creators
 
 - [animation](entityCreator/animation)
-- [bitmapText](entityCreator/bitmaptext)
+- [bitmapText](entityCreator/bitmapText)
 - [entity](entityCreator/entity)
 - [graphics](entityCreator/graphics)
 - [particles](entityCreator/particles)
@@ -25,48 +25,45 @@
 
 - [destroy](entityUtil/destroy)
 - [get](entityUtil/get)
-- [getAllEntities](entityUtil/getallentities)
-- [getById](entityUtil/getbydd)
-- [getByType](entityUtil/getbytype)
-- [getOverlappingArea](entityUtil/getoverlappingarea)
-- [getX](entityUtil/getx)
-- [getY](entityUtil/gety)
+- [getAllEntities](entityUtil/getAllEntities)
+- [getByType](entityUtil/getByType)
+- [getOverlappingArea](entityUtil/getOverlappingArea)
 - [hide](entityUtil/hide)
-- [isColliding](entityUtil/iscolliding)
+- [isColliding](entityUtil/isColliding)
 - [show](entityUtil/show)
 
 ### Entity modifiers
 
-- [addBehavior](entityModifier/addbehavior)
-- [addBody](entityModifier/addbody)
-- [addCollision](entityModifier/addcollision)
-- [addFilter](entityModifier/addfilter)
-- [addType](entityModifier/addyype)
-- [clearFilters](entityModifier/clearfilters)
-- [Filter](entityModifier/filter)
-- [getBehavior](entityModifier/getbehavior)
-- [removeAllCollisions](entityModifier/removeallcollisions)
-- [removeBehavior](entityModifier/removebehavior)
-- [removeBody](entityModifier/removebody)
-- [removeCollision](entityModifier/removecollision)
-- [removeFilter](entityModifier/removefilter)
-- [removeType](entityModifier/removetype)
-- [resetBehavior](entityModifier/resetbehavior)
-- [scaleText](entityModifier/scaletext)
+- [addBehavior](entityModifier/addBehavior)
+- [addBody](entityModifier/addBody)
+- [addCollision](entityModifier/addCollision)
+- [addFilter](entityModifier/addFilter)
+- [addType](entityModifier/addType)
+- [clearFilters](entityModifier/clearFilters)
+- [Filter](entityModifier/Filter)
+- [getBehavior](entityModifier/getBehavior)
+- [removeAllCollisions](entityModifier/removeAllCollisions)
+- [removeBehavior](entityModifier/removeBehavior)
+- [removeBody](entityModifier/removeBody)
+- [removeCollision](entityModifier/removeCollision)
+- [removeFilter](entityModifier/removeFilter)
+- [removeType](entityModifier/removeType)
+- [resetBehavior](entityModifier/resetBehavior)
+- [scaleText](entityModifier/scaleText)
 
 ### Utils
 
 - [angle](util/angle)
 - [distance](util/distance)
-- [getRandomInRange](util/getrandominrange)
+- [getRandomInRange](util/getRandomInRange)
 - [grid](util/grid)
-- [toRadians](util/toradians)
+- [toRadians](util/toRadians)
 
 ### Keyboard input
 
-- [addKey](input/addkey)
-- [isKeyDown](input/iskeydown)
+- [addKey](input/addKey)
+- [isKeyDown](input/isKeyDown)
 
 ### Physics
 
-- [getPhysicsEngine](physics/getphysicsengine)
+- [getPhysicsEngine](physics/getPhysicsEngine)
