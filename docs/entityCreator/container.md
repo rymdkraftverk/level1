@@ -5,10 +5,10 @@ name: container
 # container
 
 ```js
-l1.entity(options)
+l1.container(options)
 ```
 
-Use this to create a generic entity with no visuals. One example use case is a container for other entities.
+Use this to create a container for other entities.
 
 ## Arguments
 

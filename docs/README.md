@@ -14,7 +14,7 @@
 
 - [animation](entityCreator/animation)
 - [bitmapText](entityCreator/bitmapText)
-- [entity](entityCreator/entity)
+- [container](entityCreator/container)
 - [graphics](entityCreator/graphics)
 - [particles](entityCreator/particles)
 - [sound](entityCreator/sound)
