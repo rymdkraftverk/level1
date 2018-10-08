@@ -1,0 +1,146 @@
+{"frames": {
+
+"lizardBack1.png":
+{
+	"frame": {"x":15,"y":109,"w":12,"h":12},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":12},
+	"sourceSize": {"w":12,"h":12}
+},
+"lizardBack2.png":
+{
+	"frame": {"x":1,"y":109,"w":12,"h":13},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":13},
+	"sourceSize": {"w":12,"h":13}
+},
+"lizardFront1.png":
+{
+	"frame": {"x":69,"y":94,"w":12,"h":13},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":13},
+	"sourceSize": {"w":12,"h":13}
+},
+"lizardFront2.png":
+{
+	"frame": {"x":69,"y":109,"w":12,"h":12},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":12},
+	"sourceSize": {"w":12,"h":12}
+},
+"lizardRight1.png":
+{
+	"frame": {"x":96,"y":94,"w":9,"h":13},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":9,"h":13},
+	"sourceSize": {"w":9,"h":13}
+},
+"lizardRight2.png":
+{
+	"frame": {"x":83,"y":94,"w":11,"h":13},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":11,"h":13},
+	"sourceSize": {"w":11,"h":13}
+},
+"particles/particle.png":
+{
+	"frame": {"x":1,"y":1,"w":44,"h":44},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":44},
+	"sourceSize": {"w":44,"h":44}
+},
+"samurai/attack/samurai-attack-1.png":
+{
+	"frame": {"x":47,"y":1,"w":32,"h":29},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":3,"w":32,"h":29},
+	"sourceSize": {"w":48,"h":32}
+},
+"samurai/attack/samurai-attack-2.png":
+{
+	"frame": {"x":1,"y":78,"w":32,"h":29},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":3,"w":32,"h":29},
+	"sourceSize": {"w":48,"h":32}
+},
+"samurai/attack/samurai-attack-3.png":
+{
+	"frame": {"x":47,"y":32,"w":32,"h":29},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":3,"w":32,"h":29},
+	"sourceSize": {"w":48,"h":32}
+},
+"samurai/attack/samurai-attack-4.png":
+{
+	"frame": {"x":40,"y":63,"w":32,"h":29},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":3,"w":32,"h":29},
+	"sourceSize": {"w":48,"h":32}
+},
+"samurai/attack/samurai-attack-5.png":
+{
+	"frame": {"x":35,"y":94,"w":32,"h":29},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":3,"w":32,"h":29},
+	"sourceSize": {"w":48,"h":32}
+},
+"samurai/attack/samurai-attack-6.png":
+{
+	"frame": {"x":74,"y":63,"w":31,"h":29},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":3,"w":31,"h":29},
+	"sourceSize": {"w":48,"h":32}
+},
+"samurai/attack/samurai-attack-7.png":
+{
+	"frame": {"x":81,"y":1,"w":23,"h":32},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":18,"y":0,"w":23,"h":32},
+	"sourceSize": {"w":48,"h":32}
+},
+"samurai/attack/samurai-attack-8.png":
+{
+	"frame": {"x":1,"y":47,"w":37,"h":29},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":3,"w":37,"h":29},
+	"sourceSize": {"w":48,"h":32}
+},
+"square.png":
+{
+	"frame": {"x":81,"y":35,"w":24,"h":24},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":24,"h":24},
+	"sourceSize": {"w":24,"h":24}
+}},
+"animations": {
+	"lizardBack": ["lizardBack1.png","lizardBack2.png"],
+	"lizardFront": ["lizardFront1.png","lizardFront2.png"],
+	"lizardRight": ["lizardRight1.png","lizardRight2.png"],
+	"samurai/attack/samurai-attack": ["samurai/attack/samurai-attack-1.png","samurai/attack/samurai-attack-2.png","samurai/attack/samurai-attack-3.png","samurai/attack/samurai-attack-4.png","samurai/attack/samurai-attack-5.png","samurai/attack/samurai-attack-6.png","samurai/attack/samurai-attack-7.png","samurai/attack/samurai-attack-8.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "spritesheet.png",
+	"format": "RGBA8888",
+	"size": {"w":106,"h":124},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:a9ae16f491e5d1042fdb41770f59a529:1d5fff83283903fdfcaa9adf27bf3f1c:729adc6043343cfda41c447ce8f464d6$"
+}
+}

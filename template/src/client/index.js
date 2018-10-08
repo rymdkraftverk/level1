@@ -120,7 +120,7 @@ l1.init({
     removeOnComplete: true,
     onComplete: ({ entity: e }) => {
       l1.particles({
-        textures: ['square', 'particle'],
+        textures: ['square', 'particles/particle'],
         zIndex: 1,
         config: Object.assign(
           config,
@@ -147,22 +147,22 @@ l1.init({
 
   const lizard = l1.animation({
     textures: [
-      'samurai-attack-1',
-      'samurai-attack-1',
-      'samurai-attack-1',
-      'samurai-attack-1',
-      'samurai-attack-2',
-      'samurai-attack-3',
-      'samurai-attack-4',
-      'samurai-attack-5',
-      'samurai-attack-6',
-      'samurai-attack-7',
-      'samurai-attack-7',
-      'samurai-attack-7',
-      'samurai-attack-7',
-      'samurai-attack-8',
-      'samurai-attack-8',
-      'samurai-attack-8',
+      'samurai/attack/samurai-attack-1',
+      'samurai/attack/samurai-attack-1',
+      'samurai/attack/samurai-attack-1',
+      'samurai/attack/samurai-attack-1',
+      'samurai/attack/samurai-attack-2',
+      'samurai/attack/samurai-attack-3',
+      'samurai/attack/samurai-attack-4',
+      'samurai/attack/samurai-attack-5',
+      'samurai/attack/samurai-attack-6',
+      'samurai/attack/samurai-attack-7',
+      'samurai/attack/samurai-attack-7',
+      'samurai/attack/samurai-attack-7',
+      'samurai/attack/samurai-attack-7',
+      'samurai/attack/samurai-attack-8',
+      'samurai/attack/samurai-attack-8',
+      'samurai/attack/samurai-attack-8',
     ],
     parent: lizardContainer,
   });
@@ -178,7 +178,7 @@ l1.init({
 
   l1.particles({
     parent: lizard,
-    textures: ['square', 'particle'],
+    textures: ['square', 'particles/particle'],
     zIndex: 1,
     config: Object.assign(
       config,
