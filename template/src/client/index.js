@@ -32,7 +32,7 @@ const move = (start, end) => ({
 /* eslint-enable no-param-reassign */
 
 const onCompleteTest = () => ({
-  endTime: 20,
+  duration: 20,
   onComplete: () => {
     console.log('COMPLETE!');
   },
@@ -113,7 +113,7 @@ l1.init({
   l1.removeBehavior(helloText, 'doesNotExist');
 
   const selfdestruct = () => ({
-    endTime: 120,
+    duration: 120,
     data: {
       test: 'test',
     },

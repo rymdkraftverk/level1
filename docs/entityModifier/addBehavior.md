@@ -21,7 +21,7 @@ Is auto-curried.
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
 **id** | String | [ ] | uuid | Used to find the behavior when it's removed
-**endTime** | Number | [ ] | 0 | How many updates until the behavior is complete
+**duration** | Number | [ ] | 0 | How many updates until the behavior is complete
 **loop** | Boolean | [ ] | false | If true, the behaviors counter will be automatically reset upon completion
 **removeOnComplete** | Boolean | [ ] | true | If true, the behavior will automatically be removed upon completion
 **onInit** | Function | [ ] | - | A callback that is executed the first time the behavior is run

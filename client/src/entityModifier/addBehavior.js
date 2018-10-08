@@ -10,7 +10,7 @@ export default curry((
   entity,
   {
     id = uuid(),
-    endTime = 0,
+    duration = 0,
     loop = false,
     removeOnComplete = true,
     onUpdate = null,
@@ -36,7 +36,7 @@ export default curry((
     data,
     finished: false,
     counter: 0,
-    endTime,
+    duration,
     initHasBeenCalled: false,
     loop,
     removeOnComplete,
