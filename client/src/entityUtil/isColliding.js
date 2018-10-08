@@ -4,6 +4,11 @@ import * as Render from '../internal/Render';
 import getGlobalPosition from '../internal/getGlobalPosition';
 import * as InternalEntity from '../internal/Entity';
 
+const getWidth = (entity) => (entity.asset.hitArea && entity.asset.hitArea.width)
+  || entity.asset.width;
+const getHeight = (entity) => (entity.asset.hitArea && entity.asset.hitArea.height)
+  || entity.asset.height;
+
 export default curry((entity, otherEntity) => {
   if (Core.isPhysicsEnabled()) {
     console.warn('Entity.isColliding is for non-physics based collision detection. If using physics use Physics.addCollision instead');
@@ -14,20 +19,16 @@ export default curry((entity, otherEntity) => {
     y: entityY,
   } = getGlobalPosition(entity, Render.getRatio());
 
-  const {
-    width: entityWidth,
-    height: entityHeight,
-  } = entity.asset;
+  const entityWidth = getWidth(entity);
+  const entityHeight = getHeight(entity);
 
   const {
     x: otherEntityX,
     y: otherEntityY,
   } = getGlobalPosition(otherEntity, Render.getRatio());
 
-  const {
-    width: otherEntityWidth,
-    height: otherEntityHeight,
-  } = otherEntity.asset;
+  const otherEntityWidth = getWidth(otherEntity);
+  const otherEntityHeight = getHeight(otherEntity);
 
   return InternalEntity.isColliding(
     {

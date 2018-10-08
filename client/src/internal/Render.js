@@ -197,11 +197,14 @@ export function displayBodyBounds(body) {
   _internalGraphics.lineTo(vertices[0].x, vertices[0].y);
 }
 
+const getWidth = (entity) => (entity.asset.hitArea && entity.asset.hitArea.width)
+  || entity.asset.width;
+const getHeight = (entity) => (entity.asset.hitArea && entity.asset.hitArea.height)
+  || entity.asset.height;
+
 export function displayEntityBounds(entity) {
-  const {
-    width,
-    height,
-  } = entity.asset;
+  const width = getWidth(entity);
+  const height = getHeight(entity);
 
   const { x, y } = getGlobalPosition(entity, getRatio());
 

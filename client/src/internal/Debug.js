@@ -127,6 +127,8 @@ function getFPS() {
 function getAmountOfEntities() {
   return getAllEntities().length;
 }
+
+// This does not work. Remove?
 function getAllSprites() {
   // Remove 2 children that are Graphics objects added to the game by level1
   return Render.getStage() && Math.max(Render.getStage().children.length - 2, 0);
