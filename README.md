@@ -48,12 +48,11 @@ In `client` and `server`
 Command | Description
 ------- | -----------
 `npm run build` | Generate files in the `dist` folder
-`npm run build:watch` | Continously build files in the `dist` folder
+`npm run build:watch` | Continuously build files in the `dist` folder
 `npm run clean` | Remove the `dist` folder
-`npm run clean-build` | `npm run clean` + `npm run build`
 `npm run test` | Run the tests
-`npm run test:watch` | Continously run the tests
-`npm run patch` | -
+`npm run test:watch` | Continuously run the tests
+`npm run release` | Start the wizard to release a new version
 
 ### Workflow
 

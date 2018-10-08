@@ -1,14 +1,12 @@
 {
   "name": "l1",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "level1 client version",
   "main": "./dist/index.js",
   "scripts": {
     "clean": "rm -rf dist",
-    "clean-build": "npm run clean && npm run build",
     "build": "babel src --out-dir dist",
     "build:watch": "npm run build -- --watch",
-    "patch": "npm version patch -m 'Upgrade to %s'",
     "release": "np",
     "lint": "eslint src",
     "test": "mocha ./src/**/*.test.js --require @babel/register --require ./test/helper.js",
