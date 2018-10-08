@@ -78,7 +78,7 @@ function runBehaviors(entity) {
         });
       }
 
-      if (behavior.endTime > 0 && behavior.counter === behavior.endTime && !behavior.finished) {
+      if (behavior.duration > 0 && behavior.counter === behavior.duration && !behavior.finished) {
         behavior.finished = true;
         if (behavior.onComplete) {
           behavior.onComplete({ data, entity });
