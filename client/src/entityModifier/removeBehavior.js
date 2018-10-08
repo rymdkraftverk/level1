@@ -7,6 +7,7 @@ export default curry((entity, id) => {
     console.warn(`level1: tried to remove non-existant behavior "${id}" from entity: "${entity.id}"`);
   } else {
     entity.behaviors = entity.behaviors.filter((b) => b.id !== id);
+    behavior.enabled = false;
     if (behavior.onRemove) {
       behavior.onRemove({ data: behavior.data, entity });
     }
