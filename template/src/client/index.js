@@ -167,6 +167,8 @@ l1.init({
     parent: lizardContainer,
   });
 
+  lizard.asset.hitArea = new l1.PIXI.Rectangle(0, 0, 16, 16);
+
   lizard.asset.animationSpeed = 0.4;
   lizard.asset.x = 200;
   lizard.asset.y = 50;
