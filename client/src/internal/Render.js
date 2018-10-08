@@ -93,8 +93,7 @@ export function initRenderer(width, height, assets, element, pixiOptions, pixiSe
       const { loader } = PIXI;
       /* Load all assets from the public/assets folder */
       await loadAssetsFromServer(ASSETS_FOLDER);
-      loader.once('complete', resolve);
-      loader.load();
+      loader.load(resolve);
     }
   });
 }
@@ -126,8 +125,10 @@ const loadAssetsFromServer = (path) => new Promise((resolve) => {
               const name = fileName.substring(0, fileName.lastIndexOf('.'));
               if (name.length === 0) {
                 console.warn(`level1: Asset loader ignoring ${fileName} due to empty file name`);
+              } else if (fileName.substring(fileName.lastIndexOf('.'), fileName.length) === '.json') {
+                loader.add(`${path}/${fileName}`);
               } else {
-                loader.add(name, `${path}/${fileName}`);
+                console.warn(`level1: Asset loader ignoring ${fileName} due to only supporting .json files`);
               }
             }
           });
@@ -149,9 +150,8 @@ export function getStage() {
 }
 
 export function getTexture(filename) {
-  const resource = PIXI.loader.resources[filename];
-  if (!resource) throw new Error(`level1: Sprite "${filename}" not found.`);
-  const { texture } = resource;
+  const texture = PIXI.Texture.fromFrame(`${filename}.png`);
+  if (!texture) throw new Error(`level1: Texture "${filename}" not found.`);
   return texture;
 }
 
