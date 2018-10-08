@@ -6,7 +6,8 @@ import removeBehavior from '../entityModifier/removeBehavior';
 
 const destroyAsset = (asset) => {
   if (asset.type === InternalEntity.assetTypes.PARTICLES) {
-    Render.remove(asset.parent, asset.particleContainer);
+    // Parent is the particle container
+    Render.remove(asset.parent.parent, asset.parent);
   } else if (asset.type === InternalEntity.assetTypes.SOUND) {
     asset.unload();
   } else {

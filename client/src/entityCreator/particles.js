@@ -56,7 +56,6 @@ export default (options) => {
   );
 
   entity.asset = emitter;
-  entity.asset.particleContainer = particleContainer;
   entity.asset.type = Entity.assetTypes.PARTICLES;
 
   return entity;
