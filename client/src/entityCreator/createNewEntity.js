@@ -14,18 +14,17 @@ export default (options, asset) => {
   const entity = {
     id,
     types,
-    asset: null,
+    asset,
     hasBody: false,
     behaviors: [],
     children: [],
   };
 
+  asset.name = id;
   asset.zIndex = zIndex;
   asset.filters = [];
 
   Render.add(getDisplayObject(parent), asset);
-
-  entity.asset = asset;
 
   const defaultBody = {
     entity,
