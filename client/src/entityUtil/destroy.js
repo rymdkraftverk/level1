@@ -25,9 +25,7 @@ const destroyEntity = (entity) => {
   });
 
   if (entity.hasBody) {
-    removeBody(entity.body);
-    entity.hasBody = false;
-    entity.body = null;
+    removeBody(entity);
   }
 
   entity.children.forEach(destroyEntity);

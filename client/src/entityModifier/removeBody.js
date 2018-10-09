@@ -1,8 +1,9 @@
 import { World } from 'matter-js';
 import getPhysicsEngine from '../physics/getPhysicsEngine';
 
-// TODO: Take entity as argument
-export default (body) => {
+export default (entity) => {
   const engine = getPhysicsEngine();
-  World.remove(engine.world, [body]);
+  World.remove(engine.world, [entity.body]);
+  entity.hasBody = false;
+  entity.body = null;
 };
