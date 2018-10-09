@@ -15,6 +15,7 @@ export default (options, asset) => {
     id,
     types,
     asset,
+    body: null,
     hasBody: false,
     behaviors: [],
     children: [],
@@ -24,11 +25,6 @@ export default (options, asset) => {
   asset.zIndex = zIndex;
 
   Render.add(getDisplayObject(parent), asset);
-
-  const defaultBody = {
-    entity,
-  };
-  entity.body = defaultBody;
 
   entity.parent = null;
   if (parent) {
