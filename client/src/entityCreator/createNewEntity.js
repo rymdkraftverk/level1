@@ -22,7 +22,6 @@ export default (options, asset) => {
 
   asset.name = id;
   asset.zIndex = zIndex;
-  asset.filters = [];
 
   Render.add(getDisplayObject(parent), asset);
 
