@@ -1,5 +1,5 @@
 
 export default (entity) => {
-  entity.asset.filters = null;
+  entity.asset.filters = [];
   return entity;
 };

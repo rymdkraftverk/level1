@@ -8,10 +8,6 @@ export default curry((entity, filter, id = uuid()) => {
 
   filter.id = id;
 
-  if (!entity.asset.filters) {
-    entity.asset.filters = [];
-  }
-
   entity.asset.filters = entity.asset.filters.concat(filter);
 
   return entity;
