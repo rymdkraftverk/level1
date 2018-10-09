@@ -150,7 +150,7 @@ export function getStage() {
 }
 
 export function getTexture(filename) {
-  const texture = PIXI.Texture.fromFrame(`${filename}.png`);
+  const texture = PIXI.loader.resources['assets/spritesheet.json'].textures[`${filename}.png`];
   if (!texture) throw new Error(`level1: Texture "${filename}" not found.`);
   return texture;
 }
