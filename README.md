@@ -13,8 +13,7 @@ The API is designed to be as minimal as possible to be easy to learn and work wi
 
 1. [Getting started](docs/getting-started.md#getting-started)
 1. [Docs / API](https://rymdkraftverk.github.io/level1/)
-1. [Develop](https://github.com/sajmoni/level1#develop)
-1. [Dependency references](https://github.com/sajmoni/level1#dependency-references)
+1. [Gotchas](https://github.com/sajmoni/level1#docs/gotchas)
 
 ---
 
@@ -56,16 +55,3 @@ To test changes, use the `template` project.
 - Sound: [Howler.js](https://github.com/goldfire/howler.js)
 - Keyboard input: [mousetrap]()
 - Multiplayer: [Socket.io](https://github.com/socketio/socket.io)
-
-## Entities
-
-Entities:
-
-- Entities have a list of children (other entities)
-- Entities need to have 1 parent
-- Children will be removed when entity is.
-- An entity can have 0 or 1 asset (Sprite, Animation, Text, BitmapText, Particles, Sound)
-- An entity can have 0 or 1 physics body.
-- An entity has an x and y position
-- An entity's position is relative to its parent 
-- An entity has width and height.
