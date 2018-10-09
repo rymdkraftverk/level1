@@ -17,28 +17,44 @@ The API is designed to be as minimal as possible to be easy to learn and work wi
 
 ---
 
+## How to use
+
+`npm install l1`
+
+`yarn add l1`
+
+### Hello world
+
+```js
+l1.init().then(() => {
+  console.log('l1 initialized!')
+})
+```
+
+--
+
 ## Develop
 
 In `client` and `server`
 
-`npm install` = Install dependencies
+`yarn` = Install dependencies
 
 ### Custom commands
 
 Command | Description
 ------- | -----------
-`npm run build` | Generate files in the `dist` folder
-`npm run build:watch` | Continuously build files in the `dist` folder
-`npm run clean` | Remove the `dist` folder
-`npm run test` | Run the tests
-`npm run test:watch` | Continuously run the tests
-`npm run release` | Start the wizard to release a new version
+`yarn build` | Generate files in the `dist` folder
+`yarn build:watch` | Continuously build files in the `dist` folder
+`yarn clean` | Remove the `dist` folder
+`yarn test` | Run the tests
+`yarn test:watch` | Continuously run the tests
+`yarn release` | Start the wizard to release a new version
 
 ### Workflow
 
 To test changes, use the `template` project.
 
-1. Build the `dist` files in either `client` or `server` (`npm run build:watch`)
+1. Build the `dist` files in either `client` or `server` (`yarn build:watch`)
 1. Go to the `template` folder
 1. Run `yarn l1` to install `client` or `yarn l1-server` to install `server`
 1. Run `yarn start` and `yarn watch` in separate terminal windows
