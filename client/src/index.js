@@ -24,6 +24,7 @@ const addType = require('./entityModifier/addType').default;
 const clearFilters = require('./entityModifier/clearFilters').default;
 const Filter = require('./entityModifier/Filter').default;
 const getBehavior = require('./entityModifier/getBehavior').default;
+const makeDraggable = require('./entityModifier/makeDraggable').default;
 // const removeAllCollisions = require('./entityModifier/removeAllCollisions').default;
 const removeBehavior = require('./entityModifier/removeBehavior').default;
 const removeBody = require('./entityModifier/removeBody').default;
@@ -107,4 +108,5 @@ module.exports = {
   getByType,
   getOverlappingArea,
   isColliding,
+  makeDraggable,
 };
