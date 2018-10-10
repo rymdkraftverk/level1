@@ -167,7 +167,7 @@ l1.init({
     parent: lizardContainer,
   });
 
-  lizard.asset.hitArea = new l1.PIXI.Rectangle(0, 0, 16, 16);
+  lizard.asset.hitArea = new l1.PIXI.Rectangle(0, 0, 32, 32);
 
   lizard.asset.animationSpeed = 0.4;
   lizard.asset.x = 200;
@@ -255,11 +255,15 @@ l1.init({
   testingScalingText.asset.y = 50;
 
   const createShape = () => {
-    const { asset: shapeGraphics } = l1.graphics({
+    const shape = l1.graphics({
       id: 'shape',
       zIndex: 10,
       parent: lizard,
     });
+
+    const {
+      asset: shapeGraphics,
+    } = shape;
 
     shapeGraphics.x = 20;
     shapeGraphics.y = 20;
@@ -274,6 +278,16 @@ l1.init({
       .lineTo(100, 100)
       .lineTo(0, 0)
       .endFill();
+
+    l1.makeDraggable(
+      shape,
+      {
+        onDragMove(x, y) {
+          shape.asset.x = x;
+          shape.asset.y = y;
+        },
+      },
+    );
   };
   createShape();
 });
