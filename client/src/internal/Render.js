@@ -150,9 +150,19 @@ export function getStage() {
 }
 
 export function getTexture(filename) {
-  const texture = PIXI.loader.resources['assets/spritesheet.json'].textures[`${filename}.png`];
+  const {
+    resources,
+  } = PIXI.loader;
+
+  const texture = Object
+    .values(resources)
+    .filter(resource => resource.textures)
+    .flatMap(resource => Object.entries(resource.textures))
+    .find(([key]) => key === `${filename}.png`);
+
   if (!texture) throw new Error(`level1: Texture "${filename}" not found.`);
-  return texture;
+
+  return texture[1];
 }
 
 export function remove(parent, child) {
