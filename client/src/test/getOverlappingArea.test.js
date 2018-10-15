@@ -1,4 +1,4 @@
-import { getOverlappingArea } from '../../internal/Entity';
+import { getOverlappingArea } from '..';
 
 describe('getOverlappingArea', () => {
   context('non overlapping', () => {
