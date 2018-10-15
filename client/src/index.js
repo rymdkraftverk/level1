@@ -240,7 +240,9 @@ export const destroy = (displayObject, options = {}) => {
     console.warn(`level1: Tried to remove non-existent displayObject: ${displayObject}`);
   } else {
     remove(displayObject._l1.id);
-    displayObject.parent.removeChild(displayObject);
+    if (displayObject.parent) {
+      displayObject.parent.removeChild(displayObject);
+    }
     displayObject.destroy(options);
   }
 };
