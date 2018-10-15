@@ -127,6 +127,9 @@ export const getAllDisplayObjects = () => displayObjects;
 
 export const getBehavior = (id) => behaviors.find((behavior) => behavior.id === id);
 
+export const getBehaviorByLabel = (label) => behaviors
+  .filter((behavior) => behavior.labels.includes(label));
+
 export const resetBehavior = (behavior) => {
   if (typeof behavior === 'string') {
     behavior = getBehavior(behavior);
@@ -146,6 +149,7 @@ function behaviorExists(id) {
 export const addBehavior = (
   {
     id = Math.random(),
+    labels = [],
     duration = 0,
     loop = false,
     removeOnComplete = true,
@@ -169,6 +173,7 @@ export const addBehavior = (
 
   const newBehaviorObject = {
     id,
+    labels,
     data,
     finished: false,
     counter: 0,
