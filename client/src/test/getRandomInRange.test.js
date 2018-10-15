@@ -1,4 +1,4 @@
-import getRandomInRange from '../getRandomInRange';
+import getRandomInRange from '..';
 
 describe('getRandomInRange()', () => {
   context('with a range of random integers', () => {

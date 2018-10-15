@@ -1,6 +1,6 @@
-import { isColliding } from '../../internal/Entity';
+import { isColliding } from '..';
 
-describe('isCollding', () => {
+describe('isColliding', () => {
   const entity = {
     x: 25,
     y: 25,
