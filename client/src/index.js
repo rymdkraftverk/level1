@@ -547,4 +547,4 @@ export const removeLabel = (displayObject, label) => {
 };
 
 export const getByLabel = (label) => displayObjects
-  .filter(displayObject => displayObject.labels.includes(label));
+  .filter(displayObject => displayObject._l1.labels.includes(label));
