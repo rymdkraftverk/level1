@@ -48,7 +48,7 @@ export const add = (
   }
 };
 
-export const get = (id) => displayObjects.filter(displayObject => displayObject._l1.id === id);
+export const get = (id) => displayObjects.find(displayObject => displayObject._l1.id === id);
 
 export const getAll = () => displayObjects;
 
