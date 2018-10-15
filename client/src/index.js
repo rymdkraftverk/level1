@@ -15,10 +15,12 @@ export const add = (
     parent = _app.stage,
     zIndex = null,
     id = null,
+    labels = [],
   } = {
     parent: _app.stage,
     zIndex: null,
     id: null,
+    labels: [],
   },
 ) => {
   parent.addChild(displayObject);
@@ -27,6 +29,7 @@ export const add = (
   displayObject._l1 = {
     id,
     zIndex,
+    labels,
   };
 
   /*
@@ -530,3 +533,16 @@ export const sound = (options) => {
 
   return _sound;
 };
+
+// LABELS
+
+export const addLabel = (displayObject, label) => {
+  displayObject._l1.labels = displayObject._l1.labels.concat(label);
+};
+
+export const removeLabel = (displayObject, label) => {
+  displayObject._l1.labels = displayObject._l1.labels.filter(_label => _label !== label);
+};
+
+export const getByLabel = (label) => displayObjects
+  .filter(displayObject => displayObject.labels.includes(label));
