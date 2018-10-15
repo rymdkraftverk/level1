@@ -9,7 +9,7 @@
     "build:watch": "npm run build -- --watch",
     "release": "np",
     "lint": "eslint src",
-    "test": "mocha ./src/**/*.test.js --require @babel/register --require ./test/helper.js",
+    "test": "mocha ./src/**/*.test.js --require @babel/register --require ./src/test/helper.js",
     "test:watch": "npm test -- --watch"
   },
   "keywords": [],
