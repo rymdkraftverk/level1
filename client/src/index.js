@@ -121,6 +121,10 @@ export const removeBehavior = (behavior) => {
   }
 };
 
+export const getAllBehaviors = () => behaviors;
+
+export const getAllDisplayObjects = () => displayObjects;
+
 export const getBehavior = (id) => behaviors.find((behavior) => behavior.id === id);
 
 export const resetBehavior = (behavior) => {
@@ -224,10 +228,10 @@ export const resize = (width, height) => {
     Texts instead change size by setting their fontSize.
   */
   displayObjects
-    .forEach((go) => {
-      if (go.text) {
-        go.style.fontSize = go._l1.originalSize * ratio;
-        go.scale.set(1 / ratio);
+    .forEach((displayObject) => {
+      if (displayObject.text) {
+        displayObject.style.fontSize = displayObject._l1.originalSize * ratio;
+        displayObject.scale.set(1 / ratio);
       }
     });
 };
