@@ -1,4 +1,5 @@
 import '@babel/polyfill';
+import uuid from 'uuid/v4';
 import { Howl } from 'howler';
 
 let displayObjects = [];
@@ -15,12 +16,12 @@ export const add = (
   {
     parent = _app.stage,
     zIndex = null,
-    id = null,
+    id = `do-${uuid()}`,
     labels = [],
   } = {
     parent: _app.stage,
     zIndex: null,
-    id: null,
+    id: `do-${uuid()}`,
     labels: [],
   },
 ) => {
@@ -147,7 +148,7 @@ function behaviorExists(id) {
 
 export const addBehavior = (
   {
-    id = Math.random(),
+    id = `behavior-${uuid()}`,
     labels = [],
     duration = 0,
     loop = false,
