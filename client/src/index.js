@@ -109,16 +109,19 @@ const update = (delta) => {
 };
 
 export const removeBehavior = (behavior) => {
-  if (typeof behavior === 'string') {
-    behavior = getBehavior(behavior);
+  let behaviorObject;
+  if (typeof behaviorObject === 'string') {
+    behaviorObject = getBehavior(behavior);
+  } else {
+    behaviorObject = behavior;
   }
-  if (!behavior) {
+  if (!behaviorObject) {
     console.warn(`level1: Tried to remove non-existent behavior: ${behavior}`);
   } else {
-    behaviors = behaviors.filter((b) => b.id !== behavior.id);
-    behavior.enabled = false;
-    if (behavior.onRemove) {
-      behavior.onRemove({ data: behavior.data });
+    behaviors = behaviors.filter((b) => b.id !== behaviorObject.id);
+    behaviorObject.enabled = false;
+    if (behaviorObject.onRemove) {
+      behaviorObject.onRemove({ data: behaviorObject.data });
     }
   }
 };
