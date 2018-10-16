@@ -5,23 +5,20 @@ name: addBehavior
 # addBehavior
 
 ```js
-l1.addBehavior(entity, behavior)
+l1.addBehavior(options)
 ```
 
-TODO: Add explanation for behaviors
-
-Is auto-curried.
+Use behaviors when you want to affect the properties of a display object. For example: position, scale or rotation.
 
 ## Arguments
 
-`entity` (Object): The entity to apply the the behavior to
-
-`behavior` (Object): The behavior instance
+`options` (Object): The behavior instance
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
 **id** | String | [ ] | uuid | Used to find the behavior when it's removed
-**duration** | Number | [ ] | 0 | How many updates until the behavior is complete
+**duration** | Number | [ ] | 0 | How many updates until the behavior is complete. If not duration is passed, the behaviors will run until removed.
+**labels** | Array | [ ] | [] | Used to group behaviors together
 **loop** | Boolean | [ ] | false | If true, the behaviors counter will be automatically reset upon completion
 **removeOnComplete** | Boolean | [ ] | true | If true, the behavior will automatically be removed upon completion
 **onInit** | Function | [ ] | - | A callback that is executed the first time the behavior is run
@@ -29,21 +26,21 @@ Option | Type | Required | Default | Description
 **onComplete** | Function | [ ] | - | A callback that is executed when the behavior reaches completion
 **onRemove** | Function | [ ] | - | A callback that is executed when the behavior is removed
 **enabled** | Function | [ ] | true | Can be set to false to prevent the behaviors timer from being updated
-**data** | Object | [ ] | - | An object that can hold arbitrary data.
+**data** | Object | [ ] | - | An object that can hold arbitrary data. Is passed as an argument to all callback functions.
 
 Note: If loop is `true`, the value of `removeOnComplete` is ignored.
 
 Callback signatures:
 
-onInit: ({ entity, data })
+onInit: ({ data })
 
-onUpdate: ({ entity, data, counter })
+onUpdate: ({ data, counter })
 
 The counter can be used with animations.
 
-onComplete: ({ entity, data })
+onComplete: ({ data })
 
-onRemove: ({ entity, data })
+onRemove: ({ data })
 
 ## Returns
 
@@ -58,7 +55,6 @@ const move = () => ({
 })
 
 l1.addBehavior(
-  entity,
   move(),
 )
 ```
