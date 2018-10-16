@@ -9,6 +9,7 @@ let ratio = 1;
 let gameWidth;
 let gameHeight;
 
+// TODO: Check if the same id already exists
 export const add = (
   displayObject,
   {
@@ -122,8 +123,6 @@ export const removeBehavior = (behavior) => {
 };
 
 export const getAllBehaviors = () => behaviors;
-
-export const getAllDisplayObjects = () => displayObjects;
 
 export const getBehavior = (id) => behaviors.find((behavior) => behavior.id === id);
 
