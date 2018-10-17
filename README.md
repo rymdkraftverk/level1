@@ -2,12 +2,28 @@
 
 > Quickly get started creating 2D games in the browser with minimal setup or configuration
 
-level1 is a library to create games with javascript. It combines rendering from pixi.js with physics
-from matter.js and runs a gameloop etc etc.
+level1 is a utility library for [`pixi.js`](https://github.com/pixijs/pixi.js).
 
-The API is designed to be as minimal as possible to be easy to learn and work with.
+It helps with instance managements by extending pixi display objects with:
 
-*This project is experimental and breaking changes might be introduced in any update.*
+- id
+- zIndex
+- labels
+
+It also has:
+
+- Resizing of text objects without blurriness
+- Resizing of the canvas and retain the correct proportions
+- Convenience function for getting pre-loaded textures
+- "Behaviors". Dynamically add and remove behaviors in the game scene.
+- Function to get the global position of a display object
+- Collision detection
+- Overlapping area
+- Utility functions to get the distance and angle between two positions.
+- Ability to add sound
+- Ability to add physics (Under development)
+
+*This project is currently in beta.*
 
 ## Index
 
