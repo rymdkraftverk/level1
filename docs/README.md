@@ -1,66 +1,66 @@
 ## API
 
-- [init](init)
-- [getScale](getScale)
-- [resize](resize)
-- [getTexture](getTexture)
-- [loadAssetsFromServer](loadAssetsFromServer)
-- [updateRenderLayers](updateRenderLayers)
-- [makeDraggable](makeDraggable)
-- [getGlobalPosition](getGlobalPosition)
-- [getOverlappingArea](getOverlappingArea)
-- [isColliding](isColliding)
+- [init](api/init)
+- [getScale](api/getScale)
+- [resize](api/resize)
+- [getTexture](api/getTexture)
+- [loadAssetsFromServer](api/loadAssetsFromServer)
+- [updateRenderLayers](api/updateRenderLayers)
+- [makeDraggable](api/makeDraggable)
+- [getGlobalPosition](api/getGlobalPosition)
+- [getOverlappingArea](api/getOverlappingArea)
+- [isColliding](api/isColliding)
 
 ### Sound
 
-- [sound](sound)
+- [sound](api/sound)
 
 ### Display object management
 
-- [add](add)
-- [destroy](destroy)
-- [get](get)
-- [getAll](getAll)
-- [getByLabel](getByLabel)
-- [remove](remove)
+- [add](api/add)
+- [destroy](api/destroy)
+- [get](api/get)
+- [getAll](api/getAll)
+- [getByLabel](api/getByLabel)
+- [remove](api/remove)
 
 ### Behaviors
 
-- [addBehavior](addBehavior)
-- [getAllBehaviors](getAllBehaviors)
-- [getBehavior](getBehavior)
-- [removeBehavior](removeBehavior)
-- [resetBehavior](resetBehavior)
+- [addBehavior](api/addBehavior)
+- [getAllBehaviors](api/getAllBehaviors)
+- [getBehavior](api/getBehavior)
+- [removeBehavior](api/removeBehavior)
+- [resetBehavior](api/resetBehavior)
 
 ### Labels
 
-- [addLabel](addLabel)
-- [removeLabel](removeLabel)
+- [addLabel](api/addLabel)
+- [removeLabel](api/removeLabel)
 
 ### Text
 
-- [scaleText](scaleText)
+- [scaleText](api/scaleText)
 
 ### Utils
 
-- [angle](angle)
-- [distance](distance)
-- [getRandomInRange](getRandomInRange)
-- [grid](grid)
-- [toRadians](toRadians)
+- [angle](api/angle)
+- [distance](api/distance)
+- [getRandomInRange](api/getRandomInRange)
+- [grid](api/grid)
+- [toRadians](api/toRadians)
 
 ## Not implemented yet
 
 ### Keyboard input
 
-- [addKey](addKey)
-- [isKeyDown](isKeyDown)
+- [addKey](api/addKey)
+- [isKeyDown](api/isKeyDown)
 
 ### Physics
 
-- [getPhysicsEngine](getPhysicsEngine)
-- [addBody](addBody)
-- [addCollision](addCollision)
-- [removeAllCollisions](removeAllCollisions)
-- [removeBody](removeBody)
-- [removeCollision](removeCollision)
+- [getPhysicsEngine](api/getPhysicsEngine)
+- [addBody](api/addBody)
+- [addCollision](api/addCollision)
+- [removeAllCollisions](api/removeAllCollisions)
+- [removeBody](api/removeBody)
+- [removeCollision](api/removeCollision)
