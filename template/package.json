@@ -27,6 +27,10 @@
   },
   "dependencies": {
     "l1": "file:../client",
-    "l1-server": "file:../server"
+    "l1-server": "file:../server",
+    "lodash": "4.17.11",
+    "pixi-filters": "2.6.1",
+    "pixi-particles": "3.1.0",
+    "pixi.js": "4.8.2"
   }
 }
