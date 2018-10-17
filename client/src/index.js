@@ -58,7 +58,7 @@ export const get = (id) => displayObjects.find(displayObject => displayObject.l1
 
 export const getAll = () => displayObjects;
 
-export const remove = (id) => {
+const remove = (id) => {
   displayObjects = displayObjects.filter(displayObject => displayObject.l1.id !== id);
 };
 
