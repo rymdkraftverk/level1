@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import _ from 'lodash/fp';
 import 'pixi-particles';
-import * as filters from 'pixi-filters';
+// import * as filters from 'pixi-filters';
 import * as l1 from 'l1';
 import config from './emitter.json';
 
@@ -16,12 +16,8 @@ const displaySquare = ({ x, y }) => {
   );
 
   square.name = 'square';
-  // square.scale.set(5);
   square.x = x;
   square.y = y;
-  // square.filters = [
-  //   new filters.GlowFilter(),
-  // ];
 
   l1.add(square);
 
@@ -109,6 +105,14 @@ document.body.appendChild(app.view);
 
 l1.init(app);
 
+const resizeGame = () => {
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+  l1.resize(screenWidth, screenHeight);
+};
+window.addEventListener('resize', resizeGame);
+resizeGame();
+
 const init = () => {
   _.times(() => {
     const x = l1.getRandomInRange(10, 600);
@@ -128,11 +132,14 @@ const init = () => {
     volume: 0.2,
   });
 
+  const textContainer = new PIXI.Container();
+  l1.add(textContainer);
+
   const helloText = new PIXI.Text(
     'Hello!',
     {
       fontFamily: 'Arial',
-      fontSize: 4,
+      fontSize: 50,
       fill: 'white',
     },
   );
@@ -142,6 +149,9 @@ const init = () => {
 
   l1.add(
     helloText,
+    {
+      parent: textContainer,
+    },
   );
 
   l1.scaleText(
@@ -241,14 +251,6 @@ const init = () => {
   //   floor,
   //   l1.Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }),
   // );
-
-  const resizeGame = () => {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-    l1.resize(screenWidth, screenHeight);
-  };
-  window.addEventListener('resize', resizeGame);
-  resizeGame();
 
   const testingScalingText = new PIXI.Text(
     'Testing scaling!',
