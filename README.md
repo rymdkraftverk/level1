@@ -80,9 +80,7 @@ To test changes, use the `template` project.
 
 ## Dependency references
 
-- Game loop: [Mainloop.js]()
 - Rendering: [Pixi.js](https://github.com/pixijs/pixi.js)
-- Particle effects: [pixi-particles](https://github.com/pixijs/pixi-particles)
 - Physics: [Matter.js](https://github.com/liabru/matter-js)
 - Sound: [Howler.js](https://github.com/goldfire/howler.js)
 - Keyboard input: [mousetrap]()
