@@ -14,6 +14,8 @@ A replacement for PIXI's `addChild`. It will call `addChild` and add it to level
 - It can have a custom z-index order.
 - Text objects are prepared for rescaling.
 
+`l1.add` will add a new property called `l1` on the display object.
+
 ## Arguments
 
 `displayObject` (PIXI.DisplayObject): Any object that inherits from PIXI.DisplayObject, such as PIXI.Sprite
@@ -34,10 +36,15 @@ Nothing.
 ## Example
 
 ```js
-const entity = l1.sprite({
-    texture: 'walk1',
-    zIndex: 10,
-})
-
-entity.asset.scale.set(2)
+const square = new PIXI.Sprite(
+    l1.getTexture('square'),
+);
+l1.add(
+    square,
+    {
+        id: 'square',
+        labels: ['player'],
+        zIndex: 100,
+    }
+)
 ```

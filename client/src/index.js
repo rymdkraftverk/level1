@@ -28,7 +28,7 @@ export const add = (
   parent.addChild(displayObject);
   displayObjects = displayObjects.concat(displayObject);
 
-  displayObject._l1 = {
+  displayObject.l1 = {
     id,
     zIndex,
     labels,
@@ -41,7 +41,7 @@ export const add = (
     This can be removed when Pixi makes it possible to scale text objects.
   */
   if (displayObject.text) {
-    displayObject._l1.originalSize = displayObject.style.fontSize;
+    displayObject.l1.originalSize = displayObject.style.fontSize;
     displayObject.style = {
       ...displayObject.style,
       fontSize: displayObject.style.fontSize * ratio,
@@ -54,12 +54,12 @@ export const add = (
   }
 };
 
-export const get = (id) => displayObjects.find(displayObject => displayObject._l1.id === id);
+export const get = (id) => displayObjects.find(displayObject => displayObject.l1.id === id);
 
 export const getAll = () => displayObjects;
 
 export const remove = (id) => {
-  displayObjects = displayObjects.filter(displayObject => displayObject._l1.id !== id);
+  displayObjects = displayObjects.filter(displayObject => displayObject.l1.id !== id);
 };
 
 export const init = (app) => {
@@ -242,7 +242,7 @@ export const resize = (width, height) => {
   displayObjects
     .forEach((displayObject) => {
       if (displayObject.text) {
-        displayObject.style.fontSize = displayObject._l1.originalSize * ratio;
+        displayObject.style.fontSize = displayObject.l1.originalSize * ratio;
         displayObject.scale.set(1 / ratio);
       }
     });
@@ -255,7 +255,7 @@ export const destroy = (displayObject, options = {}) => {
   if (!displayObject) {
     console.warn(`level1: Tried to remove non-existent displayObject: ${displayObject}`);
   } else {
-    remove(displayObject._l1.id);
+    remove(displayObject.l1.id);
     if (displayObject.parent) {
       displayObject.parent.removeChild(displayObject);
     }
@@ -265,9 +265,9 @@ export const destroy = (displayObject, options = {}) => {
 
 export const updateRenderLayers = (displayObject) => {
   displayObject.children.sort((a, b) => {
-    a._l1.zIndex = a._l1.zIndex || 0;
-    b._l1.zIndex = b._l1.zIndex || 0;
-    return a._l1.zIndex - b._l1.zIndex;
+    a.l1.zIndex = a.l1.zIndex || 0;
+    b.l1.zIndex = b.l1.zIndex || 0;
+    return a.l1.zIndex - b.l1.zIndex;
   });
 };
 
@@ -380,7 +380,7 @@ const onDragMoveInternal = (displayObject, onDragMove, disabler) => () => {
   }
 
   if (displayObject.dragging) {
-    const { x, y } = displayObject._l1.dragData.getLocalPosition(displayObject.parent);
+    const { x, y } = displayObject.l1.dragData.getLocalPosition(displayObject.parent);
     onDragMove({ x, y });
   }
 };
@@ -393,10 +393,10 @@ const onDragStartInternal = (displayObject, onDragStart, disabler) => (event) =>
   // store a reference to the data
   // the reason for this is because of multitouch
   // we want to track the movement of this particular touch
-  displayObject._l1.dragData = event.data;
+  displayObject.l1.dragData = event.data;
   displayObject.dragging = true;
 
-  const { x, y } = displayObject._l1.dragData.getLocalPosition(displayObject.parent);
+  const { x, y } = displayObject.l1.dragData.getLocalPosition(displayObject.parent);
 
   onDragStart({ x, y });
 };
@@ -406,12 +406,12 @@ const onDragEndInternal = (displayObject, onDragEnd, disabler) => () => {
     return;
   }
 
-  const { x, y } = displayObject._l1.dragData.getLocalPosition(displayObject.parent);
+  const { x, y } = displayObject.l1.dragData.getLocalPosition(displayObject.parent);
 
   onDragEnd({ x, y });
 
   displayObject.dragging = false;
-  displayObject._l1.dragData = null;
+  displayObject.l1.dragData = null;
 };
 
 // makeDraggable end
@@ -440,7 +440,7 @@ export const distance = ({
   This is required to be used for any scale change of Text
 */
 export const scaleText = (displayObject, fontSize) => {
-  displayObject._l1.originalSize = fontSize;
+  displayObject.l1.originalSize = fontSize;
   displayObject.style.fontSize = fontSize * ratio;
 };
 
@@ -555,12 +555,12 @@ export const sound = (options) => {
 // LABELS
 
 export const addLabel = (displayObject, label) => {
-  displayObject._l1.labels = displayObject._l1.labels.concat(label);
+  displayObject.l1.labels = displayObject.l1.labels.concat(label);
 };
 
 export const removeLabel = (displayObject, label) => {
-  displayObject._l1.labels = displayObject._l1.labels.filter(_label => _label !== label);
+  displayObject.l1.labels = displayObject.l1.labels.filter(_label => _label !== label);
 };
 
 export const getByLabel = (label) => displayObjects
-  .filter(displayObject => displayObject._l1.labels.includes(label));
+  .filter(displayObject => displayObject.l1.labels.includes(label));
