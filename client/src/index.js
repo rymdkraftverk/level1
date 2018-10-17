@@ -42,6 +42,10 @@ export const add = (
   */
   if (displayObject.text) {
     displayObject._l1.originalSize = displayObject.style.fontSize;
+    displayObject.style = {
+      ...displayObject.style,
+      fontSize: displayObject.style.fontSize * ratio,
+    };
     displayObject.scale.set(1 / ratio);
   }
 
