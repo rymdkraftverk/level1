@@ -150,6 +150,7 @@ const init = () => {
   l1.add(
     helloText,
     {
+      id: 'helloText',
       parent: textContainer,
     },
   );

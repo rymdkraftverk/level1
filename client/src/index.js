@@ -248,7 +248,12 @@ export const resize = (width, height) => {
     });
 };
 
-export const destroy = (displayObject, options = {}) => {
+export const destroy = (
+  displayObject,
+  options = {
+    children: true,
+  },
+) => {
   if (typeof displayObject === 'string') {
     displayObject = get(displayObject);
   }
@@ -256,11 +261,22 @@ export const destroy = (displayObject, options = {}) => {
     console.warn(`level1: Tried to remove non-existent displayObject: ${displayObject}`);
   } else {
     remove(displayObject.l1.id);
+    if (options.children) {
+      getChildIds(displayObject).forEach(remove);
+    }
+
     if (displayObject.parent) {
       displayObject.parent.removeChild(displayObject);
     }
     displayObject.destroy(options);
   }
+};
+
+export const getChildIds = (displayObject) => {
+  if (displayObject.children.length) {
+    return displayObject.children.flatMap(getChildIds);
+  }
+  return [displayObject.l1.id];
 };
 
 export const updateRenderLayers = (displayObject) => {
