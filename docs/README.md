@@ -1,15 +1,17 @@
 ## API
 
-- [init](api/init)
+- [displayHitBoxes](api/displayHitBoxes)
+- [getChildIds](api/getChildIds)
 - [getScale](api/getScale)
-- [resize](api/resize)
 - [getTexture](api/getTexture)
+- [init](api/init)
 - [loadAssetsFromServer](api/loadAssetsFromServer)
 - [updateRenderLayers](api/updateRenderLayers)
 - [makeDraggable](api/makeDraggable)
 - [getGlobalPosition](api/getGlobalPosition)
 - [getOverlappingArea](api/getOverlappingArea)
 - [isColliding](api/isColliding)
+- [resize](api/resize)
 
 ### Sound
 
@@ -22,7 +24,6 @@
 - [get](api/get)
 - [getAll](api/getAll)
 - [getByLabel](api/getByLabel)
-- [remove](api/remove)
 
 ### Behaviors
 

@@ -1,11 +1,11 @@
 ---
-name: getScreenScale
+name: getScale
 ---
 
-# getScreenScale
+# getScale
 
 ```js
-l1.getScreenScale()
+l1.getScale()
 ```
 
 Get the scale of the screen after it has been resized.

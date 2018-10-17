@@ -5,16 +5,16 @@ name: destroy
 # destroy
 
 ```js
-l1.destroy(entity)
+l1.destroy(displayObject, options)
 ```
 
-Removes the entity, its asset and all its children.
-
-Will remove all behaviors from entity and children. The `onRemove` callback will be invoked on all of them.
+Will call `removeChild` on the parent. Will call `destroy` on the `displayObject` itself. Will remove any reference to the object in level1.
 
 ## Arguments
 
-`entity` (Object|String): The entity to remove. Optionally an entity id.
+`displayObject` (Object|String): The display object to remove. Optionally a display object id.
+
+`options` (Object): Options to the `displayObject` `destroy` function.
 
 ## Returns
 
