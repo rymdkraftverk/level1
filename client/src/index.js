@@ -110,7 +110,7 @@ const update = (delta) => {
 
 export const removeBehavior = (behavior) => {
   let behaviorObject;
-  if (typeof behaviorObject === 'string') {
+  if (typeof behavior === 'string') {
     behaviorObject = getBehavior(behavior);
   } else {
     behaviorObject = behavior;
