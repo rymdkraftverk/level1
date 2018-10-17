@@ -27,3 +27,7 @@ Preload textures to use
 
  Get started quickly developing games using PIXI
 
+
+v 0.5:
+
+behaviorManager

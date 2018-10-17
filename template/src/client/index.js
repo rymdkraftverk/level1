@@ -1,4 +1,8 @@
-import l1 from 'l1';
+import * as PIXI from 'pixi.js';
+import _ from 'lodash/fp';
+import 'pixi-particles';
+// import * as filters from 'pixi-filters';
+import * as l1 from 'l1';
 import config from './emitter.json';
 
 const direction = {
@@ -6,25 +10,74 @@ const direction = {
   RIGHT: 'right',
 };
 
+const displaySquare = ({ x, y }) => {
+  const square = new PIXI.Sprite(
+    l1.getTexture('square'),
+  );
+
+  square.name = 'square';
+  square.x = x;
+  square.y = y;
+
+  l1.add(square);
+
+  const particleContainer = new PIXI.Container();
+  l1.add(particleContainer, {
+    zIndex: 10,
+    id: 'particleContainer',
+  });
+
+  const selfdestruct = toDestroy => ({
+    duration: 120,
+    data: {
+      test: 'test',
+    },
+    removeOnComplete: true,
+    onComplete: () => {
+      // eslint-disable-next-line no-new
+      new PIXI.particles.Emitter(
+        particleContainer,
+        [
+          l1.getTexture('square'),
+          l1.getTexture('particles/particle'),
+        ],
+        Object.assign(
+          config,
+          {
+            pos: {
+              x: toDestroy
+                .toGlobal(new PIXI.Point(0, 0)).x / l1.getScale(),
+              y: toDestroy
+                .toGlobal(new PIXI.Point(0, 0)).y / l1.getScale(),
+            },
+          },
+        ),
+      );
+      l1.destroy(toDestroy);
+    },
+  });
+  l1.addBehavior(selfdestruct(square));
+};
+
 /* eslint-disable no-param-reassign */
-const move = (start, end) => ({
+const move = (object, start, end) => ({
   id: 'move',
   data: {
     direction: direction.LEFT,
   },
-  onRemove: ({ entity }) => {
-    l1.removeFilter(entity, 'glow');
+  onRemove: () => {
+    object.filters = null;
   },
-  onUpdate: ({ entity, data }) => {
+  onUpdate: ({ data }) => {
     if (data.direction === direction.LEFT) {
-      entity.asset.x -= 3;
-      if (entity.asset.x < start) {
+      object.x -= 3;
+      if (object.x < start) {
         data.direction = direction.RIGHT;
       }
     } else if (data.direction === direction.RIGHT) {
-      entity.asset.x += 10;
-      if (entity.asset.x > end) {
-        l1.removeBehavior(entity, 'move');
+      object.x += 10;
+      if (object.x > end) {
+        l1.removeBehavior('move');
       }
     }
   },
@@ -41,146 +94,125 @@ const onCompleteTest = () => ({
 const WIDTH = 600;
 const HEIGHT = 400;
 
-l1.init({
+const app = new PIXI.Application({
   width: WIDTH,
   height: HEIGHT,
-  debug: true,
-  physics: true,
-  pixi: {
-    options: {
-      antialias: true,
-    },
-    settings: {
-      SCALE_MODE: l1.PIXI.SCALE_MODES.NEAREST,
-    },
+  antialias: true,
+  clearBeforeRender: false,
+});
+
+document.body.appendChild(app.view);
+
+l1.init(app);
+
+const resizeGame = () => {
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+  l1.resize(screenWidth, screenHeight);
+};
+window.addEventListener('resize', resizeGame);
+resizeGame();
+
+const init = () => {
+  _.times(() => {
+    const x = l1.getRandomInRange(10, 600);
+    const y = l1.getRandomInRange(10, 600);
+    displaySquare({ x, y });
   },
-}).then(() => {
-  l1.getPhysicsEngine().world.gravity.y = 1;
-
-  // createControllerPresets();
-
-  // const input = Entity.addChild(root, { id: 'input' });
-  // input.behaviors.scan = scanGamepads();
-
-  const square = l1.sprite({
-    id: 'square',
-    types: ['square', 'player'],
-    texture: 'square',
-  });
-
-  square.asset.scale.set(5);
-  l1.addFilter(
-    square,
-    new l1.Filter.GlowFilter(),
-  );
-
-  l1.addBody(
-    square,
-    l1.Matter.Bodies.rectangle(140, 50, 80, 80, {
-      inertia: Infinity,
-    }),
-  );
+  500);
+  // l1.addBody(
+  //   square,
+  //   l1.Matter.Bodies.rectangle(140, 50, 80, 80, {
+  //     inertia: Infinity,
+  //   }),
+  // );
 
   l1.sound({
     src: './sounds/join3.wav',
     volume: 0.2,
   });
 
-  l1.container();
+  const textContainer = new PIXI.Container();
+  l1.add(textContainer);
 
-  const helloText = l1.text(
+  const helloText = new PIXI.Text(
+    'Hello!',
     {
-      text: 'Hello!',
-      style: {
-        fontFamily: 'Arial',
-        fontSize: 4,
-        fill: 'white',
-      },
-      id: 'text',
-      parent: square,
+      fontFamily: 'Arial',
+      fontSize: 50,
+      fill: 'white',
     },
   );
 
-  helloText.asset.x = 0;
-  helloText.asset.y = 0;
+  helloText.x = 0;
+  helloText.y = 0;
+
+  l1.add(
+    helloText,
+    {
+      id: 'helloText',
+      parent: textContainer,
+    },
+  );
 
   l1.scaleText(
     helloText,
-    helloText.asset.style.fontSize + 30,
+    helloText.style.fontSize + 30,
   );
 
   // Test that removing a behavior that does not exist doesn't crash
-  l1.removeBehavior(helloText, 'doesNotExist');
+  l1.removeBehavior('doesNotExist');
 
-  const selfdestruct = () => ({
-    duration: 120,
-    data: {
-      test: 'test',
-    },
-    removeOnComplete: true,
-    onComplete: ({ entity: e }) => {
-      l1.particles({
-        textures: ['square', 'particles/particle'],
-        zIndex: 1,
-        config: Object.assign(
-          config,
-          {
-            pos: {
-              x: e
-                .asset
-                .toGlobal(new l1.PIXI.Point(0, 0)).x / l1.getScreenScale(),
-              y: e
-                .asset
-                .toGlobal(new l1.PIXI.Point(0, 0)).y / l1.getScreenScale(),
-            },
-          },
-        ),
-      });
-      l1.destroy(e);
-    },
-  });
-  l1.addBehavior(square, selfdestruct());
+  const lizardContainer = new PIXI.Container();
+  l1.add(lizardContainer);
 
-  const lizardContainer = l1.container({
-    id: 'lizardContainer',
-  });
-
-  const lizard = l1.animation({
-    textures: [
-      'samurai/attack/samurai-attack-1',
-      'samurai/attack/samurai-attack-1',
-      'samurai/attack/samurai-attack-1',
-      'samurai/attack/samurai-attack-1',
-      'samurai/attack/samurai-attack-2',
-      'samurai/attack/samurai-attack-3',
-      'samurai/attack/samurai-attack-4',
-      'samurai/attack/samurai-attack-5',
-      'samurai/attack/samurai-attack-6',
-      'samurai/attack/samurai-attack-7',
-      'samurai/attack/samurai-attack-7',
-      'samurai/attack/samurai-attack-7',
-      'samurai/attack/samurai-attack-7',
-      'samurai/attack/samurai-attack-8',
-      'samurai/attack/samurai-attack-8',
-      'samurai/attack/samurai-attack-8',
+  const lizard = new PIXI.extras.AnimatedSprite(
+    [
+      l1.getTexture('samurai/attack/samurai-attack-1'),
+      l1.getTexture('samurai/attack/samurai-attack-1'),
+      l1.getTexture('samurai/attack/samurai-attack-1'),
+      l1.getTexture('samurai/attack/samurai-attack-1'),
+      l1.getTexture('samurai/attack/samurai-attack-2'),
+      l1.getTexture('samurai/attack/samurai-attack-3'),
+      l1.getTexture('samurai/attack/samurai-attack-4'),
+      l1.getTexture('samurai/attack/samurai-attack-5'),
+      l1.getTexture('samurai/attack/samurai-attack-6'),
+      l1.getTexture('samurai/attack/samurai-attack-7'),
+      l1.getTexture('samurai/attack/samurai-attack-7'),
+      l1.getTexture('samurai/attack/samurai-attack-7'),
+      l1.getTexture('samurai/attack/samurai-attack-7'),
+      l1.getTexture('samurai/attack/samurai-attack-8'),
+      l1.getTexture('samurai/attack/samurai-attack-8'),
+      l1.getTexture('samurai/attack/samurai-attack-8'),
     ],
+  );
+
+  lizard.hitArea = new PIXI.Rectangle(0, 0, 32, 32);
+
+  lizard.animationSpeed = 0.4;
+  lizard.x = 200;
+  lizard.y = 50;
+  lizard.scale.set(3);
+  // lizard.filters = [
+  //   new filters.GlowFilter(),
+  // ];
+  lizard.play();
+
+  l1.add(lizard, {
     parent: lizardContainer,
+    zIndex: 10,
   });
 
-  lizard.asset.hitArea = new l1.PIXI.Rectangle(0, 0, 32, 32);
+  l1.addBehavior(move(lizard, 100, 500));
 
-  lizard.asset.animationSpeed = 0.4;
-  lizard.asset.x = 200;
-  lizard.asset.y = 50;
-
-  const addToLizard = l1.addBehavior(lizard);
-  addToLizard(move(100, 500));
-
-  l1.particles({
-    parent: lizard,
-    textures: ['square', 'particles/particle'],
-    zIndex: 1,
-    config: Object.assign(
+  // eslint-disable-next-line no-new
+  new PIXI.particles.Emitter(
+    lizard,
+    [
+      l1.getTexture('square'),
+      l1.getTexture('particles/particle'),
+    ],
+    Object.assign(
       config,
       {
         pos: {
@@ -189,10 +221,9 @@ l1.init({
         },
       },
     ),
-  });
+  );
 
   l1.addBehavior(
-    lizard,
     onCompleteTest(),
   );
 
@@ -204,73 +235,49 @@ l1.init({
   });
 
   l1.addBehavior(
-    lizard,
     behaviorToRemove(),
   );
 
   l1.removeBehavior(
-    lizard,
     'behaviorToRemove',
   );
 
   l1.addBehavior(
-    lizard,
     behaviorToRemove(),
   );
 
+  // const floor = l1.container({ id: 'floor' });
+  // console.log('floor', floor);
+  // l1.addBody(
+  //   floor,
+  //   l1.Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }),
+  // );
 
-  l1.addFilter(
-    lizard,
-    new l1.Filter.GlowFilter(),
-    'glow',
-  );
-
-  const floor = l1.container({ id: 'floor' });
-  console.log('floor', floor);
-  l1.addBody(
-    floor,
-    l1.Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }),
-  );
-
-  const resizeGame = () => {
-    const screenWidth = window.innerWidth;
-    const screenHeight = window.innerHeight;
-    l1.resize(screenWidth, screenHeight);
-  };
-  window.addEventListener('resize', resizeGame);
-  resizeGame();
-
-  const testingScalingText = l1.text(
+  const testingScalingText = new PIXI.Text(
+    'Testing scaling!',
     {
-      text: 'Testing scaling!',
-      style: {
-        fontFamily: 'Arial',
-        fontSize: 36,
-        fill: 'white',
-      },
+      fontFamily: 'Arial',
+      fontSize: 36,
+      fill: 'white',
     },
   );
 
-  testingScalingText.asset.x = 50;
-  testingScalingText.asset.y = 50;
+  testingScalingText.x = 50;
+  testingScalingText.y = 50;
 
   const createShape = () => {
-    const shape = l1.graphics({
-      id: 'shape',
-      zIndex: 10,
+    const shape = new PIXI.Graphics();
+    l1.add(shape, {
       parent: lizard,
+      zIndex: 20,
     });
 
-    const {
-      asset: shapeGraphics,
-    } = shape;
+    shape.x = 20;
+    shape.y = 20;
 
-    shapeGraphics.x = 20;
-    shapeGraphics.y = 20;
+    shape.scale.set(0.3);
 
-    shapeGraphics.scale.set(0.3);
-
-    shapeGraphics
+    shape
       .beginFill(0xFF3300)
       .lineStyle(4, 0xffd900, 1)
       .moveTo(0, 0)
@@ -282,12 +289,18 @@ l1.init({
     l1.makeDraggable(
       shape,
       {
-        onDragMove(x, y) {
-          shape.asset.x = x;
-          shape.asset.y = y;
+        onDragMove(position) {
+          shape.position = position;
         },
       },
     );
   };
   createShape();
-});
+};
+
+app.loader.add('assets/spritesheet.json');
+app.loader.load(init);
+
+setInterval(() => {
+  console.log('FPS: ', Math.ceil(app.ticker.FPS));
+}, 1000);
