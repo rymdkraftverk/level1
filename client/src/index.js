@@ -196,6 +196,7 @@ export const addBehavior = (
   };
 
   behaviors = behaviors.concat(newBehaviorObject);
+  return newBehaviorObject;
 };
 
 export function getTexture(filename) {
