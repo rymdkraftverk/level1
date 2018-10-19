@@ -18,12 +18,8 @@
     "@babel/polyfill": "^7.0.0",
     "howler": "2.0.15",
     "lodash": "4.17.11",
-    "mainloop.js": "1.0.4",
     "matter-js": "0.14.2",
     "mousetrap": "1.6.2",
-    "pixi-filters": "2.6.1",
-    "pixi-particles": "3.1.0",
-    "pixi.js": "4.8.2",
     "socket.io-client": "2.1.1",
     "uuid": "3.3.2"
   },
