@@ -234,17 +234,19 @@ const init = () => {
     },
   });
 
-  l1.addBehavior(
+  const b = l1.addBehavior(
     behaviorToRemove(),
   );
 
   l1.removeBehavior(
-    'behaviorToRemove',
+    b,
   );
 
   l1.addBehavior(
     behaviorToRemove(),
   );
+
+  l1.removeBehavior('behaviorToRemove');
 
   // const floor = l1.container({ id: 'floor' });
   // console.log('floor', floor);
