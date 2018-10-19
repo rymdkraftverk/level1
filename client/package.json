@@ -21,7 +21,6 @@
     "mainloop.js": "1.0.4",
     "matter-js": "0.14.2",
     "mousetrap": "1.6.2",
-    "np": "3.0.4",
     "pixi-filters": "2.6.1",
     "pixi-particles": "3.1.0",
     "pixi.js": "4.8.2",
@@ -38,6 +37,7 @@
     "eslint": "5.6.1",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-plugin-import": "2.14.0",
-    "mocha": "5.2.0"
+    "mocha": "5.2.0",
+    "np": "3.0.4"
   }
 }
