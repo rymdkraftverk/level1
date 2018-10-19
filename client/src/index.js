@@ -215,6 +215,13 @@ export function getTexture(filename) {
   return texture[1];
 }
 
+export const getAllTextureIds = () => Object
+  .values(_app.loader.resources)
+  .filter(resource => resource.textures)
+  .flatMap(resource => Object.keys(resource.textures))
+  .map(key => key.substring(0, key.length - 4));
+
+
 // export const getTexture = (asset) => _app.loader.resources[asset].texture;
 
 export const resize = (width, height) => {
