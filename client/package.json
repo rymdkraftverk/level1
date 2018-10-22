@@ -1,6 +1,6 @@
 {
   "name": "l1",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "level1 client version",
   "main": "./dist/index.js",
   "scripts": {
