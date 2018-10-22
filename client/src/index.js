@@ -277,8 +277,8 @@ export const destroy = (
 
     if (displayObject.parent) {
       displayObject.parent.removeChild(displayObject);
+      displayObject.destroy(options);
     }
-    displayObject.destroy(options);
   }
 };
 
