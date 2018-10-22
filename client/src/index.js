@@ -264,21 +264,23 @@ export const destroy = (
     children: true,
   },
 ) => {
+  let id;
   if (typeof displayObject === 'string') {
+    id = displayObject;
     displayObject = get(displayObject);
   }
   if (!displayObject) {
-    console.warn(`level1: Tried to remove non-existent displayObject: ${displayObject}`);
+    console.warn(`level1: Tried to remove non-existent displayObject: ${id}`);
+  } else if (!displayObject.parent) {
+    console.warn(`level1: ${displayObject.l1.id} has already been destroyed`);
   } else {
     remove(displayObject.l1.id);
     if (options.children) {
       getChildIds(displayObject).forEach(remove);
     }
 
-    if (displayObject.parent) {
-      displayObject.parent.removeChild(displayObject);
-      displayObject.destroy(options);
-    }
+    displayObject.parent.removeChild(displayObject);
+    displayObject.destroy(options);
   }
 };
 
