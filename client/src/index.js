@@ -276,9 +276,12 @@ export const destroy = (
   } else if (!displayObject.parent) {
     console.warn(`level1: ${displayObject.l1.id} has already been destroyed`);
   } else {
-    remove(displayObject.l1.id);
-    if (options.children) {
-      getChildIds(displayObject).forEach(remove);
+    // Check if it has been added to l1
+    if (displayObject.l1) {
+      remove(displayObject.l1.id);
+      if (options.children) {
+        getChildIds(displayObject).forEach(remove);
+      }
     }
 
     displayObject.parent.removeChild(displayObject);
@@ -290,7 +293,10 @@ export const getChildIds = (displayObject) => {
   if (displayObject.children.length) {
     return displayObject.children.flatMap(getChildIds);
   }
-  return [displayObject.l1.id];
+  if (displayObject.l1) {
+    return [displayObject.l1.id];
+  }
+  return [];
 };
 
 export const updateRenderLayers = (displayObject) => {
