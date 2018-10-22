@@ -2,3 +2,8 @@ body {
   background-color: #222;
   /* font-family: 'Press Start 2P'; */
 }
+
+@font-face {
+  font-family: 'ArialB';
+  src: url('assets/arialbitmap.ttf');
+}

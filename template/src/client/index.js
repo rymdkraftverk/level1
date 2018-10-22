@@ -258,17 +258,56 @@ const init = () => {
   //   l1.Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }),
   // );
 
-  const testingScalingText = new PIXI.Text(
-    'Testing scaling!',
+  const createSine = ({
+    start, end, speed,
+  }) => (t) => {
+    const middle = ((start + end) / 2);
+    return middle + ((middle - start) * Math.sin((t * Math.PI * 2) / speed));
+  };
+
+
+  const testingScalingText = new PIXI.extras.BitmapText(
+    'BitmapText!',
     {
-      fontFamily: 'Arial',
-      fontSize: 36,
-      fill: 'white',
+      font: 'ArialB',
     },
   );
 
   testingScalingText.x = 50;
-  testingScalingText.y = 50;
+  testingScalingText.y = 250;
+
+  l1.add(testingScalingText);
+
+  const normalText = new PIXI.Text(
+    'Normal text!',
+    {
+      fontFamily: 'Arial',
+      fontSize: 30,
+      fill: 'white',
+    },
+  );
+
+  normalText.x = 50;
+  normalText.y = 170;
+
+  l1.add(normalText);
+
+  const textMovement = text => ({
+    data: {
+      sine: createSine({
+        start: 1,
+        end: 1.2,
+        speed: 100,
+      }),
+    },
+    onUpdate: ({ data, counter }) => {
+      const scale = data.sine(counter);
+      text.scale.set(scale);
+    },
+  });
+
+  l1.addBehavior(textMovement(testingScalingText));
+  l1.addBehavior(textMovement(normalText));
 
   const createShape = () => {
     const shape = new PIXI.Graphics();
@@ -304,6 +343,7 @@ const init = () => {
 };
 
 app.loader.add('assets/spritesheet.json');
+app.loader.add('assets/arialbitmap.fnt');
 app.loader.load(init);
 
 setInterval(() => {
