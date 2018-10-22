@@ -164,7 +164,9 @@ const init = () => {
   l1.removeBehavior('doesNotExist');
 
   const lizardContainer = new PIXI.Container();
-  l1.add(lizardContainer);
+  l1.add(lizardContainer, {
+    id: 'lizardContainer',
+  });
 
   const lizard = new PIXI.extras.AnimatedSprite(
     [
@@ -201,6 +203,7 @@ const init = () => {
   l1.add(lizard, {
     parent: lizardContainer,
     zIndex: 10,
+    id: 'lizard',
   });
 
   l1.addBehavior(move(lizard, 100, 500));
