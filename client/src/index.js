@@ -42,7 +42,8 @@ export const add = (
 
     This can be removed when Pixi makes it possible to scale text objects.
   */
-  if (displayObject.text) {
+  // Check if PIXI.Text
+  if (displayObject.style) {
     displayObject.l1.originalSize = displayObject.style.fontSize;
     displayObject.style = {
       ...displayObject.style,
@@ -251,7 +252,8 @@ export const resize = (width, height) => {
   */
   displayObjects
     .forEach((displayObject) => {
-      if (displayObject.text) {
+      // Check if PIXI.Text
+      if (displayObject.style) {
         displayObject.style.fontSize = displayObject.l1.originalSize * ratio;
         displayObject.scale.set(1 / ratio);
       }
