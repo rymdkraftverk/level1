@@ -274,7 +274,7 @@ export const destroy = (
   if (!displayObject) {
     console.warn(`level1: Tried to remove non-existent displayObject: ${id}`);
   } else if (!displayObject.parent) {
-    console.warn(`level1: ${displayObject.l1.id} has already been destroyed`);
+    console.warn(`level1: ${displayObject.name} has already been destroyed`);
   } else {
     // Check if it has been added to l1
     if (displayObject.l1) {
