@@ -10,7 +10,7 @@ const direction = {
   RIGHT: 'right',
 };
 
-const displaySquare = ({ x, y }) => {
+const displaySquare = ({ x, y, container }) => {
   const square = new PIXI.Sprite(
     l1.getTexture('square'),
   );
@@ -21,12 +21,6 @@ const displaySquare = ({ x, y }) => {
 
   l1.add(square);
 
-  const particleContainer = new PIXI.Container();
-  l1.add(particleContainer, {
-    zIndex: 10,
-    id: 'particleContainer',
-  });
-
   const selfdestruct = toDestroy => ({
     duration: 120,
     data: {
@@ -34,9 +28,8 @@ const displaySquare = ({ x, y }) => {
     },
     removeOnComplete: true,
     onComplete: () => {
-      // eslint-disable-next-line no-new
       new PIXI.particles.Emitter(
-        particleContainer,
+        container,
         [
           l1.getTexture('square'),
           l1.getTexture('particles/particle'),
@@ -52,7 +45,7 @@ const displaySquare = ({ x, y }) => {
             },
           },
         ),
-      );
+      ).playOnceAndDestroy();
       l1.destroy(toDestroy);
     },
   });
@@ -103,7 +96,7 @@ const app = new PIXI.Application({
 
 document.body.appendChild(app.view);
 
-l1.init(app);
+l1.init(app, { debug: true });
 
 const resizeGame = () => {
   const screenWidth = window.innerWidth;
@@ -114,12 +107,18 @@ window.addEventListener('resize', resizeGame);
 resizeGame();
 
 const init = () => {
+  const particleContainer = new PIXI.Container();
+  l1.add(particleContainer, {
+    zIndex: 10,
+    id: 'particleContainer',
+  });
+
   _.times(() => {
     const x = l1.getRandomInRange(10, 600);
     const y = l1.getRandomInRange(10, 600);
-    displaySquare({ x, y });
+    displaySquare({ x, y, container: particleContainer });
   },
-  500);
+  50);
   // l1.addBody(
   //   square,
   //   l1.Matter.Bodies.rectangle(140, 50, 80, 80, {
@@ -345,7 +344,3 @@ const init = () => {
 app.loader.add('assets/spritesheet.json');
 app.loader.add('assets/arialbitmap.fnt');
 app.loader.load(init);
-
-setInterval(() => {
-  console.log('FPS: ', Math.ceil(app.ticker.FPS));
-}, 1000);

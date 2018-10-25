@@ -65,13 +65,20 @@ const remove = (id) => {
   displayObjects = displayObjects.filter(displayObject => displayObject.l1.id !== id);
 };
 
-export const init = (app) => {
+export const init = (app, options = {}) => {
   app.ticker.add(update);
 
   gameWidth = app.renderer.width;
   gameHeight = app.renderer.height;
 
   _app = app;
+
+  const {
+    debug,
+  } = options;
+  if (debug) {
+    createDebugInformation();
+  }
 };
 
 const update = (delta) => {
@@ -600,3 +607,17 @@ export const removeLabel = (displayObject, label) => {
 
 export const getByLabel = (label) => displayObjects
   .filter(displayObject => displayObject.l1.labels.includes(label));
+
+const createDebugInformation = () => {
+  const container = document.createElement('div');
+  document.body.appendChild(container);
+  container.style.backgroundColor = 'rgba(0,0,0,0.5)';
+  container.style.position = 'absolute';
+  container.style.top = '0px';
+  container.style.zIndex = 1;
+  container.style.color = 'white';
+
+  setInterval(() => {
+    container.innerHTML = `fps: ${Math.ceil(_app.ticker.FPS)} b: ${getAllBehaviors().length} do: ${getAll().length}`;
+  }, 100);
+};
