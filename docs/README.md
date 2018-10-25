@@ -1,6 +1,5 @@
 ## API
 
-- [displayHitBoxes](api/displayHitBoxes)
 - [getChildIds](api/getChildIds)
 - [getScale](api/getScale)
 - [getTexture](api/getTexture)
@@ -25,13 +24,17 @@
 - [getAll](api/getAll)
 - [getByLabel](api/getByLabel)
 
-### Behaviors
+### Behavior management
 
 - [addBehavior](api/addBehavior)
 - [getAllBehaviors](api/getAllBehaviors)
 - [getBehavior](api/getBehavior)
 - [removeBehavior](api/removeBehavior)
 - [resetBehavior](api/resetBehavior)
+
+### Behaviors
+
+- [displayHitBoxes](api/displayHitBoxes)
 
 ### Labels
 

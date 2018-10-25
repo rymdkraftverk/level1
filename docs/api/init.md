@@ -5,7 +5,7 @@ name: init
 # init
 
 ```js
-l1.init(app)
+l1.init(app, options)
 ```
 
 Initializes level1. Needs to be called before any other `l1` function calls.
@@ -13,6 +13,12 @@ Initializes level1. Needs to be called before any other `l1` function calls.
 ## Arguments
 
 `app` (object): An instance of PIXI.Application
+
+`options` (object): Additional options
+
+Option | Type | Required | Default | Description
+-- | -- | -- | -- | -- |
+**debug** | Bool | [ ] | false | Display a basic debug information overlay
 
 ## Returns
 
