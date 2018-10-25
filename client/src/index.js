@@ -557,13 +557,18 @@ export const getOverlappingArea = (displayObject, otherDisplayObject) => {
 };
 
 export const displayHitBoxes = (displayObject, graphics) => ({
+  id: `${(displayObject.l1 && displayObject.l1.id) || displayObject.name}-displayHitBoxes`,
+  onInit: () => {
+    add(graphics);
+  },
   onUpdate: () => {
     const width = getWidth(displayObject);
-    const height = getHeight(graphics);
+    const height = getHeight(displayObject);
 
     const { x, y } = getGlobalPosition(displayObject, ratio);
 
     graphics
+      .clear()
       .lineStyle(2, 0xFFFFFF, 1)
       .moveTo(x, y)
       .lineTo(x + width, y)
