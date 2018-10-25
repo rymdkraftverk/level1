@@ -35,7 +35,6 @@
 	"frequency": 0.003,
 	"emitterLifetime": 0.3,
 	"maxParticles": 500,
-	"emit": true,
 	"autoUpdate": true,
 	"addAtBack": false,
 	"spawnType": "point"
