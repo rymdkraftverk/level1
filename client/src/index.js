@@ -81,7 +81,7 @@ export const init = (app, options = {}) => {
   }
 };
 
-const update = (delta) => {
+const update = () => {
   behaviors.forEach((behavior) => {
     const {
       data,
@@ -102,7 +102,6 @@ const update = (delta) => {
       behavior.onUpdate({
         counter: behavior.counter,
         data,
-        delta,
       });
     }
 
