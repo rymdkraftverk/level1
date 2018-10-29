@@ -10,6 +10,8 @@ let ratio = 1;
 let gameWidth;
 let gameHeight;
 
+let timeStamps = [];
+
 // TODO: Check if the same id already exists
 export const add = (
   displayObject,
@@ -82,6 +84,7 @@ export const init = (app, options = {}) => {
 };
 
 const update = () => {
+  const before = performance.now();
   behaviors.forEach((behavior) => {
     const {
       data,
@@ -119,6 +122,8 @@ const update = () => {
 
     behavior.counter += 1;
   });
+  const after = performance.now();
+  timeStamps = timeStamps.concat(after - before);
 };
 
 export const removeBehavior = (behavior) => {
@@ -621,7 +626,17 @@ const createDebugInformation = () => {
   container.style.zIndex = 1;
   container.style.color = 'white';
 
-  setInterval(() => {
-    container.innerHTML = `fps: ${Math.ceil(_app.ticker.FPS)} b: ${getAllBehaviors().length} do: ${getAll().length}`;
-  }, 100);
+  addBehavior({
+    id: '_internal_l1_debug_info',
+    duration: 30,
+    loop: true,
+    onComplete: () => {
+      const averageLoopDuration = timeStamps
+        .reduce((acc, ts) => acc + ts, 0)
+        / timeStamps.length;
+      container
+        .innerHTML = `fps: ${Math.ceil(_app.ticker.FPS)} b: ${getAllBehaviors().length} do: ${getAll().length} Loop duration: ${averageLoopDuration.toFixed(5)}`;
+      timeStamps = [];
+    },
+  });
 };
