@@ -2,6 +2,8 @@ import '@babel/polyfill';
 import uuid from 'uuid/v4';
 import { Howl } from 'howler';
 
+const DEBUG_BEHAVIOR_ID = '_internal_l1_debug_info';
+
 let displayObjects = [];
 let behaviors = [];
 let _app;
@@ -153,7 +155,7 @@ export const removeBehavior = (behavior) => {
   }
 };
 
-export const getAllBehaviors = () => behaviors;
+export const getAllBehaviors = () => behaviors.filter(b => b.id !== DEBUG_BEHAVIOR_ID);
 
 export const getBehavior = (id) => behaviors.find((behavior) => behavior.id === id);
 
@@ -635,7 +637,7 @@ const createDebugInformation = () => {
   container.style.color = 'white';
 
   addBehavior({
-    id: '_internal_l1_debug_info',
+    id: DEBUG_BEHAVIOR_ID,
     duration: 30,
     loop: true,
     onComplete: () => {
