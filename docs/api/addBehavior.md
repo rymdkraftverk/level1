@@ -16,31 +16,19 @@ Use behaviors when you want to affect the properties of a display object. For ex
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
-**id** | String | [ ] | uuid | Used to find the behavior when it's removed
-**duration** | Number | [ ] | 0 | How many updates until the behavior is complete. If not duration is passed, the behaviors will run until removed.
-**labels** | Array | [ ] | [] | Used to group behaviors together
-**loop** | Boolean | [ ] | false | If true, the behaviors counter will be automatically reset upon completion
-**removeOnComplete** | Boolean | [ ] | true | If true, the behavior will automatically be removed upon completion
-**onInit** | Function | [ ] | - | A callback that is executed the first time the behavior is run
-**onUpdate** | Function | [ ] | - | A callback that is executed on every update (Default: 60 times per second)
-**onComplete** | Function | [ ] | - | A callback that is executed when the behavior reaches completion
-**onRemove** | Function | [ ] | - | A callback that is executed when the behavior is removed
-**enabled** | Function | [ ] | true | Can be set to false to prevent the behaviors timer from being updated
-**data** | Object | [ ] | - | An object that can hold arbitrary data. Is passed as an argument to all callback functions.
+**data** | Object | No | - | An object that can hold arbitrary data. Is passed as an argument to all callback functions.
+**duration** | Number | No | 0 | How many updates until the behavior is complete. If no duration is passed, the behavior will run until removed. If not integer, will be rounded down to the nearest integer
+**enabled** | Function | No | true | Can be set to false to prevent the behaviors timer from being updated
+**id** | String | No | uuid | Used with `getBehavior`, `resetBehavior` and `removeBehavior`
+**labels** | Array | No | [] | Used to group behaviors together
+**loop** | Boolean | No | false | If true, the behavior's counter will be automatically reset upon completion
+**removeOnComplete** | Boolean | No | true | If true, the behavior will automatically be removed upon completion
+**onComplete** | Function | No | - | A callback that is executed when the behavior reaches completion. Is called with an object that has `data` as its only property
+**onInit** | Function | No | - | A callback that is executed the first time the behavior is run. Is called with an object that has `data` as its only property
+**onRemove** | Function | No | - | A callback that is executed when the behavior is removed. Is called with an object that has `data` as its only property
+**onUpdate** | Function | No | - | A callback that is executed on every update (Default: 60 times per second). Is called with an object that has a `data` and a `counter` property
 
 Note: If loop is `true`, the value of `removeOnComplete` is ignored.
-
-Callback signatures:
-
-onInit: ({ data })
-
-onUpdate: ({ data, counter })
-
-The counter can be used with animations.
-
-onComplete: ({ data })
-
-onRemove: ({ data })
 
 ## Returns
 
@@ -49,12 +37,16 @@ onRemove: ({ data })
 ## Example
 
 ```js
-// Behavior config should be returned from functions, to make sure a unique copy is created every time.
-const move = () => ({
+const move = (sprite) => ({
   id: 'move',
+  onUpdate: ({ counter }) => {
+    sprite.x += counter
+  },
 })
 
+const sprite = new PIXI.Sprite()
+
 l1.addBehavior(
-  move(),
+  move(sprite),
 )
 ```

@@ -25,10 +25,10 @@ A replacement for PIXI's `addChild`. It will call `addChild` and add it to level
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | --
-**id** | String | [ ] | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
-**parent** | Object | [ ] | null | The parent displayObject. If no parent is passed, the stage will be used.
-**labels** | Array | [ ] | [] | Labels are used to group entities together.
-**zIndex** | Number | [ ] | null | The stacking order of the entity. Null will be treated as 0.
+**id** | String | No | uuid | An id that can be used for lookup. If no id is passed, a uuid will be generated.
+**parent** | PIXI.DisplayObject | No | null | The parent displayObject. If no parent is passed, the stage will be used.
+**labels** | Array | No | [] | Labels are used to group entities together.
+**zIndex** | Number | No | null | The stacking order of the entity. Null will be treated as 0. If provided, will sort the parent's children array.
 
 ## Returns
 
