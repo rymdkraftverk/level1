@@ -22,7 +22,7 @@ const displaySquare = ({ x, y, container }) => {
   l1.add(square);
 
   const selfdestruct = toDestroy => ({
-    duration: 120,
+    duration: 120.3213,
     data: {
       test: 'test',
     },
@@ -96,7 +96,7 @@ const app = new PIXI.Application({
 
 document.body.appendChild(app.view);
 
-l1.init(app, { debug: true, logging: false });
+l1.init(app, { debug: true, logging: true });
 
 const resizeGame = () => {
   const screenWidth = window.innerWidth;
