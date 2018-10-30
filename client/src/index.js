@@ -203,13 +203,17 @@ export const addBehavior = (
     log(`level1: Unknown properties on behavior "${id}": ${Object.keys(unknownProperties)}`);
   }
 
+  if (!Number.isInteger(duration)) {
+    log(`level1: behavior "${id}"s duration was not integer, was rounded down to nearest integer`);
+  }
+
   const newBehaviorObject = {
     id,
     labels,
     data,
     finished: false,
     counter: 0,
-    duration,
+    duration: Math.round(duration),
     initHasBeenCalled: false,
     loop,
     removeOnComplete,
