@@ -11,6 +11,13 @@ let gameWidth;
 let gameHeight;
 
 let timeStamps = [];
+let _logging = false;
+
+const log = (text) => {
+  if (_logging) {
+    console.warn(text);
+  }
+};
 
 // TODO: Check if the same id already exists
 export const add = (
@@ -76,11 +83,13 @@ export const init = (app, options = {}) => {
   _app = app;
 
   const {
-    debug,
+    debug = false,
+    logging = false,
   } = options;
   if (debug) {
     createDebugInformation();
   }
+  _logging = logging;
 };
 
 const update = () => {
@@ -134,7 +143,7 @@ export const removeBehavior = (behavior) => {
     behaviorObject = behavior;
   }
   if (!behaviorObject) {
-    console.warn(`level1: Tried to remove non-existent behavior: ${behavior}`);
+    log(`level1: Tried to remove non-existent behavior: ${behavior}`);
   } else {
     behaviors = behaviors.filter((b) => b.id !== behaviorObject.id);
     behaviorObject.enabled = false;
@@ -156,7 +165,7 @@ export const resetBehavior = (behavior) => {
     behavior = getBehavior(behavior);
   }
   if (!behavior) {
-    console.warn(`level1: Tried to reset non-existent behavior: ${behavior}`);
+    log(`level1: Tried to reset non-existent behavior: ${behavior}`);
   } else {
     behavior.counter = 0;
     behavior.finished = false;
@@ -184,12 +193,12 @@ export const addBehavior = (
   },
 ) => {
   if (behaviorExists(id)) {
-    console.warn(`level1: Behavior with id ${id} already exists`);
+    log(`level1: Behavior with id ${id} already exists`);
     removeBehavior(id);
   }
 
   if (Object.keys(unknownProperties).length > 0) {
-    console.warn(`level1: Unknown properties on behavior "${id}": ${Object.keys(unknownProperties)}`);
+    log(`level1: Unknown properties on behavior "${id}": ${Object.keys(unknownProperties)}`);
   }
 
   const newBehaviorObject = {
@@ -283,9 +292,9 @@ export const destroy = (
     displayObject = get(displayObject);
   }
   if (!displayObject) {
-    console.warn(`level1: Tried to remove non-existent displayObject: ${id}`);
+    log(`level1: Tried to remove non-existent displayObject: ${id}`);
   } else if (!displayObject.parent) {
-    console.warn(`level1: ${displayObject.name} has already been destroyed`);
+    log(`level1: ${displayObject.name} has already been destroyed`);
   } else {
     // Check if it has been added to l1
     if (displayObject.l1) {
@@ -344,18 +353,17 @@ export const loadAssetsFromServer = (path) => new Promise((resolve) => {
             } else {
               const name = fileName.substring(0, fileName.lastIndexOf('.'));
               if (name.length === 0) {
-                console.warn(`level1: Asset loader ignoring ${fileName} due to empty file name`);
+                log(`level1: Asset loader ignoring ${fileName} due to empty file name`);
               } else if (fileName.substring(fileName.lastIndexOf('.'), fileName.length) === '.json') {
                 loader.add(`${path}/${fileName}`);
-              } else {
-                console.warn(`level1: Asset loader ignoring ${fileName} due to only supporting .json files`);
               }
+              log(`level1: Asset loader ignoring ${fileName} due to only supporting .json files`);
             }
           });
         await Promise.all(subFolders.map((subfolder) => loadAssetsFromServer(`${path}/${subfolder}`)));
         resolve();
       } else {
-        console.warn('level1: No assets detected in assets folder');
+        log('level1: No assets detected in assets folder');
         resolve();
       }
     });
