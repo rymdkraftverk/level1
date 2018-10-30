@@ -18,7 +18,8 @@ Initializes level1. Needs to be called before any other `l1` function calls.
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
-**debug** | Bool | [ ] | false | Display a basic debug information overlay
+**debug** | Bool | No | false | Display a basic debug information overlay
+**logging** | Bool | No | false | Display logs and warnings from level1
 
 ## Returns
 
