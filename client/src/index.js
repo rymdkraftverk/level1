@@ -463,7 +463,7 @@ const onDragStartInternal = (displayObject, onDragStart, disabler) => (event) =>
 };
 
 const onDragEndInternal = (displayObject, onDragEnd, disabler) => () => {
-  if (disabler()) {
+  if (disabler() || !displayObject.l1.dragData) {
     return;
   }
 
