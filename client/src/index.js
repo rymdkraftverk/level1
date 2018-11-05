@@ -13,6 +13,7 @@ let gameWidth;
 let gameHeight;
 
 let timeStamps = [];
+let lastTimeStamp = null;
 let _logging = false;
 
 const log = (text) => {
@@ -134,7 +135,8 @@ const update = () => {
     behavior.counter += 1;
   });
   const after = performance.now();
-  timeStamps = timeStamps.concat(after - before);
+  lastTimeStamp = after - before;
+  timeStamps = timeStamps.concat(lastTimeStamp);
 };
 
 export const removeBehavior = (behavior) => {
@@ -654,3 +656,5 @@ const createDebugInformation = () => {
     },
   });
 };
+
+export const getLoopDuration = () => lastTimeStamp;
