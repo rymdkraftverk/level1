@@ -319,6 +319,9 @@ export const destroy = (
 
 export const getChildIds = (displayObject) => {
   if (displayObject.children.length) {
+    if (displayObject.l1) {
+      return [displayObject.l1.id].concat(displayObject.children.flatMap(getChildIds));
+    }
     return displayObject.children.flatMap(getChildIds);
   }
   if (displayObject.l1) {

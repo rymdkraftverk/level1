@@ -253,6 +253,19 @@ const init = () => {
 
   l1.removeBehavior('behaviorToRemove');
 
+  const amountOfDisplayObjectsBefore = l1.getAll().length;
+  const grandParent = new PIXI.Container();
+  l1.add(grandParent, { id: 'grandparent' });
+  const parent = new PIXI.Container();
+  l1.add(parent, { id: 'parent', parent: grandParent });
+  const child = new PIXI.Container();
+  l1.add(child, { id: 'child', parent });
+  l1.destroy(grandParent);
+  const amountOfDisplayObjectsAfter = l1.getAll().length;
+  if (amountOfDisplayObjectsBefore - amountOfDisplayObjectsAfter !== 0) {
+    console.error('Parent child system is broken');
+  }
+
   // const floor = l1.container({ id: 'floor' });
   // console.log('floor', floor);
   // l1.addBody(
