@@ -1,6 +1,7 @@
 import '@babel/polyfill';
 import uuid from 'uuid/v4';
 import { Howl } from 'howler';
+import Mousetrap from 'mousetrap';
 
 const DEBUG_BEHAVIOR_ID = '_internal_l1_debug_info';
 
@@ -661,3 +662,27 @@ const createDebugInformation = () => {
 };
 
 export const getLoopDuration = () => lastTimeStamp;
+
+/* Keyboard input */
+const pressed = {};
+
+export function isKeyDown(keyCode) {
+  return pressed[keyCode];
+}
+
+function onKeyDown(event) {
+  pressed[event] = true;
+}
+
+function onKeyUp(event) {
+  pressed[event] = false;
+}
+
+export function addKey(key) {
+  Mousetrap.bind(key, () => {
+    onKeyDown(key);
+  }, 'keydown');
+  Mousetrap.bind(key, () => {
+    onKeyUp(key);
+  }, 'keyup');
+}
