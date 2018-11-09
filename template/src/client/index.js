@@ -355,6 +355,16 @@ const init = () => {
     );
   };
   createShape();
+
+  const key = 'a';
+  l1.addKey(key);
+  l1.addBehavior({
+    onUpdate: () => {
+      if (l1.isKeyDown(key)) {
+        console.log('pressing a');
+      }
+    },
+  });
 };
 
 app.loader.add('assets/spritesheet.json');
