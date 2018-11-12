@@ -39,7 +39,7 @@ export const add = (
   },
 ) => {
   parent.addChild(displayObject);
-  displayObjects = displayObjects.concat(displayObject);
+  displayObjects.push(displayObject);
 
   displayObject.l1 = {
     id,
