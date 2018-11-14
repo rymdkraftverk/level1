@@ -8,7 +8,12 @@ name: addBehavior
 l1.addBehavior(options)
 ```
 
-Use behaviors when you want to affect the properties of a display object. For example: position, scale or rotation.
+Behaviors are objects that are triggered once per game update (tick).
+
+Example use cases:
+
+- Timers to trigger something after a certain amount of ticks have passed
+- Changing the properties of a display object over time, such as position, scale or rotation.
 
 ## Arguments
 
@@ -34,7 +39,7 @@ Note: If loop is `true`, the value of `removeOnComplete` is ignored.
 
 (Object): The behavior instance
 
-## Example
+## Example 1 - move a sprite
 
 ```js
 const move = (sprite) => ({
@@ -49,4 +54,16 @@ const sprite = new PIXI.Sprite()
 l1.addBehavior(
   move(sprite),
 )
+```
+
+## Example 2 - delay execution
+
+```js
+// delay.js
+export default duration => new Promise((res) => {
+  l1.addBehavior({
+    duration,
+    onComplete: () => res(),
+  })
+})
 ```

@@ -211,7 +211,9 @@ const init = () => {
   l1.addBehavior(l1.displayHitBoxes(lizard, new PIXI.Graphics()));
 
   const onCompleteNoDurationTest = {
-    onComplete: () => {},
+    onComplete: () => {
+      console.log('This will never be logged!');
+    },
   };
   l1.addBehavior(onCompleteNoDurationTest);
 
