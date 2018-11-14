@@ -7,13 +7,14 @@ const DEBUG_BEHAVIOR_ID = '_internal_l1_debug_info';
 
 let displayObjects = [];
 let behaviors = [];
+let timeStamps = [];
+
 let _app;
 
 let ratio = 1;
 let gameWidth;
 let gameHeight;
 
-let timeStamps = [];
 let lastTimeStamp = null;
 let _logging = false;
 
@@ -137,7 +138,7 @@ const update = () => {
   });
   const after = performance.now();
   lastTimeStamp = after - before;
-  timeStamps = timeStamps.concat(lastTimeStamp);
+  timeStamps.push(lastTimeStamp);
 };
 
 export const removeBehavior = (behavior) => {
@@ -227,7 +228,7 @@ export const addBehavior = (
     onRemove,
   };
 
-  behaviors = behaviors.concat(newBehaviorObject);
+  behaviors.push(newBehaviorObject);
   return newBehaviorObject;
 };
 
@@ -321,7 +322,7 @@ export const destroy = (
 export const getChildIds = (displayObject) => {
   if (displayObject.children.length) {
     if (displayObject.l1) {
-      return [displayObject.l1.id].concat(displayObject.children.flatMap(getChildIds));
+      return displayObject.children.flatMap(getChildIds).concat(displayObject.l1.id);
     }
     return displayObject.children.flatMap(getChildIds);
   }
@@ -627,7 +628,7 @@ export const sound = (options) => {
 // LABELS
 
 export const addLabel = (displayObject, label) => {
-  displayObject.l1.labels = displayObject.l1.labels.concat(label);
+  displayObject.l1.labels.push(label);
 };
 
 export const removeLabel = (displayObject, label) => {
