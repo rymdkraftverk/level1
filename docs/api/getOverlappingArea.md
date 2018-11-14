@@ -5,16 +5,16 @@ name: getOverlappingArea
 # getOverlappingArea
 
 ```js
-l1.getOverlappingArea(entity, otherEntity)
+l1.getOverlappingArea(displayObject, otherDisplayObject)
 ```
 
-Return a value for how much area two entities are overlapping with
+Return a value for how much area two display objects are overlapping with. Will use the global `x` and `y` positions. Will use `hitArea` if defined, otherwise `height` and `width`.
 
 ## Arguments
 
-`entity` (Object): The first entity to use for overlap detection.
+`displayObject` (PIXI.DisplayObject): The first display object to use for overlap detection.
 
-`otherEntity` (Object) The second entity to use for overlap detection.
+`otherDisplayObject` (PIXI.DisplayObject) The second display object to use for overlap detection.
 
 ## Returns
 
