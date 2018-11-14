@@ -7,7 +7,6 @@ const DEBUG_BEHAVIOR_ID = '_internal_l1_debug_info';
 
 let displayObjects = [];
 let behaviors = [];
-let timeStamps = [];
 
 let _app;
 
@@ -138,7 +137,6 @@ const update = () => {
   });
   const after = performance.now();
   lastTimeStamp = after - before;
-  timeStamps.push(lastTimeStamp);
 };
 
 export const removeBehavior = (behavior) => {
@@ -651,13 +649,19 @@ const createDebugInformation = () => {
     id: DEBUG_BEHAVIOR_ID,
     duration: 30,
     loop: true,
-    onComplete: () => {
-      const averageLoopDuration = timeStamps
+    data: {
+      timeStamps: [],
+    },
+    onComplete: ({ data }) => {
+      const averageLoopDuration = data.timeStamps
         .reduce((acc, ts) => acc + ts, 0)
-        / timeStamps.length;
+        / data.timeStamps.length;
       container
         .innerHTML = `fps: ${Math.ceil(_app.ticker.FPS)} b: ${getAllBehaviors().length} do: ${getAll().length} Loop duration: ${averageLoopDuration.toFixed(5)}`;
-      timeStamps = [];
+      data.timeStamps = [];
+    },
+    onUpdate: ({ data }) => {
+      data.timeStamps.push(lastTimeStamp);
     },
   });
 };
