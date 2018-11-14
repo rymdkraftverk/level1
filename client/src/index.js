@@ -209,6 +209,10 @@ export const addBehavior = (
     log(`level1: behavior "${id}"s duration was not integer, was rounded down to nearest integer`);
   }
 
+  if (!duration && onComplete) {
+    log(`level1: behavior "${id}"s has an onComplete callback but no duration. onComplete will never be called`);
+  }
+
   const newBehaviorObject = {
     id,
     labels,

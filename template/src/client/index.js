@@ -210,6 +210,11 @@ const init = () => {
   l1.addBehavior(move(lizard, 100, 500));
   l1.addBehavior(l1.displayHitBoxes(lizard, new PIXI.Graphics()));
 
+  const onCompleteNoDurationTest = {
+    onComplete: () => {},
+  };
+  l1.addBehavior(onCompleteNoDurationTest);
+
   // eslint-disable-next-line no-new
   new PIXI.particles.Emitter(
     lizard,
