@@ -312,7 +312,7 @@ export const destroy = (
     if (displayObject.l1) {
       remove(displayObject.l1.id);
       if (options.children) {
-        getChildIds(displayObject).forEach(remove);
+        getChildrenIds(displayObject).forEach(remove);
       }
     }
 
@@ -321,12 +321,12 @@ export const destroy = (
   }
 };
 
-export const getChildIds = (displayObject) => {
+export const getChildrenIds = (displayObject) => {
   if (displayObject.children.length) {
     if (displayObject.l1) {
-      return displayObject.children.flatMap(getChildIds).concat(displayObject.l1.id);
+      return displayObject.children.flatMap(getChildrenIds).concat(displayObject.l1.id);
     }
-    return displayObject.children.flatMap(getChildIds);
+    return displayObject.children.flatMap(getChildrenIds);
   }
   if (displayObject.l1) {
     return [displayObject.l1.id];
