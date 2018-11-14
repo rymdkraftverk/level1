@@ -8,11 +8,11 @@ name: getTexture
 l1.getTexture(fileName)
 ```
 
-Gets a pre-loaded texture. 
+Gets a pre-loaded texture.
 
 ## Arguments
 
-`fileName` (string): The fileName as defined in the spritesheet
+`fileName` (string): The file name as defined in the sprite sheet
 
 ## Returns
 

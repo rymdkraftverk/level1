@@ -16,4 +16,4 @@ Get display objects by label.
 
 ## Returns
 
-(*): Returns a list of found display objects, else undefined.
+(array): Returns a list of found display objects
