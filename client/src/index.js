@@ -49,6 +49,8 @@ export const add = (
 
   displayObject.name = id;
 
+  displayObject.l1.isDestroyed = () => !displayObject.parent;
+
   /*
     This is done to counteract a potential scale change on the canvas. Since changing the scale
     of a text object will make it blurry.

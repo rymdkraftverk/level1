@@ -46,7 +46,12 @@ const displaySquare = ({ x, y, container }) => {
           },
         ),
       ).playOnceAndDestroy();
+
       l1.destroy(toDestroy);
+
+      if (!toDestroy.l1.isDestroyed()) {
+        console.error('Display object was not destroyed correctly!');
+      }
     },
   });
   l1.addBehavior(selfdestruct(square));

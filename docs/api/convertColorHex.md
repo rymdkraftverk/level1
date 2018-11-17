@@ -8,7 +8,11 @@ name: convertColorHex
 l1.convertColorHex(hexCode)
 ```
 
-Converts a hex code to the format required by PIXI.Graphics.
+Convert a string containing a hexadecimal string to a hexadecimal literal (a number).
+
+`“#******” => 0x******`
+
+The hexadecimal literal is for example required by PIXI.Graphics.
 
 ## Arguments
 
