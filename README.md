@@ -1,29 +1,27 @@
 # level1
 
-> Quickly get started creating 2D games in the browser with minimal setup or configuration
+> A utility library for [`pixi.js`](https://github.com/pixijs/pixi.js).
 
-level1 is a utility library for [`pixi.js`](https://github.com/pixijs/pixi.js).
+## Features
 
-It helps with instance managements by extending pixi display objects with:
+Replaces pixi's `addChild` with [`l1.add`](https://rymdkraftverk.github.io/level1/add). It improves display object management by extending pixi display objects with:
 
 - id
 - zIndex
 - labels
 
-It also has:
+Other features:
 
-- Resizing of text objects without blurriness
-- Resizing of the canvas and retain the correct proportions
-- Convenience function for getting pre-loaded textures
-- "Behaviors". Dynamically add and remove behaviors in the game scene.
+- [Behaviors](https://rymdkraftverk.github.io/level1/addBehavior). Dynamically add and remove behaviors in the game.
+- Resize text objects without blurriness
+- Resize the canvas and retain the correct proportions
+- Function to get pre-loaded textures
 - Function to get the global position of a display object
+- Function to get the distance and angle between two positions.
 - Collision detection
-- Overlapping area
-- Utility functions to get the distance and angle between two positions.
-- Ability to add sound
-- Ability to add physics (Under development)
-
-*This project is currently in beta.*
+- Detect overlapping area
+- Sound
+- Keyboard input
 
 ## Index
 
@@ -42,7 +40,17 @@ It also has:
 ### Hello world
 
 ```js
-l1.init()
+const app = new PIXI.Application();
+
+document.body.appendChild(app.view);
+
+l1.init(app);
+
+app.loader.add('assets/spritesheet.json');
+
+app.loader.load(() => {
+  // Add game logic here
+});
 ```
 
 --
