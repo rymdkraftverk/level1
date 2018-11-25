@@ -150,7 +150,7 @@ const init = () => {
   helloText.x = 0;
   helloText.y = 0;
 
-  l1.addBehavior(l1.displayHitBoxes(helloText, new PIXI.Graphics()));
+  l1.displayHitBoxes(helloText, new PIXI.Graphics());
 
   l1.add(
     helloText,
@@ -212,7 +212,7 @@ const init = () => {
   });
 
   l1.addBehavior(move(lizard, 100, 500));
-  l1.addBehavior(l1.displayHitBoxes(lizard, new PIXI.Graphics()));
+  l1.displayHitBoxes(lizard, new PIXI.Graphics());
 
   const onCompleteNoDurationTest = {
     onComplete: () => {

@@ -577,25 +577,27 @@ export const getOverlappingArea = (displayObject, otherDisplayObject) => {
   return dX * dY;
 };
 
-export const displayHitBoxes = (displayObject, graphics) => ({
+export const displayHitBoxes = (displayObject, graphics) => addBehavior({
   id: `${(displayObject.l1 && displayObject.l1.id) || displayObject.name}-displayHitBoxes`,
   onInit: () => {
     add(graphics);
   },
   onUpdate: () => {
-    const width = getWidth(displayObject);
-    const height = getHeight(displayObject);
+    if (displayObject && !displayObject.l1.isDestroyed()) {
+      const width = getWidth(displayObject);
+      const height = getHeight(displayObject);
 
-    const { x, y } = getGlobalPosition(displayObject, ratio);
+      const { x, y } = getGlobalPosition(displayObject, ratio);
 
-    graphics
-      .clear()
-      .lineStyle(2, 0xFFFFFF, 1)
-      .moveTo(x, y)
-      .lineTo(x + width, y)
-      .lineTo(x + width, y + height)
-      .lineTo(x, y + height)
-      .lineTo(x, y);
+      graphics
+        .clear()
+        .lineStyle(2, 0xFFFFFF, 1)
+        .moveTo(x, y)
+        .lineTo(x + width, y)
+        .lineTo(x + width, y + height)
+        .lineTo(x, y + height)
+        .lineTo(x, y);
+    }
   },
 });
 
