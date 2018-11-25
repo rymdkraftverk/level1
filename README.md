@@ -56,7 +56,7 @@ app.loader.load(() => {
 })
 ```
 
---
+---
 
 ## Develop
 
