@@ -40,17 +40,20 @@ Other features:
 ### Hello world
 
 ```js
-const app = new PIXI.Application();
+import * as l1 from 'l1'
+import * as PIXI from 'pixi.js'
 
-document.body.appendChild(app.view);
+const app = new PIXI.Application()
 
-l1.init(app);
+document.body.appendChild(app.view)
 
-app.loader.add('assets/spritesheet.json');
+l1.init(app)
+
+app.loader.add('assets/spritesheet.json')
 
 app.loader.load(() => {
   // Add game logic here
-});
+})
 ```
 
 --
