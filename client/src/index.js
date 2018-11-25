@@ -130,7 +130,7 @@ const update = () => {
       }
       if (behavior.loop) {
         resetBehavior(behavior);
-      } else if (behavior.removeOnComplete) {
+      } else if (behavior.removeOnComplete && behavior.enabled) {
         removeBehavior(behavior);
       }
     }
