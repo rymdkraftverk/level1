@@ -278,6 +278,16 @@ const init = () => {
     console.error('Parent child system is broken');
   }
 
+  const testCompleteAndRemove = l1.addBehavior({
+    duration: 5,
+    onRemove: () => {
+      console.log('This should be logged only once');
+    },
+    onComplete: () => {
+      l1.removeBehavior(testCompleteAndRemove);
+    },
+  });
+
   // const floor = l1.container({ id: 'floor' });
   // console.log('floor', floor);
   // l1.addBody(
