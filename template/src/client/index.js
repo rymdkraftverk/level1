@@ -1,7 +1,6 @@
 import * as PIXI from 'pixi.js';
 import _ from 'lodash/fp';
 import 'pixi-particles';
-// import * as filters from 'pixi-filters';
 import * as l1 from 'l1';
 import config from './emitter.json';
 
@@ -287,13 +286,6 @@ const init = () => {
       l1.removeBehavior(testCompleteAndRemove);
     },
   });
-
-  // const floor = l1.container({ id: 'floor' });
-  // console.log('floor', floor);
-  // l1.addBody(
-  //   floor,
-  //   l1.Matter.Bodies.rectangle(300, 390, 600, 10, { isStatic: true }),
-  // );
 
   const createSine = ({
     start, end, speed,
