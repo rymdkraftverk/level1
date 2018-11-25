@@ -42,18 +42,12 @@ It also has:
 ### Hello world
 
 ```js
-l1.init().then(() => {
-  console.log('l1 initialized!')
-})
+l1.init()
 ```
 
 --
 
 ## Develop
-
-In `client` and `server`
-
-`yarn` = Install dependencies
 
 ### Custom commands
 
@@ -70,18 +64,8 @@ Command | Description
 
 To test changes, use the `template` project.
 
-1. Build the `dist` files in either `client` or `server` (`yarn build:watch`)
+1. Build the `dist` files in the `level1` folder (`yarn build:watch`)
 1. Go to the `template` folder
-1. Run `yarn l1` to install `client` or `yarn l1-server` to install `server`
+1. Run `yarn l1` to install `level1`
 1. Run `yarn start` and `yarn watch` in separate terminal windows
 1. Test your new features!
-
----
-
-## Dependency references
-
-- Rendering: [Pixi.js](https://github.com/pixijs/pixi.js)
-- Physics: [Matter.js](https://github.com/liabru/matter-js)
-- Sound: [Howler.js](https://github.com/goldfire/howler.js)
-- Keyboard input: [mousetrap]()
-- Multiplayer: [Socket.io](https://github.com/socketio/socket.io)
