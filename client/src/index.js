@@ -386,11 +386,6 @@ export const loadAssetsFromServer = (path) => new Promise((resolve) => {
     });
 });
 
-// function syncEntityBodyPosition(entity) {
-//   entity.asset.x = entity.body.position.x;
-//   entity.asset.y = entity.body.position.y;
-// }
-
 export const toRadians = angle => angle * (Math.PI / 180);
 
 export const grid = ({
@@ -462,9 +457,6 @@ const onDragStartInternal = (displayObject, onDragStart, disabler) => (event) =>
     return;
   }
 
-  // store a reference to the data
-  // the reason for this is because of multitouch
-  // we want to track the movement of this particular touch
   displayObject.l1.dragData = event.data;
   displayObject.dragging = true;
 
