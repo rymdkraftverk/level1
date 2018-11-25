@@ -4,11 +4,10 @@
   "description": "Template to get started with level1",
   "main": "index.js",
   "scripts": {
-    "l1": "yarn add file:../client",
-    "l1-server": "yarn add file:../server",
+    "l1": "yarn add file:../level1",
     "lint": "eslint src",
-    "build": "browserify src/client/index.js -o public/bundle.js -t [ babelify ]",
-    "watch": "watchify src/client/index.js -o public/bundle.js -t [ babelify ] --debug",
+    "build": "browserify src/index.js -o public/bundle.js -t [ babelify ]",
+    "watch": "watchify src/index.js -o public/bundle.js -t [ babelify ] --debug",
     "start": "http-server -p 8000"
   },
   "author": "",
@@ -26,8 +25,7 @@
     "watchify": "3.11.0"
   },
   "dependencies": {
-    "l1": "file:../client",
-    "l1-server": "file:../server",
+    "l1": "file:../level1",
     "lodash": "4.17.11",
     "pixi-filters": "2.6.1",
     "pixi-particles": "3.1.0",

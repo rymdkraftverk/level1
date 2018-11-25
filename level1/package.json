@@ -1,7 +1,7 @@
 {
   "name": "l1",
   "version": "0.5.17",
-  "description": "level1 client version",
+  "description": "A utility library for pixi.js",
   "main": "./dist/index.js",
   "scripts": {
     "clean": "rm -rf dist",
