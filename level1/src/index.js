@@ -67,7 +67,7 @@ export const add = (
     displayObject.scale.set(1 / ratio);
   }
 
-  if (zIndex) {
+  if (zIndex !== undefined && zIndex !== null) {
     updateRenderLayers(parent);
   }
 };
