@@ -316,9 +316,10 @@ export const destroy = (
   } else {
     // Check if it has been added to l1
     if (displayObject.l1) {
-      remove(displayObject);
       if (options.children) {
         getChildren(displayObject).forEach(remove);
+      } else {
+        remove(displayObject);
       }
     }
 
