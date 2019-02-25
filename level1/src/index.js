@@ -5,7 +5,7 @@ import Mousetrap from 'mousetrap';
 
 const DEBUG_BEHAVIOR_ID = '_internal_l1_debug_info';
 
-let displayObjects = [];
+const displayObjects = [];
 let behaviors = [];
 
 let _app;
@@ -76,9 +76,12 @@ export const get = (id) => displayObjects.find(displayObject => displayObject.l1
 
 export const getAll = () => displayObjects;
 
-const remove = (idsToRemove) => {
-  displayObjects = displayObjects
-    .filter((displayObject) => !idsToRemove.includes(displayObject.l1.id));
+const remove = (displayObject) => {
+  // Mutate original array for performance reasons
+  const indexToRemove = displayObjects.indexOf(displayObject);
+  if (indexToRemove >= 0) {
+    displayObjects.splice(indexToRemove, 1);
+  }
 };
 
 export const init = (app, options = {}) => {
@@ -313,7 +316,10 @@ export const destroy = (
   } else {
     // Check if it has been added to l1
     if (displayObject.l1) {
-      remove(getIdsToRemove(displayObject));
+      remove(displayObject);
+      if (options.children) {
+        getChildren(displayObject).forEach(remove);
+      }
     }
 
     displayObject.parent.removeChild(displayObject);
@@ -321,15 +327,15 @@ export const destroy = (
   }
 };
 
-export const getIdsToRemove = (displayObject) => {
+export const getChildren = (displayObject) => {
   if (displayObject.children.length) {
     if (displayObject.l1) {
-      return displayObject.children.flatMap(getIdsToRemove).concat(displayObject.l1.id);
+      return displayObject.children.flatMap(getChildren).concat(displayObject);
     }
-    return displayObject.children.flatMap(getIdsToRemove);
+    return displayObject.children.flatMap(getChildren);
   }
   if (displayObject.l1) {
-    return [displayObject.l1.id];
+    return [displayObject];
   }
   return [];
 };
