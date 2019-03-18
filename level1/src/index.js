@@ -109,15 +109,15 @@ const update = () => {
       data,
     } = behavior;
 
+    if (!behavior.enabled) {
+      return;
+    }
+
     if (!behavior.initHasBeenCalled) {
       if (behavior.onInit) {
         behavior.onInit({ data });
       }
       behavior.initHasBeenCalled = true;
-    }
-
-    if (!behavior.enabled) {
-      return;
     }
 
     if (behavior.onUpdate) {
