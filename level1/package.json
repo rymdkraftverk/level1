@@ -6,10 +6,10 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build": "babel src --out-dir dist",
-    "build:watch": "npm run build -- --watch",
+    "build:watch": "yarn build --watch",
     "release": "np",
     "lint": "eslint src",
-    "test:watch": "npm test -- --watch"
+    "test:watch": "yarn test --watch"
   },
   "keywords": [],
   "author": "",
