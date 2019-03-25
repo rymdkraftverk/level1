@@ -15,7 +15,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
     "howler": "2.0.15",
     "lodash": "4.17.11",
     "mousetrap": "1.6.2",

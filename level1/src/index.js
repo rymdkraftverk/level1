@@ -1,4 +1,3 @@
-import '@babel/polyfill';
 import uuid from 'uuid/v4';
 import { Howl } from 'howler';
 import Mousetrap from 'mousetrap';
@@ -349,10 +348,11 @@ export const updateRenderLayers = (displayObject) => {
   });
 };
 
+// TODO: Make sure this works and document it
 export const loadAssetsFromServer = (path) => new Promise((resolve) => {
   fetch(`/${path}`)
     .then(data => data.text())
-    .then(async html => {
+    .then(html => {
       // Create a dom element from the response in order to find the right node
       const el = document.createElement('html');
       el.innerHTML = html;
@@ -382,8 +382,7 @@ export const loadAssetsFromServer = (path) => new Promise((resolve) => {
               log(`level1: Asset loader ignoring ${fileName} due to only supporting .json files`);
             }
           });
-        await Promise.all(subFolders.map((subfolder) => loadAssetsFromServer(`${path}/${subfolder}`)));
-        resolve();
+        Promise.all(subFolders.map((subfolder) => loadAssetsFromServer(`${path}/${subfolder}`))).then(resolve);
       } else {
         log('level1: No assets detected in assets folder');
         resolve();
