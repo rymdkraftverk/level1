@@ -101,7 +101,7 @@ export const init = (app, options = {}) => {
   _logging = logging;
 };
 
-const update = () => {
+const update = (deltaTime) => {
   const before = performance.now();
   behaviors.forEach((behavior) => {
     const {
@@ -122,6 +122,7 @@ const update = () => {
     if (behavior.onUpdate) {
       behavior.onUpdate({
         counter: behavior.counter,
+        deltaTime,
         data,
       });
     }
