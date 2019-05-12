@@ -1,3 +1,4 @@
+import 'core-js/es/array/flat-map';
 import uuid from 'uuid/v4';
 import { Howl } from 'howler';
 import Mousetrap from 'mousetrap';
