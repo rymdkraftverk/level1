@@ -100,7 +100,13 @@ const app = new PIXI.Application({
 
 document.body.appendChild(app.view);
 
-l1.init(app, { debug: true, logging: true });
+l1.init(app, {
+  debug: true,
+  logging: true,
+  onError: () => {
+    console.log('onError callback called');
+  },
+});
 
 const resizeGame = () => {
   const screenWidth = window.innerWidth;
