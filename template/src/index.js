@@ -284,6 +284,7 @@ const init = () => {
     },
     onComplete: () => {
       l1.removeBehavior(testCompleteAndRemove);
+      throw new Error('Game should keep going when errors are thrown from behaviors');
     },
   });
 
