@@ -103,47 +103,51 @@ export const init = (app, options = {}) => {
 };
 
 const update = (deltaTime) => {
-  const before = performance.now();
-  behaviors.forEach((behavior) => {
-    const {
-      data,
-    } = behavior;
-
-    if (!behavior.enabled) {
-      return;
-    }
-
-    if (!behavior.initHasBeenCalled) {
-      if (behavior.onInit) {
-        behavior.onInit({ data });
-      }
-      behavior.initHasBeenCalled = true;
-    }
-
-    if (behavior.onUpdate) {
-      behavior.onUpdate({
-        counter: behavior.counter,
-        deltaTime,
+  try {
+    const before = performance.now();
+    behaviors.forEach((behavior) => {
+      const {
         data,
-      });
-    }
+      } = behavior;
 
-    if (behavior.duration > 0 && behavior.counter === behavior.duration && !behavior.finished) {
-      behavior.finished = true;
-      if (behavior.onComplete) {
-        behavior.onComplete({ data });
+      if (!behavior.enabled) {
+        return;
       }
-      if (behavior.loop) {
-        resetBehavior(behavior);
-      } else if (behavior.removeOnComplete && behavior.enabled) {
-        removeBehavior(behavior);
-      }
-    }
 
-    behavior.counter += 1;
-  });
-  const after = performance.now();
-  lastTimeStamp = after - before;
+      if (!behavior.initHasBeenCalled) {
+        if (behavior.onInit) {
+          behavior.onInit({ data });
+        }
+        behavior.initHasBeenCalled = true;
+      }
+
+      if (behavior.onUpdate) {
+        behavior.onUpdate({
+          counter: behavior.counter,
+          deltaTime,
+          data,
+        });
+      }
+
+      if (behavior.duration > 0 && behavior.counter === behavior.duration && !behavior.finished) {
+        behavior.finished = true;
+        if (behavior.onComplete) {
+          behavior.onComplete({ data });
+        }
+        if (behavior.loop) {
+          resetBehavior(behavior);
+        } else if (behavior.removeOnComplete && behavior.enabled) {
+          removeBehavior(behavior);
+        }
+      }
+
+      behavior.counter += 1;
+    });
+    const after = performance.now();
+    lastTimeStamp = after - before;
+  } catch (error) {
+    console.error('l1: Error running behaviors', error);
+  }
 };
 
 export const removeBehavior = (behavior) => {
