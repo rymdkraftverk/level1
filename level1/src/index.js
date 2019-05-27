@@ -85,24 +85,25 @@ const remove = (displayObject) => {
 };
 
 export const init = (app, options = {}) => {
-  app.ticker.add(update);
+  const {
+    debug = false,
+    logging = false,
+    onError = () => {},
+  } = options;
+  app.ticker.add(update(onError));
 
   gameWidth = app.renderer.width;
   gameHeight = app.renderer.height;
 
   _app = app;
 
-  const {
-    debug = false,
-    logging = false,
-  } = options;
   if (debug) {
     createDebugInformation();
   }
   _logging = logging;
 };
 
-const update = (deltaTime) => {
+const update = (onError) => (deltaTime) => {
   try {
     const before = performance.now();
     behaviors.forEach((behavior) => {
@@ -147,6 +148,7 @@ const update = (deltaTime) => {
     lastTimeStamp = after - before;
   } catch (error) {
     console.error('l1: Error running behaviors', error);
+    onError(error);
   }
 };
 
