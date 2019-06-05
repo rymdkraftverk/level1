@@ -20,6 +20,7 @@ Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
 **debug** | Bool | No | false | Display a basic debug information overlay
 **logging** | Bool | No | false | Display logs and warnings from level1
+**onError** | Function (error => void) | No | () => {} | Called when an error happens in a behavior
 
 ## Returns
 
@@ -35,5 +36,11 @@ const app = PIXI.Application({
 
 document.body.appendChild(app.view)
 
-l1.init(app)
+l1.init(app, {
+  debug: true,
+  logging: true,
+  onError: (error) => {
+    console.log('error ', error);
+  }
+})
 ```

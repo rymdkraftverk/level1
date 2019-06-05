@@ -26,7 +26,5 @@ Otherwise the width and height of the `displayObject` will be used.
 ## Example
 
 ```js
-l1.addBehavior(
-  l1.displayHitBoxes(displayObject, new PIXI.Graphics())
-)
+l1.displayHitBoxes(displayObject, new PIXI.Graphics())
 ```

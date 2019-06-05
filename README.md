@@ -25,7 +25,6 @@ Other features:
 
 ## Index
 
-1. [Getting started](docs/getting-started.md#getting-started)
 1. [Docs / API](https://rymdkraftverk.github.io/level1/)
 1. [Gotchas](https://github.com/sajmoni/level1#docs/gotchas)
 
@@ -45,14 +44,42 @@ import * as PIXI from 'pixi.js'
 
 const app = new PIXI.Application()
 
-document.body.appendChild(app.view)
-
 l1.init(app)
 
+// Example spritesheet
 app.loader.add('assets/spritesheet.json')
 
 app.loader.load(() => {
-  // Add game logic here
+  const square = new PIXI.Sprite(
+    l1.getTexture('square'), // Assuming the spritesheet contains a 'square' texture
+  )
+  
+  // Instead of pixi's addChild. Enables l1 features
+  l1.add(square, {
+    // Sort siblings
+    zIndex: 10,
+    id: 'particleContainer',
+  })
+  
+    // Move 3 pixels every tick
+  l1.addBehavior({
+    id: 'move',
+    // Mutable data passed to all callbacks, such as onUpdate
+    data: {
+      speed: 3,
+      limit: 500
+    },
+    onUpdate: ({ data }) => {
+        square.x += data.speed
+        if (square.x > data.limit) {
+          l1.removeBehavior('move')
+        }
+      }
+    },
+    onRemove: () => {
+      l1.destroy(square)
+    }
+  })
 })
 ```
 
