@@ -16,7 +16,7 @@ Returns a function to get coordinates. Useful for placing objects on a grid.
 
 Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
-**x** | Number | [x] | - | The x coordinate of the top left corner 
+**x** | Number | [x] | - | The x coordinate of the top left corner
 **y** | Number | [x] | - | The y coordinate of the top left corner
 **marginX** | Number | [x] | - | The space between each cell on the x axis
 **marginY** | Number | [x] | - | The space between each cell on the y axis

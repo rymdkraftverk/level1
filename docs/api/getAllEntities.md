@@ -15,4 +15,3 @@ None.
 ## Returns
 
 (Array): All entities.
-

@@ -19,3 +19,10 @@ Will call `removeChild` on the parent. Will call `destroy` on the `displayObject
 ## Returns
 
 Nothing.
+
+## Example
+
+```js
+l1.convertColorHex('#ffffff')
+//0xffffff
+```

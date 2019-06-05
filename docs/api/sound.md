@@ -2,11 +2,13 @@
 name: sound
 ---
 
+# sound
+
 ```js
 l1.sound(options)
 ```
 
-#### Arguments
+## Arguments
 
 `options` (object):
 
@@ -18,11 +20,11 @@ Option | Type | Required | Default | Description
 **src** | String | [x] | - | The sound to play.
 **volume** | Number | [ ] | 0.5 | The volume
 
-#### Returns
+## Returns
 
 (object): The sound entity
 
-#### Example
+## Example
 
 ```js
 l1.sound({

@@ -19,5 +19,3 @@ Check if two display objects positions are overlapping. Will use the global `x` 
 ## Returns
 
 (Boolean): Returns true if the display objects are colliding.
-
----
