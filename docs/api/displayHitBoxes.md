@@ -8,7 +8,7 @@ name: displayHitBoxes
 l1.displayHitBoxes(displayObject, graphics)
 ```
 
-Returns a behavior that will display the hitBox for a display object.
+Will display the hitBox for a display object.
 
 If the `displayObject` has a defined hitArea, that will be displayed.
 Otherwise the width and height of the `displayObject` will be used.
@@ -21,7 +21,7 @@ Otherwise the width and height of the `displayObject` will be used.
 
 ## Returns
 
-(Object) A behavior
+Nothing.
 
 ## Example
 

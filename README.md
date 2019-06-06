@@ -4,7 +4,7 @@
 
 ## Features
 
-Replaces pixi's `addChild` with [`l1.add`](https://rymdkraftverk.github.io/level1/add). It improves display object management by extending pixi display objects with:
+Replaces pixi's `addChild` with [`l1.add`](https://rymdkraftverk.github.io/level1/api/add). It improves display object management by extending pixi display objects with:
 
 - id
 - zIndex
@@ -12,7 +12,7 @@ Replaces pixi's `addChild` with [`l1.add`](https://rymdkraftverk.github.io/level
 
 Other features:
 
-- [Behaviors](https://rymdkraftverk.github.io/level1/addBehavior). Dynamically add and remove behaviors in the game.
+- [Behaviors](https://rymdkraftverk.github.io/level1/api/addBehavior). Dynamically add and remove behaviors in the game.
 - Resize text objects without blurriness
 - Resize the canvas and retain the correct proportions
 - Function to get pre-loaded textures

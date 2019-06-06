@@ -1,70 +1,69 @@
-## API
+# API
 
-- [getChildIds](api/getChildIds)
-- [getScale](api/getScale)
-- [getTexture](api/getTexture)
 - [init](api/init)
-- [loadAssetsFromServer](api/loadAssetsFromServer)
-- [updateRenderLayers](api/updateRenderLayers)
-- [makeDraggable](api/makeDraggable)
-- [getGlobalPosition](api/getGlobalPosition)
-- [getOverlappingArea](api/getOverlappingArea)
-- [isColliding](api/isColliding)
-- [resize](api/resize)
 
-### Sound
-
-- [sound](api/sound)
-
-### Display object management
+## Display object management
 
 - [add](api/add)
 - [destroy](api/destroy)
 - [get](api/get)
 - [getAll](api/getAll)
+- [getTexture](api/getTexture)
 - [getByLabel](api/getByLabel)
+- [updateRenderLayers](api/updateRenderLayers)
 
-### Behavior management
+## Labels
+
+- [addLabel](api/addLabel)
+- [removeLabel](api/removeLabel)
+
+## Behavior management
 
 - [addBehavior](api/addBehavior)
 - [getAllBehaviors](api/getAllBehaviors)
 - [getBehavior](api/getBehavior)
 - [removeBehavior](api/removeBehavior)
 - [resetBehavior](api/resetBehavior)
+- [getChildren](api/getChildren)
 
-### Behaviors
+## Sound
 
-- [displayHitBoxes](api/displayHitBoxes)
+- [sound](api/sound)
 
-### Labels
+## Stage
 
-- [addLabel](api/addLabel)
-- [removeLabel](api/removeLabel)
+- [getScale](api/getScale)
+- [resize](api/resize)
 
-### Text
+## Text
 
 - [scaleText](api/scaleText)
 
-### Utils
+## Utils
 
 - [angle](api/angle)
+- [convertColorHex](api/convertColorHex)
 - [distance](api/distance)
+- [getGlobalPosition](api/getGlobalPosition)
 - [getRandomInRange](api/getRandomInRange)
 - [grid](api/grid)
+- [makeDraggable](api/makeDraggable)
 - [toRadians](api/toRadians)
-
-## Not implemented yet
 
 ### Keyboard input
 
 - [addKey](api/addKey)
 - [isKeyDown](api/isKeyDown)
 
-### Physics
+## Collision
 
-- [getPhysicsEngine](api/getPhysicsEngine)
-- [addBody](api/addBody)
-- [addCollision](api/addCollision)
-- [removeAllCollisions](api/removeAllCollisions)
-- [removeBody](api/removeBody)
-- [removeCollision](api/removeCollision)
+- [getOverlappingArea](api/getOverlappingArea)
+- [isColliding](api/isColliding)
+
+## Debug
+
+- [displayHitBoxes](api/displayHitBoxes)
+
+## Not implemented (TODO)
+
+- [loadAssetsFromServer](api/loadAssetsFromServer)
