@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "l1": "file:../level1",
-    "lodash": "4.17.11",
+    "lodash": "4.17.13",
     "pixi-filters": "2.6.1",
     "pixi-particles": "3.1.0",
     "pixi.js": "4.8.2"
