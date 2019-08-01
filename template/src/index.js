@@ -111,7 +111,7 @@ const init = () => {
   },
   AMOUNT_OF_SQUARES);
 
-  console.log(`Should be ${AMOUNT_OF_SQUARES}: `, l1.getByLabel('testLabel'));
+  console.log(`Should be ${AMOUNT_OF_SQUARES}: `, l1.getByLabel('testLabel').length);
 
   // l1.sound({
   //   src: './sounds/join3.wav',
