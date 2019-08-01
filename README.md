@@ -1,27 +1,34 @@
 # level1
 
-> A utility library for [`pixi.js`](https://github.com/pixijs/pixi.js).
+A combination of tools to make games web based games.
+
+ - Utilities for [`pixi.js`](https://github.com/pixijs/pixi.js).
+
+ - Behaviors. Pretty much `setTimeout` and `setInterval` controlled by updates from a game loop.
+
+ - General game utilities
 
 ## Features
 
-Replaces pixi's `addChild` with [`l1.add`](https://rymdkraftverk.github.io/level1/api/add). It improves display object management by extending pixi display objects with:
+- `l1.resize` - Resize the canvas and retain the correct proportions
 
-- id
-- zIndex
-- labels
+- `l1.getTexture` - Function to get pre-loaded textures
 
-Other features:
+- `l1.getGlobalPosition` - Function to get the global position of a Pixi display object
 
-- [Behaviors](https://rymdkraftverk.github.io/level1/api/addBehavior). Dynamically add and remove behaviors in the game.
-- Resize text objects without blurriness
-- Resize the canvas and retain the correct proportions
-- Function to get pre-loaded textures
-- Function to get the global position of a display object
-- Function to get the distance and angle between two positions.
-- Collision detection
-- Detect overlapping area
-- Sound
-- Keyboard input
+- `l1.distance` - Get the distance between two positions.
+
+- `l1.angle` - Get the angle between two positions.
+
+- `l1.isColliding` - Collision detection between two Pixi display objects
+
+- `l1.getOverlappingArea` - Overlapping area between two Pixi display objects
+
+- `l1.sound` - Play sound
+
+- `l1.isKeyDown` - Keyboard input
+
+- TODO: Resize text objects without blurriness
 
 ## Index
 
@@ -44,6 +51,9 @@ import * as PIXI from 'pixi.js'
 
 const app = new PIXI.Application()
 
+document.body.appendChild(app.view)
+
+// Give l1 a reference to the Pixi app in order to enable Pixi util features
 l1.init(app)
 
 // Example spritesheet
@@ -81,6 +91,23 @@ app.loader.load(() => {
     }
   })
 })
+```
+
+---
+
+
+### Recipes
+
+Keep state between runs. Use a closure.
+
+```js
+const move = () => {
+  let x = 1
+
+  l1.repeat(() => {
+    x += 1
+  })
+}
 ```
 
 ---
