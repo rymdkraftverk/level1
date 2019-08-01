@@ -4,89 +4,10 @@ import 'pixi-particles';
 import * as l1 from 'l1';
 import config from './emitter.json';
 
-const direction = {
+const Direction = {
   LEFT: 'left',
   RIGHT: 'right',
 };
-
-const displaySquare = ({ x, y, container }) => {
-  const square = new PIXI.Sprite(
-    l1.getTexture('square'),
-  );
-
-  square.name = 'square';
-  square.x = x;
-  square.y = y;
-
-  l1.add(square);
-
-  const selfdestruct = toDestroy => ({
-    duration: 120.3213,
-    data: {
-      test: 'test',
-    },
-    removeOnComplete: true,
-    onComplete: () => {
-      new PIXI.particles.Emitter(
-        container,
-        [
-          l1.getTexture('square'),
-          l1.getTexture('particles/particle'),
-        ],
-        Object.assign(
-          config,
-          {
-            pos: {
-              x: toDestroy
-                .toGlobal(new PIXI.Point(0, 0)).x / l1.getScale(),
-              y: toDestroy
-                .toGlobal(new PIXI.Point(0, 0)).y / l1.getScale(),
-            },
-          },
-        ),
-      ).playOnceAndDestroy();
-
-      l1.destroy(toDestroy);
-
-      if (!toDestroy.l1.isDestroyed()) {
-        console.error('Display object was not destroyed correctly!');
-      }
-    },
-  });
-  l1.addBehavior(selfdestruct(square));
-};
-
-/* eslint-disable no-param-reassign */
-const move = (object, start, end) => ({
-  id: 'move',
-  data: {
-    direction: direction.LEFT,
-  },
-  onRemove: () => {
-    object.filters = null;
-  },
-  onUpdate: ({ data }) => {
-    if (data.direction === direction.LEFT) {
-      object.x -= 3;
-      if (object.x < start) {
-        data.direction = direction.RIGHT;
-      }
-    } else if (data.direction === direction.RIGHT) {
-      object.x += 10;
-      if (object.x > end) {
-        l1.removeBehavior('move');
-      }
-    }
-  },
-});
-/* eslint-enable no-param-reassign */
-
-const onCompleteTest = () => ({
-  duration: 20,
-  onComplete: () => {
-    console.log('COMPLETE!');
-  },
-});
 
 const WIDTH = 600;
 const HEIGHT = 400;
@@ -108,6 +29,67 @@ l1.init(app, {
   },
 });
 
+const displaySquare = ({ x, y, container }) => {
+  const square = new PIXI.Sprite(
+    l1.getTexture('square'),
+  );
+
+  square.name = 'square';
+  square.x = x;
+  square.y = y;
+
+  app.stage.addChild(square);
+
+  const selfdestruct = toDestroy => () => {
+    new PIXI.particles.Emitter(
+      container,
+      [
+        l1.getTexture('square'),
+        l1.getTexture('particles/particle'),
+      ],
+      Object.assign(
+        config,
+        {
+          pos: {
+            x: toDestroy
+              .toGlobal(new PIXI.Point(0, 0)).x / l1.getScale(),
+            y: toDestroy
+              .toGlobal(new PIXI.Point(0, 0)).y / l1.getScale(),
+          },
+        },
+      ),
+    ).playOnceAndDestroy();
+
+    toDestroy.destroy();
+  };
+  const selfdestructBehavior = l1.once(selfdestruct(square), 120);
+  selfdestructBehavior.labels = ['testLabel'];
+};
+
+const move = (object, start, end) => {
+  let direction = Direction.LEFT;
+  /* eslint-disable no-param-reassign */
+  return () => {
+    if (direction === Direction.LEFT) {
+      object.x -= 1;
+      if (object.x < start) {
+        direction = Direction.RIGHT;
+      }
+    } else if (direction === Direction.RIGHT) {
+      object.x += 1;
+      if (object.x > end) {
+        // l1.remove('move');
+        object.filters = null;
+      }
+    }
+  };
+};
+/* eslint-enable no-param-reassign */
+
+const onCompleteTest = () => {
+  console.log('COMPLETE!');
+};
+
 const resizeGame = () => {
   const screenWidth = window.innerWidth;
   const screenHeight = window.innerHeight;
@@ -118,31 +100,26 @@ resizeGame();
 
 const init = () => {
   const particleContainer = new PIXI.Container();
-  l1.add(particleContainer, {
-    zIndex: 10,
-    id: 'particleContainer',
-  });
+  app.stage.addChild(particleContainer);
+
+  const AMOUNT_OF_SQUARES = 70;
 
   _.times(() => {
     const x = l1.getRandomInRange(10, 600);
     const y = l1.getRandomInRange(10, 600);
     displaySquare({ x, y, container: particleContainer });
   },
-  50);
-  // l1.addBody(
-  //   square,
-  //   l1.Matter.Bodies.rectangle(140, 50, 80, 80, {
-  //     inertia: Infinity,
-  //   }),
-  // );
+  AMOUNT_OF_SQUARES);
 
-  l1.sound({
-    src: './sounds/join3.wav',
-    volume: 0.2,
-  });
+  console.log(`Should be ${AMOUNT_OF_SQUARES}: `, l1.getByLabel('testLabel'));
+
+  // l1.sound({
+  //   src: './sounds/join3.wav',
+  //   volume: 0.2,
+  // });
 
   const textContainer = new PIXI.Container();
-  l1.add(textContainer);
+  app.stage.addChild(textContainer);
 
   const helloText = new PIXI.Text(
     'Hello!',
@@ -157,27 +134,19 @@ const init = () => {
   helloText.y = 0;
 
   l1.displayHitBoxes(helloText, new PIXI.Graphics());
+  textContainer.addChild(helloText);
 
-  l1.add(
-    helloText,
-    {
-      id: 'helloText',
-      parent: textContainer,
-    },
-  );
-
-  l1.scaleText(
-    helloText,
-    helloText.style.fontSize + 30,
-  );
+  // // TODO
+  // l1.scaleText(
+  //   helloText,
+  //   helloText.style.fontSize + 30,
+  // );
 
   // Test that removing a behavior that does not exist doesn't crash
-  l1.removeBehavior('doesNotExist');
+  l1.remove('doesNotExist');
 
   const lizardContainer = new PIXI.Container();
-  l1.add(lizardContainer, {
-    id: 'lizardContainer',
-  });
+  app.stage.addChild(lizardContainer);
 
   const lizard = new PIXI.extras.AnimatedSprite(
     [
@@ -206,26 +175,13 @@ const init = () => {
   lizard.x = 200;
   lizard.y = 50;
   lizard.scale.set(3);
-  // lizard.filters = [
-  //   new filters.GlowFilter(),
-  // ];
   lizard.play();
 
-  l1.add(lizard, {
-    parent: lizardContainer,
-    zIndex: 10,
-    id: 'lizard',
-  });
+  app.stage.addChild(lizard);
 
-  l1.addBehavior(move(lizard, 100, 500));
+  const moveBehavior = l1.repeat(move(lizard, 1, 700));
+  moveBehavior.id = 'move';
   l1.displayHitBoxes(lizard, new PIXI.Graphics());
-
-  const onCompleteNoDurationTest = {
-    onComplete: () => {
-      console.log('This will never be logged!');
-    },
-  };
-  l1.addBehavior(onCompleteNoDurationTest);
 
   // eslint-disable-next-line no-new
   new PIXI.particles.Emitter(
@@ -245,54 +201,15 @@ const init = () => {
     ),
   );
 
-  l1.addBehavior(
-    onCompleteTest(),
+  l1.once(
+    onCompleteTest, 20,
   );
 
-  const behaviorToRemove = () => ({
-    id: 'behaviorToRemove',
-    onRemove: () => {
-      console.log('behavior removed');
-    },
-  });
-
-  const b = l1.addBehavior(
-    behaviorToRemove(),
-  );
-
-  l1.removeBehavior(
-    b,
-  );
-
-  l1.addBehavior(
-    behaviorToRemove(),
-  );
-
-  l1.removeBehavior('behaviorToRemove');
-
-  const amountOfDisplayObjectsBefore = l1.getAll().length;
-  const grandParent = new PIXI.Container();
-  l1.add(grandParent, { id: 'grandparent' });
-  const parent = new PIXI.Container();
-  l1.add(parent, { id: 'parent', parent: grandParent });
-  const child = new PIXI.Container();
-  l1.add(child, { id: 'child', parent });
-  l1.destroy(grandParent);
-  const amountOfDisplayObjectsAfter = l1.getAll().length;
-  if (amountOfDisplayObjectsBefore - amountOfDisplayObjectsAfter !== 0) {
-    console.error('Parent child system is broken');
-  }
-
-  const testCompleteAndRemove = l1.addBehavior({
-    duration: 5,
-    onRemove: () => {
-      console.log('This should be logged only once');
-    },
-    onComplete: () => {
-      l1.removeBehavior(testCompleteAndRemove);
-      throw new Error('Game should keep going when errors are thrown from behaviors');
-    },
-  });
+  const testCompleteAndRemove = l1.once(() => {
+    // l1.remove(testCompleteAndRemove);
+    console.log('This should be logged only once');
+    throw new Error('Game should keep going when errors are thrown from behaviors');
+  }, 5);
 
   const createSine = ({
     start, end, speed,
@@ -312,7 +229,7 @@ const init = () => {
   testingScalingText.x = 50;
   testingScalingText.y = 250;
 
-  l1.add(testingScalingText);
+  app.stage.addChild(testingScalingText);
 
   const normalText = new PIXI.Text(
     'Normal text!',
@@ -326,31 +243,26 @@ const init = () => {
   normalText.x = 50;
   normalText.y = 170;
 
-  l1.add(normalText);
+  app.stage.addChild(normalText);
 
-  const textMovement = text => ({
-    data: {
-      sine: createSine({
-        start: 1,
-        end: 1.2,
-        speed: 100,
-      }),
-    },
-    onUpdate: ({ data, counter }) => {
-      const scale = data.sine(counter);
+  const textMovement = (text) => {
+    const sine = createSine({
+      start: 1,
+      end: 1.2,
+      speed: 100,
+    });
+    return (counter) => {
+      const scale = sine(counter);
       text.scale.set(scale);
-    },
-  });
+    };
+  };
 
-  l1.addBehavior(textMovement(testingScalingText));
-  l1.addBehavior(textMovement(normalText));
+  l1.repeat(textMovement(testingScalingText));
+  l1.repeat(textMovement(normalText));
 
   const createShape = () => {
     const shape = new PIXI.Graphics();
-    l1.add(shape, {
-      parent: lizard,
-      zIndex: 20,
-    });
+    lizard.addChild(shape);
 
     shape.x = 20;
     shape.y = 20;
@@ -379,13 +291,13 @@ const init = () => {
 
   const key = 'a';
   l1.addKey(key);
-  l1.addBehavior({
-    onUpdate: () => {
-      if (l1.isKeyDown(key)) {
-        console.log('pressing a');
-      }
-    },
+  l1.repeat(() => {
+    if (l1.isKeyDown(key)) {
+      console.log('pressing a');
+    }
   });
+
+  console.log('Children', l1.getChildren(app.stage).length);
 };
 
 app.loader.add('assets/spritesheet.json');
