@@ -1,5 +1,4 @@
 import 'core-js/es/array/flat-map';
-import { Howl } from 'howler';
 import Mousetrap from 'mousetrap';
 
 const DEBUG_BEHAVIOR_ID_PRINT = '_internal_l1_debug_info_print';
@@ -474,28 +473,7 @@ export const distance = ({
   x1, y1, x2, y2,
 }) => Math.hypot(Math.abs(x2 - x1), Math.abs(y2 - y1));
 
-/*
-  Check Howler docs for available options
-*/
-const getSound = (filePath, options) => new Howl({
-  src: [filePath],
-  ...options,
-});
-
-export const sound = (options) => {
-  const {
-    src,
-    volume,
-    loop,
-  } = options;
-
-  const _sound = getSound(src, { volume, loop });
-
-  _sound.play();
-
-  return _sound;
-};
-
+// TODO: Deprecate
 /* Keyboard input */
 const pressed = {};
 
