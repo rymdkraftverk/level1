@@ -76,9 +76,9 @@ const move = (object, start, end) => {
         direction = Direction.RIGHT;
       }
     } else if (direction === Direction.RIGHT) {
-      object.x += 1;
+      object.x += 5;
       if (object.x > end) {
-        // l1.remove('move');
+        l1.remove('move');
         object.filters = null;
       }
     }
@@ -179,7 +179,7 @@ const init = () => {
 
   app.stage.addChild(lizard);
 
-  const moveBehavior = l1.repeat(move(lizard, 1, 700));
+  const moveBehavior = l1.repeat(move(lizard, 1, 500));
   moveBehavior.id = 'move';
   l1.displayHitBoxes(lizard, new PIXI.Graphics());
 

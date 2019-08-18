@@ -99,7 +99,11 @@ const update = (onError) => (deltaTime) => {
     });
 
     behaviorsToRemove.forEach((behaviorToRemove) => {
-      remove(behaviorToRemove);
+      // Mutate original array for performance reasons
+      const indexToRemove = behaviors.indexOf(behaviorToRemove);
+      if (indexToRemove >= 0) {
+        behaviors.splice(indexToRemove, 1);
+      }
     });
 
     behaviorsToRemove = [];
@@ -114,7 +118,7 @@ const update = (onError) => (deltaTime) => {
     lastTimeStamp = after - before;
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('l1: Error running behaviors', error);
+    console.error('l1: Error running behaviors:', error);
     onError(error);
   }
 };
@@ -163,11 +167,7 @@ export const remove = (behavior) => {
   if (!behaviorObject) {
     log(`level1: Tried to remove non-existent behavior: ${behavior}`);
   } else {
-    // Mutate original array for performance reasons
-    const indexToRemove = behaviors.indexOf(behaviorObject);
-    if (indexToRemove >= 0) {
-      behaviors.splice(indexToRemove, 1);
-    }
+    behaviorsToRemove.push(behaviorObject);
   }
 };
 
