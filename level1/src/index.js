@@ -353,6 +353,18 @@ const onDragEndInternal = (displayObject, onDragEnd, disabler) => () => {
 // TODO: Rename to getGameScale
 export const getScale = () => ratio;
 
+export const angle = ({
+  x1, y1, x2, y2,
+}) => {
+  const xDistance = x2 - x1;
+  const yDistance = y2 - y1;
+  let _angle = Math.atan(yDistance / xDistance);
+  if (x1 - x2 < 0) {
+    _angle += Math.PI;
+  }
+  return _angle;
+};
+
 // Convert #ff00ff to 0xff00ff
 export const convertColorHex = color => `0x${color.substring(1, color.length)}`;
 
