@@ -366,7 +366,7 @@ export const angle = ({
 };
 
 // Convert #ff00ff to 0xff00ff
-export const convertColorHex = color => `0x${color.substring(1, color.length)}`;
+export const fromHex = color => `0x${color.substring(1, color.length)}`;
 
 
 export const getGlobalPosition = (displayObject) => {
