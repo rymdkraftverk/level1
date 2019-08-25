@@ -8,7 +8,7 @@ name: makeDraggable
 l1.makeDraggable(displayObject, options)
 ```
 
-Makes a PIXI.DisplayObject "draggable", meaning that you can drag it around on the canvas. A display object is only draggable within its parents container.
+Makes a `PIXI.DisplayObject` "draggable", meaning that you can drag it around on the canvas. A display object is only draggable within its parents container.
 
 ## Arguments
 

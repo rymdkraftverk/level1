@@ -12,8 +12,8 @@ Get a random number in range (from (inclusive) - to (exclusive))
 
 ## Arguments
 
-`from` (number): Inclusive
-`to` (number): Exclusive
+`from` (Number): Inclusive
+`to` (Number): Exclusive
 
 ## Returns
 
