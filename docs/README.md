@@ -1,45 +1,31 @@
 # API
 
+### Pixi utils
+
+- [displayHitBoxes](api/displayHitBoxes)
+- [getChildIds](api/getChildIds)
+- [getScale](api/getScale)
+- [getTexture](api/getTexture)
 - [init](api/init)
+- [loadAssetsFromServer](api/loadAssetsFromServer)
+- [makeDraggable](api/makeDraggable)
+- [getGlobalPosition](api/getGlobalPosition)
+- [getOverlappingArea](api/getOverlappingArea)
+- [isColliding](api/isColliding)
+- [resize](api/resize)
+- [scaleText](api/scaleText)
 
-## Display object management
+### Behaviors
 
-- [add](api/add)
-- [destroy](api/destroy)
 - [get](api/get)
 - [getAll](api/getAll)
 - [getTexture](api/getTexture)
 - [getByLabel](api/getByLabel)
-- [updateRenderLayers](api/updateRenderLayers)
+- [once](api/once)
+- [remove](api/remove)
+- [repeat](api/repeat)
 
-## Labels
-
-- [addLabel](api/addLabel)
-- [removeLabel](api/removeLabel)
-
-## Behavior management
-
-- [addBehavior](api/addBehavior)
-- [getAllBehaviors](api/getAllBehaviors)
-- [getBehavior](api/getBehavior)
-- [removeBehavior](api/removeBehavior)
-- [resetBehavior](api/resetBehavior)
-- [getChildren](api/getChildren)
-
-## Sound
-
-- [sound](api/sound)
-
-## Stage
-
-- [getScale](api/getScale)
-- [resize](api/resize)
-
-## Text
-
-- [scaleText](api/scaleText)
-
-## Utils
+### General game Utils
 
 - [angle](api/angle)
 - [convertColorHex](api/convertColorHex)
@@ -50,20 +36,7 @@
 - [makeDraggable](api/makeDraggable)
 - [toRadians](api/toRadians)
 
-### Keyboard input
+### Keyboard
 
 - [addKey](api/addKey)
 - [isKeyDown](api/isKeyDown)
-
-## Collision
-
-- [getOverlappingArea](api/getOverlappingArea)
-- [isColliding](api/isColliding)
-
-## Debug
-
-- [displayHitBoxes](api/displayHitBoxes)
-
-## Not implemented (TODO)
-
-- [loadAssetsFromServer](api/loadAssetsFromServer)

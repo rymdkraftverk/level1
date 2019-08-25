@@ -4,17 +4,36 @@ A combination of tools to make games web based games.
 
  - Utilities for [`pixi.js`](https://github.com/pixijs/pixi.js).
 
- - Behaviors. Pretty much `setTimeout` and `setInterval` controlled by updates from a game loop.
+ - Behaviors. Pretty much `setTimeout` (`l1.once`) and `setInterval` (`l1.repeat`) controlled by updates from a game loop.
 
  - General game utilities
 
 ## Features
+
+### Pixi utilities
 
 - `l1.resize` - Resize the canvas and retain the correct proportions
 
 - `l1.getTexture` - Function to get pre-loaded textures
 
 - `l1.getGlobalPosition` - Function to get the global position of a Pixi display object
+
+ - `l1.displayHitBoxes`
+ 
+ - `l1.makeDraggable`
+
+
+TODO: makeClickable
+getScale
+convertColorHex => fromHex
+
+===
+sprite
+animatedSprite
+text
+===
+
+### Game utils
 
 - `l1.distance` - Get the distance between two positions.
 
@@ -24,11 +43,22 @@ A combination of tools to make games web based games.
 
 - `l1.getOverlappingArea` - Overlapping area between two Pixi display objects
 
-- `l1.sound` - Play sound
-
+# Deprecate
 - `l1.isKeyDown` - Keyboard input
 
 - TODO: Resize text objects without blurriness
+
+### Behaviors
+
+ - `l1.once` 
+ 
+ - `l1.repeat` 
+ 
+ - `l1.get` 
+ 
+ - `l1.getAll` 
+
+ - `l1.remove` 
 
 ## Index
 
@@ -37,13 +67,13 @@ A combination of tools to make games web based games.
 
 ---
 
-## How to use
+## Installation
 
 `npm install l1`
 
 `yarn add l1`
 
-### Hello world
+## Hello world with Pixi.js
 
 ```js
 import * as l1 from 'l1'
@@ -95,10 +125,13 @@ app.loader.load(() => {
 
 ---
 
+## Recipes and patterns
 
-### Recipes
+### Behaviors
 
-Keep state between runs. Use a closure.
+#### Keep state between game updates
+
+Use a closure
 
 ```js
 const move = () => {
@@ -109,6 +142,55 @@ const move = () => {
   })
 }
 ```
+
+#### Deleting behaviors
+
+When you delete a behavior, it will be removed in the next game update.
+
+Therefore, you might need to wait a game update before you continue:
+
+```js
+const gameOver = () => {
+  l1.remove('gameLoop')
+  l1.once(() => {
+    // Continue doing stuff
+  })
+}
+```
+
+### Pixi
+
+#### Resize to full screen while retaining correct proportions
+
+```js
+const resizeGame = () => {
+  const screenWidth = window.innerWidth
+  const screenHeight = window.innerHeight
+  l1.resize(screenWidth, screenHeight)
+}
+resizeGame()
+
+window.addEventListener('resize', resizeGame)
+```
+
+If you want the game to be centered:
+
+```css
+#container {
+  display: flex;
+  justify-content: center;
+}
+```
+
+```html
+<div id="container">
+  <div id="game"></div>
+</div>
+```
+
+---
+
+## Other useful tools
 
 ---
 

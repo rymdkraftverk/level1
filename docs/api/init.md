@@ -8,7 +8,7 @@ name: init
 l1.init(app, options)
 ```
 
-Initializes level1. Needs to be called before any other `l1` function calls.
+Gives `level1` a reference to your `PIXI.Application` object. Required to be called before any function calls that involves Pixi, such as `l1.resize`
 
 ## Arguments
 
@@ -20,7 +20,7 @@ Option | Type | Required | Default | Description
 -- | -- | -- | -- | -- |
 **debug** | Bool | No | false | Display a basic debug information overlay
 **logging** | Bool | No | false | Display logs and warnings from level1
-**onError** | Function (error => void) | No | () => {} | Called when an error happens in a behavior
+**onError** | (error) => void | No | null | Function to run whenever an error is thrown from a behavior
 
 ## Returns
 
@@ -40,7 +40,7 @@ l1.init(app, {
   debug: true,
   logging: true,
   onError: (error) => {
-    console.log('error ', error);
-  }
+    logError(error)
+  },
 })
 ```

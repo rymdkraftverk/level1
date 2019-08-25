@@ -16,4 +16,4 @@ Gets the global (absolute) position of a display object.
 
 ## Returns
 
-(Object): Returns a object with an `x` and `y` property.
+(Object): Returns an object with an `x` and `y` property.
