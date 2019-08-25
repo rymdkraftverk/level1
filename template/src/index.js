@@ -125,7 +125,7 @@ const init = () => {
     'Hello!',
     {
       fontFamily: 'Arial',
-      fontSize: 50,
+      fontSize: 100,
       fill: 'white',
     },
   );
@@ -134,6 +134,7 @@ const init = () => {
   helloText.y = 0;
 
   l1.displayHitBoxes(helloText, new PIXI.Graphics());
+  l1.makeResizable(helloText);
   textContainer.addChild(helloText);
 
   // // TODO
@@ -296,8 +297,6 @@ const init = () => {
       console.log('pressing a');
     }
   });
-
-  console.log('Children', l1.getChildren(app.stage).length);
 };
 
 app.loader.add('assets/spritesheet.json');
