@@ -8,7 +8,7 @@ name: grid
 l1.grid(options)
 ```
 
-Returns a function to get coordinates. Useful for placing objects on a grid.
+Returns a function to get coordinates. Used for placing objects on a grid.
 
 ## Arguments
 
@@ -31,7 +31,7 @@ Option | Type | Required | Default | Description
 ```js
   const numbers = [1, 2, 3]
 
-  const getCell = Util.grid({
+  const getCell = l1.grid({
     x: 10,
     y: 10,
     marginX: 10,

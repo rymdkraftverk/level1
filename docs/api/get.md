@@ -8,14 +8,12 @@ name: get
 l1.get(id)
 ```
 
-Get entity by id.
-
-`getById` is an alias for `get`
+Get a behavior by id
 
 ## Arguments
 
-`id` (String): The entity id.
+`id` (string): The behavior id
 
 ## Returns
 
-(*): Returns the found entity, else undefined.
+(*): Returns the found behavior, else undefined.

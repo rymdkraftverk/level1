@@ -8,12 +8,12 @@ name: getByLabel
 l1.getByLabel(label)
 ```
 
-Get display objects by label.
+Get behaviors by label.
 
 ## Arguments
 
-`label` (String): The display object label.
+`label` (String): The behavior label.
 
 ## Returns
 
-(array): Returns a list of found display objects
+(Array): Returns a list of found behaviors
