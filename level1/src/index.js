@@ -251,10 +251,10 @@ export const resize = (width, height) => {
       Texts instead change size by setting their fontSize.
     */
   getChildren(_app.stage)
-  // Keep if text object
-    .filter(c => c.style)
+    // Keep if resizable text object 
+    .filter(c => c.originalFontSize)
     .forEach((displayObject) => {
-      displayObject.style.fontSize = displayObject.l1.originalFontSize * ratio;
+      displayObject.style.fontSize = displayObject.originalFontSize * ratio;
       displayObject.scale.set(1 / ratio);
     });
 };
