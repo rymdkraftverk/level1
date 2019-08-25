@@ -219,6 +219,13 @@ export const getAllTextureIds = () => {
     .map(key => key.substring(0, key.length - 4));
 };
 
+const getChildren = (displayObject) => {
+  if (displayObject.children.length) {
+    return displayObject.children.flatMap(getChildren).concat(displayObject);
+  }
+  return [displayObject];
+};
+
 // Idea: Pass all text objects to resize?
 export const resize = (width, height) => {
   ratio = Math.min(
@@ -239,37 +246,27 @@ export const resize = (width, height) => {
     );
 
   /*
-    The following code is needed to counteract the scale change on the whole canvas since
-    texts get distorted by PIXI when you try to change their scale.
-    Texts instead change size by setting their fontSize.
-  */
-  // TODO: This needs to be handled differently since the displayObjects array will be removed
-  // displayObjects
-  //   .forEach((displayObject) => {
-  //     // Check if PIXI.Text
-  //     if (displayObject.style) {
-  //       displayObject.style.fontSize = displayObject.l1.originalSize * ratio;
-  //       displayObject.scale.set(1 / ratio);
-  //     }
-  //   });
+      The following code is needed to counteract the scale change on the whole canvas since
+      texts get distorted by PIXI when you try to change their scale.
+      Texts instead change size by setting their fontSize.
+    */
+  getChildren(_app.stage)
+  // Keep if text object
+    .filter(c => c.style)
+    .forEach((displayObject) => {
+      displayObject.style.fontSize = displayObject.l1.originalFontSize * ratio;
+      displayObject.scale.set(1 / ratio);
+    });
 };
 
-/*
-  This is required to be used for any scale change of Text
-*/
-// TODO: Evaluate how to do this better
-// export const scaleText = (displayObject, fontSize) => {
-//   displayObject.l1.originalSize = fontSize;
-//   displayObject.style.fontSize = fontSize * ratio;
-// };
-
-export const getChildren = (displayObject) => {
-  if (displayObject.children.length) {
-    return displayObject.children.flatMap(getChildren).concat(displayObject);
-  }
-  return [displayObject];
+export const makeResizable = (textObject) => {
+  textObject.originalFontSize = textObject.style.fontSize;
+  textObject.style = {
+    ...textObject.style,
+    fontSize: textObject.style.fontSize * ratio,
+  };
+  textObject.scale.set(1 / ratio);
 };
-
 
 // makeDraggable
 const startEvents = [
@@ -466,7 +463,7 @@ export const displayHitBoxes = (displayObject, graphics) => {
 
 // General game utils
 
-export const toRadians = angle => angle * (Math.PI / 180);
+export const toRadians = _angle => _angle * (Math.PI / 180);
 
 export const grid = ({
   x, y, marginX, marginY, itemsPerRow,
