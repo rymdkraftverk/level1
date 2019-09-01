@@ -34,6 +34,7 @@
 - [getRandomInRange](api/getRandomInRange)
 - [grid](api/grid)
 - [makeDraggable](api/makeDraggable)
+- [normalize](api/normalize)
 - [toRadians](api/toRadians)
 
 ### Keyboard
