@@ -18,20 +18,7 @@ A combination of tools to make games web based games.
 
 - `l1.getGlobalPosition` - Function to get the global position of a Pixi display object
 
- - `l1.displayHitBoxes`
- 
- - `l1.makeDraggable`
-
-
-TODO: makeClickable
-getScale
-convertColorHex => fromHex
-
-===
-sprite
-animatedSprite
-text
-===
+ - `l1.drawHitArea` - Draw the hitArea if defined, otherwise width and height
 
 ### Game utils
 
@@ -43,22 +30,11 @@ text
 
 - `l1.getOverlappingArea` - Overlapping area between two Pixi display objects
 
-# Deprecate
-- `l1.isKeyDown` - Keyboard input
-
-- TODO: Resize text objects without blurriness
-
 ### Behaviors
 
  - `l1.once` 
  
  - `l1.repeat` 
- 
- - `l1.get` 
- 
- - `l1.getAll` 
-
- - `l1.remove` 
 
 ## Index
 
@@ -191,6 +167,10 @@ If you want the game to be centered:
 ---
 
 ## Other useful tools
+
+[`juice.js`]() - Add "juice" to you animations to make them look nicer
+
+[`muncher`]() - Automatically generate sprite sheets from the command line 
 
 ---
 

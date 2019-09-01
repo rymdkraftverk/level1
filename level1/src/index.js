@@ -347,6 +347,23 @@ const onDragEndInternal = (displayObject, onDragEnd, disabler) => () => {
 
 // makeDraggable end
 
+const CLICK_EVENTS = ['click', 'tap']
+
+export const makeClickable = (displayObject, onClick) => {
+  // eslint-disable-next-line no-param-reassign
+  displayObject.interactive = true
+  // eslint-disable-next-line no-param-reassign
+  displayObject.cursor = 'pointer'
+
+  CLICK_EVENTS.forEach((event) => {
+    displayObject.on(event, () => {
+      // eslint-disable-next-line no-param-reassign
+      displayObject.cursor = 'default'
+      onClick()
+    })
+  })
+}
+
 // TODO: Rename to getGameScale
 export const getScale = () => ratio;
 
@@ -435,14 +452,14 @@ export const getOverlappingArea = (displayObject, otherDisplayObject) => {
   return dX * dY;
 };
 
-export const displayHitBoxes = (displayObject, graphics) => {
+export const drawHitArea = (displayObject, graphics) => {
   if (!_app) {
     throw new Error('l1.init has not been called');
   }
   _app.stage.addChild(graphics);
   const behavior = repeat(() => {
     // TODO: Check if not destroyed
-    if (displayObject) {
+    if (!displayObject._destroyed) {
       const width = getWidth(displayObject);
       const height = getHeight(displayObject);
 
@@ -458,7 +475,7 @@ export const displayHitBoxes = (displayObject, graphics) => {
         .lineTo(x, y);
     }
   });
-  behavior.id = displayObject.name ? `${displayObject.name}-displayHitBoxes` : null;
+  behavior.id = displayObject.name ? `${displayObject.name}-drawHitArea` : null;
 };
 
 // General game utils
