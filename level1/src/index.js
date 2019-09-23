@@ -482,8 +482,6 @@ export const drawHitArea = (displayObject, graphics) => {
 
 // General game utils
 
-export const toRadians = _angle => _angle * (Math.PI / 180);
-
 export const grid = ({
   x, y, marginX, marginY, itemsPerRow,
 }) => (index) => {
