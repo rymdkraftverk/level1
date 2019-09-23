@@ -47,6 +47,7 @@ export const init = (app, options = {}) => {
 
 export const getLoopDuration = () => lastTimeStamp;
 
+// TODO: Decide where to put this
 // TODO: Filter out debug behaviors
 const createDebugInformation = () => {
   if (!_app) {
@@ -260,6 +261,7 @@ export const resize = (width, height) => {
 };
 
 export const makeResizable = (textObject) => {
+  // This will break typechecking
   textObject.originalFontSize = textObject.style.fontSize;
   textObject.style = {
     ...textObject.style,
