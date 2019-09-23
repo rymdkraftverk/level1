@@ -38,8 +38,7 @@ A combination of tools to make games web based games.
 
 ## Index
 
-1. [Docs / API](https://rymdkraftverk.github.io/level1/)
-1. [Gotchas](https://github.com/sajmoni/level1#docs/gotchas)
+[Docs / API](https://rymdkraftverk.github.io/level1/)
 
 ---
 
