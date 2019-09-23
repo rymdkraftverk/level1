@@ -497,11 +497,6 @@ export const distance = ({
   x1, y1, x2, y2,
 }) => Math.hypot(Math.abs(x2 - x1), Math.abs(y2 - y1));
 
-// Convert a number range to a value between 0 and 1
-export const normalize = (min, max) => {
-  const delta = max - min
-  return (t) => (t - min) / delta
-}
 
 // TODO: Deprecate
 /* Keyboard input */
