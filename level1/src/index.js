@@ -480,19 +480,6 @@ export const drawHitArea = (displayObject, graphics) => {
   behavior.id = displayObject.name ? `${displayObject.name}-drawHitArea` : null;
 };
 
-// General game utils
-
-export const grid = ({
-  x, y, marginX, marginY, itemsPerRow,
-}) => (index) => {
-  const row = Math.floor(index / itemsPerRow);
-  const column = index % itemsPerRow;
-  return {
-    x: x + (column * marginX),
-    y: y + (row * marginY),
-  };
-};
-
 
 // TODO: Deprecate
 /* Keyboard input */
