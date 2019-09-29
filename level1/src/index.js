@@ -307,6 +307,3 @@ export const makeClickable = (displayObject, onClick) => {
     });
   });
 };
-
-// TODO: Rename to getGameScale
-export const getScale = () => ratio;
