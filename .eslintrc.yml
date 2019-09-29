@@ -1,0 +1,8 @@
+extends: airbnb-base
+env:
+  browser: true
+rules:
+  no-use-before-define: off
+  semi:
+    - error
+    - never
