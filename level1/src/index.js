@@ -381,15 +381,6 @@ export const angle = ({
   return _angle;
 };
 
-export const getGlobalPosition = (displayObject) => {
-  const global = displayObject.toGlobal({ x: 0, y: 0 });
-
-  return {
-    x: global.x / ratio,
-    y: global.y / ratio,
-  };
-};
-
 const getWidth = (displayObject) => (displayObject.hitArea && displayObject.hitArea.width)
   || displayObject.width;
 const getHeight = (displayObject) => (displayObject.hitArea && displayObject.hitArea.height)
