@@ -1,8 +1,5 @@
 import 'core-js/es/array/flat-map';
 
-const DEBUG_BEHAVIOR_ID_PRINT = '_internal_l1_debug_info_print';
-const DEBUG_BEHAVIOR_ID_COLLECT = '_internal_l1_debug_info_collect';
-
 const behaviors = [];
 let behaviorsToAdd = [];
 let behaviorsToRemove = [];
@@ -27,7 +24,6 @@ const log = (text) => {
 
 export const init = (app, options = {}) => {
   const {
-    debug = false,
     logging = false,
     onError = () => {},
   } = options;
@@ -38,48 +34,10 @@ export const init = (app, options = {}) => {
 
   _app = app;
 
-  if (debug) {
-    createDebugInformation();
-  }
   _logging = logging;
 };
 
 export const getLoopDuration = () => lastTimeStamp;
-
-// TODO: Decide where to put this
-// TODO: Filter out debug behaviors
-const createDebugInformation = () => {
-  if (!_app) {
-    throw new Error('l1.init has not been called');
-  }
-
-  const container = document.createElement('div');
-  document.body.appendChild(container);
-  container.style.backgroundColor = 'rgba(0,0,0,0.5)';
-  container.style.position = 'absolute';
-  container.style.top = '0px';
-  container.style.zIndex = 1;
-  container.style.color = 'white';
-
-  let timeStamps = [];
-
-  const printDebugInformation = repeat(() => {
-    const averageLoopDuration = timeStamps
-      .reduce((acc, ts) => acc + ts, 0)
-        / timeStamps.length;
-    container
-      .innerHTML = `fps: ${Math.ceil(_app.ticker.FPS)}, b: ${getAll().length}, do: ${getChildren(_app.stage).length} Loop duration: ${averageLoopDuration.toFixed(5)}`;
-    timeStamps = [];
-  }, 30);
-
-  printDebugInformation.id = DEBUG_BEHAVIOR_ID_PRINT;
-
-  const collectDebugInformation = repeat(() => {
-    timeStamps.push(lastTimeStamp);
-  });
-
-  collectDebugInformation.id = DEBUG_BEHAVIOR_ID_COLLECT;
-};
 
 const update = (onError) => (deltaTime) => {
   try {
