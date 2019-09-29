@@ -1,5 +1,3 @@
-import 'core-js/es/array/flat-map';
-
 const behaviors = [];
 let behaviorsToAdd = [];
 let behaviorsToRemove = [];
