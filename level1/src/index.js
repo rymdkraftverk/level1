@@ -16,58 +16,51 @@ const log = (text) => {
   }
 };
 
-export const init = (app, options = {}) => {
-  const {
-    logging = false,
-    onError = () => {},
-  } = options;
-  app.ticker.add(update(onError));
-
-  _logging = logging;
-};
-
 export const getLoopDuration = () => lastTimeStamp;
 
-const update = (onError) => (deltaTime) => {
-  try {
-    const before = performance.now();
-    behaviors.forEach((behavior) => {
-      behavior.counter += 1;
-      if (behavior.type === BehaviorType.ONCE) {
-        if (behavior.counter === behavior.delay) {
-          behavior.callback();
-          behaviorsToRemove.push(behavior);
+export const update = ({ onError = () => {}, logging = false }) => {
+  _logging = logging;
+  return (deltaTime) => {
+    try {
+      const before = performance.now();
+      behaviors.forEach((behavior) => {
+        behavior.counter += 1;
+        if (behavior.type === BehaviorType.ONCE) {
+          if (behavior.counter === behavior.delay) {
+            behavior.callback();
+            behaviorsToRemove.push(behavior);
+          }
+        } else if (behavior.type === BehaviorType.REPEAT) {
+          if (behavior.counter % behavior.interval === 0) {
+            behavior.callback(behavior.counter, deltaTime);
+          }
         }
-      } else if (behavior.type === BehaviorType.REPEAT) {
-        if (behavior.counter % behavior.interval === 0) {
-          behavior.callback(behavior.counter, deltaTime);
-        }
-      }
-    });
+      });
 
-    behaviorsToRemove.forEach((behaviorToRemove) => {
+      behaviorsToRemove.forEach((behaviorToRemove) => {
       // Mutate original array for performance reasons
-      const indexToRemove = behaviors.indexOf(behaviorToRemove);
-      if (indexToRemove >= 0) {
-        behaviors.splice(indexToRemove, 1);
-      }
-    });
+        const indexToRemove = behaviors.indexOf(behaviorToRemove);
+        if (indexToRemove >= 0) {
+          behaviors.splice(indexToRemove, 1);
+        }
+      });
 
-    behaviorsToRemove = [];
+      behaviorsToRemove = [];
 
-    behaviorsToAdd.forEach((behaviorToAdd) => {
-      behaviors.push(behaviorToAdd);
-    });
+      behaviorsToAdd.forEach((behaviorToAdd) => {
+        behaviors.push(behaviorToAdd);
+      });
 
-    behaviorsToAdd = [];
+      behaviorsToAdd = [];
 
-    const after = performance.now();
-    lastTimeStamp = after - before;
-  } catch (error) {
+      const after = performance.now();
+      lastTimeStamp = after - before;
+    } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('l1: Error running behaviors:', error);
-    onError(error);
-  }
+      console.error('l1: Error running behaviors:', error);
+      onError(error);
+    }
+  };
 };
 
 const commonBehaviorProperties = {
