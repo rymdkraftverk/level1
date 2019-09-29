@@ -151,21 +151,6 @@ export const exists = (id) => behaviors.some((behavior) => behavior.id === id);
 
 // Pixi utils
 
-export const getTexture = (filename) => {
-  if (!_app) {
-    throw new Error('l1.init has not been called');
-  }
-  const texture = Object
-    .values(_app.loader.resources)
-    .filter(resource => resource.textures)
-    .flatMap(resource => Object.entries(resource.textures))
-    .find(([key]) => key === `${filename}.png`);
-
-  if (!texture) throw new Error(`level1: Texture "${filename}" not found.`);
-
-  return texture[1];
-};
-
 export const getAllTextureIds = () => {
   if (!_app) {
     throw new Error('l1.init has not been called');
