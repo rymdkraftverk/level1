@@ -1,5 +1,4 @@
 import 'core-js/es/array/flat-map';
-import Mousetrap from 'mousetrap';
 
 const DEBUG_BEHAVIOR_ID_PRINT = '_internal_l1_debug_info_print';
 const DEBUG_BEHAVIOR_ID_COLLECT = '_internal_l1_debug_info_collect';
