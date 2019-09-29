@@ -16,7 +16,6 @@
   "license": "ISC",
   "dependencies": {
     "core-js": "3.2.1",
-    "mousetrap": "1.6.3",
     "uuid": "3.3.3"
   },
   "devDependencies": {
