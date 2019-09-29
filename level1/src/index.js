@@ -1,7 +1,6 @@
 const behaviors = [];
 let behaviorsToAdd = [];
 let behaviorsToRemove = [];
-let _app;
 let lastTimeStamp = null;
 let _logging = false;
 
@@ -23,8 +22,6 @@ export const init = (app, options = {}) => {
     onError = () => {},
   } = options;
   app.ticker.add(update(onError));
-
-  _app = app;
 
   _logging = logging;
 };
@@ -140,16 +137,3 @@ export const reset = (behavior) => {
 };
 
 export const exists = (id) => behaviors.some((behavior) => behavior.id === id);
-
-// Pixi utils
-
-export const getAllTextureIds = () => {
-  if (!_app) {
-    throw new Error('l1.init has not been called');
-  }
-  return Object
-    .values(_app.loader.resources)
-    .filter(resource => resource.textures)
-    .flatMap(resource => Object.keys(resource.textures))
-    .map(key => key.substring(0, key.length - 4));
-};
