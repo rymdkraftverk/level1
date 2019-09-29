@@ -2,9 +2,6 @@ const behaviors = [];
 let behaviorsToAdd = [];
 let behaviorsToRemove = [];
 let _app;
-let ratio = 1;
-let gameWidth;
-let gameHeight;
 let lastTimeStamp = null;
 let _logging = false;
 
@@ -26,9 +23,6 @@ export const init = (app, options = {}) => {
     onError = () => {},
   } = options;
   app.ticker.add(update(onError));
-
-  gameWidth = app.renderer.width;
-  gameHeight = app.renderer.height;
 
   _app = app;
 
@@ -158,54 +152,4 @@ export const getAllTextureIds = () => {
     .filter(resource => resource.textures)
     .flatMap(resource => Object.keys(resource.textures))
     .map(key => key.substring(0, key.length - 4));
-};
-
-const getChildren = (displayObject) => {
-  if (displayObject.children.length) {
-    return displayObject.children.flatMap(getChildren).concat(displayObject);
-  }
-  return [displayObject];
-};
-
-// Idea: Pass all text objects to resize?
-export const resize = (width, height) => {
-  ratio = Math.min(
-    width / gameWidth,
-    height / gameHeight,
-  );
-
-  _app
-    .stage
-    .scale
-    .set(ratio);
-
-  _app
-    .renderer
-    .resize(
-      gameWidth * ratio,
-      gameHeight * ratio,
-    );
-
-  /*
-      The following code is needed to counteract the scale change on the whole canvas since
-      texts get distorted by PIXI when you try to change their scale.
-      Texts instead change size by setting their fontSize.
-    */
-  getChildren(_app.stage)
-    // Keep if resizable text object 
-    .filter(c => c.originalFontSize)
-    .forEach((displayObject) => {
-      displayObject.style.fontSize = displayObject.originalFontSize * ratio;
-      displayObject.scale.set(1 / ratio);
-    });
-};
-
-export const makeResizable = (textObject) => {
-  // This will break typechecking
-  textObject.originalFontSize = textObject.style.fontSize;
-  textObject.style = {
-    ...textObject.style,
-    fontSize: textObject.style.fontSize * ratio,
-  };
-  textObject.scale.set(1 / ratio);
 };
