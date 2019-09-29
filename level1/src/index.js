@@ -454,32 +454,6 @@ export const getOverlappingArea = (displayObject, otherDisplayObject) => {
   return dX * dY;
 };
 
-export const drawHitArea = (displayObject, graphics) => {
-  if (!_app) {
-    throw new Error('l1.init has not been called');
-  }
-  _app.stage.addChild(graphics);
-  const behavior = repeat(() => {
-    // TODO: Check if not destroyed
-    if (!displayObject._destroyed) {
-      const width = getWidth(displayObject);
-      const height = getHeight(displayObject);
-
-      const { x, y } = getGlobalPosition(displayObject, ratio);
-
-      graphics
-        .clear()
-        .lineStyle(2, 0xFFFFFF, 1)
-        .moveTo(x, y)
-        .lineTo(x + width, y)
-        .lineTo(x + width, y + height)
-        .lineTo(x, y + height)
-        .lineTo(x, y);
-    }
-  });
-  behavior.id = displayObject.name ? `${displayObject.name}-drawHitArea` : null;
-};
-
 
 // TODO: Deprecate
 /* Keyboard input */
