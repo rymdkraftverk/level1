@@ -290,20 +290,3 @@ const onDragEndInternal = (displayObject, onDragEnd, disabler) => () => {
 };
 
 // makeDraggable end
-
-const CLICK_EVENTS = ['click', 'tap'];
-
-export const makeClickable = (displayObject, onClick) => {
-  // eslint-disable-next-line no-param-reassign
-  displayObject.interactive = true;
-  // eslint-disable-next-line no-param-reassign
-  displayObject.cursor = 'pointer';
-
-  CLICK_EVENTS.forEach((event) => {
-    displayObject.on(event, () => {
-      // eslint-disable-next-line no-param-reassign
-      displayObject.cursor = 'default';
-      onClick();
-    });
-  });
-};
