@@ -1,42 +1,32 @@
 # level1
 
-A combination of tools to make games web based games.
+> Delayed and repeated callback execution for games
 
- - Utilities for [`pixi.js`](https://github.com/pixijs/pixi.js).
+This library is like `setTimeout` (`l1.once`) and `setInterval` (`l1.repeat`) controlled by updates from a game loop.
 
- - Behaviors. Pretty much `setTimeout` (`l1.once`) and `setInterval` (`l1.repeat`) controlled by updates from a game loop.
-
- - General game utilities
+The main use case is games but can be used in any application that runs within a loop.
 
 ## Features
 
-### Pixi utilities
+ - `l1.once(callback[, delay = 1])` 
 
-- `l1.resize` - Resize the canvas and retain the correct proportions
+ Run a callback function once after a delay. The callback is called with no arguments.
 
-- `l1.getTexture` - Function to get pre-loaded textures
+ - `l1.repeat(callback[, interval = 1])` 
 
-- `l1.getGlobalPosition` - Function to get the global position of a Pixi display object
+ Run a callback function repeatedly in an interval. The callback is called with `updates` (number): The amount of updates since it was run the first time.
 
- - `l1.drawHitArea` - Draw the hitArea if defined, otherwise width and height
+Both `once` and `repeat` return a `behavior` object. Has two mutable fields: `id` and `labels`.
 
-### Game utils
+### Other
 
-- `l1.distance` - Get the distance between two positions.
+- `get` - Get one behavior by id
+- `getByLabel` - 
+- `getAll`
+- `remove` - Takes an `id` or `behavior` object. Marks the behavior for deletion. Will be deleted after all behaviors have been processed.
+- `update` - Needs to be called on every game update.
 
-- `l1.angle` - Get the angle between two positions.
-
-- `l1.isColliding` - Collision detection between two Pixi display objects
-
-- `l1.getOverlappingArea` - Overlapping area between two Pixi display objects
-
-### Behaviors
-
- - `l1.once` 
- 
- - `l1.repeat` 
-
-## Index
+## Docs
 
 [Docs / API](https://rymdkraftverk.github.io/level1/)
 
@@ -46,9 +36,15 @@ A combination of tools to make games web based games.
 
 `npm install l1`
 
+or
+
 `yarn add l1`
 
-## Hello world with Pixi.js
+---
+
+## Examples
+
+### With Pixi.js
 
 ```js
 import * as l1 from 'l1'
@@ -58,53 +54,33 @@ const app = new PIXI.Application()
 
 document.body.appendChild(app.view)
 
-// Give l1 a reference to the Pixi app in order to enable Pixi util features
-l1.init(app)
+app.ticker.add(l1.update())
 
 // Example spritesheet
 app.loader.add('assets/spritesheet.json')
 
 app.loader.load(() => {
   const square = new PIXI.Sprite(
-    l1.getTexture('square'), // Assuming the spritesheet contains a 'square' texture
+    texture, 
   )
+  app.stage.addChild(square)
   
-  // Instead of pixi's addChild. Enables l1 features
-  l1.add(square, {
-    // Sort siblings
-    zIndex: 10,
-    id: 'particleContainer',
-  })
-  
-    // Move 3 pixels every tick
-  l1.addBehavior({
-    id: 'move',
-    // Mutable data passed to all callbacks, such as onUpdate
-    data: {
-      speed: 3,
-      limit: 500
-    },
-    onUpdate: ({ data }) => {
-        square.x += data.speed
-        if (square.x > data.limit) {
-          l1.removeBehavior('move')
-        }
-      }
-    },
-    onRemove: () => {
-      l1.destroy(square)
+    // Move 1 pixel every 3 ticks
+  const move = l1.repeat(() => {
+    square.x += 1
+    if (square.x > 500) {
+      l1.remove('move')
     }
-  })
+  }, 3)
+  move.id = 'move'
 })
 ```
 
 ---
 
-## Recipes and patterns
+## Recipes
 
-### Behaviors
-
-#### Keep state between game updates
+### Keep state between game updates
 
 Use a closure
 
@@ -118,58 +94,33 @@ const move = () => {
 }
 ```
 
-#### Deleting behaviors
+### Deleting behaviors
 
-When you delete a behavior, it will be removed in the next game update.
+`l1.remove` just marks the behavior for deletion, but it won't actually be deleted until all other behaviors have been processed.
 
 Therefore, you might need to wait a game update before you continue:
 
 ```js
 const gameOver = () => {
   l1.remove('gameLoop')
+  // `l1.once` ensures that the following code won't be executed until the `gameLoop` behavior has been deleted.
   l1.once(() => {
     // Continue doing stuff
   })
 }
 ```
 
-### Pixi
-
-#### Resize to full screen while retaining correct proportions
-
-```js
-const resizeGame = () => {
-  const screenWidth = window.innerWidth
-  const screenHeight = window.innerHeight
-  l1.resize(screenWidth, screenHeight)
-}
-resizeGame()
-
-window.addEventListener('resize', resizeGame)
-```
-
-If you want the game to be centered:
-
-```css
-#container {
-  display: flex;
-  justify-content: center;
-}
-```
-
-```html
-<div id="container">
-  <div id="game"></div>
-</div>
-```
-
 ---
 
 ## Other useful tools
 
-[`juice.js`]() - Add "juice" to you animations to make them look nicer
+[`juice.js`]() - Make your animations look nicer
 
-[`muncher`]() - Automatically generate sprite sheets from the command line 
+[`muncher`]() - Generate sprite sheets from the command line
+
+[`tiny-toolkit`]() - General game utils
+
+[`pixi-ex`]() - Pixi.js util functions
 
 ---
 
@@ -191,7 +142,15 @@ Command | Description
 To test changes, use the `template` project.
 
 1. Build the `dist` files in the `level1` folder (`yarn build:watch`)
-1. Go to the `template` folder
-1. Run `yarn l1` to install `level1`
-1. Run `yarn start` and `yarn watch` in separate terminal windows
-1. Test your new features!
+2. Go to the `template` folder
+3. Run `yarn l1` to install `level1`
+4. Run `yarn start` and `yarn watch` in separate terminal windows
+5. Test your new features!
+
+## TODO
+
+Revise docs
+
+Make sure only dist folder is published to npm
+
+// Pixi usage guide
