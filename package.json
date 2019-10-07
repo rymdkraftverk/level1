@@ -6,9 +6,9 @@
   "scripts": {
     "clean": "rm -rf dist",
     "build:watch": "yarn build --watch",
-    "release": "np",
     "lint": "eslint src",
-    "test:watch": "yarn test --watch"
+    "test:watch": "yarn test --watch",
+    "release": "yarn build && np",
     "build": "rm -rf dist && parcel build ./src/index.js --no-cache --no-source-maps --global l1"
   },
   "keywords": [],
