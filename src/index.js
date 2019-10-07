@@ -120,6 +120,7 @@ export const getAll = () => behaviors
 export const getByLabel = (label) => behaviors
   .filter((behavior) => behavior.labels.includes(label))
 
+// Not documented. Remove if not useful.
 export const reset = (behavior) => {
   if (typeof behavior === 'string') {
     // eslint-disable-next-line no-param-reassign
@@ -133,4 +134,5 @@ export const reset = (behavior) => {
   }
 }
 
+// Not documented. Remove if not useful.
 export const exists = (id) => behaviors.some((behavior) => behavior.id === id)
