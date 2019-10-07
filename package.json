@@ -1,7 +1,7 @@
 {
   "name": "l1",
   "version": "0.6.0-3",
-  "description": "A utility library for pixi.js",
+  "description": "Delayed and repeated code execution for games",
   "main": "./dist/index.js",
   "scripts": {
     "clean": "rm -rf dist",
