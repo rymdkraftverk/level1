@@ -1,10 +1,17 @@
-# level1
+<h1 align="center" style="font-weight: 900; background-color: black; color:#921dcc; padding: 10px 0 15px 0">
+  level1
+</h1>
+<h4 align="center">
+  Delayed and repeated callback execution for games
+</h4>
 
-> Delayed and repeated callback execution for games
+---
 
 This library is like `setTimeout` (`l1.once`) and `setInterval` (`l1.repeat`) controlled by updates from a game loop.
 
 The main use case is games but can be used in any application that runs within a loop.
+
+---
 
 ## Features
 
@@ -14,17 +21,23 @@ The main use case is games but can be used in any application that runs within a
 
  - `l1.repeat(callback[, interval = 1])` 
 
- Run a callback function repeatedly in an interval. The callback is called with `updates` (number): The amount of updates since it was run the first time.
+ Run a callback function repeatedly in an interval. The callback is called with two arguments. 
+ 
+ `updates` (integer): The amount of updates since it was run the first time.
+ 
+ `deltaTime` (float): The amount of time since the last game update. The value is the same as the one passed to `update`
 
-Both `once` and `repeat` return a `behavior` object. Has two mutable fields: `id` and `labels`.
+Both `once` and `repeat` return a `behavior` object. It has two mutable fields: `id` (string) and `labels` (array).
 
 ### Other
 
-- `get` - Get one behavior by id
-- `getByLabel` - 
-- `getAll`
-- `remove` - Takes an `id` or `behavior` object. Marks the behavior for deletion. Will be deleted after all behaviors have been processed.
-- `update` - Needs to be called on every game update.
+- `get(id)` - Get one behavior by id
+- `getByLabel(label)` - Get a list of behaviors with a label
+- `getAll()` - Get all behaviors
+- `remove(behavior)` - Takes an `id` or `behavior` object. Marks the behavior for deletion. Will be deleted after all behaviors have been processed in the current game update.
+- `update(deltaTime)` - Needs to be called on every game update.
+
+---
 
 ## Docs
 
@@ -55,9 +68,6 @@ const app = new PIXI.Application()
 document.body.appendChild(app.view)
 
 app.ticker.add(l1.update())
-
-// Example spritesheet
-app.loader.add('assets/spritesheet.json')
 
 app.loader.load(() => {
   const square = new PIXI.Sprite(
@@ -96,7 +106,7 @@ const move = () => {
 
 ### Deleting behaviors
 
-`l1.remove` just marks the behavior for deletion, but it won't actually be deleted until all other behaviors have been processed.
+`l1.remove` just marks the behavior for deletion, but it won't actually be deleted until all other behaviors have been processed in the current game update.
 
 Therefore, you might need to wait a game update before you continue:
 
@@ -114,13 +124,11 @@ const gameOver = () => {
 
 ## Other useful tools
 
-[`juice.js`]() - Make your animations look nicer
+[`juice.js`](https://github.com/rymdkraftverk/juice.js) - Make your animations look nicer
 
-[`muncher`]() - Generate sprite sheets from the command line
+[`muncher`](https://github.com/sajmoni/muncher) - Generate sprite sheets from the command line
 
-[`tiny-toolkit`]() - General game utils
-
-[`pixi-ex`]() - Pixi.js util functions
+[`pixi-ex`](https://github.com/sajmoni/pixi-ex) - Pixi.js util functions
 
 ---
 
