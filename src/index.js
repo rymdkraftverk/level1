@@ -1,7 +1,6 @@
 const behaviors = []
 let behaviorsToAdd = []
 let behaviorsToRemove = []
-let lastTimeStamp = null
 // eslint-disable-next-line no-underscore-dangle
 let _logging = false
 
@@ -17,13 +16,14 @@ const log = (text) => {
   }
 }
 
-export const getLoopDuration = () => lastTimeStamp
-
-export const update = ({ onError = () => {}, logging = false }) => {
+// TODO: Add tests for all arguments to l1.update
+// TODO: Investigate if try catch can be implemented by consumer, and in that case
+// turn it into a recipe instead
+// TODO: Maybe remove the logging argument?
+export const update = ({ onError = () => {}, logging = false } = {}) => {
   _logging = logging
   return (deltaTime) => {
     try {
-      const before = performance.now()
       behaviors.forEach((behavior) => {
         // eslint-disable-next-line no-param-reassign
         behavior.counter += 1
@@ -54,9 +54,6 @@ export const update = ({ onError = () => {}, logging = false }) => {
       })
 
       behaviorsToAdd = []
-
-      const after = performance.now()
-      lastTimeStamp = after - before
     } catch (error) {
     // eslint-disable-next-line no-console
       console.error('l1: Error running behaviors:', error)
@@ -71,6 +68,7 @@ const commonBehaviorProperties = {
   counter: 0,
 }
 
+// TODO: once and repeat could share more code
 export const once = (callback, delay = 1) => {
   if (!callback || typeof callback !== 'function') {
     throw new Error('The fist argument to l1.once needs to be a function')
@@ -120,7 +118,7 @@ export const getAll = () => behaviors
 export const getByLabel = (label) => behaviors
   .filter((behavior) => behavior.labels.includes(label))
 
-// Not documented. Remove if not useful.
+// TODO: Document this
 export const reset = (behavior) => {
   if (typeof behavior === 'string') {
     // eslint-disable-next-line no-param-reassign
@@ -134,5 +132,5 @@ export const reset = (behavior) => {
   }
 }
 
-// Not documented. Remove if not useful.
+// TODO: Document this
 export const exists = (id) => behaviors.some((behavior) => behavior.id === id)
