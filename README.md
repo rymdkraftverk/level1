@@ -67,7 +67,7 @@ const app = new PIXI.Application()
 
 document.body.appendChild(app.view)
 
-app.ticker.add(l1.update())
+app.ticker.add(l1.update)
 
 app.loader.load(() => {
   const square = new PIXI.Sprite(
@@ -106,7 +106,7 @@ const move = () => {
 
 ### Deleting behaviors
 
-`l1.remove` just marks the behavior for deletion, but it won't actually be deleted until all other behaviors have been processed in the current game update.
+`l1.remove` just marks the behavior for deletion, but it won't actually be deleted until the next update.
 
 Therefore, you might need to wait a game update before you continue:
 
@@ -119,7 +119,6 @@ const gameOver = () => {
   })
 }
 ```
-
 
 ### Log l1.update duration
 
@@ -199,7 +198,5 @@ To test changes, use the `template` project.
 ## TODO
 
 Revise docs
-
-Make sure only dist folder is published to npm
 
 // Pixi usage guide
