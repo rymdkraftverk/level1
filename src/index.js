@@ -2,7 +2,7 @@ const behaviors = []
 let behaviorsToAdd = []
 let behaviorsToRemove = []
 // eslint-disable-next-line no-underscore-dangle
-let _logging = false
+let _logging = true
 
 const BehaviorType = {
   ONCE: 'once',
@@ -16,42 +16,44 @@ const log = (text) => {
   }
 }
 
+export const init = ({ logging = false }) => {
+  _logging = logging
+  return update
+}
+
 // TODO: Add tests for all arguments to l1.update
 // TODO: Maybe remove the logging argument?
-export const update = ({ logging = false } = {}) => {
-  _logging = logging
-  return (deltaTime) => {
-    behaviorsToAdd.forEach((behaviorToAdd) => {
-      behaviors.push(behaviorToAdd)
-    })
+export const update = (deltaTime) => {
+  behaviorsToAdd.forEach((behaviorToAdd) => {
+    behaviors.push(behaviorToAdd)
+  })
 
-    behaviorsToAdd = []
+  behaviorsToAdd = []
 
-    behaviorsToRemove.forEach((behaviorToRemove) => {
-      // Mutate original array for performance reasons
-      const indexToRemove = behaviors.indexOf(behaviorToRemove)
-      if (indexToRemove >= 0) {
-        behaviors.splice(indexToRemove, 1)
+  behaviorsToRemove.forEach((behaviorToRemove) => {
+    // Mutate original array for performance reasons
+    const indexToRemove = behaviors.indexOf(behaviorToRemove)
+    if (indexToRemove >= 0) {
+      behaviors.splice(indexToRemove, 1)
+    }
+  })
+
+  behaviorsToRemove = []
+
+  behaviors.forEach((behavior) => {
+    // eslint-disable-next-line no-param-reassign
+    behavior.counter += 1
+    if (behavior.type === BehaviorType.ONCE) {
+      if (behavior.counter === behavior.delay) {
+        behavior.callback()
+        behaviorsToRemove.push(behavior)
       }
-    })
-
-    behaviorsToRemove = []
-
-    behaviors.forEach((behavior) => {
-      // eslint-disable-next-line no-param-reassign
-      behavior.counter += 1
-      if (behavior.type === BehaviorType.ONCE) {
-        if (behavior.counter === behavior.delay) {
-          behavior.callback()
-          behaviorsToRemove.push(behavior)
-        }
-      } else if (behavior.type === BehaviorType.REPEAT) {
-        if (behavior.counter % behavior.interval === 0) {
-          behavior.callback(behavior.counter, deltaTime)
-        }
+    } else if (behavior.type === BehaviorType.REPEAT) {
+      if (behavior.counter % behavior.interval === 0) {
+        behavior.callback(behavior.counter, deltaTime)
       }
-    })
-  }
+    }
+  })
 }
 
 const commonBehaviorProperties = {
