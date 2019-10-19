@@ -17,48 +17,40 @@ const log = (text) => {
 }
 
 // TODO: Add tests for all arguments to l1.update
-// TODO: Investigate if try catch can be implemented by consumer, and in that case
-// turn it into a recipe instead
 // TODO: Maybe remove the logging argument?
-export const update = ({ onError = () => {}, logging = false } = {}) => {
+export const update = ({ logging = false } = {}) => {
   _logging = logging
   return (deltaTime) => {
-    try {
-      behaviors.forEach((behavior) => {
-        // eslint-disable-next-line no-param-reassign
-        behavior.counter += 1
-        if (behavior.type === BehaviorType.ONCE) {
-          if (behavior.counter === behavior.delay) {
-            behavior.callback()
-            behaviorsToRemove.push(behavior)
-          }
-        } else if (behavior.type === BehaviorType.REPEAT) {
-          if (behavior.counter % behavior.interval === 0) {
-            behavior.callback(behavior.counter, deltaTime)
-          }
-        }
-      })
+    behaviorsToAdd.forEach((behaviorToAdd) => {
+      behaviors.push(behaviorToAdd)
+    })
 
-      behaviorsToRemove.forEach((behaviorToRemove) => {
+    behaviorsToAdd = []
+
+    behaviorsToRemove.forEach((behaviorToRemove) => {
       // Mutate original array for performance reasons
-        const indexToRemove = behaviors.indexOf(behaviorToRemove)
-        if (indexToRemove >= 0) {
-          behaviors.splice(indexToRemove, 1)
+      const indexToRemove = behaviors.indexOf(behaviorToRemove)
+      if (indexToRemove >= 0) {
+        behaviors.splice(indexToRemove, 1)
+      }
+    })
+
+    behaviorsToRemove = []
+
+    behaviors.forEach((behavior) => {
+      // eslint-disable-next-line no-param-reassign
+      behavior.counter += 1
+      if (behavior.type === BehaviorType.ONCE) {
+        if (behavior.counter === behavior.delay) {
+          behavior.callback()
+          behaviorsToRemove.push(behavior)
         }
-      })
-
-      behaviorsToRemove = []
-
-      behaviorsToAdd.forEach((behaviorToAdd) => {
-        behaviors.push(behaviorToAdd)
-      })
-
-      behaviorsToAdd = []
-    } catch (error) {
-    // eslint-disable-next-line no-console
-      console.error('l1: Error running behaviors:', error)
-      onError(error)
-    }
+      } else if (behavior.type === BehaviorType.REPEAT) {
+        if (behavior.counter % behavior.interval === 0) {
+          behavior.callback(behavior.counter, deltaTime)
+        }
+      }
+    })
   }
 }
 
