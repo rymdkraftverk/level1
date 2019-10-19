@@ -12,15 +12,15 @@
     "lint": "eslint src",
     "test:watch": "yarn test --watch",
     "release": "yarn build && np",
-    "build": "rm -rf dist && parcel build ./src/index.js --no-cache --no-source-maps --global l1"
+    "build": "rm -rf dist && parcel build ./src/index.js --no-cache --no-source-maps"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "@babel/preset-env": "^7.5.5",
-    "@babel/register": "^7.5.5",
+    "@babel/preset-env": "7.5.5",
+    "@babel/register": "7.5.5",
     "chai": "4.2.0",
     "eslint": "6.2.2",
     "eslint-config-airbnb-base": "14.0.0",
