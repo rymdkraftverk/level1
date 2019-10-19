@@ -21,8 +21,6 @@ export const init = ({ logging = false }) => {
   return update
 }
 
-// TODO: Add tests for all arguments to l1.update
-// TODO: Maybe remove the logging argument?
 export const update = (deltaTime) => {
   behaviorsToAdd.forEach((behaviorToAdd) => {
     behaviors.push(behaviorToAdd)
