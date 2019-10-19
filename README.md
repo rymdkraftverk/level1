@@ -120,6 +120,47 @@ const gameOver = () => {
 }
 ```
 
+
+### Log l1.update duration
+
+Use `performance.now`
+
+```js
+import * as l1 from 'l1'
+import * as PIXI from 'pixi.js'
+
+let lastTimeStamp = null
+
+app.ticker.add((deltaTime) => {
+  const before = performance.now()
+  
+  l1.update(deltaTime)
+  
+  const after = performance.now()
+  lastTimeStamp = after - before
+})
+```
+
+### Catch errors
+
+Wrap `l1.update` with a try catch
+
+```js
+import * as l1 from 'l1'
+import * as PIXI from 'pixi.js'
+
+let lastTimeStamp = null
+
+app.ticker.add((deltaTime) => {
+  try {
+    l1.update(deltaTime)
+  } catch(error) {
+    console.error(error)
+    logToExternalService(error)
+  }
+})
+```
+
 ---
 
 ## Other useful tools
