@@ -146,7 +146,7 @@ test('getByLabel', (t) => {
   t.deepEqual(l1.getByLabel(label)[0], behavior)
 })
 
-test('remove', (t) => {
+test('remove - id', (t) => {
   const id = 'An id'
   const behavior = l1.once(() => {})
   behavior.id = id
@@ -156,6 +156,23 @@ test('remove', (t) => {
   t.deepEqual(l1.get(id), behavior)
 
   l1.remove(id)
+
+  // update loop needs to run once
+  l1.update()
+
+  t.is(l1.get(id), undefined)
+})
+
+test('remove - behavior object', (t) => {
+  const id = 'An id'
+  const behavior = l1.once(() => {})
+  behavior.id = id
+
+  l1.update()
+
+  t.deepEqual(l1.get(id), behavior)
+
+  l1.remove(behavior)
 
   // update loop needs to run once
   l1.update()
