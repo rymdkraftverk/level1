@@ -11,6 +11,8 @@ This library is like `setTimeout` (`l1.once`) and `setInterval` (`l1.repeat`) co
 
 The main use case is games but can be used in any application that runs within a loop.
 
+Bundle size: `1.3kB` _(Minified + Gzipped)_
+
 ---
 
 ## Features
