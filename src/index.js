@@ -89,6 +89,11 @@ export const repeat = (callback, interval = 1) => {
   return behavior
 }
 
+// eslint-disable-next-line no-shadow
+export const delay = (delay) => new Promise((res) => {
+  once(() => { res() }, delay)
+})
+
 export const remove = (behavior) => {
   let behaviorObject
   if (typeof behavior === 'string') {

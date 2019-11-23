@@ -49,12 +49,10 @@ Both `once` and `repeat` return a `behavior` object. It has two mutable fields: 
 - `getAll()` - Get all behaviors
 - `remove(behavior)` - Takes an `id` or `behavior` object. Marks the behavior for deletion. Will be deleted after all behaviors have been processed in the current game update.
 - `update(deltaTime)` - Needs to be called on every game update.
+- `delay(delay)` - Resolves a promise after a delay.
 
----
 
-## Docs
-
-[Docs / API](https://rymdkraftverk.github.io/level1/)
+[Full API docs](https://rymdkraftverk.github.io/level1/)
 
 ---
 
@@ -68,9 +66,7 @@ or
 
 ---
 
-## Examples
-
-### With Pixi.js
+## Example usage
 
 ```js
 import * as l1 from 'l1'
@@ -139,10 +135,10 @@ Use `performance.now`
 
 ```js
 import * as l1 from 'l1'
-import * as PIXI from 'pixi.js'
 
 let lastTimeStamp = null
 
+// Pixi.Application instance
 app.ticker.add((deltaTime) => {
   const before = performance.now()
   
@@ -159,10 +155,10 @@ Wrap `l1.update` with a try catch
 
 ```js
 import * as l1 from 'l1'
-import * as PIXI from 'pixi.js'
 
 let lastTimeStamp = null
 
+// Pixi.Application instance
 app.ticker.add((deltaTime) => {
   try {
     l1.update(deltaTime)
@@ -192,21 +188,18 @@ app.ticker.add((deltaTime) => {
 Command | Description
 ------- | -----------
 `yarn build` | Generate files in the `dist` folder
-`yarn build:watch` | Continuously build files in the `dist` folder
 `yarn clean` | Remove the `dist` folder
-`yarn test` | Run the tests
-`yarn test:watch` | Continuously run the tests
-`yarn release` | Start the wizard to release a new version
+`yarn lint` | Run eslint on `src`
+`yarn release` | Start the process to release a new version
 
 ### Workflow
 
-To test changes, use the `template` project.
-
-1. Build the `dist` files in the `level1` folder (`yarn build:watch`)
-2. Go to the `template` folder
-3. Run `yarn l1` to install `level1`
-4. Run `yarn start` and `yarn watch` in separate terminal windows
-5. Test your new features!
+1. Make changes
+2. `yarn build`
+3. Go to the `example` folder
+4. Run `yarn refresh` to install `level1`
+5. Run `yarn test` and verify that all tests pass
+6. Commit and `yarn publish`!
 
 ## TODO
 
