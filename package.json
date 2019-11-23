@@ -9,7 +9,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "lint": "eslint src",
-    "release": "yarn build && np",
+    "release": "yarn build && np --no-tests",
     "build": "rm -rf dist && parcel build ./src/index.js --no-cache --no-source-maps"
   },
   "keywords": [],
