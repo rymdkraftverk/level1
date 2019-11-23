@@ -12,6 +12,10 @@
     "release": "yarn build && np --no-tests",
     "build": "rm -rf dist && parcel build ./src/index.js --no-cache --no-source-maps"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rymdkraftverk/level1.git"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
