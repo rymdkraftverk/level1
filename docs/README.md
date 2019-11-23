@@ -1,5 +1,6 @@
 # API
 
+- [delay](api/delay)
 - [get](api/get)
 - [getAll](api/getAll)
 - [getByLabel](api/getByLabel)

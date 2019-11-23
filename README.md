@@ -200,9 +200,3 @@ Command | Description
 4. Run `yarn refresh` to install `level1`
 5. Run `yarn test` and verify that all tests pass
 6. Commit and `yarn publish`!
-
-## TODO
-
-Revise docs
-
-// Pixi usage guide

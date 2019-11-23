@@ -14,7 +14,7 @@ Will execute a callback repeatedly every `interval` amount of game updates. Thin
 
 `callback` (Function): Executed every `interval` amount of game updates. Is called with one argument: `counter`, which is the amount of game updates since the behavior was created.
 
-`interval` (Number, optional): Game updates before executing the callback. If not integer, will be rounded down to the nearest integer
+`interval` (Integer, optional): Game updates before executing the callback. 
 
 ## Returns
 

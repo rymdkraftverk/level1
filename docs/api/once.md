@@ -14,7 +14,7 @@ Will execute a callback once after a `delay` amount of game updates. Think of it
 
 `callback` (Function): Executed when a `delay` amount of game updates has passed.
 
-`delay` (Number, optional): Game updates before executing the callback. If not integer, will be rounded down to the nearest integer
+`delay` (Integer, optional): Game updates before executing the callback. 
 
 ## Returns
 
