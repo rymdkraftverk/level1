@@ -86,6 +86,23 @@ test('once - delay 10', (t) => {
   t.is(done, true)
 })
 
+test.cb('delay', (t) => {
+  t.plan(2)
+  let done = false
+
+  l1.delay(5).then(() => {
+    done = true
+    t.is(done, true)
+    t.end()
+  })
+
+  _.times(l1.update, 5)
+
+  t.is(done, false)
+
+  l1.update()
+})
+
 test('once - from once', (t) => {
   let done = false
 
