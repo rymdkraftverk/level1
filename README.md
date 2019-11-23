@@ -4,26 +4,29 @@
 <h4 align="center">
   Delayed and repeated callback execution for games
 </h4>
+<div align="center">
+  ![l1](https://badgen.net/bundlephobia/minzip/l1)
+</div>
 
 ---
 
 This library is like `setTimeout` (`l1.once`) and `setInterval` (`l1.repeat`) controlled by updates from a game loop.
 
-The main use case is games but can be used in any application that runs within a loop.
+The main use case is games but it can be used in any application that runs from a loop.
 
-Bundle size: `1.3kB` _(Minified + Gzipped)_
+(These docs use `pixi.js` `ticker` as an example, but `level1` can be used with any game loop)
 
 ---
 
 ## Features
 
- - `l1.once(callback[, delay = 1])` 
+ - [`l1.once(callback, [delay = 1])`](docs/api/once.md) 
 
  Run a callback function once after a delay. The callback is called with no arguments.
 
- - `l1.repeat(callback[, interval = 1])` 
+ - [`l1.repeat(callback, [interval = 1])` ](docs/api/repeat.md)
 
- Run a callback function repeatedly in an interval. The callback is called with two arguments. 
+ Run a callback function repeatedly in an interval. The callback is called with two arguments:
  
  `updates` (integer): The amount of updates since it was run the first time.
  
