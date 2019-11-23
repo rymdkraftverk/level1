@@ -1,42 +1,72 @@
-# level1
-
-> A utility library for [`pixi.js`](https://github.com/pixijs/pixi.js).
-
-## Features
-
-Replaces pixi's `addChild` with [`l1.add`](https://rymdkraftverk.github.io/level1/api/add). It improves display object management by extending pixi display objects with:
-
-- id
-- zIndex
-- labels
-
-Other features:
-
-- [Behaviors](https://rymdkraftverk.github.io/level1/api/addBehavior). Dynamically add and remove behaviors in the game.
-- Resize text objects without blurriness
-- Resize the canvas and retain the correct proportions
-- Function to get pre-loaded textures
-- Function to get the global position of a display object
-- Function to get the distance and angle between two positions.
-- Collision detection
-- Detect overlapping area
-- Sound
-- Keyboard input
-
-## Index
-
-1. [Docs / API](https://rymdkraftverk.github.io/level1/)
-1. [Gotchas](https://github.com/sajmoni/level1#docs/gotchas)
+<h1 align="center" style="font-weight: 900; background-color: black; color:#921dcc; padding: 10px 0 15px 0">
+  level1
+</h1>
+<h4 align="center">
+  Delayed and repeated callback execution for games
+</h4>
+<div align="center">
+  <img src="https://badgen.net/npm/v/l1?icon=npm" />
+  <img src="https://badgen.net/npm/v/l1/next?icon=npm" />
+  <img src="https://badgen.net/npm/dw/l1?icon=npm" />
+</div>
+<div align="center">
+  <img src="https://badgen.net/bundlephobia/minzip/l1" />
+</div>
+<div align="center">
+  <img src="https://badgen.net/github/last-commit/rymdkraftverk/level1?icon=github" />
+</div>
 
 ---
 
-## How to use
+This library is like `setTimeout` (`l1.once`) and `setInterval` (`l1.repeat`) controlled by updates from a game loop.
+
+The main use case is games but it can be used in any application that runs from a loop.
+
+(These docs use `pixi.js` `ticker` as an example, but `level1` can be used with any game loop)
+
+---
+
+## Features
+
+ - [`l1.once(callback, [delay = 1])`](docs/api/once.md) 
+
+ Run a callback function once after a delay. The callback is called with no arguments.
+
+ - [`l1.repeat(callback, [interval = 1])` ](docs/api/repeat.md)
+
+ Run a callback function repeatedly in an interval. The callback is called with two arguments:
+ 
+ `updates` (integer): The amount of updates since it was run the first time.
+ 
+ `deltaTime` (float): The amount of time since the last game update. The value is the same as the one passed to `update`
+
+Both `once` and `repeat` return a `behavior` object. It has two mutable fields: `id` (string) and `labels` (array).
+
+### Other
+
+- `get(id)` - Get one behavior by id
+- `getByLabel(label)` - Get a list of behaviors with a label
+- `getAll()` - Get all behaviors
+- `remove(behavior)` - Takes an `id` or `behavior` object. Marks the behavior for deletion. Will be deleted after all behaviors have been processed in the current game update.
+- `update(deltaTime)` - Needs to be called on every game update.
+- `delay(delay)` - Resolves a promise after a delay.
+
+
+[Full API docs](https://rymdkraftverk.github.io/level1/)
+
+---
+
+## Installation
 
 `npm install l1`
 
+or
+
 `yarn add l1`
 
-### Hello world
+---
+
+## Example usage
 
 ```js
 import * as l1 from 'l1'
@@ -44,44 +74,110 @@ import * as PIXI from 'pixi.js'
 
 const app = new PIXI.Application()
 
-l1.init(app)
+document.body.appendChild(app.view)
 
-// Example spritesheet
-app.loader.add('assets/spritesheet.json')
+app.ticker.add(l1.update)
 
 app.loader.load(() => {
   const square = new PIXI.Sprite(
-    l1.getTexture('square'), // Assuming the spritesheet contains a 'square' texture
+    texture, 
   )
+  app.stage.addChild(square)
   
-  // Instead of pixi's addChild. Enables l1 features
-  l1.add(square, {
-    // Sort siblings
-    zIndex: 10,
-    id: 'particleContainer',
-  })
-  
-    // Move 3 pixels every tick
-  l1.addBehavior({
-    id: 'move',
-    // Mutable data passed to all callbacks, such as onUpdate
-    data: {
-      speed: 3,
-      limit: 500
-    },
-    onUpdate: ({ data }) => {
-        square.x += data.speed
-        if (square.x > data.limit) {
-          l1.removeBehavior('move')
-        }
-      }
-    },
-    onRemove: () => {
-      l1.destroy(square)
+    // Move 1 pixel every 3 ticks
+  const move = l1.repeat(() => {
+    square.x += 1
+    if (square.x > 500) {
+      l1.remove('move')
     }
-  })
+  }, 3)
+  move.id = 'move'
 })
 ```
+
+---
+
+## Recipes
+
+### Keep state between game updates
+
+Use a closure
+
+```js
+const move = () => {
+  let x = 1
+
+  l1.repeat(() => {
+    x += 1
+  })
+}
+```
+
+### Deleting behaviors
+
+`l1.remove` just marks the behavior for deletion, but it won't actually be deleted until the next update.
+
+Therefore, you might need to wait a game update before you continue:
+
+```js
+const gameOver = () => {
+  l1.remove('gameLoop')
+  // `l1.once` ensures that the following code won't be executed until the `gameLoop` behavior has been deleted.
+  l1.once(() => {
+    // Continue doing stuff
+  })
+}
+```
+
+### Log l1.update duration
+
+Use `performance.now`
+
+```js
+import * as l1 from 'l1'
+
+let lastTimeStamp = null
+
+// Pixi.Application instance
+app.ticker.add((deltaTime) => {
+  const before = performance.now()
+  
+  l1.update(deltaTime)
+  
+  const after = performance.now()
+  lastTimeStamp = after - before
+})
+```
+
+### Catch errors
+
+Wrap `l1.update` with a try catch
+
+```js
+import * as l1 from 'l1'
+
+let lastTimeStamp = null
+
+// Pixi.Application instance
+app.ticker.add((deltaTime) => {
+  try {
+    l1.update(deltaTime)
+  } catch(error) {
+    console.error(error)
+    logToExternalService(error)
+  }
+})
+```
+
+---
+
+## Other useful tools
+
+[`juice.js`](https://github.com/rymdkraftverk/juice.js) - Make your animations look nicer
+
+[`muncher`](https://github.com/sajmoni/muncher) - Generate sprite sheets from the command line
+
+[`pixi-ex`](https://github.com/sajmoni/pixi-ex) - Pixi.js util functions
 
 ---
 
@@ -92,18 +188,15 @@ app.loader.load(() => {
 Command | Description
 ------- | -----------
 `yarn build` | Generate files in the `dist` folder
-`yarn build:watch` | Continuously build files in the `dist` folder
 `yarn clean` | Remove the `dist` folder
-`yarn test` | Run the tests
-`yarn test:watch` | Continuously run the tests
-`yarn release` | Start the wizard to release a new version
+`yarn lint` | Run eslint on `src`
+`yarn release` | Start the process to release a new version
 
 ### Workflow
 
-To test changes, use the `template` project.
-
-1. Build the `dist` files in the `level1` folder (`yarn build:watch`)
-1. Go to the `template` folder
-1. Run `yarn l1` to install `level1`
-1. Run `yarn start` and `yarn watch` in separate terminal windows
-1. Test your new features!
+1. Make changes
+2. `yarn build`
+3. Go to the `example` folder
+4. Run `yarn refresh` to install `level1`
+5. Run `yarn test` and verify that all tests pass
+6. Commit and `yarn publish`!
