@@ -5,7 +5,15 @@
   Delayed and repeated callback execution for games
 </h4>
 <div align="center">
-  ![l1](https://badgen.net/bundlephobia/minzip/l1)
+  <img src="https://badgen.net/npm/v/l1?icon=npm" />
+  <img src="https://badgen.net/npm/v/l1/next?icon=npm" />
+  <img src="https://badgen.net/npm/dw/l1?icon=npm" />
+</div>
+<div align="center">
+  <img src="https://badgen.net/bundlephobia/minzip/l1" />
+</div>
+<div align="center">
+  <img src="https://badgen.net/github/last-commit/rymdkraftverk/level1?icon=github" />
 </div>
 
 ---
