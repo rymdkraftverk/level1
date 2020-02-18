@@ -9,9 +9,15 @@
     "refresh": "rm -rf node_modules && yarn",
     "test": "ava"
   },
+  "ava": {
+    "babel": true
+  },
   "dependencies": {
-    "ava": "^2.4.0",
+    "ava": "^3.3.0",
     "l1": "file:../",
     "lodash": "4.17.15"
+  },
+  "devDependencies": {
+    "@ava/babel": "1.0.1"
   }
 }
