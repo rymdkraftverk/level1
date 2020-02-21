@@ -128,6 +128,3 @@ export const reset = (behavior) => {
     behavior.counter = 0
   }
 }
-
-// TODO: Document this
-export const exists = (id) => behaviors.some((behavior) => behavior.id === id)
