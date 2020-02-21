@@ -2,6 +2,68 @@ import * as l1 from 'l1'
 import _ from 'lodash/fp'
 import test from 'ava'
 
+const mockAsyncTicker = (updateFn) => new Promise((res) => {
+  updateFn()
+  res()
+})
+
+// * Running the sequence tests concurrently is causing problems
+test.serial('sequence - interval 3', (t) => {
+  const notifications = ['Hello', 'Goodbye']
+
+  let updates = 0
+
+  l1.repeat(() => {
+    updates += 1
+  })
+
+  const done = l1.sequence((notification) => {
+    if (updates === 1) {
+      t.is(notification, 'Hello')
+    } else if (updates === 4) {
+      t.is(notification, 'Goodbye')
+    }
+  }, 3, notifications)
+
+  mockAsyncTicker(l1.update)
+    .then(() => mockAsyncTicker(l1.update))
+    .then(() => mockAsyncTicker(l1.update))
+    .then(() => mockAsyncTicker(l1.update))
+    .then(() => mockAsyncTicker(l1.update))
+    .then(() => mockAsyncTicker(l1.update))
+    .then(() => mockAsyncTicker(l1.update))
+
+  return done
+})
+
+test.serial('sequence - interval 1', (t) => {
+  const notifications = ['Hello', 'Goodbye', 'Hello again!']
+
+  let updates = 0
+
+  l1.repeat(() => {
+    updates += 1
+  })
+
+  const done = l1.sequence((notification) => {
+    if (updates === 1) {
+      t.is(notification, 'Hello')
+    } else if (updates === 2) {
+      t.is(notification, 'Goodbye')
+    } else if (updates === 3) {
+      t.is(notification, 'Hello again!')
+    }
+  }, 1, notifications)
+
+
+  mockAsyncTicker(l1.update)
+    .then(() => mockAsyncTicker(l1.update))
+    .then(() => mockAsyncTicker(l1.update))
+    .then(() => mockAsyncTicker(l1.update))
+
+  return done
+})
+
 test('throw error', (t) => {
   // Throw error after 5 updates
   l1.once(() => {

@@ -94,6 +94,14 @@ export const delay = (delay) => new Promise((res) => {
   once(() => { res() }, delay)
 })
 
+export const sequence = (callback, interval, list) => {
+  return list
+    .reduce((p, item) => p.then(() => {
+      callback(item)
+      return delay(interval)
+    }), Promise.resolve())
+}
+
 export const remove = (behavior) => {
   let behaviorObject
   if (typeof behavior === 'string') {
