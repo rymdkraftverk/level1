@@ -187,8 +187,8 @@ test('once - throw error if no callback', (t) => {
   t.throws(l1.once)
 })
 
-test('init - returns update function', (t) => {
-  const updateFn = l1.init({ logging: true })
+test('init', (t) => {
+  l1.init({ logging: false })
 
   let done = false
 
@@ -198,7 +198,7 @@ test('init - returns update function', (t) => {
 
   t.is(done, false)
 
-  updateFn()
+  l1.update()
 
   t.is(done, true)
 })

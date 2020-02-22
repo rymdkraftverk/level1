@@ -16,9 +16,15 @@ const log = (text) => {
   }
 }
 
-export const init = ({ logging = false }) => {
+// TODO: Document this
+export const init = (options) => {
+  if (!options) {
+    throw new Error('level1: The first argument to init is an options object')
+  }
+
+  const { logging = true } = options
+
   _logging = logging
-  return update
 }
 
 export const update = (deltaTime) => {
