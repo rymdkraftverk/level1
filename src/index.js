@@ -9,6 +9,7 @@ const BehaviorType = {
   REPEAT: 'repeat',
 }
 
+// TODO: Test that logging actually works
 const log = (text) => {
   if (_logging) {
     // eslint-disable-next-line no-console
@@ -16,8 +17,8 @@ const log = (text) => {
   }
 }
 
-// TODO: Document this
 export const init = (options) => {
+  // TODO: Validate that options has the correct shape
   if (!options) {
     throw new Error('level1: The first argument to init is an options object')
   }
@@ -35,7 +36,7 @@ export const update = (deltaTime) => {
   behaviorsToAdd = []
 
   behaviorsToRemove.forEach((behaviorToRemove) => {
-    // Mutate original array for performance reasons
+    // * Mutate original array for performance reasons
     const indexToRemove = behaviors.indexOf(behaviorToRemove)
     if (indexToRemove >= 0) {
       behaviors.splice(indexToRemove, 1)
@@ -66,7 +67,6 @@ const commonBehaviorProperties = {
   counter: 0,
 }
 
-// TODO: once and repeat could share more code
 export const once = (callback, delay = 1) => {
   if (!callback || typeof callback !== 'function') {
     throw new Error('The fist argument to l1.once needs to be a function')
@@ -129,7 +129,7 @@ export const getAll = () => behaviors
 export const getByLabel = (label) => behaviors
   .filter((behavior) => behavior.labels.includes(label))
 
-// TODO: Document this
+// * Undocumented - Might be removed in the future
 export const reset = (behavior) => {
   if (typeof behavior === 'string') {
     // eslint-disable-next-line no-param-reassign
