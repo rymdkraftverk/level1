@@ -2,10 +2,11 @@ import * as l1 from 'l1'
 import _ from 'lodash/fp'
 import test from 'ava'
 
-const mockAsyncTicker = (updateFn) => new Promise((res) => {
-  updateFn()
-  res()
-})
+const mockAsyncTicker = (updateFn) =>
+  new Promise((resolve) => {
+    updateFn()
+    resolve()
+  })
 
 // * Running the sequence tests concurrently is causing problems
 test.serial('sequence - interval 3', (t) => {
@@ -17,13 +18,17 @@ test.serial('sequence - interval 3', (t) => {
     updates += 1
   })
 
-  const done = l1.sequence((notification) => {
-    if (updates === 1) {
-      t.is(notification, 'Hello')
-    } else if (updates === 4) {
-      t.is(notification, 'Goodbye')
-    }
-  }, 3, notifications)
+  const done = l1.sequence(
+    (notification) => {
+      if (updates === 1) {
+        t.is(notification, 'Hello')
+      } else if (updates === 4) {
+        t.is(notification, 'Goodbye')
+      }
+    },
+    3,
+    notifications,
+  )
 
   mockAsyncTicker(l1.update)
     .then(() => mockAsyncTicker(l1.update))
@@ -45,16 +50,19 @@ test.serial('sequence - interval 1', (t) => {
     updates += 1
   })
 
-  const done = l1.sequence((notification) => {
-    if (updates === 1) {
-      t.is(notification, 'Hello')
-    } else if (updates === 2) {
-      t.is(notification, 'Goodbye')
-    } else if (updates === 3) {
-      t.is(notification, 'Hello again!')
-    }
-  }, 1, notifications)
-
+  const done = l1.sequence(
+    (notification) => {
+      if (updates === 1) {
+        t.is(notification, 'Hello')
+      } else if (updates === 2) {
+        t.is(notification, 'Goodbye')
+      } else if (updates === 3) {
+        t.is(notification, 'Hello again!')
+      }
+    },
+    1,
+    notifications,
+  )
 
   mockAsyncTicker(l1.update)
     .then(() => mockAsyncTicker(l1.update))
@@ -65,7 +73,7 @@ test.serial('sequence - interval 1', (t) => {
 })
 
 test('throw error', (t) => {
-  // Throw error after 5 updates
+  // * Throw error after 5 updates
   l1.once(() => {
     throw new Error('Error in l1')
   }, 5)
@@ -108,7 +116,9 @@ test('repeat - arguments: counter, deltaTime', (t) => {
     result.deltaTime = deltaTime
   }, 2)
 
-  _.times(() => { l1.update(16.66) }, 2)
+  _.times(() => {
+    l1.update(16.66)
+  }, 2)
 
   t.is(result.counter, 2)
   t.is(result.deltaTime, 16.66)
@@ -149,6 +159,23 @@ test('once - delay 10', (t) => {
 })
 
 test.cb('delay', (t) => {
+  t.plan(2)
+  let done = false
+
+  l1.delay(5).then(() => {
+    done = true
+    t.is(done, true)
+    t.end()
+  })
+
+  _.times(l1.update, 5)
+
+  t.is(done, false)
+
+  l1.update()
+})
+
+test.cb('delay - multiple', (t) => {
   t.plan(2)
   let done = false
 
@@ -208,7 +235,7 @@ test('get', (t) => {
   const behavior = l1.once(() => {})
   behavior.id = id
 
-  // update loop needs to run once
+  // * update loop needs to run once
   l1.update()
 
   t.deepEqual(l1.get(id), behavior)
@@ -219,7 +246,7 @@ test('getByLabel', (t) => {
   const behavior = l1.once(() => {})
   behavior.labels = [label]
 
-  // update loop needs to run once
+  // * update loop needs to run once
   l1.update()
 
   t.deepEqual(l1.getByLabel(label)[0], behavior)
@@ -236,7 +263,7 @@ test('remove - id', (t) => {
 
   l1.remove(id)
 
-  // update loop needs to run once
+  // * update loop needs to run once
   l1.update()
 
   t.is(l1.get(id), undefined)
@@ -253,7 +280,7 @@ test('remove - behavior object', (t) => {
 
   l1.remove(behavior)
 
-  // update loop needs to run once
+  // * update loop needs to run once
   l1.update()
 
   t.is(l1.get(id), undefined)

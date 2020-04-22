@@ -1,7 +1,6 @@
 const behaviors = []
 let behaviorsToAdd = []
 let behaviorsToRemove = []
-// eslint-disable-next-line no-underscore-dangle
 let _logging = true
 
 const BehaviorType = {
@@ -12,7 +11,6 @@ const BehaviorType = {
 // TODO: Test that logging actually works
 const log = (text) => {
   if (_logging) {
-    // eslint-disable-next-line no-console
     console.warn(text)
   }
 }
@@ -46,7 +44,6 @@ export const update = (deltaTime) => {
   behaviorsToRemove = []
 
   behaviors.forEach((behavior) => {
-    // eslint-disable-next-line no-param-reassign
     behavior.counter += 1
     if (behavior.type === BehaviorType.ONCE) {
       if (behavior.counter === behavior.delay) {
@@ -71,6 +68,7 @@ export const once = (callback, delay = 1) => {
   if (!callback || typeof callback !== 'function') {
     throw new Error('The fist argument to l1.once needs to be a function')
   }
+
   const behavior = {
     callback,
     delay,
@@ -85,6 +83,7 @@ export const repeat = (callback, interval = 1) => {
   if (!callback || typeof callback !== 'function') {
     throw new Error('The fist argument to l1.repeat needs to be a function')
   }
+
   const behavior = {
     callback,
     interval,
@@ -95,17 +94,22 @@ export const repeat = (callback, interval = 1) => {
   return behavior
 }
 
-// eslint-disable-next-line no-shadow
-export const delay = (delay) => new Promise((res) => {
-  once(() => { res() }, delay)
-})
+export const delay = (delay) =>
+  new Promise((resolve) => {
+    once(() => {
+      resolve()
+    }, delay)
+  })
 
 export const sequence = (callback, interval, list) => {
-  return list
-    .reduce((p, item) => p.then(() => {
-      callback(item)
-      return delay(interval)
-    }), Promise.resolve())
+  return list.reduce(
+    (p, item) =>
+      p.then(() => {
+        callback(item)
+        return delay(interval)
+      }),
+    Promise.resolve(),
+  )
 }
 
 export const remove = (behavior) => {
@@ -115,10 +119,11 @@ export const remove = (behavior) => {
   } else {
     behaviorObject = behavior
   }
-  if (!behaviorObject) {
-    log(`level1: Tried to remove non-existent behavior: ${behavior}`)
-  } else {
+
+  if (behaviorObject) {
     behaviorsToRemove.push(behaviorObject)
+  } else {
+    log(`level1: Tried to remove non-existent behavior: ${behavior}`)
   }
 }
 
@@ -126,19 +131,18 @@ export const get = (id) => behaviors.find((behavior) => behavior.id === id)
 
 export const getAll = () => behaviors
 
-export const getByLabel = (label) => behaviors
-  .filter((behavior) => behavior.labels.includes(label))
+export const getByLabel = (label) =>
+  behaviors.filter((behavior) => behavior.labels.includes(label))
 
 // * Undocumented - Might be removed in the future
 export const reset = (behavior) => {
   if (typeof behavior === 'string') {
-    // eslint-disable-next-line no-param-reassign
     behavior = get(behavior)
   }
-  if (!behavior) {
-    log(`level1: Tried to reset non-existent behavior: ${behavior}`)
-  } else {
-    // eslint-disable-next-line no-param-reassign
+
+  if (behavior) {
     behavior.counter = 0
+  } else {
+    log(`level1: Tried to reset non-existent behavior: ${behavior}`)
   }
 }

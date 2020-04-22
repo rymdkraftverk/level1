@@ -49,7 +49,7 @@ TODO: Add example code here for easy copy paste. Move the argument docs to the a
 
 - [`delay(delay)`](docs/delay.md) - Resolves a promise after a delay.
 
-- [`sequence(callback, interval, list)`](docs/sequence.md) - Apply a callback to a list every `interval` updates. Returns a promise that will be resolved once all items in the list have been processed.
+- [`sequence(callback, interval, list)`](docs/sequence.md) - Apply a callback to an item in a list every `interval` updates. Returns a promise that will be resolved once all items in the list have been processed.
 
 ### Utils
 
