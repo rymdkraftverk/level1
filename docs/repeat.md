@@ -1,9 +1,3 @@
----
-name: repeat
----
-
-# repeat
-
 ```js
 l1.repeat(callback, [interval = 1])
 ```
@@ -12,13 +6,13 @@ Will execute a callback repeatedly every `interval` amount of game updates. Thin
 
 ## Arguments
 
-`callback` (Function): Executed every `interval` amount of game updates. Is called with one argument: `counter`, which is the amount of game updates since the behavior was created.
+`callback` (Function): Executed every `interval` amount of game updates. Is called with two arguments: `counter` (integer): the amount of game updates since the behavior was created. `deltaTime` (float): the time since the last update. The value is the same as the one passed to `update`. In `PixiJS` this number is `1` at 60 FPS.
 
 `interval` (Integer, optional): Game updates before executing the callback. 
 
 ## Returns
 
-(Object): The behavior instance. Has two properties that can be set:
+(Object): A `behavior` object. Has two properties that can be set:
 
 Option | Type | Description
 -- | -- | -- |
@@ -30,6 +24,9 @@ Option | Type | Description
 The behavior object will not be removed until you call `l1.remove`.
 
 ## Example 
+
+TODO: More examples and better examples
+TODO: Use ID and labels here
 
 ```js
 const sprite = new PIXI.Sprite()

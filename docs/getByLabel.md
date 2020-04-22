@@ -1,9 +1,3 @@
----
-name: getByLabel
----
-
-# getByType
-
 ```js
 l1.getByLabel(label)
 ```
@@ -17,3 +11,11 @@ Get behaviors by label.
 ## Returns
 
 (Array): Returns a list of found behaviors
+
+## Example
+
+```js
+const label = 'player'
+
+const behaviors = l1.getByLabel(label)
+```

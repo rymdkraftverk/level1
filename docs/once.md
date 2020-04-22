@@ -1,9 +1,3 @@
----
-name: once
----
-
-# once
-
 ```js
 l1.once(callback, [delay = 1])
 ```
@@ -12,7 +6,7 @@ Will execute a callback once after a `delay` amount of game updates. Think of it
 
 ## Arguments
 
-`callback` (Function): Executed when a `delay` amount of game updates has passed.
+`callback` (Function): Executed when a `delay` amount of game updates has passed. Has no arguments.
 
 `delay` (Integer, optional): Game updates before executing the callback. 
 
@@ -25,11 +19,13 @@ Option | Type | Description
 **id** | String | Used with `get` and `remove`
 **labels** | Array (String) | Used to group behaviors together
 
-## Misc
+## Note
 
-The behavior object will be removed on the next game update, once its callback is executed.
+After the callback is called the behavior will be removed on the next update
 
-## Example
+## Examples
+
+TODO: Better and more examples (less abstract examples)
 
 ```js
 const delay = 60

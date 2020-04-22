@@ -1,9 +1,3 @@
----
-name: delay
----
-
-# delay
-
 ```js
 l1.delay(delay)
 ```
@@ -21,12 +15,10 @@ An alternative to `l1.once`. Will resolve a promise after a `delay` amount of ga
 ## Example
 
 ```js
-const delay = 60
+const delayBeforeTransition = 60
 
-l1.delay(delay)
-  .then(() => {
-    // Do stuff here
-  })
+l1.delay(delayBeforeTransition)
+  .then(() => transitionToNextScreen())
 ```
 
 ## Source code
