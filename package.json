@@ -43,10 +43,10 @@
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "4.1.1",
-    "np": "6.2.1",
-    "rollup": "2.8.0",
+    "np": "6.2.3",
+    "rollup": "2.8.2",
     "tslib": "1.11.2",
     "typescript": "3.8.3",
-    "xo": "0.29.1"
+    "xo": "0.30.0"
   }
 }
