@@ -9,7 +9,8 @@
   "scripts": {
     "clean": "rm -f l1.tgz",
     "release": "yarn build && np --no-tests",
-    "build": "rm -rf dist && parcel build ./src/index.js",
+    "build": "rm -rf dist && rollup -c rollup.config.js",
+    "qa": "tsc && xo",
     "go": "yarn clean && yarn build && yarn pack --filename l1.tgz && cd example && yarn refresh && yarn test && cd -"
   },
   "repository": {
@@ -34,13 +35,18 @@
       "node"
     ],
     "rules": {
+      "@typescript-eslint/promise-function-async": "off",
+      "@typescript-eslint/restrict-template-expressions": "off",
       "unicorn/filename-case": "off",
       "capitalized-comments": "off"
     }
   },
   "devDependencies": {
+    "@rollup/plugin-typescript": "4.1.1",
     "np": "6.2.1",
-    "parcel": "2.0.0-alpha.3.2",
+    "rollup": "2.8.0",
+    "tslib": "1.11.2",
+    "typescript": "3.8.3",
     "xo": "0.29.1"
   }
 }

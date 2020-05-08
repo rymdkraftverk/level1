@@ -5,16 +5,15 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "parcel",
-    "refresh": "rm -rf node_modules && yarn",
-    "test": "ava"
+    "refresh": "yarn cache clean && yarn add file:../l1.tgz",
+    "test": "ava",
   },
   "ava": {
     "babel": true
   },
   "dependencies": {
-    "ava": "^3.3.0",
-    "l1": "file:../",
+    "ava": "3.8.1",
+    "l1": "file:../l1.tgz",
     "lodash": "4.17.15"
   },
   "devDependencies": {
