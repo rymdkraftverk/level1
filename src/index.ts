@@ -5,20 +5,23 @@ let _logging = true
 
 enum BehaviorType {
   ONCE = 'once',
-  REPEAT = 'repeat',
+  EVERY = 'every',
+  FOREVER = 'forever',
 }
 
 type onceCallback = () => void
-type repeatCallback = (updates: number, deltaTime: number) => void
+type foreverCallback = (updates: number, deltaTime: number) => void
+type everyCallback = (updates: number, deltaTime: number) => () => void
 
 type Behavior = {
   id: string | null
   labels: readonly string[]
   counter: number
-  readonly callback: onceCallback | repeatCallback
+  readonly callback: onceCallback | foreverCallback | everyCallback
   readonly type: BehaviorType
   readonly delay?: number
   readonly interval?: number
+  readonly duration?: number
 }
 
 // TODO: Test that logging actually works
@@ -68,10 +71,18 @@ export const update = (deltaTime: number): void => {
         behavior.callback()
         behaviorsToRemove.push(behavior)
       }
-    } else if (behavior.type === BehaviorType.REPEAT) {
+    } else if (behavior.type === BehaviorType.FOREVER) {
       // @ts-ignore
       if (behavior.counter % behavior.interval === 0) {
         behavior.callback(behavior.counter, deltaTime)
+      }
+    } else if (behavior.type === BehaviorType.EVERY) {
+      const onDone = behavior.callback(behavior.counter, deltaTime)
+      // @ts-ignore
+      if (behavior.counter === behavior.duration) {
+        // @ts-ignore
+        onDone()
+        remove(behavior)
       }
     }
   })
@@ -99,15 +110,33 @@ export const once = (callback: onceCallback, delay = 1): Behavior => {
   return behavior
 }
 
-export const repeat = (callback: repeatCallback, interval = 1): Behavior => {
+export const forever = (callback: foreverCallback, interval = 1): Behavior => {
   if (!callback) {
-    throw new Error('The fist argument to l1.repeat needs to be a function')
+    throw new Error('The fist argument to l1.forever needs to be a function')
   }
 
   const behavior = {
     callback,
     interval,
-    type: BehaviorType.REPEAT,
+    type: BehaviorType.FOREVER,
+    ...commonBehaviorProperties,
+  }
+  behaviorsToAdd.push(behavior)
+
+  return behavior
+}
+
+export const every = (callback: everyCallback, duration: number): Behavior => {
+  if (!callback || !duration) {
+    throw new Error(
+      'The fist argument to l1.every needs to be a function. The second one a duration',
+    )
+  }
+
+  const behavior = {
+    callback,
+    duration,
+    type: BehaviorType.EVERY,
     ...commonBehaviorProperties,
   }
   behaviorsToAdd.push(behavior)

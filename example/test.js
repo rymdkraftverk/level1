@@ -27,7 +27,7 @@ test.serial('sequence - interval 1', (t) => {
 
   let updates = 0
 
-  l1.repeat(() => {
+  l1.forever(() => {
     updates += 1
   })
 
@@ -58,7 +58,7 @@ test.serial('sequence - interval 2', (t) => {
 
   let updates = 0
 
-  l1.repeat(() => {
+  l1.forever(() => {
     updates += 1
   })
 
@@ -91,7 +91,7 @@ test.serial('sequence - interval 3', (t) => {
 
   let updates = 0
 
-  l1.repeat(() => {
+  l1.forever(() => {
     updates += 1
   })
 
@@ -122,10 +122,10 @@ test('throw error', (t) => {
   t.throws(l1.update)
 })
 
-test('repeat - default interval', (t) => {
+test('forever - default interval', (t) => {
   let counter = 0
 
-  l1.repeat(() => {
+  l1.forever(() => {
     counter += 1
   })
 
@@ -134,10 +134,10 @@ test('repeat - default interval', (t) => {
   t.is(counter, 10)
 })
 
-test('repeat - interval 2', (t) => {
+test('forever - interval 2', (t) => {
   let counter = 0
 
-  l1.repeat(() => {
+  l1.forever(() => {
     counter += 1
   }, 2)
 
@@ -146,12 +146,12 @@ test('repeat - interval 2', (t) => {
   t.is(counter, 10)
 })
 
-test('repeat - arguments: counter, deltaTime', (t) => {
+test('forever - arguments: counter, deltaTime', (t) => {
   const result = {
     counter: null,
     deltaTime: null,
   }
-  l1.repeat((counter, deltaTime) => {
+  l1.forever((counter, deltaTime) => {
     result.counter = counter
     result.deltaTime = deltaTime
   }, 2)
@@ -164,9 +164,41 @@ test('repeat - arguments: counter, deltaTime', (t) => {
   t.is(result.deltaTime, 16.66)
 })
 
-test('repeat - throw error if no callback', (t) => {
+test('forever - throw error if no callback', (t) => {
   // @ts-ignore
-  t.throws(l1.repeat)
+  t.throws(l1.forever)
+})
+
+test('every - runs every tick, automatically removed after duration', (t) => {
+  const id = 'every'
+  const duration = 2
+
+  let counter = 0
+  let done = false
+
+  // eslint-disable-next-line array-callback-return
+  const behavior = l1.every(() => {
+    counter += 1
+    return () => {
+      done = true
+    }
+  }, duration)
+  behavior.id = id
+
+  l1.update(deltaTime)
+  t.is(counter, 1)
+  t.is(done, false)
+  t.is(l1.get('every'), behavior)
+
+  l1.update(deltaTime)
+  t.is(counter, 2)
+  t.is(done, true)
+  t.is(l1.get('every'), behavior)
+
+  l1.update(deltaTime)
+  t.is(counter, 2)
+  t.is(done, true)
+  t.is(l1.get('every'), undefined)
 })
 
 test('once - default delay', (t) => {
