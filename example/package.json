@@ -7,6 +7,7 @@
   "scripts": {
     "refresh": "yarn cache clean && yarn add file:../l1.tgz",
     "test": "ava",
+    "perf": "node performance.js"
   },
   "ava": {
     "babel": true
