@@ -35,6 +35,9 @@ type Options = {
   readonly logging: boolean
 }
 
+/**
+ * Configure level1
+ */
 export const init = (options: Options): void => {
   if (!options) {
     throw new Error('level1: The first argument to init is an options object')
@@ -45,6 +48,9 @@ export const init = (options: Options): void => {
   _logging = logging
 }
 
+/**
+ * Needs to be called on every game update.
+ */
 export const update = (deltaTime: number): void => {
   behaviorsToAdd.forEach((behaviorToAdd: Readonly<Behavior>) => {
     behaviors.push(behaviorToAdd)
@@ -94,6 +100,9 @@ const commonBehaviorProperties = {
   counter: 0,
 }
 
+/**
+ * Call a function once after a delay.
+ */
 export const once = (callback: onceCallback, delay = 1): Behavior => {
   if (!callback) {
     throw new Error('The fist argument to l1.once needs to be a function')
@@ -110,6 +119,9 @@ export const once = (callback: onceCallback, delay = 1): Behavior => {
   return behavior
 }
 
+/**
+ * Call a function forever, each interval game update
+ */
 export const forever = (callback: foreverCallback, interval = 1): Behavior => {
   if (!callback) {
     throw new Error('The fist argument to l1.forever needs to be a function')
@@ -126,6 +138,9 @@ export const forever = (callback: foreverCallback, interval = 1): Behavior => {
   return behavior
 }
 
+/**
+ * Call a function `every` update until duration is reached
+ */
 export const every = (callback: everyCallback, duration: number): Behavior => {
   if (!callback || !duration) {
     throw new Error(
@@ -144,6 +159,9 @@ export const every = (callback: everyCallback, duration: number): Behavior => {
   return behavior
 }
 
+/**
+ * Resolves a promise after a delay
+ */
 export const delay = (delay = 1): Promise<void> =>
   new Promise((resolve) => {
     once(() => {
@@ -157,6 +175,9 @@ type sequence<T> = (
   list: readonly T[],
 ) => Promise<void>
 
+/**
+ * Apply a callback to an item in a list every interval updates.
+ */
 export const sequence = <T>(
   callback: (item: T) => void,
   interval: number,
@@ -172,6 +193,9 @@ export const sequence = <T>(
   )
 }
 
+/**
+ * Remove a behavior
+ */
 export const remove = (behavior: string | Behavior): void => {
   let behaviorObject
   if (typeof behavior === 'string') {
@@ -188,11 +212,20 @@ export const remove = (behavior: string | Behavior): void => {
   }
 }
 
+/**
+ * Get a behavior by id
+ */
 export const get = (id: string) =>
   behaviors.find((behavior: Readonly<Behavior>) => behavior.id === id)
 
+/**
+ * Get all behaviors
+ */
 export const getAll = (): Behavior[] => behaviors
 
+/**
+ * Get a behavior by label
+ */
 export const getByLabel = (label: string) =>
   behaviors.filter((behavior: Readonly<Behavior>) =>
     behavior.labels.includes(label),
