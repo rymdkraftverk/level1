@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "clean": "rm -f l1.tgz",
-    "release": "yarn build && yarn audit && np --no-tests",
+    "release": "yarn build && np --no-tests",
     "build": "rm -rf dist && rollup -c rollup.config.js",
     "qa": "tsc && xo",
     "go": "yarn clean && yarn build && yarn pack --filename l1.tgz && cd example && yarn refresh && yarn test && cd -"

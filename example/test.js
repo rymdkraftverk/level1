@@ -176,7 +176,6 @@ test('every - runs every tick, automatically removed after duration', (t) => {
   let counter = 0
   let done = false
 
-  // eslint-disable-next-line array-callback-return
   const behavior = l1.every(() => {
     counter += 1
     return () => {

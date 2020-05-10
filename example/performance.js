@@ -14,7 +14,11 @@ const _update = () => {
 }
 
 const _get = () => {
-  _.times((index) => (forever(() => {}).id = `id-${index}`), 1000)
+  _.times((index) => {
+    const behavior = forever(() => {})
+    behavior.id = `id-${index}`
+    return behavior
+  }, 1000)
   const before = performance.now()
   _.times((index) => get(`id-${index}`), 1000)
   const after = performance.now()
@@ -24,5 +28,3 @@ const _get = () => {
 
 _update()
 _get()
-
-// TODO: Check how many times the functions can be called during 1 sec?
