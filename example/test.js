@@ -200,6 +200,35 @@ test('every - runs every tick, automatically removed after duration', (t) => {
   t.is(l1.get('every'), undefined)
 })
 
+test('every - without return', (t) => {
+  const id = 'every'
+  const duration = 2
+
+  let counter = 0
+  const done = false
+
+  // eslint-disable-next-line array-callback-return
+  const behavior = l1.every(() => {
+    counter += 1
+  }, duration)
+  behavior.id = id
+
+  l1.update(deltaTime)
+  t.is(counter, 1)
+  t.is(done, false)
+  t.is(l1.get('every'), behavior)
+
+  l1.update(deltaTime)
+  t.is(counter, 2)
+  t.is(done, false)
+  t.is(l1.get('every'), behavior)
+
+  l1.update(deltaTime)
+  t.is(counter, 2)
+  t.is(done, false)
+  t.is(l1.get('every'), undefined)
+})
+
 test('once - default delay', (t) => {
   let done = false
 

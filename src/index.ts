@@ -84,10 +84,11 @@ export const update = (deltaTime: number): void => {
       }
     } else if (behavior.type === BehaviorType.EVERY) {
       const onDone = behavior.callback(behavior.counter, deltaTime)
-      // @ts-ignore
       if (behavior.counter === behavior.duration) {
-        // @ts-ignore
-        onDone()
+        if (onDone) {
+          onDone()
+        }
+
         remove(behavior)
       }
     }
