@@ -11,7 +11,7 @@ enum BehaviorType {
 
 type onceCallback = () => void
 type foreverCallback = (updates: number, deltaTime: number) => void
-type everyCallback = (updates: number, deltaTime: number) => () => void
+type everyCallback = (updates: number, deltaTime: number) => (() => void) | void
 
 type Behavior = {
   id: string | null
