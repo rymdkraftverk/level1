@@ -11,7 +11,10 @@ enum BehaviorType {
 
 type onceCallback = () => void
 type foreverCallback = (updates: number, deltaTime: number) => void
-type everyCallback = (updates: number, deltaTime: number) => (() => void) | void
+type everyCallback = (
+  updates: number,
+  deltaTime: number,
+) => (() => void) | undefined
 
 type Behavior = {
   id: string | null
@@ -68,17 +71,16 @@ export const update = (deltaTime: number): void => {
 
   behaviorsToRemove = []
 
-  // eslint-disable-next-line @typescript-eslint/prefer-readonly-parameter-types
   behaviors.forEach((behavior) => {
     behavior.counter += 1
     if (behavior.type === BehaviorType.ONCE) {
       if (behavior.counter === behavior.delay) {
-        // @ts-ignore
+        // @ts-expect-error
         behavior.callback()
         behaviorsToRemove.push(behavior)
       }
     } else if (behavior.type === BehaviorType.FOREVER) {
-      // @ts-ignore
+      // @ts-expect-error
       if (behavior.counter % behavior.interval === 0) {
         behavior.callback(behavior.counter, deltaTime)
       }
@@ -184,6 +186,7 @@ export const sequence = <T>(
   interval: number,
   list: readonly T[],
 ): Promise<void> => {
+  // eslint-disable-next-line unicorn/no-reduce
   return list.reduce(
     (p: Readonly<Promise<void>>, item: T) =>
       p.then(() => {
