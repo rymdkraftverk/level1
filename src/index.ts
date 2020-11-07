@@ -9,14 +9,14 @@ enum BehaviorType {
   FOREVER = 'forever',
 }
 
-type onceCallback = () => void
-type foreverCallback = (updates: number, deltaTime: number) => void
-type everyCallback = (
+export type onceCallback = () => void
+export type foreverCallback = (updates: number, deltaTime: number) => void
+export type everyCallback = (
   updates: number,
   deltaTime: number,
 ) => (() => void) | undefined
 
-type Behavior = {
+export type Behavior = {
   id: string | null
   labels: readonly string[]
   counter: number
@@ -34,7 +34,7 @@ const log = (text: string) => {
   }
 }
 
-type Options = {
+export type Options = {
   readonly logging: boolean
 }
 
