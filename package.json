@@ -4,14 +4,13 @@
   "description": "Delayed and repeated code execution for games",
   "main": "./dist/index.js",
   "files": [
-    "/dist/*"
+    "/dist"
   ],
   "scripts": {
-    "clean": "rm -f l1.tgz",
-    "release": "yarn clean && yarn audit && yarn build && np --no-tests",
-    "build": "rm -rf dist && rollup -c rollup.config.js",
+    "release": "yarn build && np --no-tests",
+    "build": "rm -rf dist && tsc",
     "qa": "tsc && xo",
-    "go": "yarn clean && yarn build && yarn pack --filename l1.tgz && cd example && yarn refresh && yarn test && cd -"
+    "test": "yarn build && preview && ava && node performance.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +25,14 @@
     "singleQuote": true,
     "useTabs": false,
     "bracketSpacing": true
+  },
+  "ava": {
+    "require": [
+      "ts-node/register"
+    ],
+    "extensions": [
+      "ts"
+    ]
   },
   "xo": {
     "prettier": true,
@@ -42,11 +49,14 @@
     }
   },
   "devDependencies": {
-    "@rollup/plugin-typescript": "8.1.0",
-    "np": "7.1.0",
-    "rollup": "2.35.1",
-    "tslib": "2.0.3",
-    "typescript": "4.1.3",
+    "@types/lodash": "^4.14.171",
+    "@types/node": "^16.4.3",
+    "ava": "^3.15.0",
+    "lodash": "^4.17.21",
+    "np": "7.5.0",
+    "package-preview": "4.0.0",
+    "ts-node": "^10.1.0",
+    "typescript": "4.3.5",
     "xo": "0.36.1"
   }
 }

@@ -2,114 +2,7 @@ import * as l1 from 'l1'
 import _ from 'lodash/fp'
 import test from 'ava'
 
-const mockAsyncTicker = (updateFn) =>
-  new Promise((resolve) => {
-    updateFn()
-    resolve()
-  })
-
 const deltaTime = 16.666
-
-// * Running the sequence tests concurrently is causing problems
-test.serial('sequence - interval 1', (t) => {
-  const callback = (notification) => {
-    if (updates === 1) {
-      t.is(notification, 'Hello')
-    } else if (updates === 2) {
-      t.is(notification, 'Goodbye')
-    } else if (updates === 3) {
-      t.is(notification, 'Hello again!')
-    }
-  }
-
-  const interval = 1
-  const notifications = ['Hello', 'Goodbye', 'Hello again!']
-
-  let updates = 0
-
-  l1.forever(() => {
-    updates += 1
-  })
-
-  const done = l1.sequence(callback, interval, notifications)
-
-  mockAsyncTicker(l1.update)
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-
-  return done
-})
-
-test.serial('sequence - interval 2', (t) => {
-  const callback = (notification) => {
-    if (updates === 1) {
-      t.is(notification, 'Hello')
-    } else if (updates === 3) {
-      t.is(notification, 'Goodbye')
-    } else if (updates === 5) {
-      t.is(notification, 'Hello again!')
-    }
-  }
-
-  const interval = 2
-  const notifications = ['Hello', 'Goodbye', 'Hello again!']
-
-  let updates = 0
-
-  l1.forever(() => {
-    updates += 1
-  })
-
-  const done = l1.sequence(callback, interval, notifications)
-
-  mockAsyncTicker(l1.update)
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-
-  return done
-})
-
-test.serial('sequence - interval 3', (t) => {
-  const callback = (notification) => {
-    if (updates === 1) {
-      t.is(notification, 'Hello')
-    } else if (updates === 4) {
-      t.is(notification, 'Goodbye')
-    } else if (updates === 7) {
-      t.is(notification, 'Hello again!')
-    }
-  }
-
-  const interval = 3
-  const notifications = ['Hello', 'Goodbye', 'Hello again!']
-
-  let updates = 0
-
-  l1.forever(() => {
-    updates += 1
-  })
-
-  const done = l1.sequence(callback, interval, notifications)
-
-  mockAsyncTicker(l1.update)
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-    .then(() => mockAsyncTicker(l1.update))
-
-  return done
-})
 
 test('throw error', (t) => {
   // * Throw error after 5 updates
@@ -118,8 +11,7 @@ test('throw error', (t) => {
   }, 5)
 
   _.times(l1.update, 4)
-  // @ts-ignore
-  t.throws(l1.update)
+  t.throws(() => l1.update(deltaTime))
 })
 
 test('forever - default interval', (t) => {
@@ -147,9 +39,9 @@ test('forever - interval 2', (t) => {
 })
 
 test('forever - arguments: counter, deltaTime', (t) => {
-  const result = {
-    counter: null,
-    deltaTime: null,
+  const result: { counter?: number; deltaTime?: number } = {
+    counter: undefined,
+    deltaTime: undefined,
   }
   l1.forever((counter, deltaTime) => {
     result.counter = counter
@@ -164,11 +56,6 @@ test('forever - arguments: counter, deltaTime', (t) => {
   t.is(result.deltaTime, 16.66)
 })
 
-test('forever - throw error if no callback', (t) => {
-  // @ts-ignore
-  t.throws(l1.forever)
-})
-
 test('every - runs every tick, automatically removed after duration', (t) => {
   const id = 'every'
   const duration = 2
@@ -176,13 +63,16 @@ test('every - runs every tick, automatically removed after duration', (t) => {
   let counter = 0
   let done = false
 
-  const behavior = l1.every(() => {
-    counter += 1
-    return () => {
-      done = true
-    }
-  }, duration)
-  behavior.id = id
+  const behavior = l1.every(
+    () => {
+      counter += 1
+      return () => {
+        done = true
+      }
+    },
+    duration,
+    { id },
+  )
 
   l1.update(deltaTime)
   t.is(counter, 1)
@@ -208,10 +98,13 @@ test('every - without return', (t) => {
   const done = false
 
   // eslint-disable-next-line array-callback-return
-  const behavior = l1.every(() => {
-    counter += 1
-  }, duration)
-  behavior.id = id
+  const behavior = l1.every(
+    (_updates, _deltaTime) => {
+      counter += 1
+    },
+    duration,
+    { id },
+  )
 
   l1.update(deltaTime)
   t.is(counter, 1)
@@ -311,11 +204,6 @@ test('once - from once', (t) => {
   t.is(done, true)
 })
 
-test('once - throw error if no callback', (t) => {
-  // @ts-ignore
-  t.throws(l1.once)
-})
-
 test('init', (t) => {
   l1.init({ logging: false })
 
@@ -334,8 +222,7 @@ test('init', (t) => {
 
 test('get', (t) => {
   const id = 'An id'
-  const behavior = l1.once(() => {})
-  behavior.id = id
+  const behavior = l1.once(() => {}, 1, { id })
 
   // * update loop needs to run once
   l1.update(deltaTime)
@@ -356,8 +243,7 @@ test('getByLabel', (t) => {
 
 test('remove - id', (t) => {
   const id = 'An id'
-  const behavior = l1.once(() => {})
-  behavior.id = id
+  const behavior = l1.once(() => {}, 1, { id })
 
   l1.update(deltaTime)
 
@@ -373,8 +259,7 @@ test('remove - id', (t) => {
 
 test('remove - behavior object', (t) => {
   const id = 'An id'
-  const behavior = l1.once(() => {})
-  behavior.id = id
+  const behavior = l1.once(() => {}, 1, { id })
 
   l1.update(deltaTime)
 

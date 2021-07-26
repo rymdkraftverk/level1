@@ -15,8 +15,7 @@ const _update = () => {
 
 const _get = () => {
   _.times((index) => {
-    const behavior = forever(() => {})
-    behavior.id = `id-${index}`
+    const behavior = forever(() => {}, 1, { id: `id-${index}` })
     return behavior
   }, 1000)
   const before = performance.now()

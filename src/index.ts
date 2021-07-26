@@ -2,6 +2,7 @@ const behaviors: Behavior[] = []
 let behaviorsToAdd: Behavior[] = []
 let behaviorsToRemove: Behavior[] = []
 let _logging = true
+const mapIdToBehavior: Record<string, Behavior> = {}
 
 enum BehaviorType {
   ONCE = 'once',
@@ -14,10 +15,11 @@ export type foreverCallback = (updates: number, deltaTime: number) => void
 export type everyCallback = (
   updates: number,
   deltaTime: number,
-) => (() => void) | undefined
+) => void | (() => void)
 
+// TODO: Split this into 3 subtypes
 export type Behavior = {
-  id: string | null
+  id?: string
   labels: readonly string[]
   counter: number
   readonly callback: onceCallback | foreverCallback | everyCallback
@@ -42,10 +44,6 @@ export type Options = {
  * Configure level1
  */
 export const init = (options: Options): void => {
-  if (!options) {
-    throw new Error('level1: The first argument to init is an options object')
-  }
-
   const { logging = true } = options
 
   _logging = logging
@@ -55,23 +53,26 @@ export const init = (options: Options): void => {
  * Needs to be called on every game update.
  */
 export const update = (deltaTime: number): void => {
-  behaviorsToAdd.forEach((behaviorToAdd: Readonly<Behavior>) => {
+  for (const behaviorToAdd of behaviorsToAdd) {
     behaviors.push(behaviorToAdd)
-  })
+  }
 
   behaviorsToAdd = []
 
-  behaviorsToRemove.forEach((behaviorToRemove: Readonly<Behavior>) => {
-    // * Mutate original array for performance reasons
+  for (const behaviorToRemove of behaviorsToRemove) {
+    if (behaviorToRemove.id) {
+      delete mapIdToBehavior[behaviorToRemove.id]
+    }
+
     const indexToRemove = behaviors.indexOf(behaviorToRemove)
     if (indexToRemove >= 0) {
       behaviors.splice(indexToRemove, 1)
     }
-  })
+  }
 
   behaviorsToRemove = []
 
-  behaviors.forEach((behavior) => {
+  for (const behavior of behaviors) {
     behavior.counter += 1
     if (behavior.type === BehaviorType.ONCE) {
       if (behavior.counter === behavior.delay) {
@@ -91,33 +92,33 @@ export const update = (deltaTime: number): void => {
           onDone()
         }
 
-        remove(behavior)
+        behaviorsToRemove.push(behavior)
       }
     }
-  })
-}
-
-const commonBehaviorProperties = {
-  id: null,
-  labels: [],
-  counter: 0,
+  }
 }
 
 /**
  * Call a function once after a delay.
  */
-export const once = (callback: onceCallback, delay = 1): Behavior => {
-  if (!callback) {
-    throw new Error('The fist argument to l1.once needs to be a function')
-  }
-
+export const once = (
+  callback: onceCallback,
+  delay = 1,
+  options: BehaviorOptions = {},
+): Behavior => {
   const behavior = {
     callback,
     delay,
     type: BehaviorType.ONCE,
-    ...commonBehaviorProperties,
+    id: options.id,
+    labels: options.labels || [],
+    counter: 0,
   }
   behaviorsToAdd.push(behavior)
+
+  if (options.id) {
+    mapIdToBehavior[options.id] = behavior
+  }
 
   return behavior
 }
@@ -125,39 +126,54 @@ export const once = (callback: onceCallback, delay = 1): Behavior => {
 /**
  * Call a function forever, each interval game update
  */
-export const forever = (callback: foreverCallback, interval = 1): Behavior => {
-  if (!callback) {
-    throw new Error('The fist argument to l1.forever needs to be a function')
-  }
-
+export const forever = (
+  callback: foreverCallback,
+  interval = 1,
+  options: BehaviorOptions = {},
+): Behavior => {
   const behavior = {
     callback,
     interval,
     type: BehaviorType.FOREVER,
-    ...commonBehaviorProperties,
+    id: options.id,
+    labels: options.labels || [],
+    counter: 0,
   }
   behaviorsToAdd.push(behavior)
 
+  if (options.id) {
+    mapIdToBehavior[options.id] = behavior
+  }
+
   return behavior
+}
+
+type BehaviorOptions = {
+  id?: string
+  labels?: string[]
 }
 
 /**
  * Call a function `every` update until duration is reached
  */
-export const every = (callback: everyCallback, duration: number): Behavior => {
-  if (!callback || !duration) {
-    throw new Error(
-      'The fist argument to l1.every needs to be a function. The second one a duration',
-    )
-  }
-
+export const every = (
+  callback: everyCallback,
+  duration: number,
+  options: BehaviorOptions = {},
+): Behavior => {
   const behavior = {
     callback,
     duration,
     type: BehaviorType.EVERY,
-    ...commonBehaviorProperties,
+    id: options.id,
+    labels: options.labels || [],
+    counter: 0,
   }
   behaviorsToAdd.push(behavior)
+
+  if (options.id) {
+    mapIdToBehavior[options.id] = behavior
+  }
 
   return behavior
 }
@@ -171,31 +187,6 @@ export const delay = (delay = 1): Promise<void> =>
       resolve()
     }, delay)
   })
-
-type sequence<T> = (
-  callback: (item: T) => void,
-  interval: number,
-  list: readonly T[],
-) => Promise<void>
-
-/**
- * Apply a callback to an item in a list every interval updates.
- */
-export const sequence = <T>(
-  callback: (item: T) => void,
-  interval: number,
-  list: readonly T[],
-): Promise<void> => {
-  // eslint-disable-next-line unicorn/no-reduce
-  return list.reduce(
-    (p: Readonly<Promise<void>>, item: T) =>
-      p.then(() => {
-        callback(item)
-        return delay(interval)
-      }),
-    Promise.resolve(),
-  )
-}
 
 /**
  * Remove a behavior
@@ -219,18 +210,20 @@ export const remove = (behavior: string | Behavior): void => {
 /**
  * Get a behavior by id
  */
-export const get = (id: string) =>
-  behaviors.find((behavior: Readonly<Behavior>) => behavior.id === id)
+export const get = (id: string): Behavior | undefined => mapIdToBehavior[id]
 
 /**
  * Get all behaviors
  */
 export const getAll = (): Behavior[] => behaviors
 
+// TODO: Index this one
 /**
  * Get a behavior by label
+ *
+ * This is currently not indexed and very slow
  */
-export const getByLabel = (label: string) =>
+export const getByLabel = (label: string): Behavior[] =>
   behaviors.filter((behavior: Readonly<Behavior>) =>
     behavior.labels.includes(label),
   )
