@@ -7,11 +7,11 @@
     "/dist"
   ],
   "scripts": {
-    "version": "yarn build",
+    "version": "npm run build",
     "release": "np --no-tests --no-yarn",
     "build": "rm -rf dist && tsc",
     "qa": "tsc && xo",
-    "test": "yarn build && preview && ava && node performance.js"
+    "test": "npm run build && preview && ava && node performance.js"
   },
   "repository": {
     "type": "git",
