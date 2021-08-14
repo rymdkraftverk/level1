@@ -53,10 +53,7 @@ export const init = (options: Options): void => {
  * Needs to be called on every game update.
  */
 export const update = (deltaTime: number): void => {
-  for (const behaviorToAdd of behaviorsToAdd) {
-    behaviors.push(behaviorToAdd)
-  }
-
+  behaviors.push(...behaviorsToAdd)
   behaviorsToAdd = []
 
   for (const behaviorToRemove of behaviorsToRemove) {
