@@ -19,7 +19,7 @@ test('forever - default interval', (t) => {
 
   l1.forever(() => {
     counter += 1
-  })
+  }, 1)
 
   _.times(l1.update, 10)
 
@@ -127,7 +127,7 @@ test('once - default delay', (t) => {
 
   l1.once(() => {
     done = true
-  })
+  }, 1)
 
   t.is(done, false)
 
@@ -192,7 +192,7 @@ test('once - from once', (t) => {
   l1.once(() => {
     l1.once(() => {
       done = true
-    })
+    }, 1)
   }, 5)
 
   _.times(l1.update, 5)
@@ -211,7 +211,7 @@ test('init', (t) => {
 
   l1.once(() => {
     done = true
-  })
+  }, 1)
 
   t.is(done, false)
 
@@ -232,7 +232,7 @@ test('get', (t) => {
 
 test('getByLabel', (t) => {
   const label = 'A label'
-  const behavior = l1.once(() => {})
+  const behavior = l1.once(() => {}, 1)
   behavior.labels = [label]
 
   // * update loop needs to run once

@@ -100,7 +100,7 @@ export const update = (deltaTime: number): void => {
  */
 export const once = (
   callback: onceCallback,
-  delay = 1,
+  delay: number,
   options: BehaviorOptions = {},
 ): Behavior => {
   const behavior = {
@@ -125,7 +125,7 @@ export const once = (
  */
 export const forever = (
   callback: foreverCallback,
-  interval = 1,
+  interval: number,
   options: BehaviorOptions = {},
 ): Behavior => {
   const behavior = {

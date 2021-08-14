@@ -5,7 +5,7 @@ const _ = require('lodash/fp')
 const { performance } = require('perf_hooks')
 
 const _update = () => {
-  _.times(() => forever(() => {}), 1000)
+  _.times(() => forever(() => {}, 1), 1000)
   const before = performance.now()
   _.times(update, 120)
   const after = performance.now()
