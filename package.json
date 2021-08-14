@@ -11,7 +11,8 @@
     "release": "np --no-tests --no-yarn",
     "build": "rm -rf dist && tsc",
     "qa": "tsc && xo",
-    "test": "npm run build && preview && ava && node performance.js"
+    "go": "npm run build && preview && npm test",
+    "test": "ava && node performance.js"
   },
   "repository": {
     "type": "git",
