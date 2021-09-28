@@ -17,17 +17,29 @@ export type everyCallback = (
   deltaTime: number,
 ) => void | (() => void)
 
-// TODO: Split this into 3 subtypes
-export type Behavior = {
+type SharedBehaviorProperties = {
   id?: string
-  labels: readonly string[]
+  labels: string[]
   counter: number
-  readonly callback: onceCallback | foreverCallback | everyCallback
-  readonly type: BehaviorType
-  readonly delay?: number
-  readonly interval?: number
-  readonly duration?: number
 }
+
+export type Once = SharedBehaviorProperties & {
+  callback: onceCallback
+  type: BehaviorType.ONCE
+  delay: number
+}
+export type Forever = SharedBehaviorProperties & {
+  callback: foreverCallback
+  type: BehaviorType.FOREVER
+  interval: number
+}
+export type Every = SharedBehaviorProperties & {
+  callback: everyCallback
+  type: BehaviorType.EVERY
+  duration: number
+}
+
+export type Behavior = Once | Forever | Every
 
 // TODO: Test that logging actually works
 const log = (text: string) => {
@@ -37,7 +49,7 @@ const log = (text: string) => {
 }
 
 export type Options = {
-  readonly logging: boolean
+  logging: boolean
 }
 
 /**
@@ -73,12 +85,10 @@ export const update = (deltaTime: number): void => {
     behavior.counter += 1
     if (behavior.type === BehaviorType.ONCE) {
       if (behavior.counter === behavior.delay) {
-        // @ts-expect-error
         behavior.callback()
         behaviorsToRemove.push(behavior)
       }
     } else if (behavior.type === BehaviorType.FOREVER) {
-      // @ts-expect-error
       if (behavior.counter % behavior.interval === 0) {
         behavior.callback(behavior.counter, deltaTime)
       }
@@ -103,7 +113,7 @@ export const once = (
   delay: number,
   options: BehaviorOptions = {},
 ): Behavior => {
-  const behavior = {
+  const behavior: Once = {
     callback,
     delay,
     type: BehaviorType.ONCE,
@@ -128,7 +138,7 @@ export const forever = (
   interval: number,
   options: BehaviorOptions = {},
 ): Behavior => {
-  const behavior = {
+  const behavior: Forever = {
     callback,
     interval,
     type: BehaviorType.FOREVER,
@@ -158,7 +168,7 @@ export const every = (
   duration: number,
   options: BehaviorOptions = {},
 ): Behavior => {
-  const behavior = {
+  const behavior: Every = {
     callback,
     duration,
     type: BehaviorType.EVERY,
