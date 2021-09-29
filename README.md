@@ -213,6 +213,19 @@ l1.init({ logging: false })
 app.ticker.add(l1.update)
 ```
 
+### **Use delay in a loop**
+
+Use a `for..of` loop
+
+```js
+import * as l1 from 'l1'
+
+for (const item of list) {
+  doStuff(item)
+  await l1.delay(50)
+}
+```
+
 ---
 
 ## Other useful tools
