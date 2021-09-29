@@ -33,8 +33,6 @@ _These docs use `pixi.js` `ticker` as an example, but `level1` can be used with 
 
 ## API
 
-### Basic
-
 - [`l1.once(callback, delay)`](docs/once.md) - Call a function `once` after a delay.
 
 ```js
@@ -62,13 +60,9 @@ l1.every(() => {
 }, duration)
 ```
 
-- [`update(deltaTime)`](docs/update.md) - Needs to be called on every game update.
-
-### Advanced
-
 - [`delay(delay)`](docs/delay.md) - Resolves a promise after a delay.
 
-- [`sequence(callback, interval, list)`](docs/sequence.md) - Apply a callback to an item in a list every `interval` updates. Returns a promise that will be resolved once all items in the list have been processed.
+- [`update(deltaTime)`](docs/update.md) - Needs to be called on every game update.s
 
 ### Utils
 
