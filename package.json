@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "version": "npm run build",
-    "release": "npm run qa && np --no-yarn",
+    "release": "npm run qa && np --no-tests --no-yarn",
     "build": "rm -rf dist && tsc",
     "qa": "tsc && xo --fix",
     "go": "npm run build && preview && npm test",
