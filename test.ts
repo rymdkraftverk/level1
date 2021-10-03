@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import * as l1 from 'l1'
 import _ from 'lodash/fp'
 import test from 'ava'
@@ -97,8 +98,8 @@ test('every - without return', (t) => {
   let counter = 0
   const done = false
 
-  // eslint-disable-next-line array-callback-return
   const behavior = l1.every(
+    // eslint-disable-next-line array-callback-return
     (_updates, _deltaTime) => {
       counter += 1
     },
@@ -222,7 +223,13 @@ test('init', (t) => {
 
 test('get', (t) => {
   const id = 'An id'
-  const behavior = l1.once(() => {}, 1, { id })
+  const behavior = l1.once(
+    () => {
+      // empty
+    },
+    1,
+    { id },
+  )
 
   // * update loop needs to run once
   l1.update(deltaTime)
@@ -232,7 +239,9 @@ test('get', (t) => {
 
 test('getByLabel', (t) => {
   const label = 'A label'
-  const behavior = l1.once(() => {}, 1)
+  const behavior = l1.once(() => {
+    // empty
+  }, 1)
   behavior.labels = [label]
 
   // * update loop needs to run once
@@ -243,7 +252,13 @@ test('getByLabel', (t) => {
 
 test('remove - id', (t) => {
   const id = 'An id'
-  const behavior = l1.once(() => {}, 1, { id })
+  const behavior = l1.once(
+    () => {
+      // empty
+    },
+    1,
+    { id },
+  )
 
   l1.update(deltaTime)
 
@@ -259,7 +274,13 @@ test('remove - id', (t) => {
 
 test('remove - behavior object', (t) => {
   const id = 'An id'
-  const behavior = l1.once(() => {}, 1, { id })
+  const behavior = l1.once(
+    () => {
+      // empty
+    },
+    1,
+    { id },
+  )
 
   l1.update(deltaTime)
 
