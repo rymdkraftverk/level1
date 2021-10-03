@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import * as l1 from 'l1'
 import _ from 'lodash/fp'
 import test from 'ava'
