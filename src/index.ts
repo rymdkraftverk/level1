@@ -118,7 +118,7 @@ export const once = (
     delay,
     type: BehaviorType.ONCE,
     id: options.id,
-    labels: options.labels || [],
+    labels: options.labels ?? [],
     counter: 0,
   }
   behaviorsToAdd.push(behavior)
@@ -143,7 +143,7 @@ export const forever = (
     interval,
     type: BehaviorType.FOREVER,
     id: options.id,
-    labels: options.labels || [],
+    labels: options.labels ?? [],
     counter: 0,
   }
   behaviorsToAdd.push(behavior)
@@ -173,7 +173,7 @@ export const every = (
     duration,
     type: BehaviorType.EVERY,
     id: options.id,
-    labels: options.labels || [],
+    labels: options.labels ?? [],
     counter: 0,
   }
   behaviorsToAdd.push(behavior)
@@ -199,12 +199,7 @@ export const delay = (delay = 1): Promise<void> =>
  * Remove a behavior
  */
 export const remove = (behavior: string | Behavior): void => {
-  let behaviorObject
-  if (typeof behavior === 'string') {
-    behaviorObject = get(behavior)
-  } else {
-    behaviorObject = behavior
-  }
+  const behaviorObject = typeof behavior === 'string' ? get(behavior) : behavior
 
   if (behaviorObject) {
     behaviorsToRemove.push(behaviorObject)
