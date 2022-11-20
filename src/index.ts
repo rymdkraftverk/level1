@@ -229,3 +229,16 @@ export const getByLabel = (label: string): Behavior[] =>
   behaviors.filter((behavior: Readonly<Behavior>) =>
     behavior.labels.includes(label),
   )
+
+export default {
+  once,
+  forever,
+  every,
+  init,
+  update,
+  delay,
+  remove,
+  get,
+  getAll,
+  getByLabel,
+}
