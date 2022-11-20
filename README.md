@@ -33,7 +33,7 @@ _These docs use `pixi.js` `ticker` as an example, but `level1` can be used with 
 
 ## API
 
-- [`l1.once(callback, delay)`](docs/once.md) - Call a function `once` after a delay.
+- [`l1.once(callback, delay)`](docs/once.md) - Call a function `once` after a delay
 
 ```js
 const delay = 60
@@ -60,9 +60,9 @@ l1.every(() => {
 }, duration)
 ```
 
-- [`delay(delay)`](docs/delay.md) - Resolves a promise after a delay.
+- [`delay(delay)`](docs/delay.md) - Resolves a promise after a delay
 
-- [`update(deltaTime)`](docs/update.md) - Needs to be called on every game update.s
+- [`update(deltaTime)`](docs/update.md) - Needs to be called on every game update
 
 ### Utils
 
@@ -72,24 +72,16 @@ l1.every(() => {
 
 - [`getByLabel(label)`](docs/getByLabel.md) - Get a list of behaviors with a label
 
-- [`remove(behavior)`](docs/remove.md)- Takes an `id` or `behavior` object. Marks the behavior for deletion. Will be deleted after all behaviors have been processed in the current game update.
+- `cancel(behavior)` - Takes an `id` or `behavior` object. Marks the behavior for cancellation. Will be cancelled after all behaviors have been processed in the current game update.
 
 - [`init(options)`](docs/init.md) - Optionally configure level1
 
 ---
 
-## Install
+## :package: Install
 
-**npm**
-
-```
+```sh
 npm install l1
-```
-
-**yarn**
-
-```
-yarn add l1
 ```
 
 ---
@@ -113,13 +105,16 @@ app.loader.load(() => {
   app.stage.addChild(square)
 
   // Move 1 pixel every 3 ticks
-  const move = l1.repeat(() => {
-    square.x += 1
-    if (square.x > 500) {
-      l1.remove('move')
-    }
-  }, 3)
-  move.id = 'move'
+  const move = l1.repeat(
+    () => {
+      square.x += 1
+      if (square.x > 500) {
+        l1.cancel('move')
+      }
+    },
+    3,
+    { id: 'move' },
+  )
 })
 ```
 
@@ -145,13 +140,13 @@ const move = () => {
 
 ### **Deleting behaviors**
 
-`l1.remove` just marks the behavior for deletion, but it won't actually be deleted until the next update.
+`l1.cancel` just marks the behavior for cancellation, but it won't actually be cancelled until the next update.
 
 Therefore, you might need to wait a game update before you continue:
 
 ```js
 const gameOver = () => {
-  l1.remove('gameLoop')
+  l1.cancel('gameLoop')
   // `l1.once` ensures that the following code won't be executed until the `gameLoop` behavior has been deleted.
   l1.once(() => {
     // Continue doing stuff
@@ -219,32 +214,3 @@ for (const item of list) {
   await l1.delay(50)
 }
 ```
-
----
-
-## Other useful tools
-
-[`juice.js`](https://github.com/rymdkraftverk/juice.js) - Make your animations look nicer
-
-[`muncher`](https://github.com/sajmoni/muncher) - Generate sprite sheets from the command line
-
-[`pixi-ex`](https://github.com/sajmoni/pixi-ex) - Pixi.js util functions
-
----
-
-## Develop
-
-### Custom commands
-
-| Command        | Description                                |
-| -------------- | ------------------------------------------ |
-| `yarn build`   | Generate files in the `dist` folder        |
-| `yarn clean`   | Remove the `dist` folder                   |
-| `yarn lint`    | Run eslint on `src`                        |
-| `yarn release` | Start the process to release a new version |
-
-### Workflow
-
-1. Make changes
-2. `yarn build-test` - If all tests pass, proceed to the next step
-3. Commit and `yarn release`
