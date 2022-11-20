@@ -11,7 +11,9 @@ test('throw error', (t) => {
   }, 5)
 
   _.times(l1.update, 4)
-  t.throws(() => l1.update(deltaTime))
+  t.throws(() => {
+    l1.update(deltaTime)
+  })
 })
 
 test('forever - default interval', (t) => {
@@ -157,6 +159,7 @@ test('delay', async (t) => {
     await l1.delay(5)
     t.pass('Completed delay')
   }
+
   void run()
   _.times(l1.update, 5)
 })

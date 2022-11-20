@@ -11,9 +11,9 @@ enum BehaviorType {
   FOREVER = 'forever',
 }
 
-export type onceCallback = () => void
-export type foreverCallback = (updates: number, deltaTime: number) => void
-export type everyCallback = (
+export type OnceCallback = () => void
+export type ForeverCallback = (updates: number, deltaTime: number) => void
+export type EveryCallback = (
   updates: number,
   deltaTime: number,
 ) => void | (() => void)
@@ -25,19 +25,19 @@ type SharedBehaviorProperties = {
 }
 
 export type Once = SharedBehaviorProperties & {
-  callback: onceCallback
+  callback: OnceCallback
   type: BehaviorType.ONCE
   delay: number
 }
 
 export type Forever = SharedBehaviorProperties & {
-  callback: foreverCallback
+  callback: ForeverCallback
   type: BehaviorType.FOREVER
   interval: number
 }
 
 export type Every = SharedBehaviorProperties & {
-  callback: everyCallback
+  callback: EveryCallback
   type: BehaviorType.EVERY
   duration: number
 }
@@ -75,6 +75,7 @@ export const update = (deltaTime: number): void => {
     if (behaviorToRemove.id) {
       delete mapIdToBehavior[behaviorToRemove.id]
     }
+
     if (behaviorToRemove.labels.length > 0) {
       for (const label of behaviorToRemove.labels) {
         mapLabelToBehaviors[label] = mapLabelToBehaviors[label].filter(
@@ -93,24 +94,37 @@ export const update = (deltaTime: number): void => {
 
   for (const behavior of behaviors) {
     behavior.counter += 1
-    if (behavior.type === BehaviorType.ONCE) {
-      if (behavior.counter === behavior.delay) {
-        behavior.callback()
-        behaviorsToRemove.push(behavior)
-      }
-    } else if (behavior.type === BehaviorType.FOREVER) {
-      if (behavior.counter % behavior.interval === 0) {
-        behavior.callback(behavior.counter, deltaTime)
-      }
-    } else if (behavior.type === BehaviorType.EVERY) {
-      const onDone = behavior.callback(behavior.counter, deltaTime)
-      if (behavior.counter === behavior.duration) {
-        if (onDone) {
-          onDone()
+    switch (behavior.type) {
+      case BehaviorType.ONCE: {
+        if (behavior.counter === behavior.delay) {
+          behavior.callback()
+          behaviorsToRemove.push(behavior)
         }
 
-        behaviorsToRemove.push(behavior)
+        break
       }
+
+      case BehaviorType.FOREVER: {
+        if (behavior.counter % behavior.interval === 0) {
+          behavior.callback(behavior.counter, deltaTime)
+        }
+
+        break
+      }
+
+      case BehaviorType.EVERY: {
+        const onDone = behavior.callback(behavior.counter, deltaTime)
+        if (behavior.counter === behavior.duration) {
+          if (onDone) {
+            onDone()
+          }
+
+          behaviorsToRemove.push(behavior)
+        }
+
+        break
+      }
+      // No default
     }
   }
 }
@@ -135,7 +149,7 @@ const handleOptions = (behavior: Behavior) => {
  * Call a function once after a delay.
  */
 export const once = (
-  callback: onceCallback,
+  callback: OnceCallback,
   delay: number,
   options: BehaviorOptions = {},
 ): Behavior => {
@@ -158,7 +172,7 @@ export const once = (
  * Call a function forever, each interval game update
  */
 export const forever = (
-  callback: foreverCallback,
+  callback: ForeverCallback,
   interval: number,
   options: BehaviorOptions = {},
 ): Behavior => {
@@ -186,7 +200,7 @@ type BehaviorOptions = {
  * Call a function `every` update until duration is reached
  */
 export const every = (
-  callback: everyCallback,
+  callback: EveryCallback,
   duration: number,
   options: BehaviorOptions = {},
 ): Behavior => {

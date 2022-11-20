@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
+const { performance } = require('node:perf_hooks')
 const { forever, update, get } = require('l1')
 const _ = require('lodash/fp')
-const { performance } = require('perf_hooks')
 
 const _update = () => {
   _.times(() => forever(() => {}, 1), 1000)
