@@ -231,24 +231,29 @@ test('getByLabel', (t) => {
 
 test('remove - id', (t) => {
   const id = 'An id'
+  const label = 'A label'
+
   const behavior = l1.once(
     () => {
       // empty
     },
     1,
-    { id },
+    { id, labels: [label] },
   )
 
   l1.update(deltaTime)
 
   t.deepEqual(l1.get(id), behavior)
+  t.deepEqual(l1.getByLabel(label), [behavior])
 
+  l1.update(deltaTime)
   l1.remove(id)
 
   // * update loop needs to run once
   l1.update(deltaTime)
 
   t.is(l1.get(id), undefined)
+  t.deepEqual(l1.getByLabel(label), [])
 })
 
 test('remove - behavior object', (t) => {

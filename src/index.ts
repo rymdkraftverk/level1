@@ -3,6 +3,7 @@ let behaviorsToAdd: Behavior[] = []
 let behaviorsToRemove: Behavior[] = []
 let _logging = true
 const mapIdToBehavior: Record<string, Behavior> = {}
+const mapLabelToBehaviors: Record<string, Behavior[]> = {}
 
 enum BehaviorType {
   ONCE = 'once',
@@ -28,11 +29,13 @@ export type Once = SharedBehaviorProperties & {
   type: BehaviorType.ONCE
   delay: number
 }
+
 export type Forever = SharedBehaviorProperties & {
   callback: foreverCallback
   type: BehaviorType.FOREVER
   interval: number
 }
+
 export type Every = SharedBehaviorProperties & {
   callback: everyCallback
   type: BehaviorType.EVERY
@@ -72,6 +75,13 @@ export const update = (deltaTime: number): void => {
     if (behaviorToRemove.id) {
       delete mapIdToBehavior[behaviorToRemove.id]
     }
+    if (behaviorToRemove.labels.length > 0) {
+      for (const label of behaviorToRemove.labels) {
+        mapLabelToBehaviors[label] = mapLabelToBehaviors[label].filter(
+          (b) => b.id !== behaviorToRemove.id,
+        )
+      }
+    }
 
     const indexToRemove = behaviors.indexOf(behaviorToRemove)
     if (indexToRemove >= 0) {
@@ -105,6 +115,22 @@ export const update = (deltaTime: number): void => {
   }
 }
 
+const handleOptions = (behavior: Behavior) => {
+  if (behavior.id) {
+    mapIdToBehavior[behavior.id] = behavior
+  }
+
+  if (behavior.labels && behavior.labels.length > 0) {
+    for (const label of behavior.labels) {
+      if (mapLabelToBehaviors[label]) {
+        mapLabelToBehaviors[label] = [...mapLabelToBehaviors[label], behavior]
+      } else {
+        mapLabelToBehaviors[label] = [behavior]
+      }
+    }
+  }
+}
+
 /**
  * Call a function once after a delay.
  */
@@ -121,11 +147,9 @@ export const once = (
     labels: options.labels ?? [],
     counter: 0,
   }
-  behaviorsToAdd.push(behavior)
 
-  if (options.id) {
-    mapIdToBehavior[options.id] = behavior
-  }
+  handleOptions(behavior)
+  behaviorsToAdd.push(behavior)
 
   return behavior
 }
@@ -146,11 +170,9 @@ export const forever = (
     labels: options.labels ?? [],
     counter: 0,
   }
-  behaviorsToAdd.push(behavior)
 
-  if (options.id) {
-    mapIdToBehavior[options.id] = behavior
-  }
+  handleOptions(behavior)
+  behaviorsToAdd.push(behavior)
 
   return behavior
 }
@@ -176,11 +198,9 @@ export const every = (
     labels: options.labels ?? [],
     counter: 0,
   }
-  behaviorsToAdd.push(behavior)
 
-  if (options.id) {
-    mapIdToBehavior[options.id] = behavior
-  }
+  handleOptions(behavior)
+  behaviorsToAdd.push(behavior)
 
   return behavior
 }
@@ -219,16 +239,11 @@ export const get = (id: string): Behavior | undefined => mapIdToBehavior[id]
  */
 export const getAll = (): Behavior[] => behaviors
 
-// TODO: Index this one
 /**
  * Get a behavior by label
- *
- * This is currently not indexed and very slow
  */
 export const getByLabel = (label: string): Behavior[] =>
-  behaviors.filter((behavior: Readonly<Behavior>) =>
-    behavior.labels.includes(label),
-  )
+  mapLabelToBehaviors[label] ?? []
 
 export default {
   once,
