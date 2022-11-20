@@ -216,16 +216,16 @@ export const delay = (delay = 1): Promise<void> =>
   })
 
 /**
- * Remove a behavior
+ * Cancel a behavior
  */
-export const remove = (behavior: string | Behavior): void => {
+export const cancel = (behavior: string | Behavior): void => {
   const behaviorObject = typeof behavior === 'string' ? get(behavior) : behavior
 
   if (behaviorObject) {
     behaviorsToRemove.push(behaviorObject)
   } else {
     // eslint-disable-next-line @typescript-eslint/no-base-to-string
-    log(`level1: Tried to remove non-existent behavior: ${behavior}`)
+    log(`level1: Tried to cancel non-existent behavior: ${behavior}`)
   }
 }
 
@@ -252,7 +252,7 @@ export default {
   init,
   update,
   delay,
-  remove,
+  cancel,
   get,
   getAll,
   getByLabel,

@@ -56,7 +56,7 @@ test('forever - arguments: counter, deltaTime', (t) => {
   t.is(result.deltaTime, 16.66)
 })
 
-test('every - runs every tick, automatically removed after duration', (t) => {
+test('every - runs every tick, automatically canceld after duration', (t) => {
   const id = 'every'
   const duration = 2
 
@@ -229,7 +229,7 @@ test('getByLabel', (t) => {
   t.deepEqual(l1.getByLabel(label)[0], behavior)
 })
 
-test('remove - id', (t) => {
+test('cancel - id', (t) => {
   const id = 'An id'
   const label = 'A label'
 
@@ -247,7 +247,7 @@ test('remove - id', (t) => {
   t.deepEqual(l1.getByLabel(label), [behavior])
 
   l1.update(deltaTime)
-  l1.remove(id)
+  l1.cancel(id)
 
   // * update loop needs to run once
   l1.update(deltaTime)
@@ -256,7 +256,7 @@ test('remove - id', (t) => {
   t.deepEqual(l1.getByLabel(label), [])
 })
 
-test('remove - behavior object', (t) => {
+test('cancel - behavior object', (t) => {
   const id = 'An id'
   const behavior = l1.once(
     () => {
@@ -270,7 +270,7 @@ test('remove - behavior object', (t) => {
 
   t.deepEqual(l1.get(id), behavior)
 
-  l1.remove(behavior)
+  l1.cancel(behavior)
 
   // * update loop needs to run once
   l1.update(deltaTime)
