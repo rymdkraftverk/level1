@@ -191,7 +191,7 @@ export const forever = (
   return behavior
 }
 
-type BehaviorOptions = {
+export type BehaviorOptions = {
   id?: string
   labels?: string[]
 }
