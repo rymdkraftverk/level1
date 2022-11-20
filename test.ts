@@ -152,38 +152,13 @@ test('once - delay 10', (t) => {
   t.is(done, true)
 })
 
-test.cb('delay', (t) => {
-  t.plan(2)
-  let done = false
-
-  l1.delay(5).then(() => {
-    done = true
-    t.is(done, true)
-    t.end()
-  })
-
+test('delay', async (t) => {
+  const run = async () => {
+    await l1.delay(5)
+    t.pass('Completed delay')
+  }
+  void run()
   _.times(l1.update, 5)
-
-  t.is(done, false)
-
-  l1.update(deltaTime)
-})
-
-test.cb('delay - multiple', (t) => {
-  t.plan(2)
-  let done = false
-
-  l1.delay(5).then(() => {
-    done = true
-    t.is(done, true)
-    t.end()
-  })
-
-  _.times(l1.update, 5)
-
-  t.is(done, false)
-
-  l1.update(deltaTime)
 })
 
 test('once - from once', (t) => {
@@ -238,10 +213,15 @@ test('get', (t) => {
 
 test('getByLabel', (t) => {
   const label = 'A label'
-  const behavior = l1.once(() => {
-    // empty
-  }, 1)
-  behavior.labels = [label]
+  const behavior = l1.once(
+    () => {
+      // empty
+    },
+    1,
+    {
+      labels: [label],
+    },
+  )
 
   // * update loop needs to run once
   l1.update(deltaTime)
