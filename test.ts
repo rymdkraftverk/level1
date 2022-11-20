@@ -232,6 +232,25 @@ test('getByLabel', (t) => {
   t.deepEqual(l1.getByLabel(label)[0], behavior)
 })
 
+test('getByLabel - label does not exist', (t) => {
+  const label = 'A label'
+
+  l1.once(
+    () => {
+      // empty
+    },
+    1,
+    {
+      labels: [label],
+    },
+  )
+
+  // * update loop needs to run once
+  l1.update(deltaTime)
+
+  t.deepEqual(l1.getByLabel('does not exist'), [])
+})
+
 test('cancel - id', (t) => {
   const id = 'An id'
   const label = 'A label'
