@@ -222,11 +222,18 @@ export const every = (
 /**
  * Resolves a promise after a delay
  */
-export const delay = (delay = 1): Promise<void> =>
+export const delay = (
+  delay = 1,
+  options: BehaviorOptions = {},
+): Promise<void> =>
   new Promise((resolve) => {
-    once(() => {
-      resolve()
-    }, delay)
+    once(
+      () => {
+        resolve()
+      },
+      delay,
+      options,
+    )
   })
 
 /**
