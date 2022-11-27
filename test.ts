@@ -1,301 +1,228 @@
-import * as l1 from 'l1'
+import createInstance from 'l1'
 import _ from 'lodash/fp'
 import test from 'ava'
 
 const deltaTime = 16.666
 
 test('throw error', (t) => {
-  // * Throw error after 5 updates
-  l1.once(() => {
+  const { every, update } = createInstance()
+  const promise = every(() => {
     throw new Error('Error in l1')
-  }, 5)
+  }, 1)
 
-  _.times(l1.update, 4)
   t.throws(() => {
-    l1.update(deltaTime)
+    update(deltaTime)
   })
+
+  return promise
 })
 
 test('forever - default interval', (t) => {
+  const { forever, update } = createInstance()
   let counter = 0
 
-  l1.forever(() => {
+  forever(() => {
     counter += 1
   }, 1)
 
-  _.times(l1.update, 10)
+  _.times(update, 10)
 
   t.is(counter, 10)
 })
 
 test('forever - interval 2', (t) => {
+  const { forever, update } = createInstance()
+
   let counter = 0
 
-  l1.forever(() => {
+  forever(() => {
     counter += 1
   }, 2)
 
-  _.times(l1.update, 20)
+  _.times(update, 20)
 
   t.is(counter, 10)
 })
 
 test('forever - arguments: counter, deltaTime', (t) => {
+  const { forever, update } = createInstance()
+
   const result: { counter?: number; deltaTime?: number } = {
     counter: undefined,
     deltaTime: undefined,
   }
-  l1.forever((counter, deltaTime) => {
+  forever((counter, deltaTime) => {
     result.counter = counter
     result.deltaTime = deltaTime
   }, 2)
 
   _.times(() => {
-    l1.update(16.66)
+    update(deltaTime)
   }, 2)
 
   t.is(result.counter, 2)
-  t.is(result.deltaTime, 16.66)
+  t.is(result.deltaTime, deltaTime)
 })
 
-test('every - runs every tick, automatically canceld after duration', (t) => {
-  const id = 'every'
-  const duration = 2
+test('every - runs every tick, automatically canceled after duration', (t) => {
+  t.plan(11)
+  const { every, update, get } = createInstance()
 
+  const id = 'every'
   let counter = 0
   let done = false
 
-  const behavior = l1.every(
+  const promise = every(
     () => {
       counter += 1
       return () => {
         done = true
       }
     },
-    duration,
+    2,
     { id },
-  )
+  ).then(() => {
+    t.pass('Completed every')
+  })
 
-  l1.update(deltaTime)
+  t.is(counter, 0)
+  update(deltaTime)
   t.is(counter, 1)
   t.is(done, false)
-  t.is(l1.get('every'), behavior)
+  t.is(get('every')?.id, id)
 
-  l1.update(deltaTime)
+  update(deltaTime)
   t.is(counter, 2)
   t.is(done, true)
-  t.is(l1.get('every'), behavior)
+  t.is(get('every')?.id, id)
 
-  l1.update(deltaTime)
+  update(deltaTime)
   t.is(counter, 2)
   t.is(done, true)
-  t.is(l1.get('every'), undefined)
+  t.is(get('every'), undefined)
+
+  return promise
 })
 
 test('every - without return', (t) => {
+  const { every, update, get } = createInstance()
+
   const id = 'every'
   const duration = 2
 
   let counter = 0
-  const done = false
 
-  const behavior = l1.every(
-    // eslint-disable-next-line array-callback-return
-    (_updates, _deltaTime) => {
+  const promise = every(
+    () => {
       counter += 1
     },
     duration,
     { id },
   )
 
-  l1.update(deltaTime)
+  update(deltaTime)
   t.is(counter, 1)
-  t.is(done, false)
-  t.is(l1.get('every'), behavior)
+  t.is(get('every')?.id, id)
 
-  l1.update(deltaTime)
+  update(deltaTime)
   t.is(counter, 2)
-  t.is(done, false)
-  t.is(l1.get('every'), behavior)
+  t.is(get('every')?.id, id)
 
-  l1.update(deltaTime)
+  update(deltaTime)
   t.is(counter, 2)
-  t.is(done, false)
-  t.is(l1.get('every'), undefined)
+  t.is(get('every'), undefined)
+
+  return promise
 })
 
-test('once - default delay', (t) => {
-  let done = false
+test('delay', (t) => {
+  const { delay, update, get } = createInstance()
 
-  l1.once(() => {
-    done = true
-  }, 1)
+  t.plan(3)
+  const id = 'delay'
 
-  t.is(done, false)
+  const promise = delay(2, { id }).then(() => {
+    t.pass('Delay completed')
+  })
 
-  l1.update(deltaTime)
+  t.is(get(id)?.id, id)
 
-  t.is(done, true)
+  update(deltaTime)
+  update(deltaTime)
+  update(deltaTime)
+
+  t.is(get(id), undefined)
+
+  return promise
 })
 
-test('once - delay 10', (t) => {
-  let done = false
+test('delay - delay 10', (t) => {
+  const { delay, update } = createInstance()
+  t.plan(1)
 
-  l1.once(() => {
-    done = true
-  }, 10)
+  const promise = delay(10).then(() => {
+    t.pass('Delay completed')
+  })
 
-  _.times(l1.update, 9)
+  _.times(update, 10)
+  update(deltaTime)
 
-  t.is(done, false)
-
-  l1.update(deltaTime)
-
-  t.is(done, true)
-})
-
-test('delay', async (t) => {
-  const run = async () => {
-    await l1.delay(5)
-    t.pass('Completed delay')
-  }
-
-  void run()
-  _.times(l1.update, 5)
-})
-
-test('once - from once', (t) => {
-  let done = false
-
-  l1.once(() => {
-    l1.once(() => {
-      done = true
-    }, 1)
-  }, 5)
-
-  _.times(l1.update, 5)
-
-  t.is(done, false)
-
-  l1.update(deltaTime)
-
-  t.is(done, true)
-})
-
-test('init', (t) => {
-  l1.init({ logging: false })
-
-  let done = false
-
-  l1.once(() => {
-    done = true
-  }, 1)
-
-  t.is(done, false)
-
-  l1.update(deltaTime)
-
-  t.is(done, true)
+  return promise
 })
 
 test('get', (t) => {
+  const { delay, get, update } = createInstance()
   const id = 'An id'
-  const behavior = l1.once(
-    () => {
-      // empty
-    },
-    1,
-    { id },
-  )
+  delay(10, { id })
 
-  // * update loop needs to run once
-  l1.update(deltaTime)
+  update(deltaTime)
 
-  t.deepEqual(l1.get(id), behavior)
+  t.deepEqual(get(id)?.id, id)
 })
 
 test('getByLabel', (t) => {
+  const { delay, getByLabel, update } = createInstance()
+
   const label = 'A label'
-  const behavior = l1.once(
-    () => {
-      // empty
-    },
-    1,
-    {
-      labels: [label],
-    },
-  )
+  delay(10, {
+    labels: [label],
+  })
 
-  // * update loop needs to run once
-  l1.update(deltaTime)
-
-  t.deepEqual(l1.getByLabel(label)[0], behavior)
+  update(deltaTime)
+  t.deepEqual(getByLabel(label)[0].labels[0], label)
 })
 
 test('getByLabel - label does not exist', (t) => {
+  const { delay, getByLabel, update } = createInstance()
+
   const label = 'A label'
 
-  l1.once(
-    () => {
-      // empty
-    },
-    1,
-    {
-      labels: [label],
-    },
-  )
+  delay(10, {
+    labels: [label],
+  })
 
-  // * update loop needs to run once
-  l1.update(deltaTime)
-
-  t.deepEqual(l1.getByLabel('does not exist'), [])
+  update(deltaTime)
+  t.deepEqual(getByLabel('does not exist'), [])
 })
 
 test('cancel - id', (t) => {
+  const { delay, getByLabel, update, get, cancel } = createInstance()
+
   const id = 'An id'
   const label = 'A label'
 
-  const behavior = l1.once(
-    () => {
-      // empty
-    },
-    1,
-    { id, labels: [label] },
-  )
+  delay(10, { id, labels: [label] })
 
-  l1.update(deltaTime)
+  update(deltaTime)
 
-  t.deepEqual(l1.get(id), behavior)
-  t.deepEqual(l1.getByLabel(label), [behavior])
+  t.is(get(id)?.id, id)
+  t.is(getByLabel(label)[0].id, id)
 
-  l1.update(deltaTime)
-  l1.cancel(id)
+  update(deltaTime)
+  cancel(id)
 
-  // * update loop needs to run once
-  l1.update(deltaTime)
+  update(deltaTime)
 
-  t.is(l1.get(id), undefined)
-  t.deepEqual(l1.getByLabel(label), [])
-})
-
-test('cancel - behavior object', (t) => {
-  const id = 'An id'
-  const behavior = l1.once(
-    () => {
-      // empty
-    },
-    1,
-    { id },
-  )
-
-  l1.update(deltaTime)
-
-  t.deepEqual(l1.get(id), behavior)
-
-  l1.cancel(behavior)
-
-  // * update loop needs to run once
-  l1.update(deltaTime)
-
-  t.is(l1.get(id), undefined)
+  t.is(get(id), undefined)
+  t.deepEqual(getByLabel(label), [])
 })
