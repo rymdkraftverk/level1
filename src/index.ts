@@ -4,8 +4,11 @@ enum BehaviorType {
   FOREVER = 'forever',
 }
 
-type ForeverCallback = (updates: number, deltaTime: number) => void
-type EveryCallback = (updates: number, deltaTime: number) => void | (() => void)
+export type ForeverCallback = (updates: number, deltaTime: number) => void
+export type EveryCallback = (
+  updates: number,
+  deltaTime: number,
+) => void | (() => void)
 
 type SharedBehaviorProperties = {
   id?: string
@@ -13,19 +16,19 @@ type SharedBehaviorProperties = {
   counter: number
 }
 
-type Delay = SharedBehaviorProperties & {
+export type Delay = SharedBehaviorProperties & {
   type: BehaviorType.DELAY
   delay: number
   promise: Promise<void>
 }
 
-type Forever = SharedBehaviorProperties & {
+export type Forever = SharedBehaviorProperties & {
   callback: ForeverCallback
   type: BehaviorType.FOREVER
   interval: number
 }
 
-type Every = SharedBehaviorProperties & {
+export type Every = SharedBehaviorProperties & {
   callback: EveryCallback
   type: BehaviorType.EVERY
   duration: number
@@ -37,9 +40,9 @@ export type BehaviorOptions = {
   labels?: string[]
 }
 
-type Behavior = Delay | Forever | Every
+export type Behavior = Delay | Forever | Every
 
-type Instance = {
+export type Instance = {
   update: (deltaTime: number) => void
   delay: (delay: number, options?: BehaviorOptions) => Promise<void>
   forever: (
