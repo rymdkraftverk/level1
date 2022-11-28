@@ -226,3 +226,22 @@ test('cancel - id', (t) => {
   t.is(get(id), undefined)
   t.deepEqual(getByLabel(label), [])
 })
+
+test('cancel - object', (t) => {
+  const { delay, update, get, cancel } = createInstance()
+
+  const id = 'An id'
+
+  delay(10, { id })
+
+  update(deltaTime)
+
+  t.is(get(id)?.id, id)
+
+  update(deltaTime)
+  cancel(get(id)!)
+
+  update(deltaTime)
+
+  t.is(get(id), undefined)
+})

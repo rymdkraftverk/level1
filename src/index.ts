@@ -143,15 +143,14 @@ export default function createInstance(): Instance {
   /**
    * Cancel a behavior
    */
-  const cancel = (behaviorId: string): void => {
-    const behaviorObject = get(behaviorId)
+  const cancel = (behavior: string | Behavior): void => {
+    const behaviorObject =
+      typeof behavior === 'string' ? get(behavior) : behavior
 
     if (behaviorObject) {
       behaviorsToRemove.push(behaviorObject)
     } else {
-      console.warn(
-        `level1: Tried to cancel non-existent behavior: ${behaviorId}`,
-      )
+      console.warn(`level1: Tried to cancel non-existent behavior: ${behavior}`)
     }
   }
 
