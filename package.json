@@ -1,6 +1,6 @@
 {
   "name": "l1",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Delayed and repeated code execution for games",
   "main": "./dist/index.js",
   "files": [
