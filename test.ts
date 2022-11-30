@@ -17,17 +17,27 @@ test('throw error', (t) => {
   return promise
 })
 
-test('forever - default interval', (t) => {
-  const { forever, update } = createInstance()
+test('forever - interval 1', (t) => {
+  const { forever, update, cancel, get } = createInstance()
   let counter = 0
+  const id = 'forever'
 
-  forever(() => {
-    counter += 1
-  }, 1)
+  const behavior = forever(
+    () => {
+      counter += 1
+    },
+    1,
+    { id },
+  )
 
   _.times(update, 10)
 
   t.is(counter, 10)
+
+  t.deepEqual(get(id)!.id, id)
+  cancel(behavior)
+  update()
+  t.deepEqual(get(id), undefined)
 })
 
 test('forever - interval 2', (t) => {

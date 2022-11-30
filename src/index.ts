@@ -100,7 +100,7 @@ export default function createInstance(): Instance {
     callback: ForeverCallback,
     interval: number,
     options: BehaviorOptions = {},
-  ): void => {
+  ): Forever => {
     const behavior: Forever = {
       callback,
       interval,
@@ -112,6 +112,8 @@ export default function createInstance(): Instance {
 
     handleOptions(behavior)
     behaviorsToAdd.push(behavior)
+
+    return behavior
   }
 
   /**
