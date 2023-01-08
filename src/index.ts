@@ -184,7 +184,7 @@ export default function createInstance(): Instance {
   /**
    * Needs to be called on every game update.
    */
-  const update = (deltaTime: number): void => {
+  const update = async (deltaTime: number): Promise<void> => {
     behaviors.push(...behaviorsToAdd)
     behaviorsToAdd = []
 
