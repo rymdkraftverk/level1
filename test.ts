@@ -76,11 +76,13 @@ test('forever - arguments: counter, deltaTime', (t) => {
 
 test('every - runs every tick, automatically canceled after duration', (t) => {
   t.plan(12)
+  t.plan(13)
   const { every, update, get } = createInstance()
 
   const id = 'every'
   let counter = 0
   let done = false
+  let unicorn = false
 
   const promise = every(
     () => {
@@ -93,6 +95,7 @@ test('every - runs every tick, automatically canceled after duration', (t) => {
     { id },
   ).then(() => {
     t.is(done, true)
+    t.is(unicorn, false)
     t.pass('Completed every')
   })
 
@@ -112,6 +115,7 @@ test('every - runs every tick, automatically canceled after duration', (t) => {
   t.is(done, true)
   t.is(get('every'), undefined)
 
+  unicorn = true
   return promise
 })
 

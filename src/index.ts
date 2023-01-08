@@ -19,7 +19,7 @@ type SharedBehaviorProperties = {
 export type Delay = SharedBehaviorProperties & {
   type: BehaviorType.DELAY
   delay: number
-  promise: Promise<void>
+  resolve: () => void
 }
 
 export type Forever = SharedBehaviorProperties & {
@@ -32,7 +32,7 @@ export type Every = SharedBehaviorProperties & {
   callback: EveryCallback
   type: BehaviorType.EVERY
   duration: number
-  promise: Promise<void>
+  resolve: () => void
 }
 
 export type BehaviorOptions = {
@@ -75,22 +75,18 @@ export default function createInstance(): Instance {
     delay: number,
     options: BehaviorOptions = {},
   ): Promise<void> => {
-    const promise = new Promise<void>((resolve) => {
-      resolve()
+    return new Promise((resolve) => {
+      const behavior: Delay = {
+        delay,
+        type: BehaviorType.DELAY,
+        id: options.id,
+        labels: options.labels ?? [],
+        counter: 0,
+        resolve,
+      }
+      handleOptions(behavior)
+      behaviorsToAdd.push(behavior)
     })
-
-    const behavior: Delay = {
-      delay,
-      type: BehaviorType.DELAY,
-      id: options.id,
-      labels: options.labels ?? [],
-      counter: 0,
-      promise,
-    }
-    handleOptions(behavior)
-    behaviorsToAdd.push(behavior)
-
-    return promise
   }
 
   /**
@@ -124,22 +120,19 @@ export default function createInstance(): Instance {
     duration: number,
     options: BehaviorOptions = {},
   ): Promise<void> => {
-    const promise = new Promise<void>((resolve) => {
-      resolve()
+    return new Promise((resolve) => {
+      const behavior: Every = {
+        callback,
+        duration,
+        type: BehaviorType.EVERY,
+        id: options.id,
+        labels: options.labels ?? [],
+        counter: 0,
+        resolve,
+      }
+      handleOptions(behavior)
+      behaviorsToAdd.push(behavior)
     })
-    const behavior: Every = {
-      callback,
-      duration,
-      type: BehaviorType.EVERY,
-      id: options.id,
-      labels: options.labels ?? [],
-      counter: 0,
-      promise,
-    }
-    handleOptions(behavior)
-    behaviorsToAdd.push(behavior)
-
-    return promise
   }
 
   /**
@@ -221,7 +214,7 @@ export default function createInstance(): Instance {
       switch (behavior.type) {
         case BehaviorType.DELAY: {
           if (behavior.counter === behavior.delay) {
-            void Promise.resolve(behavior.promise)
+            behavior.resolve()
             behaviorsToRemove.push(behavior)
           }
           break
@@ -242,8 +235,8 @@ export default function createInstance(): Instance {
               onDone()
             }
 
-            void Promise.resolve(behavior.promise)
             behaviorsToRemove.push(behavior)
+            behavior.resolve()
           }
 
           break
