@@ -43,13 +43,13 @@ export type BehaviorOptions = {
 export type Behavior = Delay | Forever | Every
 
 export type Instance = {
-  update: (deltaTime: number) => void
+  update: (deltaTime: number) => Promise<void>
   delay: (delay: number, options?: BehaviorOptions) => Promise<void>
   forever: (
     callback: ForeverCallback,
     interval: number,
     options?: BehaviorOptions,
-  ) => void
+  ) => Forever
   every: (
     callback: EveryCallback,
     duration: number,
