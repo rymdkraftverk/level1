@@ -43,7 +43,7 @@ export type BehaviorOptions = {
 export type Behavior = Delay | Forever | Every
 
 export type Instance = {
-  update: (deltaTime: number) => Promise<void>
+  update: (deltaTime: number) => void
   delay: (delay: number, options?: BehaviorOptions) => Promise<void>
   forever: (
     callback: ForeverCallback,
@@ -184,7 +184,7 @@ export default function createInstance(): Instance {
   /**
    * Needs to be called on every game update.
    */
-  const update = async (deltaTime: number): Promise<void> => {
+  const update = (deltaTime: number): void => {
     behaviors.push(...behaviorsToAdd)
     behaviorsToAdd = []
 
