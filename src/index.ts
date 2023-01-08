@@ -55,7 +55,7 @@ export type Instance = {
     duration: number,
     options?: BehaviorOptions,
   ) => Promise<void>
-  cancel: (behaviorId: string) => void
+  cancel: (behaviorId: string | Behavior) => void
   get: (id: string) => Behavior | undefined
   getAll: () => Behavior[]
   getByLabel: (label: string) => Behavior[]
