@@ -75,7 +75,7 @@ test('forever - arguments: counter, deltaTime', (t) => {
 })
 
 test('every - runs every tick, automatically canceled after duration', (t) => {
-  t.plan(11)
+  t.plan(12)
   const { every, update, get } = createInstance()
 
   const id = 'every'
@@ -92,6 +92,7 @@ test('every - runs every tick, automatically canceled after duration', (t) => {
     2,
     { id },
   ).then(() => {
+    t.is(done, true)
     t.pass('Completed every')
   })
 
